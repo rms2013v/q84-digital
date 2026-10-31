@@ -23,7 +23,7 @@ git add -A && git commit -m "Update site" && git push
 | `gsc_verification` | Google Search Console HTML-tag verification code. |
 | `legal_name` | Legal company name for the footer and privacy page. |
 | `consultant_photo` | File name of a headshot in `images/` (for example `oleh.jpg`). |
-| `allow_indexing` | `false` blocks search engines in robots.txt. Set to `true` at launch. |
+| `allow_indexing` | `false` adds a noindex tag to every page and blocks crawlers in robots.txt. Set to `true` at launch. |
 | `site_url`, `base` | Change to `https://q84digital.com/` and `/` when the custom domain is connected. |
 
 ## Screenshots and demo video
