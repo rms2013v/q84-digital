@@ -63,7 +63,6 @@ NAV = [
         ('distribution', 'Wholesale distribution', '@/industries/distribution/'),
         ('manufacturing', 'Manufacturing', '@/industries/manufacturing/'),
     ]),
-    ('about', 'About', '@/#consultant', None),
 ]
 
 def header(current):
@@ -103,7 +102,7 @@ def footer():
       </div>
       <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/data-migration/">Data migration</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/support/">Support</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="@/#consultant">About</a></li><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
     <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Q84 Digital is an independent consultancy.</span></div>
   </div>
@@ -254,7 +253,7 @@ FAQ_HOME = [
     ('Can Business Central replace QuickBooks?', 'Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration.', ('@/data-migration/', 'Data migration')),
     ('Can Business Central integrate with Shopify?', 'Yes. Business Central has a Shopify connector, and we build other integrations through its APIs.', ('@/integrations/', 'Integrations')),
     ('Are you a Microsoft partner?', CFG.get('partner_statement') or 'Q84 Digital is an independent Business Central consultancy. Microsoft licenses are billed by Microsoft or a Microsoft licensing partner. We help you choose the right plan, set it up and keep it right-sized as you grow.', ('@/licensing/', 'Licensing & pricing')),
-    ('Who will I actually work with?', 'Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it.', ('@/#consultant', 'Meet the consultant')),
+    ('Who will I actually work with?', 'Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it.', None),
 ]
 
 def faq_html(items):
@@ -330,36 +329,12 @@ add('', 'home',
     <h1>Take control of your inventory, orders and operations</h1>
     <p class="lede">We implement Microsoft Dynamics 365 Business Central around the way your distribution or manufacturing business actually runs, from finance and inventory to warehouse operations and shipping integrations.</p>
     <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#problems">See the problems we solve</a></div>
-    <a class="founder" href="#consultant"><span class="founder-photo">{avatar_small}</span><span><strong>Led by Oleh Karnaukhov</strong><span>15+ years of Microsoft Dynamics and supply chain experience</span></span></a>
+    <div class="founder"><span class="founder-photo">{avatar_small}</span><span><strong>Led by Oleh Karnaukhov</strong><span>15+ years of Microsoft Dynamics and supply chain experience</span></span></div>
   </div>{HERO_ART}</div>
   <div class="trust"><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Senior-led</strong> delivery, start to finish</span><span><strong>Serving businesses</strong> across the United States</span></div>
 </div></section>
 
-<section class="band" id="consultant"><div class="wrap profile">
-  <div class="profile-card">
-    <div class="avatar"{AVATAR_ATTR}>{photo}</div>
-    <div><h3 style="font-size:1.25rem">Oleh Karnaukhov</h3><p class="role">Founder and lead consultant</p></div>
-    <div class="stat"><strong>15+ years</strong><span>Microsoft Dynamics consulting</span></div>
-    <div class="stat"><strong>Senior-led</strong><span>No hand-off to junior staff</span></div>
-    <a class="btn btn-primary" {CTA_ATTR} style="width:100%">Talk to Oleh</a>
-  </div>
-  <div class="stack" style="gap:20px">
-    <span class="eyebrow">Experience you can rely on</span>
-    <h2>An ERP consultant who understands warehouse operations</h2>
-    <p class="lede">Oleh Karnaukhov has spent more than 15 years delivering Microsoft Dynamics ERP and supply chain projects with Microsoft partners and consulting firms. Q84 Digital brings that operations experience to Business Central, with you working directly with him from first call to go-live.</p>
-    <div class="table-wrap"><table class="exp">
-      <thead><tr><th>Area</th><th>Experience</th></tr></thead>
-      <tbody>
-        <tr><td>ERP implementation</td><td>15+ years of Microsoft Dynamics consulting and delivery</td></tr>
-        <tr><td>Supply chain</td><td>Dynamics 365 Supply Chain Management, including warehouse and transportation management</td></tr>
-        <tr><td>Distribution operations</td><td>Inventory, purchasing and fulfillment processes</td></tr>
-        <tr><td>Integrations</td><td>ERP integrations and process automation</td></tr>
-        <tr><td>Customer operations</td><td>Dynamics 365 Customer Engagement and Field Service</td></tr>
-      </tbody></table></div>
-  </div>
-</div></section>
-
-<section id="problems"><div class="wrap">
+<section class="band" id="problems"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Problems we solve</span><h2>You\u2019re not shopping for software. You\u2019re fixing these.</h2></div>
   <div class="grid g3">
     <div class="card">{icon('box')}<h3>Inventory you can\u2019t trust</h3><p>Counts drift from what\u2019s on the shelf.</p><p class="fix"><strong>Fix:</strong> stock by location and bin, cycle counts and item tracking in one system.</p></div>
