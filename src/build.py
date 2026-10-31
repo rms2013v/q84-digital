@@ -13,6 +13,10 @@ BASE = CFG['base']
 URL = CFG['site_url']
 EMAIL = CFG['email']
 TODAY = date.today().isoformat()
+import hashlib
+def ver(f):
+    return hashlib.md5(open(os.path.join(ROOT, f), 'rb').read()).hexdigest()[:8]
+CSS_V, JS_V = ver('assets/site.css'), ver('assets/site.js')
 
 ICON = {
     'chart': '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
@@ -729,7 +733,7 @@ def render(p):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Open+Sans:wght@400;600&display=swap">
-<link rel="stylesheet" href="@/assets/site.css">
+<link rel="stylesheet" href="@/assets/site.css?v={CSS_V}">
 {analytics()}{schema}<script>window.Q84={client};</script>
 </head>
 <body>
@@ -738,7 +742,7 @@ def render(p):
 {p['body']}
 </main>
 {footer()}
-<script src="@/assets/site.js" defer></script>
+<script src="@/assets/site.js?v={JS_V}" defer></script>
 </body>
 </html>
 '''
