@@ -64,12 +64,17 @@
     };
     img.src = fig.getAttribute('data-shot');
   });
-  var vid = document.getElementById('demoVideo');
-  if (vid && window.fetch) {
-    fetch(vid.getAttribute('data-src'), { method: 'HEAD' })
-      .then(function (r) { if (r.ok) vid.hidden = false; })
-      .catch(function () {});
-  }
+  // Click-to-play video: the player loads only when the visitor asks for it
+  [].forEach.call(document.querySelectorAll('.video-poster'), function (b) {
+    b.addEventListener('click', function () {
+      var v = document.createElement('video');
+      v.src = b.getAttribute('data-video');
+      v.controls = true; v.autoplay = true; v.playsInline = true;
+      v.style.cssText = 'width:100%;aspect-ratio:16/9;border-radius:16px;background:#000';
+      b.replaceWith(v);
+      if (window.gtag) gtag('event', 'video_start', { video: 'walkthrough' });
+    });
+  });
 
   // Consultation form
   var form = document.getElementById('contactForm');
@@ -120,7 +125,7 @@
           if (window.gtag) gtag('event', 'generate_lead', { form: 'consultation' });
         }).catch(function () {
           submit.disabled = false;
-          submit.textContent = 'Request consultation';
+          submit.textContent = 'Request my assessment';
           status.hidden = false;
           status.textContent = 'Your request didn’t go through. Try again, or email ' + CFG.email + ' directly.';
         });
@@ -174,9 +179,9 @@
       if (ints) { score += ints > 2 ? 3 : ints; drivers.push(ints + ' integration' + (ints > 1 ? 's' : '')); }
       var size = score <= 3 ? 'Focused' : score <= 7 ? 'Standard' : 'Complex';
       var desc = {
-        Focused: 'Mostly standard setup with a straightforward data move.',
-        Standard: 'Several areas to configure plus migration or an integration.',
-        Complex: 'Multiple companies, operations modules or integrations. Plan for a phased rollout.'
+        Focused: 'Mostly standard setup with a straightforward data move. Typically 2 to 3 months.',
+        Standard: 'Several areas to configure plus migration or an integration. Typically 3 to 6 months.',
+        Complex: 'Multiple companies, operations modules or integrations. Typically 6 months or more, often phased.'
       };
       document.getElementById('o-size').textContent = size;
       document.getElementById('o-size-desc').textContent = desc[size];

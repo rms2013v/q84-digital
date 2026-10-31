@@ -36,6 +36,12 @@ ICON = {
     'key': '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/>',
 }
 
+CTA_LABEL = 'Book a free ERP assessment'
+if CFG.get('booking_url'):
+    CTA_ATTR = f'href="{html.escape(CFG["booking_url"], quote=True)}" data-booking target="_blank" rel="noopener"'
+else:
+    CTA_ATTR = 'href="@/contact/"'
+
 def icon(name):
     return f'<span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON[name]}</svg></span>'
 
@@ -79,7 +85,7 @@ def header(current):
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <nav class="nav-links" id="navLinks" aria-label="Main">
       {''.join(items)}
-      <a class="btn btn-primary" href="@/contact/">Book a consultation</a>
+      <a class="btn btn-primary" {CTA_ATTR}>Book a free assessment</a>
     </nav>
   </div>
 </header>'''
@@ -92,7 +98,7 @@ def footer():
     <div class="foot">
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark">Q84</span>Q84 Digital</a>
-        <p>Business Central implementation and ERP consulting for distributors, manufacturers and inventory-driven businesses.</p>
+        <p>Business Central implementation for distribution and manufacturing businesses, led by a senior supply chain consultant.</p>
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Vancouver, British Columbia</li></ul>
       </div>
       <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li></ul></div>
@@ -103,15 +109,13 @@ def footer():
   </div>
 </footer>'''
 
-def cta(title='Let’s talk about your ERP project', text='Book a free, no-obligation consultation. You’ll speak directly with the consultant who would deliver your project.'):
-    booking = ''
-    if CFG.get('booking_url'):
-        booking = f'<a class="btn btn-ghost" href="{esc(CFG["booking_url"])}" data-booking target="_blank" rel="noopener">Pick a time on my calendar</a>'
+def cta(title='Let’s talk about your ERP project', text='Book a free ERP assessment. In 30 minutes you’ll get an honest view of whether Business Central fits, what it would involve and what to do next.'):
+    second = '<a class="btn btn-ghost" href="@/contact/">Send a message instead</a>' if CFG.get('booking_url') else ''
     return f'''<section><div class="wrap"><div class="cta"><div><h2>{title}</h2><p>{text}</p></div>
-<div class="hero-actions"><a class="btn btn-primary" href="@/contact/">Book a consultation</a>{booking}</div></div></div></section>'''
+<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a>{second}</div></div></div></section>'''
 
 def page_head(title, crumb, h1, lede, button=True):
-    btn = '<div class="hero-actions"><a class="btn btn-primary" href="@/contact/">Book a consultation</a></div>' if button else ''
+    btn = f'<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>' if button else ''
     return f'''<div class="page-head"><div class="wrap stack">
 <nav class="crumb" aria-label="Breadcrumb"><a href="@/">Home</a> / {crumb}</nav>
 <h1>{h1}</h1>
@@ -142,6 +146,16 @@ FIT = '''<div class="fit">
   <div class="card"><span class="tag">When you need more</span><h3>Business Central plus a warehouse extension</h3><p>Barcode scanning, handheld devices or more advanced picking, added through a specialist app from Microsoft AppSource.</p></div>
   <div class="card"><span class="tag">For complex operations</span><h3>Dynamics 365 Supply Chain Management</h3><p>High-volume or multi-site warehousing, advanced wave picking, transportation management and complex supply chains.</p></div>
 </div>'''
+
+HAS_VIDEO = os.path.exists(os.path.join(ROOT, 'images', 'demo.mp4'))
+HAS_POSTER = os.path.exists(os.path.join(ROOT, 'images', 'demo-poster.jpg'))
+VIDEO = ''
+if HAS_VIDEO:
+    poster = '<img src="@/images/demo-poster.jpg" alt="" loading="lazy">' if HAS_POSTER else ''
+    VIDEO = f'''<div class="demo-video" id="demo">
+    <h3>Watch a 90-second walkthrough</h3>
+    <button class="video-poster" type="button" data-video="@/images/demo.mp4" aria-label="Play the 90-second Business Central walkthrough">{poster}<span class="play" aria-hidden="true"></span><span class="video-label">Play walkthrough · 1:30</span></button>
+  </div>'''
 
 TOUR = '''<section id="tour" style="border-top:1px solid var(--line)">
 <div class="wrap">
@@ -227,10 +241,7 @@ TOUR = '''<section id="tour" style="border-top:1px solid var(--line)">
     <ul class="checks"><li><div>Receive, put away, pick and ship</div></li><li><div>Bin-level stock that stays accurate</div></li><li><div>Shipments post straight to the sales order</div></li></ul></div>
   </div>
 
-  <div class="demo-video" id="demoVideo" data-src="@/images/demo.mp4" hidden>
-    <h3>Watch a 90-second walkthrough</h3>
-    <video controls preload="none" poster="@/images/demo-poster.jpg"><source src="@/images/demo.mp4" type="video/mp4">Your browser doesn't play this video.</video>
-  </div>
+''' + VIDEO + '''
   <p class="shot-note" id="shotNote" style="margin-top:20px">Screens shown with example data.</p>
 </div>
 </section>'''
@@ -242,6 +253,7 @@ FAQ_HOME = [
     ('How long does implementation take?', 'A focused finance and inventory rollout usually takes a few months. Projects with manufacturing, advanced warehousing or several integrations take longer. You get a timeline after discovery.', ('@/implementation/', 'How implementation works')),
     ('Can Business Central replace QuickBooks?', 'Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration.', ('@/data-migration/', 'Data migration')),
     ('Can Business Central integrate with Shopify?', 'Yes. Business Central has a Shopify connector, and we build other integrations through its APIs.', ('@/integrations/', 'Integrations')),
+    ('Are you a Microsoft partner?', CFG.get('partner_statement') or 'Q84 Digital is an independent Business Central consultancy. Microsoft licenses are billed by Microsoft or a Microsoft licensing partner. We help you choose the right plan, set it up and keep it right-sized as you grow.', ('@/licensing/', 'Licensing & pricing')),
     ('Who will I actually work with?', 'Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it.', ('@/#consultant', 'Meet the consultant')),
 ]
 
@@ -281,102 +293,138 @@ HERO_CLASS = 'hero-split' if HERO_IMG else ''
 HERO_ART = (f'<figure class="hero-art"><img src="@/images/{HERO_IMG}" alt="Illustration of an order moving from sales order to warehouse, shipment, invoice and reporting" width="1024" height="1024" fetchpriority="high"></figure>' if HERO_IMG else '')
 
 # HOME
+AVATAR_ATTR = '' if CFG.get('consultant_photo') else ' aria-hidden="true"'
+avatar_small = (f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="" width="96" height="96">' if CFG.get('consultant_photo') else '<span>OK</span>')
+
+case_studies = CFG.get('case_studies') or []
+testimonials = CFG.get('testimonials') or []
+
+if case_studies:
+    cards = []
+    for c in case_studies:
+        res = ''.join(f'<li>{esc(r)}</li>' for r in c.get('results', []))
+        cards.append(f'''<article class="example"><span class="label">{esc(c.get("industry",""))}{(" \u00b7 " + esc(c["size"])) if c.get("size") else ""}</span><h3>{esc(c.get("title",""))}</h3>
+<dl><div><dt>Challenge</dt><dd>{esc(c.get("challenge",""))}</dd></div><div><dt>What we did</dt><dd>{esc(c.get("solution",""))}</dd></div>
+<div><dt>Results</dt><dd><ul class="results">{res}</ul></dd></div></dl></article>''')
+    PROOF = f'''<div class="section-head"><span class="eyebrow">Project experience</span><h2>Real projects, real results</h2><p class="lede">Client names are withheld at their request. Projects and results are real.</p></div>
+<div class="grid g3">{''.join(cards)}</div>'''
+else:
+    PROOF = f'''<div class="section-head"><span class="eyebrow">How we approach projects</span><h2>Three common starting points</h2><p class="lede">Typical situations our clients come to us with, and how we\u2019d tackle each one.</p></div>
+{EXAMPLES}'''
+
+TESTIMONIALS = ''
+if testimonials:
+    q = ''.join(f'''<figure class="quote"><blockquote>\u201c{esc(t["quote"])}\u201d</blockquote><figcaption><strong>{esc(t.get("name",""))}</strong>{(", " + esc(t["role"])) if t.get("role") else ""}{(", " + esc(t["company"])) if t.get("company") else ""}</figcaption></figure>''' for t in testimonials)
+    TESTIMONIALS = f'''<section><div class="wrap"><div class="section-head"><span class="eyebrow">What clients say</span><h2>In their words</h2></div><div class="grid g3">{q}</div></div></section>'''
+
+impl_range = CFG.get('implementation_range')
+impl_text = (f'Most implementations fall between {esc(impl_range)}, depending on scope. You get a fixed quote after discovery.'
+             if impl_range else 'Quoted as a fixed scope after discovery, based on modules, data, integrations and companies.')
+
 add('', 'home',
-    'Business Central for Distributors & Manufacturers | Q84 Digital',
-    'Senior-led Microsoft Dynamics 365 Business Central implementation, integration and support for growing distributors, manufacturers and inventory-driven businesses.',
+    'Business Central for Distribution & Manufacturing | Q84 Digital',
+    'Take control of inventory, orders and warehouse operations with Microsoft Dynamics 365 Business Central, implemented by a senior consultant with 15+ years of Dynamics and supply chain experience.',
     f'''<section class="hero"><div class="wrap">
   <div class="{HERO_CLASS}"><div class="hero-center">
-    <span class="eyebrow">Microsoft Dynamics 365 Business Central consulting</span>
-    <h1>Business Central implementation for businesses that move products</h1>
-    <p class="lede">We help growing distributors, manufacturers and inventory-driven businesses implement Business Central, connect their operations and replace disconnected systems.</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="@/contact/">Book a free consultation</a><a class="btn btn-ghost" href="@/business-central/">Explore Business Central</a></div>
+    <span class="eyebrow">Business Central for distribution &amp; manufacturing</span>
+    <h1>Take control of your inventory, orders and operations</h1>
+    <p class="lede">We implement Microsoft Dynamics 365 Business Central around the way your distribution or manufacturing business actually runs, from finance and inventory to warehouse operations and shipping integrations.</p>
+    <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#problems">See the problems we solve</a></div>
+    <a class="founder" href="#consultant"><span class="founder-photo">{avatar_small}</span><span><strong>Led by Oleh Karnaukhov</strong><span>15+ years of Microsoft Dynamics and supply chain experience</span></span></a>
   </div>{HERO_ART}</div>
-  <div class="trust"><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Senior-led:</strong> you work with the consultant who delivers</span><span><strong>Supply chain</strong> and warehouse background</span></div>
-  <div class="grid g3 hero-cards">
-    <a class="card" href="@/implementation/">{icon('ledger')}<h3>ERP implementation</h3><p>Finance, inventory and sales set up around how your business runs.</p><span class="more">How it works →</span></a>
-    <a class="card" href="@/industries/distribution/">{icon('warehouse')}<h3>Inventory &amp; warehouse</h3><p>Accurate stock, purchasing, picking and shipping across locations.</p><span class="more">For distributors →</span></a>
-    <a class="card" href="@/integrations/">{icon('link')}<h3>Integrations</h3><p>Shopify, shipping, CRM and Power BI connected to Business Central.</p><span class="more">See integrations →</span></a>
-  </div>
+  <div class="trust"><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Senior-led</strong> delivery, start to finish</span><span><strong>Serving businesses</strong> across the United States</span></div>
 </div></section>
 
 <section class="band" id="consultant"><div class="wrap profile">
   <div class="profile-card">
-    <div class="avatar"{"" if CFG.get("consultant_photo") else " aria-hidden=\"true\""}>{photo}</div>
+    <div class="avatar"{AVATAR_ATTR}>{photo}</div>
     <div><h3 style="font-size:1.25rem">Oleh Karnaukhov</h3><p class="role">Founder and lead consultant</p></div>
     <div class="stat"><strong>15+ years</strong><span>Microsoft Dynamics consulting</span></div>
     <div class="stat"><strong>Senior-led</strong><span>No hand-off to junior staff</span></div>
-    <a class="btn btn-primary" href="@/contact/" style="width:100%">Talk to Oleh</a>
+    <a class="btn btn-primary" {CTA_ATTR} style="width:100%">Talk to Oleh</a>
   </div>
   <div class="stack" style="gap:20px">
-    <span class="eyebrow">Meet the consultant behind Q84 Digital</span>
-    <h2>ERP expertise that goes beyond setup screens</h2>
-    <p class="lede">Oleh Karnaukhov is a senior Microsoft Dynamics consultant with more than 15 years of experience delivering ERP and supply chain projects, working with Microsoft partners and consulting firms on implementations for their clients.</p>
-    <p class="lede">Q84 Digital brings that operations experience to Business Central projects for growing businesses, with one difference: you work directly with him from first call to go-live.</p>
-    <div><h3 style="margin-bottom:12px">Experience across</h3>
-    <ul class="tags"><li>Dynamics 365 Supply Chain Management</li><li>Warehouse management</li><li>Transportation management</li><li>Inventory and distribution processes</li><li>Dynamics 365 Customer Engagement (CRM)</li><li>Dynamics 365 Field Service</li><li>ERP integrations and automation</li><li>Business process design</li></ul></div>
+    <span class="eyebrow">Experience you can rely on</span>
+    <h2>An ERP consultant who understands warehouse operations</h2>
+    <p class="lede">Oleh Karnaukhov has spent more than 15 years delivering Microsoft Dynamics ERP and supply chain projects with Microsoft partners and consulting firms. Q84 Digital brings that operations experience to Business Central, with you working directly with him from first call to go-live.</p>
+    <div class="table-wrap"><table class="exp">
+      <thead><tr><th>Area</th><th>Experience</th></tr></thead>
+      <tbody>
+        <tr><td>ERP implementation</td><td>15+ years of Microsoft Dynamics consulting and delivery</td></tr>
+        <tr><td>Supply chain</td><td>Dynamics 365 Supply Chain Management, including warehouse and transportation management</td></tr>
+        <tr><td>Distribution operations</td><td>Inventory, purchasing and fulfillment processes</td></tr>
+        <tr><td>Integrations</td><td>ERP integrations and process automation</td></tr>
+        <tr><td>Customer operations</td><td>Dynamics 365 Customer Engagement and Field Service</td></tr>
+      </tbody></table></div>
+  </div>
+</div></section>
+
+<section id="problems"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Problems we solve</span><h2>You\u2019re not shopping for software. You\u2019re fixing these.</h2></div>
+  <div class="grid g3">
+    <div class="card">{icon('box')}<h3>Inventory you can\u2019t trust</h3><p>Counts drift from what\u2019s on the shelf.</p><p class="fix"><strong>Fix:</strong> stock by location and bin, cycle counts and item tracking in one system.</p></div>
+    <div class="card">{icon('link')}<h3>Accounting and warehouse don\u2019t talk</h3><p>Shipments, invoices and the ledger are reconciled by hand.</p><p class="fix"><strong>Fix:</strong> every shipment and receipt posts straight to the books.</p></div>
+    <div class="card">{icon('receipt')}<h3>Orders processed manually</h3><p>Orders are retyped between email, spreadsheets and systems.</p><p class="fix"><strong>Fix:</strong> one quote-to-cash flow, connected to your online store and carriers.</p></div>
+    <div class="card">{icon('migrate')}<h3>Outgrown QuickBooks</h3><p>No real inventory, multiple companies or reporting you can rely on.</p><p class="fix"><strong>Fix:</strong> a clean, reconciled move to Business Central.</p></div>
+    <div class="card">{icon('warehouse')}<h3>A warehouse that can\u2019t keep up</h3><p>Picking errors, slow shipping and no visibility on the floor.</p><p class="fix"><strong>Fix:</strong> bin-based receiving, picking and shipping that staff can follow.</p></div>
+    <div class="card">{icon('chart')}<h3>Can\u2019t scale or see margins</h3><p>Growth adds more spreadsheets instead of better answers.</p><p class="fix"><strong>Fix:</strong> planning, landed costs and margin reporting on live data.</p></div>
   </div>
 </div></section>
 
 {TOUR}
 
 <section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Who we help</span><h2>Built for businesses where inventory is the business</h2></div>
-  <div class="grid g3">
-    <a class="card" href="@/industries/distribution/">{icon('truck')}<span class="tag">Wholesale distribution</span><h3>Stock you can trust</h3><p>Counts that drift, purchasing done by hand and systems that don't talk to each other.</p><span class="more">Distribution →</span></a>
-    <a class="card" href="@/industries/manufacturing/">{icon('factory')}<span class="tag">Manufacturing</span><h3>See production clearly</h3><p>Little visibility into production, hard-to-trace costs and planning that lives in someone's head.</p><span class="more">Manufacturing →</span></a>
-    <a class="card" href="@/integrations/">{icon('shop')}<span class="tag">E-commerce &amp; retail</span><h3>One view of every order</h3><p>Online orders, stock and accounting kept in separate places and reconciled by hand.</p><span class="more">Shopify and integrations →</span></a>
-  </div>
+  {PROOF}
 </div></section>
+{TESTIMONIALS}
 
 <section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">What we deliver</span><h2>From first conversation to everyday support</h2></div>
+  <div class="section-head"><span class="eyebrow">What we deliver</span><h2>From assessment to everyday support</h2></div>
   <div class="svc">
-    <a href="@/implementation/"><h3>Implementation</h3><p>Business Central set up around your processes, from chart of accounts to go-live.</p><span class="more">Implementation →</span></a>
-    <a href="@/data-migration/"><h3>Data migration</h3><p>Clean, verified data moved from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Data migration →</span></a>
-    <a href="@/integrations/"><h3>Integrations &amp; automation</h3><p>Business Central connected to e-commerce, shipping, CRM and Power BI.</p><span class="more">Integrations →</span></a>
-    <a href="@/licensing/"><h3>Licensing &amp; advice</h3><p>The right license mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing →</span></a>
-    <a href="@/support/"><h3>Ongoing support</h3><p>Fixes, improvements and training once you're live, hourly or monthly.</p><span class="more">Support →</span></a>
+    <a href="@/implementation/"><h3>Implementation</h3><p>Business Central set up around your processes, from chart of accounts to go-live.</p><span class="more">Implementation \u2192</span></a>
+    <a href="@/data-migration/"><h3>Data migration</h3><p>Clean, verified data moved from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Data migration \u2192</span></a>
+    <a href="@/integrations/"><h3>Integrations &amp; automation</h3><p>Business Central connected to e-commerce, shipping, CRM and Power BI.</p><span class="more">Integrations \u2192</span></a>
+    <a href="@/licensing/"><h3>Licensing &amp; advice</h3><p>The right license mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing \u2192</span></a>
+    <a href="@/support/"><h3>Ongoing support</h3><p>Fixes, improvements and training once you\u2019re live, hourly or monthly.</p><span class="more">Support \u2192</span></a>
   </div>
 </div></section>
 
-<section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Implementation examples</span><h2>What a project looks like</h2><p class="lede">Three typical starting points and how we'd approach each one.</p></div>
-  {EXAMPLES}
+<section class="band" id="why"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Why Q84 Digital</span><h2>A different way to implement Business Central</h2><p class="lede">Larger Microsoft partners bring big teams and broad portfolios. Q84 Digital is built for companies that want an experienced operations consultant to own their project personally.</p></div>
+  <div class="table-wrap"><table class="compare">
+    <thead><tr><th></th><th>Many larger ERP firms</th><th>Q84 Digital</th></tr></thead>
+    <tbody>
+      <tr><td>Who you work with</td><td>Account managers, project managers and a delivery team</td><td>The lead consultant, directly</td></tr>
+      <tr><td>Continuity</td><td>Work can be handed between sales, design and delivery teams</td><td>The person who scopes your project delivers it</td></tr>
+      <tr><td>Approach</td><td>A standard methodology across many industries</td><td>Built around your warehouse, inventory and order flow</td></tr>
+      <tr><td>Depth</td><td>Broad ERP coverage</td><td>Deep supply chain and warehouse background</td></tr>
+      <tr><td>Product advice</td><td>Usually focused on the products they sell</td><td>Honest fit advice, including when you need Dynamics 365 Supply Chain Management instead</td></tr>
+    </tbody></table></div>
+  <p class="shot-note" style="margin-top:14px">A general comparison. Every firm works differently, and larger teams suit some projects better.</p>
 </div></section>
 
 <section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">How we work</span><h2>A structured path to go-live</h2></div>
+  <div class="section-head"><span class="eyebrow">Process &amp; pricing</span><h2>Clear steps, clear costs</h2></div>
   <ol class="steps">
-    <li><h3>Discovery</h3><p>Review your systems, processes and goals.</p></li>
-    <li><h3>Design</h3><p>Agree scope, setup, integrations and plan.</p></li>
+    <li><h3>Free assessment</h3><p>30 minutes on your systems, goals and fit.</p></li>
+    <li><h3>Discovery</h3><p>Requirements, scope and a fixed quote.</p></li>
     <li><h3>Build</h3><p>Configure, migrate data, build approved extensions.</p></li>
     <li><h3>Testing</h3><p>Run real processes end to end and train your team.</p></li>
     <li><h3>Go-live</h3><p>Switch over with hands-on help afterwards.</p></li>
   </ol>
-  <p style="margin-top:28px"><a class="more" href="@/implementation/">See each phase and what you receive →</a></p>
-</div></section>
-
-<section class="band" id="fit"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Choosing the right ERP</span><h2>Not sure Business Central is enough for your operations?</h2>
-  <p class="lede">Business Central has solid warehouse features, but it isn't the same as the advanced warehouse management in Dynamics 365 Supply Chain Management. With hands-on experience in both, we'll help you pick the right fit instead of selling you one product.</p></div>
-  {FIT}
-</div></section>
-
-<section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Pricing</span><h2>Know what Business Central will cost</h2><p class="lede">Licenses are a monthly Microsoft subscription. Implementation is a one-time project. Support is hourly or monthly.</p></div>
-  <div class="grid g3">
-    <div class="card"><span class="tag">From Microsoft</span><h3>Licenses</h3><p>Essentials is $80 and Premium is $110 USD per full user per month at Microsoft's US list prices.</p></div>
-    <div class="card"><span class="tag">One-time</span><h3>Implementation</h3><p>Quoted after discovery, based on modules, data, integrations and companies.</p></div>
+  <div class="grid g3" style="margin-top:24px">
+    <div class="card"><span class="tag">Monthly, from Microsoft</span><h3>Licenses</h3><p>Essentials is $80 and Premium is $110 USD per full user per month at Microsoft\u2019s US list prices.</p></div>
+    <div class="card"><span class="tag">One-time</span><h3>Implementation</h3><p>{impl_text}</p></div>
     <div class="card"><span class="tag">Ongoing</span><h3>Support</h3><p>Pay as you go, or a monthly plan with included hours.</p></div>
   </div>
-  <p style="margin-top:28px"><a class="btn btn-primary" href="@/licensing/#calculator">Estimate your costs</a></p>
+  <p style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px"><a class="btn btn-primary" href="@/licensing/#calculator">Estimate your costs</a><a class="btn btn-ghost" href="@/licensing/#included">What\u2019s included</a></p>
 </div></section>
 
 <section class="band"><div class="wrap split">
-  <div class="stack"><span class="eyebrow">FAQ</span><h2>Common questions</h2><p class="lede">Don't see yours? <a href="@/contact/">Ask directly.</a></p></div>
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Common questions</h2><p class="lede">Don\u2019t see yours? <a href="@/contact/">Ask directly.</a></p></div>
   {faq_html(FAQ_HOME)}
 </div></section>
-{cta()}''', [ORG_SCHEMA, faq_schema(FAQ_HOME)])
+{cta('Find out if Business Central fits your business')}''', [ORG_SCHEMA, faq_schema(FAQ_HOME)])
 
 # BUSINESS CENTRAL
 add('business-central/', 'business-central',
@@ -479,11 +527,28 @@ add('licensing/', 'licensing',
       <div class="line" style="display:block"><div class="sub">Likely implementation size</div><div style="font:600 1.4rem var(--display)" id="o-size"></div><p class="sub" id="o-size-desc"></p></div>
       <div><div class="sub" style="margin-bottom:6px">What drives your scope</div><ul id="o-drivers"></ul></div>
       <a class="btn btn-primary" href="@/contact/">Get a quote for implementation</a>
-      <p class="sub">All figures are in US dollars, using Microsoft's US list prices (per user per month, annual commitment) effective November 2025. Implementation is quoted after a free discovery call.</p>
+      <p class="sub">All figures are in US dollars, using Microsoft's US list prices (per user per month, annual commitment) effective November 2025. Implementation is quoted after a free discovery call. <a href="#included" style="color:inherit">What’s included</a></p>
     </div>
   </form>
 </div></section>
-<section class="band"><div class="wrap">
+<section class="band" id="included"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Implementation scope</span><h2>What an implementation includes</h2><p class="lede">Every project gets a written, fixed scope after discovery. This is what a standard implementation covers, and what is quoted separately.</p></div>
+  <div class="grid g2">
+    <div class="card"><span class="tag">Included</span><h3>In a standard implementation</h3>
+      <ul class="checks"><li><div>Discovery workshops and a written solution design</div></li><li><div>Setup of finance, sales, purchasing and inventory</div></li><li><div>Warehouse setup for locations and bins in scope</div></li><li><div>Migration of master data, open items and opening balances</div></li><li><div>Testing with your team and role-based training</div></li><li><div>Go-live support and the first month-end close</div></li></ul></div>
+    <div class="card"><span class="tag">Quoted separately</span><h3>Not included by default</h3>
+      <ul class="checks"><li><div>Microsoft licenses and paid AppSource apps</div></li><li><div>Custom AL extensions and reports</div></li><li><div>Integrations with other systems</div></li><li><div>Migration of detailed transaction history</div></li><li><div>Ongoing support after the go-live period</div></li></ul></div>
+  </div>
+  <div class="section-head" style="margin-top:48px"><h2>Typical timelines</h2><p class="lede">Typical ranges for small and midsize businesses. Your actual timeline is set after discovery.</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Project size</th><th>Typical scope</th><th>Typical timeline</th></tr></thead>
+    <tbody>
+      <tr><td>Focused</td><td>Finance, sales, purchasing and basic inventory, one company, straightforward data move</td><td>2 to 3 months</td></tr>
+      <tr><td>Standard</td><td>Adds warehouse processes, migration from another ERP, or one or two integrations</td><td>3 to 6 months</td></tr>
+      <tr><td>Complex</td><td>Several companies, manufacturing, advanced warehousing or multiple integrations</td><td>6 months or more, often phased</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap">
   <div class="section-head"><span class="eyebrow">License types</span><h2>Choosing the right licenses</h2><p class="lede">Most companies combine a few full users with lower-cost Team Members licenses for people who only view data or do light tasks. All full users in a company must be on the same plan.</p></div>
   <div class="table-wrap"><table>
     <thead><tr><th>License</th><th>Price (USD)</th><th>Who it's for</th><th>Typical use</th></tr></thead>
@@ -494,7 +559,7 @@ add('licensing/', 'licensing',
     </tbody></table></div>
   <p class="note" style="margin-top:20px">Prices are Microsoft's US list prices in US dollars, effective November 1, 2025, and may change. We confirm current pricing in every estimate. Microsoft license fees are separate from our consulting fees.</p>
 </div></section>
-<section><div class="wrap">
+<section class="band"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Total cost</span><h2>The parts of a Business Central budget</h2></div>
   <div class="table-wrap"><table>
     <thead><tr><th>Cost</th><th>Type</th><th>What it depends on</th></tr></thead>
@@ -653,14 +718,14 @@ add('industries/manufacturing/', 'manufacturing',
 # CONTACT
 booking_block = ''
 if CFG.get('booking_url'):
-    booking_block = f'''<div class="card"><span class="tag">Fastest</span><h3>Book a 30-minute call</h3><p>Pick a time that suits you on my calendar.</p><a class="btn btn-primary" href="{esc(CFG['booking_url'])}" data-booking target="_blank" rel="noopener">Choose a time</a></div>
-<p class="or">or send a message</p>'''
+    booking_block = f'''<div class="card"><span class="tag">Fastest</span><h3>Pick a time for your assessment</h3><p>Choose a 30-minute slot and you’ll get a calendar invite straight away.</p><a class="btn btn-primary" href="{esc(CFG['booking_url'])}" data-booking target="_blank" rel="noopener">Choose a time</a></div>
+<p class="or">or send a message and we’ll arrange a time</p>'''
 phone_card = f'<div class="card"><span class="tag">Phone</span><p class="mono" style="color:var(--ink);user-select:all">{esc(CFG["phone"])}</p></div>' if CFG.get('phone') else ''
 add('contact/', 'contact',
-    'Book a Free Business Central Consultation | Q84 Digital',
-    'Book a free, no-obligation Business Central consultation with Q84 Digital. Talk directly with the senior consultant who would deliver your project.',
-    page_head('Contact', 'Book a consultation', 'Book a free consultation',
-              'Tell us a little about your business. We’ll reply within one business day to set up a 30-minute call.', button=False) + f'''
+    'Free ERP Readiness Assessment | Q84 Digital',
+    'Book a free 30-minute ERP readiness assessment. Find out whether Business Central fits your distribution or manufacturing business, what it would involve and what it would cost.',
+    page_head('Contact', 'Free ERP assessment', 'Book a free ERP readiness assessment',
+              'In 30 minutes with Oleh you’ll get an honest view of whether Business Central fits your business, what the project would involve and a rough idea of cost.', button=False) + f'''
 <section style="padding-top:32px"><div class="wrap split">
   <div class="stack" style="gap:20px">
     {booking_block}
@@ -674,13 +739,13 @@ add('contact/', 'contact',
         <select id="f-topic" name="topic"><option>A new Business Central implementation</option><option>Pricing or licensing advice</option><option>Data migration</option><option>Integrations or customization</option><option>Support for an existing system</option><option>Help choosing an ERP</option></select></div>
       <div class="field"><label for="f-msg">Brief description <span class="hint">(optional)</span></label><textarea id="f-msg" name="message"></textarea></div>
       <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-gotcha">Leave this empty</label><input id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
-      <div><button class="btn btn-primary" type="submit">Request consultation</button></div>
+      <div><button class="btn btn-primary" type="submit">Request my assessment</button></div>
       <p class="hint" id="formStatus" role="status" hidden></p>
     </form>
-    <div class="sent" id="sent" hidden role="status"><h3>Thanks, your request is in</h3><p>We'll reply within one business day to book your consultation.</p></div>
+    <div class="sent" id="sent" hidden role="status"><h3>Thanks, your request is in</h3><p>We'll reply within one business day to schedule your assessment.</p></div>
   </div>
   <aside class="contact-side">
-    <div class="card"><span class="tag">What to expect</span><h3>A 30-minute call with Oleh</h3><p>We'll talk through your systems, your goals and whether Business Central is a good fit. No obligation and no sales script.</p></div>
+    <div class="card offer"><span class="tag">What you get</span><h3>Your free assessment</h3><ul class="checks"><li><div>A review of your current systems and pain points</div></li><li><div>An honest view of whether Business Central fits, or what would fit better</div></li><li><div>The likely project size, timeline and license cost</div></li><li><div>Clear next steps, with no obligation</div></li></ul></div>
     <div class="card"><span class="tag">Email</span><p class="mono" style="color:var(--ink);user-select:all">{esc(EMAIL)}</p></div>
     {phone_card}
     <div class="card"><span class="tag">Location</span><p>Serving businesses across the United States. Based in Vancouver, British Columbia.</p></div>

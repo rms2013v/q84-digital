@@ -17,12 +17,16 @@ git add -A && git commit -m "Update site" && git push
 |---|---|
 | `email` | Contact email shown on the site and used by the form fallback. **Replace the placeholder before launch.** |
 | `form_endpoint` | Form service URL (for example Formspree `https://formspree.io/f/xxxx`). Empty = the form opens the visitor's email app instead. |
-| `booking_url` | Calendar link (Calendly, Microsoft Bookings). Adds "Book a 30-minute call" buttons. |
+| `booking_url` | Calendar link (Calendly, Microsoft Bookings). When set, every "Book a free ERP assessment" button opens the calendar directly. |
 | `phone` | Business phone. Shown in the footer and contact page when set. |
 | `ga_id` | Google Analytics 4 measurement ID (`G-XXXXXXX`). Adds analytics and lead-event tracking. |
 | `gsc_verification` | Google Search Console HTML-tag verification code. |
 | `legal_name` | Legal company name for the footer and privacy page. |
 | `consultant_photo` | File name of a headshot in `images/` (for example `oleh.jpg`). |
+| `implementation_range` | Optional typical implementation price range, e.g. `$40,000 and $120,000`. Shown on the homepage when set. |
+| `partner_statement` | Optional text for the "Are you a Microsoft partner?" FAQ. |
+| `case_studies` | List of real projects. When filled, replaces the example scenarios on the homepage. Each item: `title`, `industry`, `size`, `challenge`, `solution`, `results` (list). |
+| `testimonials` | List of real client quotes. Each item: `quote`, `name`, `role`, `company`. Section appears only when filled. |
 | `allow_indexing` | `false` adds a noindex tag to every page and blocks crawlers in robots.txt. Set to `true` at launch. |
 | `site_url`, `base` | Change to `https://q84digital.com/` and `/` when the custom domain is connected. |
 
