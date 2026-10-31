@@ -718,7 +718,7 @@ def render(p):
     canonical = URL + p['path']
     schema = ''.join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>\n' for s in p['schema'])
     noindex = '' if CFG.get('allow_indexing', True) else '<meta name="robots" content="noindex, nofollow">\n'
-    verify = noindex + f'<meta name="google-site-verification" content="{esc(CFG["gsc_verification"])}">\n' if CFG.get('gsc_verification') else ''
+    verify = noindex + (f'<meta name="google-site-verification" content="{esc(CFG["gsc_verification"])}">\n' if CFG.get('gsc_verification') else '')
     client = json.dumps({'email': EMAIL, 'formEndpoint': CFG.get('form_endpoint', '')})
     doc = f'''<!doctype html>
 <html lang="en">
