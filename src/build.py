@@ -276,17 +276,21 @@ def add(path, nav, title, desc, body, schema=None):
 
 photo = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov">' if CFG.get('consultant_photo') else 'OK'
 
+HERO_IMG = next((f for f in ('hero-flow.webp', 'hero-flow.png', 'hero-flow.jpg') if os.path.exists(os.path.join(ROOT, 'images', f))), None)
+HERO_CLASS = 'hero-split' if HERO_IMG else ''
+HERO_ART = (f'<figure class="hero-art"><img src="@/images/{HERO_IMG}" alt="Illustration of an order moving from sales order to warehouse, shipment, invoice and reporting" width="1024" height="1024" fetchpriority="high"></figure>' if HERO_IMG else '')
+
 # HOME
 add('', 'home',
     'Business Central for Distributors & Manufacturers | Q84 Digital',
     'Senior-led Microsoft Dynamics 365 Business Central implementation, integration and support for growing distributors, manufacturers and inventory-driven businesses.',
     f'''<section class="hero"><div class="wrap">
-  <div class="hero-center">
+  <div class="{HERO_CLASS}"><div class="hero-center">
     <span class="eyebrow">Microsoft Dynamics 365 Business Central consulting</span>
     <h1>Business Central implementation for businesses that move products</h1>
     <p class="lede">We help growing distributors, manufacturers and inventory-driven businesses implement Business Central, connect their operations and replace disconnected systems.</p>
     <div class="hero-actions"><a class="btn btn-primary" href="@/contact/">Book a free consultation</a><a class="btn btn-ghost" href="@/business-central/">Explore Business Central</a></div>
-  </div>
+  </div>{HERO_ART}</div>
   <div class="trust"><span><strong>10+ years</strong> of Microsoft Dynamics experience</span><span><strong>Senior-led:</strong> you work with the consultant who delivers</span><span><strong>Supply chain</strong> and warehouse background</span></div>
   <div class="grid g3 hero-cards">
     <a class="card" href="@/implementation/">{icon('ledger')}<h3>ERP implementation</h3><p>Finance, inventory and sales set up around how your business runs.</p><span class="more">How it works →</span></a>
@@ -764,5 +768,6 @@ open(os.path.join(ROOT, '404.html'), 'w').write(html404)
 urls = ''.join(f'<url><loc>{URL}{p["path"]}</loc><lastmod>{TODAY}</lastmod></url>' for p in PAGES)
 open(os.path.join(ROOT, 'sitemap.xml'), 'w').write(
     f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
-open(os.path.join(ROOT, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\n\nSitemap: {URL}sitemap.xml\n')
+rule = 'Allow: /' if CFG.get('allow_indexing', True) else 'Disallow: /'
+open(os.path.join(ROOT, 'robots.txt'), 'w').write(f'User-agent: *\n{rule}\n\nSitemap: {URL}sitemap.xml\n')
 print(f'Built {len(PAGES)} pages + 404, sitemap.xml, robots.txt')
