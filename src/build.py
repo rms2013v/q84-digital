@@ -274,7 +274,7 @@ PAGES = []
 def add(path, nav, title, desc, body, schema=None):
     PAGES.append(dict(path=path, nav=nav, title=title, desc=desc, body=body, schema=schema or []))
 
-photo = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov">' if CFG.get('consultant_photo') else 'OK'
+photo = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov, founder of Q84 Digital" width="480" height="480">' if CFG.get('consultant_photo') else 'OK'
 
 HERO_IMG = next((f for f in ('hero-flow.webp', 'hero-flow.png', 'hero-flow.jpg') if os.path.exists(os.path.join(ROOT, 'images', f))), None)
 HERO_CLASS = 'hero-split' if HERO_IMG else ''
@@ -301,7 +301,7 @@ add('', 'home',
 
 <section class="band" id="consultant"><div class="wrap profile">
   <div class="profile-card">
-    <div class="avatar" aria-hidden="true">{photo}</div>
+    <div class="avatar"{"" if CFG.get("consultant_photo") else " aria-hidden=\"true\""}>{photo}</div>
     <div><h3 style="font-size:1.25rem">Oleh Karnaukhov</h3><p class="role">Founder and lead consultant</p></div>
     <div class="stat"><strong>10+ years</strong><span>Microsoft Dynamics consulting</span></div>
     <div class="stat"><strong>Senior-led</strong><span>No hand-off to junior staff</span></div>
