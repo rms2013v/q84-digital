@@ -238,7 +238,7 @@ TOUR = '''<section id="tour" style="border-top:1px solid var(--line)">
 FAQ_HOME = [
     ('What is Microsoft Dynamics 365 Business Central?', 'It’s Microsoft’s cloud ERP for small and midsize businesses. It brings accounting, inventory, sales, purchasing, warehousing and reporting into one system that works with Microsoft 365.', None),
     ('Is Business Central right for a distribution or inventory-heavy business?', 'For most small and midsize distributors, yes. It handles multi-location stock, purchasing, bins, picking and shipping. If your warehouse is very high-volume or complex, we’ll tell you whether an extension or Dynamics 365 Supply Chain Management fits better.', ('@/business-central/#fit', 'Is Business Central enough?')),
-    ('How much does Business Central cost?', 'Licences are a monthly per-user subscription from Microsoft. Implementation is a one-time project quoted after a free discovery call. Our calculator estimates your licence cost in a minute.', ('@/licensing/', 'Estimate your costs')),
+    ('How much does Business Central cost?', 'Licenses are a monthly per-user subscription from Microsoft. Implementation is a one-time project quoted after a free discovery call. Our calculator estimates your license cost in a minute.', ('@/licensing/', 'Estimate your costs')),
     ('How long does implementation take?', 'A focused finance and inventory rollout usually takes a few months. Projects with manufacturing, advanced warehousing or several integrations take longer. You get a timeline after discovery.', ('@/implementation/', 'How implementation works')),
     ('Can Business Central replace QuickBooks?', 'Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration.', ('@/data-migration/', 'Data migration')),
     ('Can Business Central integrate with Shopify?', 'Yes. Business Central has a Shopify connector, and we build other integrations through its APIs.', ('@/integrations/', 'Integrations')),
@@ -260,7 +260,7 @@ ORG_SCHEMA = {
     "@context": "https://schema.org", "@type": "ProfessionalService", "name": "Q84 Digital",
     "url": URL, "email": EMAIL,
     "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.",
-    "areaServed": [{"@type": "Country", "name": "Canada"}, {"@type": "Country", "name": "United States"}],
+    "areaServed": [{"@type": "Country", "name": "United States"}],
     "address": {"@type": "PostalAddress", "addressLocality": "Vancouver", "addressRegion": "BC", "addressCountry": "CA"},
     "founder": {"@type": "Person", "name": "Oleh Karnaukhov", "jobTitle": "Founder and lead consultant"},
     "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "ERP implementation", "Warehouse management", "ERP integration"],
@@ -334,7 +334,7 @@ add('', 'home',
     <a href="@/implementation/"><h3>Implementation</h3><p>Business Central set up around your processes, from chart of accounts to go-live.</p><span class="more">Implementation →</span></a>
     <a href="@/data-migration/"><h3>Data migration</h3><p>Clean, verified data moved from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Data migration →</span></a>
     <a href="@/integrations/"><h3>Integrations &amp; automation</h3><p>Business Central connected to e-commerce, shipping, CRM and Power BI.</p><span class="more">Integrations →</span></a>
-    <a href="@/licensing/"><h3>Licensing &amp; advice</h3><p>The right licence mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing →</span></a>
+    <a href="@/licensing/"><h3>Licensing &amp; advice</h3><p>The right license mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing →</span></a>
     <a href="@/support/"><h3>Ongoing support</h3><p>Fixes, improvements and training once you're live, hourly or monthly.</p><span class="more">Support →</span></a>
   </div>
 </div></section>
@@ -363,9 +363,9 @@ add('', 'home',
 </div></section>
 
 <section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Pricing</span><h2>Know what Business Central will cost</h2><p class="lede">Licences are a monthly Microsoft subscription. Implementation is a one-time project. Support is hourly or monthly.</p></div>
+  <div class="section-head"><span class="eyebrow">Pricing</span><h2>Know what Business Central will cost</h2><p class="lede">Licenses are a monthly Microsoft subscription. Implementation is a one-time project. Support is hourly or monthly.</p></div>
   <div class="grid g3">
-    <div class="card"><span class="tag">From Microsoft</span><h3>Licences</h3><p>Essentials is US$80 and Premium US$110 per full user per month at Microsoft's US list prices.</p></div>
+    <div class="card"><span class="tag">From Microsoft</span><h3>Licenses</h3><p>Essentials is $80 and Premium is $110 USD per full user per month at Microsoft's US list prices.</p></div>
     <div class="card"><span class="tag">One-time</span><h3>Implementation</h3><p>Quoted after discovery, based on modules, data, integrations and companies.</p></div>
     <div class="card"><span class="tag">Ongoing</span><h3>Support</h3><p>Pay as you go, or a monthly plan with included hours.</p></div>
   </div>
@@ -445,14 +445,14 @@ add('implementation/', 'implementation',
 # LICENSING
 add('licensing/', 'licensing',
     'Business Central Pricing & Cost Calculator | Q84 Digital',
-    'Business Central licence prices for Essentials, Premium and Team Members, a cost calculator for your users, and what drives implementation and support costs.',
+    'Business Central license prices for Essentials, Premium and Team Members, a cost calculator for your users, and what drives implementation and support costs.',
     page_head('Licensing', 'Services / Licensing &amp; pricing', 'Business Central licensing and pricing',
-              'What you’ll pay Microsoft for licences, what drives implementation cost, and a quick calculator for your own numbers.', button=False) + '''
+              'What you’ll pay Microsoft for licenses, what drives implementation cost, and a quick calculator for your own numbers.', button=False) + '''
 <section style="padding-top:32px" id="calculator"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Cost estimator</span><h2>Estimate your Business Central costs</h2></div>
   <form class="calc" id="calc" onsubmit="return false">
     <div class="stack" style="gap:22px">
-      <fieldset><legend>Licence plan</legend><div class="choice">
+      <fieldset><legend>License plan</legend><div class="choice">
         <label><input type="radio" name="plan" value="essentials" checked> Essentials</label>
         <label><input type="radio" name="plan" value="premium"> Premium</label></div></fieldset>
       <div class="row">
@@ -472,34 +472,34 @@ add('licensing/', 'licensing',
         <label><input type="checkbox" name="mod" data-w="2" data-label="Service management" data-premium> Service management</label></div></fieldset>
     </div>
     <div class="calc-out" aria-live="polite">
-      <div><div class="sub">Microsoft licences per month</div><div class="big" id="o-monthly">$0</div><div class="sub"><span id="o-annual">$0</span> per year</div></div>
+      <div><div class="sub">Microsoft licenses per month (USD)</div><div class="big" id="o-monthly">$0</div><div class="sub"><span id="o-annual">$0</span> USD per year</div></div>
       <div class="line"><span>Full users</span><span id="o-full"></span></div>
       <div class="line"><span>Team Members</span><span id="o-team"></span></div>
       <p class="sub" id="o-hint" hidden style="color:inherit">Manufacturing and service management need the Premium plan.</p>
       <div class="line" style="display:block"><div class="sub">Likely implementation size</div><div style="font:600 1.4rem var(--display)" id="o-size"></div><p class="sub" id="o-size-desc"></p></div>
       <div><div class="sub" style="margin-bottom:6px">What drives your scope</div><ul id="o-drivers"></ul></div>
       <a class="btn btn-primary" href="@/contact/">Get a quote for implementation</a>
-      <p class="sub">Licence figures use Microsoft's US list prices (per user per month, annual commitment) effective November 2025. Canadian dollar prices differ. Implementation is quoted after a free discovery call.</p>
+      <p class="sub">All figures are in US dollars, using Microsoft's US list prices (per user per month, annual commitment) effective November 2025. Implementation is quoted after a free discovery call.</p>
     </div>
   </form>
 </div></section>
 <section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Licence types</span><h2>Choosing the right licences</h2><p class="lede">Most companies combine a few full users with lower-cost Team Members licences for people who only view data or do light tasks. All full users in a company must be on the same plan.</p></div>
+  <div class="section-head"><span class="eyebrow">License types</span><h2>Choosing the right licenses</h2><p class="lede">Most companies combine a few full users with lower-cost Team Members licenses for people who only view data or do light tasks. All full users in a company must be on the same plan.</p></div>
   <div class="table-wrap"><table>
-    <thead><tr><th>Licence</th><th>US list price</th><th>Who it's for</th><th>Typical use</th></tr></thead>
+    <thead><tr><th>License</th><th>Price (USD)</th><th>Who it's for</th><th>Typical use</th></tr></thead>
     <tbody>
       <tr><td>Essentials</td><td>$80 / user / month</td><td>Full users</td><td>Finance, sales, purchasing, inventory, warehousing, projects</td></tr>
       <tr><td>Premium</td><td>$110 / user / month</td><td>Full users who need more</td><td>Everything in Essentials, plus manufacturing and service management</td></tr>
       <tr><td>Team Members</td><td>$8 / user / month</td><td>Light users</td><td>View data, approve documents, update basic records</td></tr>
     </tbody></table></div>
-  <p class="note" style="margin-top:20px">Prices are Microsoft's US list prices effective November 1, 2025, and may change. We confirm current pricing in your currency in every estimate. Microsoft licence fees are separate from our consulting fees.</p>
+  <p class="note" style="margin-top:20px">Prices are Microsoft's US list prices in US dollars, effective November 1, 2025, and may change. We confirm current pricing in every estimate. Microsoft license fees are separate from our consulting fees.</p>
 </div></section>
 <section><div class="wrap">
   <div class="section-head"><span class="eyebrow">Total cost</span><h2>The parts of a Business Central budget</h2></div>
   <div class="table-wrap"><table>
     <thead><tr><th>Cost</th><th>Type</th><th>What it depends on</th></tr></thead>
     <tbody>
-      <tr><td>Licences</td><td>Monthly</td><td>Plan and number of full and light users</td></tr>
+      <tr><td>Licenses</td><td>Monthly</td><td>Plan and number of full and light users</td></tr>
       <tr><td>Implementation</td><td>One-time</td><td>Modules, companies, processes and custom work</td></tr>
       <tr><td>Data migration</td><td>One-time</td><td>Source systems, data volume and data quality</td></tr>
       <tr><td>Integrations</td><td>One-time plus upkeep</td><td>Number of systems and how complex the data flow is</td></tr>
@@ -642,12 +642,12 @@ add('industries/manufacturing/', 'manufacturing',
     <div class="card">{icon('ledger')}<h3>Bills of materials</h3><p>Multi-level BOMs with versions and component substitutes.</p></div>
     <div class="card">{icon('factory')}<h3>Production orders</h3><p>Planned, released and finished orders with consumption and output.</p></div>
     <div class="card">{icon('chart')}<h3>Material planning</h3><p>Planning worksheets that suggest what to buy and make, and when.</p></div>
-    <div class="card">{icon('tools')}<h3>Routings &amp; capacity</h3><p>Work centres, machine centres and capacity planning.</p></div>
+    <div class="card">{icon('tools')}<h3>Routings &amp; capacity</h3><p>Work centers, machine centers and capacity planning.</p></div>
     <div class="card">{icon('receipt')}<h3>Product costing</h3><p>Standard or actual costs with variance reporting.</p></div>
     <div class="card">{icon('box')}<h3>Inventory &amp; tracking</h3><p>Lot and serial tracking from components to finished goods.</p></div>
   </div>
 </div></section>
-<section><div class="wrap"><div class="note">Manufacturing features need the Business Central Premium licence. <a href="@/licensing/#calculator">Estimate your licence cost.</a></div></div></section>
+<section><div class="wrap"><div class="note">Manufacturing features need the Business Central Premium license. <a href="@/licensing/#calculator">Estimate your license cost.</a></div></div></section>
 {cta('Talk about your production processes')}''')
 
 # CONTACT
@@ -683,7 +683,7 @@ add('contact/', 'contact',
     <div class="card"><span class="tag">What to expect</span><h3>A 30-minute call with Oleh</h3><p>We'll talk through your systems, your goals and whether Business Central is a good fit. No obligation and no sales script.</p></div>
     <div class="card"><span class="tag">Email</span><p class="mono" style="color:var(--ink);user-select:all">{esc(EMAIL)}</p></div>
     {phone_card}
-    <div class="card"><span class="tag">Location</span><p>Vancouver, British Columbia. Working with clients across Canada and the United States.</p></div>
+    <div class="card"><span class="tag">Location</span><p>Serving businesses across the United States. Based in Vancouver, British Columbia.</p></div>
   </aside>
 </div></section>''')
 
@@ -700,7 +700,7 @@ add('privacy/', 'privacy', 'Privacy Policy | Q84 Digital',
 <h2>How we use it</h2><p>We use your information only to reply to your request, arrange a consultation and follow up about your project. We don't sell or rent it, and we don't add you to marketing lists without your consent.</p>
 <h2>Analytics</h2>{analytics_line}
 <h2>Sharing</h2><p>We share information only with service providers that help us run this website and handle email, and only as needed to provide those services, or where the law requires it.</p>
-<h2>Retention and your rights</h2><p>We keep enquiries for as long as needed to respond and manage any resulting work. You can ask to see, correct or delete your information at any time by emailing <span style="user-select:all">{esc(EMAIL)}</span>. Under Canada's PIPEDA you can also contact the Office of the Privacy Commissioner of Canada.</p>
+<h2>Retention and your rights</h2><p>We keep inquiries for as long as needed to respond and manage any resulting work. You can ask to see, correct or delete your information at any time by emailing <span style="user-select:all">{esc(EMAIL)}</span>. Under Canada's PIPEDA you can also contact the Office of the Privacy Commissioner of Canada.</p>
 </div></section>''')
 
 # ---------------------------------------------------------------- render

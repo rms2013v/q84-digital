@@ -144,7 +144,7 @@
     });
   });
 
-  // Licence cost calculator (Microsoft US list prices, per user per month)
+  // License cost calculator (Microsoft US list prices, per user per month)
   var calc = document.getElementById('calc');
   if (calc) {
     var PRICES = { essentials: 80, premium: 110, team: 8 };
