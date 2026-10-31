@@ -3,899 +3,255 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Q84 Digital implements, integrates and supports Microsoft Dynamics 365 Business Central for growing companies.">
-<title>Q84 Digital</title>
+<title>Business Central for Distributors &amp; Manufacturers | Q84 Digital</title>
+<meta name="description" content="Senior-led Microsoft Dynamics 365 Business Central implementation, integration and support for growing distributors, manufacturers and inventory-driven businesses.">
+<link rel="canonical" href="https://rms2013v.github.io/q84-digital/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="Business Central for Distributors &amp; Manufacturers | Q84 Digital">
+<meta property="og:description" content="Senior-led Microsoft Dynamics 365 Business Central implementation, integration and support for growing distributors, manufacturers and inventory-driven businesses.">
+<meta property="og:url" content="https://rms2013v.github.io/q84-digital/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Open+Sans:wght@400;600&display=swap">
-<style>
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}
-img{max-width:100%}
-[hidden]{display:none!important}
-/* Layout: Modern SaaS (UI UX Pro Max option 6) — centred hero, rounded icon cards, pill buttons; trust blue for brand, orange reserved for the main call to action */
-:root{
-  --bg:#F8FAFC; --surface:#FFFFFF; --ink:#1E293B; --muted:#475569; --line:#E2E8F0;
-  --accent:#2563EB; --accent-ink:#FFFFFF; --accent-soft:#E9EFF8; --warm:#2563EB;
-  --danger:#DC2626; --cta:#EA580C; --cta-ink:#000000; --band:#1E293B; --band-ink:#F8FAFC;
-  --display:"Poppins", "Segoe UI", system-ui, sans-serif;
-  --body:"Open Sans", "Segoe UI", system-ui, sans-serif;
-  --mono:"Poppins", "Segoe UI", system-ui, sans-serif;
-  --wrap:1160px; --radius:16px;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0B1220; --surface:#131C2E; --ink:#E2E8F0; --muted:#94A3B8; --line:#26324A;
-  --accent:#60A5FA; --accent-ink:#0B1220; --accent-soft:#1A2742; --warm:#60A5FA;
-  --danger:#F87171; --cta:#F97316; --cta-ink:#000000; --band:#1A2742; --band-ink:#E2E8F0; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0B1220; --surface:#131C2E; --ink:#E2E8F0; --muted:#94A3B8; --line:#26324A;
-  --accent:#60A5FA; --accent-ink:#0B1220; --accent-soft:#1A2742; --warm:#60A5FA;
-  --danger:#F87171; --cta:#F97316; --cta-ink:#000000; --band:#1A2742; --band-ink:#E2E8F0; color-scheme:dark}
-
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
-.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;text-wrap:balance;letter-spacing:-.01em}
-h1{font-size:clamp(2.1rem,5vw,3.6rem);font-weight:600}
-h2{font-size:clamp(1.6rem,3.2vw,2.3rem);font-weight:600}
-h3{font-size:1.1rem;font-weight:600}
-p{margin:0}
-a{color:var(--accent)}
-.eyebrow{display:inline-flex;align-self:start;width:fit-content;padding:.45rem .9rem;border-radius:999px;background:var(--accent-soft);color:var(--accent);font:600 .85rem/1.2 var(--body)}
-.lede{font-size:1.125rem;color:var(--muted);max-width:62ch}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.8rem 1.4rem;border-radius:999px;font:600 .95rem var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
-.btn-primary{background:var(--cta);color:var(--cta-ink)}
-.btn-primary:hover{filter:brightness(1.06)}
-.btn-ghost{border-color:var(--line);color:var(--ink);background:var(--surface)}
-.btn-ghost:hover{border-color:var(--accent)}
-@media (prefers-reduced-motion:no-preference){.btn:hover{transform:translateY(-1px)}}
-.icon{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent)}
-.icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-section{padding-block:clamp(48px,8vw,88px)}
-.stack{display:grid;gap:16px}
-.section-head{display:grid;gap:12px;margin-bottom:36px;max-width:68ch}
-
-/* Header */
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:700 1.15rem var(--display)}
-.logo-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font:600 .78rem var(--display)}
-.nav-links{display:flex;gap:4px;align-items:center}
-.nav-links a{padding:.6rem .8rem;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:600;font-size:.93rem}
-.nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--ink);background:var(--accent-soft)}
-.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:.5rem .7rem;color:var(--ink);font:500 .9rem var(--body)}
-@media (max-width:900px){
-  .menu-btn{display:block}
-  .nav-links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
-  .nav-links.open{display:flex}
-  .nav-cta-desktop{display:none}
-}
-.nav-links .btn{margin-left:8px}
-@media (max-width:900px){.nav-links .btn{margin:8px 0 0;justify-content:center;color:var(--cta-ink)}}
-.nav-links .btn:hover{background:var(--cta)}
-
-/* Hero */
-.hero{padding-block:clamp(48px,8vw,96px) clamp(40px,6vw,72px)}
-.hero-center{display:grid;justify-items:center;text-align:center;gap:22px;max-width:900px;margin:0 auto}
-.hero-center .eyebrow{align-self:center}
-.hero-center .lede{margin:0 auto;max-width:640px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
-.hero-center .hero-actions{justify-content:center}
-.props{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;color:var(--muted);font-size:.93rem;padding:0;margin:0;list-style:none}
-.props li{display:flex;gap:8px;align-items:center}
-.props li::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.8' fill='none' stroke='%232563EB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
-.hero-cards{margin-top:clamp(40px,6vw,64px)}
-
-.ledger{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.8rem;box-shadow:0 18px 40px -24px rgba(10,40,35,.35)}
-.ledger-top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted)}
-.ledger-top b{color:var(--ink);font-weight:500}
-.flow{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
-.flow div{padding:14px 16px;border-right:1px solid var(--line)}
-.flow div:last-child{border-right:0}
-.flow span{display:block;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em}
-.flow strong{font-weight:500;color:var(--ink)}
-.flow .done strong::after{content:" ✓";color:var(--accent)}
-.ledger-table{overflow-x:auto}
-.ledger table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-.ledger th,.ledger td{padding:9px 16px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
-.ledger th{color:var(--muted);font-weight:400;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em}
-.ledger td.num{text-align:right}
-.ledger tr:last-child td{border-bottom:0}
-.ledger tfoot td{color:var(--accent);font-weight:500;border-top:1px solid var(--line)}
-@media (prefers-reduced-motion:no-preference){
-  .ledger tbody tr{animation:post .5s ease both}
-  .ledger tbody tr:nth-child(2){animation-delay:.25s}
-  .ledger tbody tr:nth-child(3){animation-delay:.5s}
-  .ledger tbody tr:nth-child(4){animation-delay:.75s}
-  @keyframes post{from{background:var(--accent-soft)}to{background:transparent}}
-}
-
-/* Product tour */
-.tour-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-.tour-tab{font:600 .93rem var(--body);min-height:44px;padding:.6rem 1.1rem;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
-.tour-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.tour-panel{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:28px;align-items:start}
-@media (max-width:900px){.tour-panel{grid-template-columns:1fr}}
-.tour-copy{display:grid;gap:12px}
-.tour-copy p{color:var(--muted)}
-.tour-copy .checks{gap:10px;font-size:.95rem}
-.shot{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;box-shadow:0 18px 40px -28px rgba(15,23,42,.45);min-width:0}
-.shot img{display:block;width:100%;height:auto}
-.shot-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--bg);font-size:.8rem;color:var(--muted)}
-.shot-bar b{color:var(--ink);font-weight:600}
-.shot-body{padding:18px;display:grid;gap:16px;font-size:.85rem;overflow-x:auto}
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-@media (max-width:620px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.kpi{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:4px}
-.kpi span{color:var(--muted);font-size:.75rem}
-.kpi strong{font:600 1.15rem var(--display);font-variant-numeric:tabular-nums}
-.kpi.warn strong{color:var(--cta)}
-.bars{display:flex;align-items:flex-end;gap:8px;height:110px;padding:8px 4px 0;border-bottom:1px solid var(--line)}
-.bars div{flex:1;background:var(--accent);border-radius:4px 4px 0 0;opacity:.85}
-.bars div:last-child{opacity:1}
-.bar-labels{display:flex;gap:8px;font-size:.72rem;color:var(--muted)}
-.bar-labels span{flex:1;text-align:center}
-.mini{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:520px}
-.mini th,.mini td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-.mini th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
-.mini td.n,.mini th.n{text-align:right}
-.mini tr:last-child td{border-bottom:0}
-.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--accent-soft);color:var(--accent)}
-.pill.low{background:color-mix(in srgb,var(--cta) 16%,transparent);color:var(--cta)}
-.fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-@media (max-width:620px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.fields div{display:grid;gap:2px}
-.fields span{font-size:.72rem;color:var(--muted)}
-.totals{display:flex;justify-content:flex-end;gap:28px;font-variant-numeric:tabular-nums}
-.totals strong{font-family:var(--display)}
-.shot-note{font-size:.78rem;color:var(--muted)}
-.demo-video{margin-top:32px;display:grid;gap:12px}
-.demo-video video{width:100%;max-width:100%;border-radius:var(--radius);border:1px solid var(--line);background:#000}
-
-/* Grids & cards */
-.grid{display:grid;gap:20px}
-.g2{grid-template-columns:repeat(2,1fr)}
-.g3{grid-template-columns:repeat(3,1fr)}
-.g4{grid-template-columns:repeat(4,1fr)}
-@media (max-width:960px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr}}
-.grid>*{min-width:0}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:grid;gap:12px;align-content:start;box-shadow:0 1px 2px rgba(15,23,42,.04)}
-.card p{color:var(--muted);font-size:.95rem}
-.card .tag{font:600 .75rem var(--body);color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
-a.card{text-decoration:none;color:inherit;transition:border-color .15s,box-shadow .15s}
-a.card:hover{border-color:var(--accent);box-shadow:0 8px 24px -12px rgba(37,99,235,.35)}
-.plain .icon{margin-bottom:6px}
-.more{font-weight:600;font-size:.9rem;color:var(--accent)}
-.plain{padding:0;display:grid;gap:8px}
-.plain h3{font-size:1.05rem}
-.plain p{color:var(--muted);font-size:.95rem}
-.band{background:var(--surface);border-block:1px solid var(--line)}
-
-/* Services table */
-.svc{display:grid;border-top:1px solid var(--line)}
-.svc a{display:grid;grid-template-columns:200px 1fr auto;gap:24px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
-.svc a:hover h3{color:var(--accent)}
-.svc p{color:var(--muted)}
-.svc .more{white-space:nowrap}
-@media (max-width:720px){.svc a{grid-template-columns:1fr;gap:6px}}
-
-/* Process */
-.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;counter-reset:s;padding:0;margin:0}
-.steps li{list-style:none;padding:22px;display:grid;gap:10px;align-content:start;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius)}
-.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:600 .95rem var(--display)}
-.steps p{color:var(--muted);font-size:.93rem}
-@media (max-width:960px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.steps{grid-template-columns:1fr}}
-
-/* Split */
-.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
-.split>*{min-width:0}
-@media (max-width:860px){.split{grid-template-columns:1fr;gap:32px}}
-.checks{list-style:none;padding:0;margin:0;display:grid;gap:14px}
-.checks li{display:grid;grid-template-columns:22px 1fr;gap:12px}
-.checks li::before{content:"";width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.3l2.8 2.8 6-6' fill='none' stroke='%232563EB' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
-.note{border:1px solid var(--line);padding:16px 20px;background:var(--accent-soft);border-radius:12px;color:var(--ink);font-size:.95rem}
-
-/* FAQ */
-.faq{display:grid;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:18px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
-.faq summary::after{content:"+";font:500 1.3rem/1 var(--display);color:var(--accent)}
-.faq details[open] summary::after{content:"−"}
-.faq summary::-webkit-details-marker{display:none}
-.faq details p{padding:0 0 18px;color:var(--muted);max-width:70ch}
-
-/* CTA */
-.cta{background:var(--band);color:var(--band-ink);border-radius:24px;padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
-.cta p{color:color-mix(in srgb,var(--band-ink) 78%,transparent);max-width:58ch;margin-top:12px}
-@media (max-width:720px){.cta{grid-template-columns:1fr}}
-
-/* Page header */
-.page-head{padding-block:clamp(40px,6vw,72px) 8px}
-.page-head .stack{gap:16px;max-width:760px}
-.crumb{font:400 .8rem var(--mono);color:var(--muted)}
-.crumb a{color:var(--muted)}
-
-/* Pricing table */
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
-.table-wrap table{width:100%;border-collapse:collapse;min-width:560px}
-.table-wrap th,.table-wrap td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:top}
-.table-wrap th{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.table-wrap tr:last-child td{border-bottom:0}
-.table-wrap td:first-child{font-weight:600;white-space:nowrap}
-
-/* Contact */
-form{display:grid;gap:18px}
-.field{display:grid;gap:6px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media (max-width:620px){.row{grid-template-columns:1fr}}
-label{font-weight:600;font-size:.9rem}
-input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.75rem .9rem;min-height:48px;width:100%}
-input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:2px solid var(--accent-soft);outline-offset:0}
-textarea{min-height:120px;resize:vertical}
-.hint{font-size:.82rem;color:var(--muted)}
-.err{font-size:.85rem;color:var(--danger)}
-.sent{background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:20px;display:grid;gap:8px}
-.contact-side{display:grid;gap:20px}
-.contact-side .card p{font-size:.95rem}
-.mono{font-family:var(--mono);font-size:.9rem}
-
-/* Footer */
-footer{border-top:1px solid var(--line);padding-block:48px 32px;margin-top:40px;color:var(--muted);font-size:.9rem}
-.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
-.foot h4{margin:0 0 10px;font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--ink)}
-.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
-.foot a{color:var(--muted);text-decoration:none}
-.foot a:hover{color:var(--accent)}
-.legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:.8rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
-@media (max-width:760px){.foot{grid-template-columns:1fr 1fr}}
-
-.view[hidden]{display:none!important}
-</style>
+<link rel="stylesheet" href="/q84-digital/assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Q84 Digital", "url": "https://rms2013v.github.io/q84-digital/", "email": "hello@q84digital.com", "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.", "areaServed": [{"@type": "Country", "name": "Canada"}, {"@type": "Country", "name": "United States"}], "address": {"@type": "PostalAddress", "addressLocality": "Vancouver", "addressRegion": "BC", "addressCountry": "CA"}, "founder": {"@type": "Person", "name": "Oleh Karnaukhov", "jobTitle": "Founder and lead consultant"}, "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "ERP implementation", "Warehouse management", "ERP integration"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Microsoft Dynamics 365 Business Central?", "acceptedAnswer": {"@type": "Answer", "text": "It’s Microsoft’s cloud ERP for small and midsize businesses. It brings accounting, inventory, sales, purchasing, warehousing and reporting into one system that works with Microsoft 365."}}, {"@type": "Question", "name": "Is Business Central right for a distribution or inventory-heavy business?", "acceptedAnswer": {"@type": "Answer", "text": "For most small and midsize distributors, yes. It handles multi-location stock, purchasing, bins, picking and shipping. If your warehouse is very high-volume or complex, we’ll tell you whether an extension or Dynamics 365 Supply Chain Management fits better."}}, {"@type": "Question", "name": "How much does Business Central cost?", "acceptedAnswer": {"@type": "Answer", "text": "Licences are a monthly per-user subscription from Microsoft. Implementation is a one-time project quoted after a free discovery call. Our calculator estimates your licence cost in a minute."}}, {"@type": "Question", "name": "How long does implementation take?", "acceptedAnswer": {"@type": "Answer", "text": "A focused finance and inventory rollout usually takes a few months. Projects with manufacturing, advanced warehousing or several integrations take longer. You get a timeline after discovery."}}, {"@type": "Question", "name": "Can Business Central replace QuickBooks?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration."}}, {"@type": "Question", "name": "Can Business Central integrate with Shopify?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Business Central has a Shopify connector, and we build other integrations through its APIs."}}, {"@type": "Question", "name": "Who will I actually work with?", "acceptedAnswer": {"@type": "Answer", "text": "Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it."}}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": ""};</script>
 </head>
 <body>
-
+<a class="skip" href="#main">Skip to content</a>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="#home" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
+    <a class="logo" href="/q84-digital/" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <nav class="nav-links" id="navLinks" aria-label="Main">
-      <a href="#home" data-nav="home">Business Central</a>
-      <a href="#implementation" data-nav="implementation">Implementation</a>
-      <a href="#pricing" data-nav="pricing">Licensing &amp; Pricing</a>
-      <a href="#integrations" data-nav="integrations">Integrations</a>
-      <a href="#support" data-nav="support">Support</a>
-      <a class="btn btn-primary" href="#contact">Book a consultation</a>
+      <a href="/q84-digital/business-central/">Business Central</a><details class="dd"><summary>Services</summary><div class="dd-menu"><a href="/q84-digital/implementation/">Implementation</a><a href="/q84-digital/licensing/">Licensing &amp; pricing</a><a href="/q84-digital/data-migration/">Data migration</a><a href="/q84-digital/integrations/">Integrations &amp; customization</a><a href="/q84-digital/support/">Support</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/q84-digital/industries/distribution/">Wholesale distribution</a><a href="/q84-digital/industries/manufacturing/">Manufacturing</a></div></details><a href="/q84-digital/#consultant">About</a>
+      <a class="btn btn-primary" href="/q84-digital/contact/">Book a consultation</a>
     </nav>
   </div>
 </header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="hero-center">
+    <span class="eyebrow">Microsoft Dynamics 365 Business Central consulting</span>
+    <h1>Business Central implementation for businesses that move products</h1>
+    <p class="lede">We help growing distributors, manufacturers and inventory-driven businesses implement Business Central, connect their operations and replace disconnected systems.</p>
+    <div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a free consultation</a><a class="btn btn-ghost" href="/q84-digital/business-central/">Explore Business Central</a></div>
+  </div>
+  <div class="trust"><span><strong>10+ years</strong> of Microsoft Dynamics experience</span><span><strong>Senior-led:</strong> you work with the consultant who delivers</span><span><strong>Supply chain</strong> and warehouse background</span></div>
+  <div class="grid g3 hero-cards">
+    <a class="card" href="/q84-digital/implementation/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 15h3"/></svg></span><h3>ERP implementation</h3><p>Finance, inventory and sales set up around how your business runs.</p><span class="more">How it works →</span></a>
+    <a class="card" href="/q84-digital/industries/distribution/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><h3>Inventory &amp; warehouse</h3><p>Accurate stock, purchasing, picking and shipping across locations.</p><span class="more">For distributors →</span></a>
+    <a class="card" href="/q84-digital/integrations/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></span><h3>Integrations</h3><p>Shopify, shipping, CRM and Power BI connected to Business Central.</p><span class="more">See integrations →</span></a>
+  </div>
+</div></section>
 
-<main>
+<section class="band" id="consultant"><div class="wrap profile">
+  <div class="profile-card">
+    <div class="avatar" aria-hidden="true">OK</div>
+    <div><h3 style="font-size:1.25rem">Oleh Karnaukhov</h3><p class="role">Founder and lead consultant</p></div>
+    <div class="stat"><strong>10+ years</strong><span>Microsoft Dynamics consulting</span></div>
+    <div class="stat"><strong>Senior-led</strong><span>No hand-off to junior staff</span></div>
+    <a class="btn btn-primary" href="/q84-digital/contact/" style="width:100%">Talk to Oleh</a>
+  </div>
+  <div class="stack" style="gap:20px">
+    <span class="eyebrow">Meet the consultant behind Q84 Digital</span>
+    <h2>ERP expertise that goes beyond setup screens</h2>
+    <p class="lede">Oleh Karnaukhov is a senior Microsoft Dynamics consultant with more than 10 years of experience delivering ERP and supply chain projects, working with Microsoft partners and consulting firms on implementations for their clients.</p>
+    <p class="lede">Q84 Digital brings that operations experience to Business Central projects for growing businesses, with one difference: you work directly with him from first call to go-live.</p>
+    <div><h3 style="margin-bottom:12px">Experience across</h3>
+    <ul class="tags"><li>Dynamics 365 Supply Chain Management</li><li>Warehouse management</li><li>Transportation management</li><li>Inventory and distribution processes</li><li>Dynamics 365 Customer Engagement (CRM)</li><li>Dynamics 365 Field Service</li><li>ERP integrations and automation</li><li>Business process design</li></ul></div>
+  </div>
+</div></section>
 
-<!-- ============ HOME ============ -->
-<div class="view" data-view="home">
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-center">
-        <span class="eyebrow">Microsoft Dynamics 365 Business Central consulting</span>
-        <h1>Run your whole business from one connected system</h1>
-        <p class="lede">Q84 Digital sets up Business Central for growing companies: finance, inventory, sales and warehouse, connected to the tools you already use.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Book a free consultation</a>
-          <a class="btn btn-ghost" href="#capabilities">Explore Business Central</a>
+<section id="tour" style="border-top:1px solid var(--line)">
+<div class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">See it in action</span>
+    <h2>What your team will work in every day</h2>
+    <p class="lede">Business Central puts finance, stock, orders and the warehouse on the same screens. Here's what each area looks like.</p>
+  </div>
+  <div class="tour-tabs" role="tablist" aria-label="Business Central areas">
+    <button class="tour-tab" role="tab" id="tab-dash" aria-controls="panel-dash" aria-selected="true">Dashboard</button>
+    <button class="tour-tab" role="tab" id="tab-inv" aria-controls="panel-inv" aria-selected="false" tabindex="-1">Inventory</button>
+    <button class="tour-tab" role="tab" id="tab-sales" aria-controls="panel-sales" aria-selected="false" tabindex="-1">Sales orders</button>
+    <button class="tour-tab" role="tab" id="tab-wh" aria-controls="panel-wh" aria-selected="false" tabindex="-1">Warehouse</button>
+  </div>
+
+  <div class="tour-panel" role="tabpanel" id="panel-dash" aria-labelledby="tab-dash">
+    <figure class="shot" style="margin:0" data-shot="/q84-digital/images/dashboard.png" data-alt="Business Central role center dashboard showing sales, receivables and inventory figures">
+      <div class="shot-bar"><b>Role Center · Business Manager</b><span>Example data</span></div>
+      <div class="shot-body">
+        <div class="kpis">
+          <div class="kpi"><span>Sales this month</span><strong>$184,250</strong></div>
+          <div class="kpi"><span>Overdue receivables</span><strong>$12,480</strong></div>
+          <div class="kpi"><span>Inventory value</span><strong>$612,900</strong></div>
+          <div class="kpi warn"><span>Items below reorder</span><strong>7</strong></div>
         </div>
-        <ul class="props">
-          <li>Implementation fitted to your processes</li>
-          <li>Integrations and data migration</li>
-          <li>Ongoing technical support</li>
-        </ul>
-      </div>
-      <div class="grid g3 hero-cards">
-        <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span><h3>Financial management</h3><p>Ledger, payables, receivables and reporting in one place.</p></div>
-        <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg></span><h3>Inventory &amp; warehouse</h3><p>Accurate stock, picking and shipping across locations.</p></div>
-        <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></span><h3>Integrations</h3><p>Shopify, shipping, CRM and Power BI connected.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="tour" style="border-top:1px solid var(--line)">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">See it in action</span>
-        <h2>What your team will work in every day</h2>
-        <p class="lede">Business Central puts finance, stock, orders and the warehouse on the same screens. Here's what each area looks like.</p>
-      </div>
-
-      <div class="tour-tabs" role="tablist" aria-label="Business Central areas">
-        <button class="tour-tab" role="tab" id="tab-dash" aria-controls="panel-dash" aria-selected="true">Dashboard</button>
-        <button class="tour-tab" role="tab" id="tab-inv" aria-controls="panel-inv" aria-selected="false" tabindex="-1">Inventory</button>
-        <button class="tour-tab" role="tab" id="tab-sales" aria-controls="panel-sales" aria-selected="false" tabindex="-1">Sales orders</button>
-        <button class="tour-tab" role="tab" id="tab-wh" aria-controls="panel-wh" aria-selected="false" tabindex="-1">Warehouse</button>
-      </div>
-
-      <div class="tour-panel" role="tabpanel" id="panel-dash" aria-labelledby="tab-dash">
-        <figure class="shot" style="margin:0" data-shot="images/dashboard.png" data-alt="Business Central role center dashboard showing sales, receivables and inventory figures">
-          <div class="shot-bar"><b>Role Center · Business Manager</b><span>Example data</span></div>
-          <div class="shot-body">
-            <div class="kpis">
-              <div class="kpi"><span>Sales this month</span><strong>$184,250</strong></div>
-              <div class="kpi"><span>Overdue receivables</span><strong>$12,480</strong></div>
-              <div class="kpi"><span>Inventory value</span><strong>$612,900</strong></div>
-              <div class="kpi warn"><span>Items below reorder</span><strong>7</strong></div>
-            </div>
-            <div>
-              <div style="font-weight:600;margin-bottom:6px">Sales by month</div>
-              <div class="bars" aria-hidden="true"><div style="height:48%"></div><div style="height:56%"></div><div style="height:52%"></div><div style="height:64%"></div><div style="height:71%"></div><div style="height:83%"></div></div>
-              <div class="bar-labels" aria-hidden="true"><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span></div>
-            </div>
-          </div>
-        </figure>
-        <div class="tour-copy">
-          <h3>Financial and operational visibility</h3>
-          <p>Each person opens Business Central to a home page built for their role, with the numbers they need first.</p>
-          <ul class="checks"><li><div>Cash, receivables and sales at a glance</div></li><li><div>Drill into any figure to see the entries behind it</div></li><li><div>Power BI reports on live data</div></li></ul>
+        <div>
+          <div style="font-weight:600;margin-bottom:6px">Sales by month</div>
+          <div class="bars" aria-hidden="true"><div style="height:48%"></div><div style="height:56%"></div><div style="height:52%"></div><div style="height:64%"></div><div style="height:71%"></div><div style="height:83%"></div></div>
+          <div class="bar-labels" aria-hidden="true"><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span></div>
         </div>
       </div>
+    </figure>
+    <div class="tour-copy"><h3>Financial and operational visibility</h3><p>Each person opens Business Central to a home page built for their role, with the numbers they need first.</p>
+    <ul class="checks"><li><div>Cash, receivables and sales at a glance</div></li><li><div>Drill into any figure to see the entries behind it</div></li><li><div>Power BI reports on live data</div></li></ul></div>
+  </div>
 
-      <div class="tour-panel" role="tabpanel" id="panel-inv" aria-labelledby="tab-inv" hidden>
-        <figure class="shot" style="margin:0" data-shot="images/inventory.png" data-alt="Business Central item list showing stock by location and reorder points">
-          <div class="shot-bar"><b>Items</b><span>Example data</span></div>
-          <div class="shot-body">
-            <table class="mini">
-              <thead><tr><th>No.</th><th>Description</th><th>Location</th><th class="n">On hand</th><th class="n">Reorder point</th><th class="n">Unit cost</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>1000</td><td>Steel shelf bracket</td><td>MAIN</td><td class="n">1,240</td><td class="n">400</td><td class="n">3.85</td><td><span class="pill">OK</span></td></tr>
-                <tr><td>1010</td><td>Pallet wrap, 18 in</td><td>MAIN</td><td class="n">86</td><td class="n">120</td><td class="n">24.10</td><td><span class="pill low">Reorder</span></td></tr>
-                <tr><td>1020</td><td>Hex bolt M10 (box)</td><td>EAST</td><td class="n">530</td><td class="n">200</td><td class="n">11.40</td><td><span class="pill">OK</span></td></tr>
-                <tr><td>1030</td><td>Shipping carton, large</td><td>MAIN</td><td class="n">2,015</td><td class="n">800</td><td class="n">1.12</td><td><span class="pill">OK</span></td></tr>
-                <tr><td>1040</td><td>Label roll, 4x6</td><td>EAST</td><td class="n">34</td><td class="n">60</td><td class="n">18.75</td><td><span class="pill low">Reorder</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </figure>
-        <div class="tour-copy">
-          <h3>Stock, locations and item tracking</h3>
-          <p>See what you have, where it is and what it cost, across every warehouse and location.</p>
-          <ul class="checks"><li><div>Stock by location and bin</div></li><li><div>Reorder points and planning suggestions</div></li><li><div>Lot and serial number tracking</div></li></ul>
-        </div>
-      </div>
+  <div class="tour-panel" role="tabpanel" id="panel-inv" aria-labelledby="tab-inv" hidden>
+    <figure class="shot" style="margin:0" data-shot="/q84-digital/images/inventory.png" data-alt="Business Central item list showing stock by location and reorder points">
+      <div class="shot-bar"><b>Items</b><span>Example data</span></div>
+      <div class="shot-body"><table class="mini">
+        <thead><tr><th>No.</th><th>Description</th><th>Location</th><th class="n">On hand</th><th class="n">Reorder point</th><th class="n">Unit cost</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>1000</td><td>Steel shelf bracket</td><td>MAIN</td><td class="n">1,240</td><td class="n">400</td><td class="n">3.85</td><td><span class="pill">OK</span></td></tr>
+          <tr><td>1010</td><td>Pallet wrap, 18 in</td><td>MAIN</td><td class="n">86</td><td class="n">120</td><td class="n">24.10</td><td><span class="pill low">Reorder</span></td></tr>
+          <tr><td>1020</td><td>Hex bolt M10 (box)</td><td>EAST</td><td class="n">530</td><td class="n">200</td><td class="n">11.40</td><td><span class="pill">OK</span></td></tr>
+          <tr><td>1030</td><td>Shipping carton, large</td><td>MAIN</td><td class="n">2,015</td><td class="n">800</td><td class="n">1.12</td><td><span class="pill">OK</span></td></tr>
+          <tr><td>1040</td><td>Label roll, 4x6</td><td>EAST</td><td class="n">34</td><td class="n">60</td><td class="n">18.75</td><td><span class="pill low">Reorder</span></td></tr>
+        </tbody></table></div>
+    </figure>
+    <div class="tour-copy"><h3>Stock, locations and item tracking</h3><p>See what you have, where it is and what it cost, across every warehouse and location.</p>
+    <ul class="checks"><li><div>Stock by location and bin</div></li><li><div>Reorder points and planning suggestions</div></li><li><div>Lot and serial number tracking</div></li></ul></div>
+  </div>
 
-      <div class="tour-panel" role="tabpanel" id="panel-sales" aria-labelledby="tab-sales" hidden>
-        <figure class="shot" style="margin:0" data-shot="images/sales-order.png" data-alt="Business Central sales order with customer details, order lines and totals">
-          <div class="shot-bar"><b>Sales Order · SO-101009</b><span>Example data</span></div>
-          <div class="shot-body">
-            <div class="fields">
-              <div><span>Customer</span><b>Northshore Supply</b></div>
-              <div><span>Order date</span><b>Oct 28, 2026</b></div>
-              <div><span>Ship from</span><b>MAIN</b></div>
-              <div><span>Status</span><b><span class="pill">Released</span></b></div>
-            </div>
-            <table class="mini">
-              <thead><tr><th>Item</th><th>Description</th><th class="n">Qty</th><th class="n">Unit price</th><th class="n">Line amount</th></tr></thead>
-              <tbody>
-                <tr><td>1000</td><td>Steel shelf bracket</td><td class="n">400</td><td class="n">7.50</td><td class="n">3,000.00</td></tr>
-                <tr><td>1020</td><td>Hex bolt M10 (box)</td><td class="n">120</td><td class="n">22.00</td><td class="n">2,640.00</td></tr>
-                <tr><td>1030</td><td>Shipping carton, large</td><td class="n">1,000</td><td class="n">2.40</td><td class="n">2,400.00</td></tr>
-              </tbody>
-            </table>
-            <div class="totals"><span>Subtotal <strong>8,040.00</strong></span><span>Tax <strong>965.00</strong></span><span>Total <strong>9,005.00</strong></span></div>
-          </div>
-        </figure>
-        <div class="tour-copy">
-          <h3>Customer orders and invoicing</h3>
-          <p>Go from quote to order to shipment to invoice without retyping anything.</p>
-          <ul class="checks"><li><div>Prices, discounts and credit limits applied automatically</div></li><li><div>Stock checked as you enter lines</div></li><li><div>Post the invoice and the ledger updates</div></li></ul>
-        </div>
+  <div class="tour-panel" role="tabpanel" id="panel-sales" aria-labelledby="tab-sales" hidden>
+    <figure class="shot" style="margin:0" data-shot="/q84-digital/images/sales-order.png" data-alt="Business Central sales order with customer details, order lines and totals">
+      <div class="shot-bar"><b>Sales Order · SO-101009</b><span>Example data</span></div>
+      <div class="shot-body">
+        <div class="fields"><div><span>Customer</span><b>Northshore Supply</b></div><div><span>Order date</span><b>Oct 28, 2026</b></div><div><span>Ship from</span><b>MAIN</b></div><div><span>Status</span><b><span class="pill">Released</span></b></div></div>
+        <table class="mini"><thead><tr><th>Item</th><th>Description</th><th class="n">Qty</th><th class="n">Unit price</th><th class="n">Line amount</th></tr></thead>
+        <tbody><tr><td>1000</td><td>Steel shelf bracket</td><td class="n">400</td><td class="n">7.50</td><td class="n">3,000.00</td></tr>
+        <tr><td>1020</td><td>Hex bolt M10 (box)</td><td class="n">120</td><td class="n">22.00</td><td class="n">2,640.00</td></tr>
+        <tr><td>1030</td><td>Shipping carton, large</td><td class="n">1,000</td><td class="n">2.40</td><td class="n">2,400.00</td></tr></tbody></table>
+        <div class="totals"><span>Subtotal <strong>8,040.00</strong></span><span>Tax <strong>965.00</strong></span><span>Total <strong>9,005.00</strong></span></div>
       </div>
+    </figure>
+    <div class="tour-copy"><h3>Customer orders and invoicing</h3><p>Go from quote to order to shipment to invoice without retyping anything.</p>
+    <ul class="checks"><li><div>Prices, discounts and credit limits applied automatically</div></li><li><div>Stock checked as you enter lines</div></li><li><div>Post the invoice and the ledger updates</div></li></ul></div>
+  </div>
 
-      <div class="tour-panel" role="tabpanel" id="panel-wh" aria-labelledby="tab-wh" hidden>
-        <figure class="shot" style="margin:0" data-shot="images/warehouse-pick.png" data-alt="Business Central warehouse pick with take and place lines by bin">
-          <div class="shot-bar"><b>Warehouse Pick · PI-000142</b><span>Example data</span></div>
-          <div class="shot-body">
-            <div class="fields">
-              <div><span>Source</span><b>SO-101009</b></div>
-              <div><span>Location</span><b>MAIN</b></div>
-              <div><span>Assigned to</span><b>Picker 2</b></div>
-              <div><span>Lines</span><b>6</b></div>
-            </div>
-            <table class="mini">
-              <thead><tr><th>Action</th><th>Item</th><th>Bin</th><th class="n">Qty to handle</th><th class="n">Qty handled</th></tr></thead>
-              <tbody>
-                <tr><td>Take</td><td>1000 Steel shelf bracket</td><td>A-03-02</td><td class="n">400</td><td class="n">400</td></tr>
-                <tr><td>Place</td><td>1000 Steel shelf bracket</td><td>SHIP-01</td><td class="n">400</td><td class="n">400</td></tr>
-                <tr><td>Take</td><td>1020 Hex bolt M10 (box)</td><td>B-11-04</td><td class="n">120</td><td class="n">0</td></tr>
-                <tr><td>Place</td><td>1020 Hex bolt M10 (box)</td><td>SHIP-01</td><td class="n">120</td><td class="n">0</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </figure>
-        <div class="tour-copy">
-          <h3>Picking, shipping and inventory movements</h3>
-          <p>Warehouse staff get clear take-and-place instructions by bin, on a desktop or a handheld device.</p>
-          <ul class="checks"><li><div>Receive, put away, pick and ship</div></li><li><div>Bin-level stock that stays accurate</div></li><li><div>Shipments post straight to the sales order</div></li></ul>
-        </div>
+  <div class="tour-panel" role="tabpanel" id="panel-wh" aria-labelledby="tab-wh" hidden>
+    <figure class="shot" style="margin:0" data-shot="/q84-digital/images/warehouse-pick.png" data-alt="Business Central warehouse pick with take and place lines by bin">
+      <div class="shot-bar"><b>Warehouse Pick · PI-000142</b><span>Example data</span></div>
+      <div class="shot-body">
+        <div class="fields"><div><span>Source</span><b>SO-101009</b></div><div><span>Location</span><b>MAIN</b></div><div><span>Assigned to</span><b>Picker 2</b></div><div><span>Lines</span><b>6</b></div></div>
+        <table class="mini"><thead><tr><th>Action</th><th>Item</th><th>Bin</th><th class="n">Qty to handle</th><th class="n">Qty handled</th></tr></thead>
+        <tbody><tr><td>Take</td><td>1000 Steel shelf bracket</td><td>A-03-02</td><td class="n">400</td><td class="n">400</td></tr>
+        <tr><td>Place</td><td>1000 Steel shelf bracket</td><td>SHIP-01</td><td class="n">400</td><td class="n">400</td></tr>
+        <tr><td>Take</td><td>1020 Hex bolt M10 (box)</td><td>B-11-04</td><td class="n">120</td><td class="n">0</td></tr>
+        <tr><td>Place</td><td>1020 Hex bolt M10 (box)</td><td>SHIP-01</td><td class="n">120</td><td class="n">0</td></tr></tbody></table>
       </div>
+    </figure>
+    <div class="tour-copy"><h3>Picking, shipping and inventory movements</h3><p>Warehouse staff get clear take-and-place instructions by bin, on a desktop or a handheld device.</p>
+    <ul class="checks"><li><div>Receive, put away, pick and ship</div></li><li><div>Bin-level stock that stays accurate</div></li><li><div>Shipments post straight to the sales order</div></li></ul></div>
+  </div>
 
-      <div class="demo-video" id="demoVideo" hidden>
-        <h3>Watch a 90-second walkthrough</h3>
-        <video controls preload="none" poster="images/demo-poster.jpg"><source src="images/demo.mp4" type="video/mp4">Your browser doesn't play this video.</video>
-      </div>
-      <p class="shot-note" id="shotNote" style="margin-top:20px">Screens shown with example data.</p>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Who we help</span>
-        <h2>Built for businesses that have outgrown spreadsheets and entry-level accounting</h2>
-      </div>
-      <div class="grid g3">
-        <div class="card"><span class="tag">Wholesale distribution</span><h3>Stock you can trust</h3><p>Inventory counts that drift, purchasing done by hand, and systems that don't talk to each other.</p></div>
-        <div class="card"><span class="tag">Manufacturing</span><h3>See production clearly</h3><p>Limited visibility into production, hard-to-trace costing, and planning that lives in someone's head.</p></div>
-        <div class="card"><span class="tag">E-commerce &amp; retail</span><h3>One view of every order</h3><p>Online orders, inventory and accounting kept in separate places and reconciled by hand.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="capabilities">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">What is Business Central?</span>
-        <h2>One ERP system. Your entire business.</h2>
-        <p class="lede">Business Central is Microsoft's business management system for small and midsize companies. It replaces separate tools for accounting, stock and orders with one connected system.</p>
-      </div>
-      <div class="grid g3">
-        <div class="plain"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 15h3"/></svg></span><h3>Financial management</h3><p>General ledger, payables, receivables, bank reconciliation and financial reporting.</p></div>
-        <div class="plain"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></span><h3>Inventory management</h3><p>Item tracking, replenishment, costing methods and stock across locations.</p></div>
-        <div class="plain"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span><h3>Sales</h3><p>Quotes, sales orders, invoicing, pricing and customer management.</p></div>
-        <div class="plain"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h12L22 7H6"/></svg></span><h3>Purchasing</h3><p>Purchase orders, vendor management, receiving and approvals.</p></div>
-        <div class="plain"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><h3>Warehouse operations</h3><p>Receipts, put-away, picking, shipping and bin management.</p></div>
-        <div class="plain"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12A9 9 0 1112 3v9z"/><path d="M15 3.5A9 9 0 0120.5 9H15z"/></svg></span><h3>Reporting &amp; analytics</h3><p>Role-based dashboards, operational reports and Power BI.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Services</span>
-        <h2>From first conversation to everyday support</h2>
-      </div>
-      <div class="svc">
-        <a href="#implementation"><h3>Implementation</h3><p>Set up Business Central to match your business processes, from chart of accounts to go-live.</p><span class="more">Explore implementation →</span></a>
-        <a href="#pricing"><h3>Licensing</h3><p>Understand which licences you need and what Business Central will cost in total.</p><span class="more">Get licensing advice →</span></a>
-        <a href="#implementation"><h3>Data migration</h3><p>Plan, clean and verify the move from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Plan your migration →</span></a>
-        <a href="#integrations"><h3>Customization</h3><p>Extend standard features with AL extensions when your business needs something specific.</p><span class="more">Discuss your requirements →</span></a>
-        <a href="#integrations"><h3>Integrations</h3><p>Connect Business Central to e-commerce, shipping, CRM and the rest of your tools.</p><span class="more">Explore integrations →</span></a>
-        <a href="#support"><h3>Support</h3><p>Fix issues, improve setup and help your team get more out of the system.</p><span class="more">Get support →</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap split">
-      <div class="stack">
-        <span class="eyebrow">Why Q84 Digital</span>
-        <h2>Practical ERP expertise, built around your business</h2>
-        <p class="lede">You work directly with an experienced Microsoft Dynamics consultant, not a rotating bench of juniors. Our background in Dynamics 365 Supply Chain Management means we understand complex inventory, distribution and warehouse work.</p>
-      </div>
-      <ul class="checks">
-        <li><div><strong>Direct access to senior consultants.</strong> The person who scopes your project is the person who delivers it.</div></li>
-        <li><div><strong>Clear scope and deliverables.</strong> You know what's included, what isn't, and what each phase produces.</div></li>
-        <li><div><strong>Strong technical depth.</strong> Integrations, automation and data work handled in-house.</div></li>
-        <li><div><strong>Standard first.</strong> We configure before we customize, so your system stays easy to upgrade and maintain.</div></li>
-        <li><div><strong>Flexible engagement.</strong> Fixed-scope projects, hourly consulting or monthly support.</div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">How an implementation works</span>
-        <h2>Five phases, no surprises</h2>
-      </div>
-      <ol class="steps">
-        <li><h3>Discovery</h3><p>Review your current systems, processes and goals.</p></li>
-        <li><h3>Solution design</h3><p>Agree scope, configuration, integrations and plan.</p></li>
-        <li><h3>Build</h3><p>Configure the system, migrate data and develop approved extensions.</p></li>
-        <li><h3>Testing &amp; training</h3><p>Run your real processes end to end and train your team.</p></li>
-        <li><h3>Go-live &amp; support</h3><p>Switch over and get hands-on help in the weeks after.</p></li>
-      </ol>
-      <p style="margin-top:28px"><a class="more" href="#implementation">See the implementation approach →</a></p>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Pricing</span>
-        <h2>What Business Central costs</h2>
-        <p class="lede">Total cost has three parts. We'll help you estimate each one before you commit.</p>
-      </div>
-      <div class="grid g3">
-        <div class="card"><span class="tag">Software licensing</span><h3>Monthly per-user subscription</h3><p>Set by Microsoft and based on the licence type and the number of users you need.</p></div>
-        <div class="card"><span class="tag">Implementation</span><h3>One-time project</h3><p>Depends on scope: modules, data migration, integrations and any custom development.</p></div>
-        <div class="card"><span class="tag">Ongoing support</span><h3>Hourly or monthly</h3><p>Pay as you go, or choose a monthly support plan with a set number of hours.</p></div>
-      </div>
-      <p style="margin-top:28px"><a class="btn btn-primary" href="#contact">Get a Business Central cost estimate</a></p>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap split">
-      <div class="stack">
-        <span class="eyebrow">FAQ</span>
-        <h2>Common questions</h2>
-        <p class="lede">Don't see your question? <a href="#contact">Ask us directly.</a></p>
-      </div>
-      <div class="faq">
-        <details><summary>What is Microsoft Dynamics 365 Business Central?</summary><p>It's Microsoft's cloud ERP for small and midsize businesses. It brings accounting, inventory, sales, purchasing, warehousing and reporting into one system that works with Microsoft 365.</p></details>
-        <details><summary>Is Business Central suitable for small businesses?</summary><p>Yes, especially once you have inventory, multiple users or more complex reporting than entry-level accounting software handles well.</p></details>
-        <details><summary>How much does Business Central cost?</summary><p>Licensing is a monthly per-user subscription from Microsoft. Implementation is a one-time project cost based on scope. <a href="#pricing">See the pricing breakdown.</a></p></details>
-        <details><summary>How long does implementation take?</summary><p>A focused finance and inventory rollout often takes a few months. Projects with manufacturing, warehousing or several integrations take longer. We give you a timeline after discovery.</p></details>
-        <details><summary>Can Business Central replace QuickBooks?</summary><p>Yes. Many companies move from QuickBooks when they need stronger inventory, multi-entity accounting or better reporting. We handle the data migration.</p></details>
-        <details><summary>Can I migrate data from my existing ERP?</summary><p>Yes. We map, clean, load and reconcile data from QuickBooks, Sage, Dynamics NAV, spreadsheets and other systems.</p></details>
-        <details><summary>Does Business Central support warehouse management?</summary><p>Yes, including receipts, put-away, picking, shipping and bin locations. The right setup depends on how complex your warehouse is.</p></details>
-        <details><summary>Can Business Central integrate with Shopify?</summary><p>Yes. Business Central has a Shopify connector, and we can build other integrations through its APIs. <a href="#integrations">See integrations.</a></p></details>
-        <details><summary>Do you provide ongoing support?</summary><p>Yes, hourly or through a monthly plan. <a href="#support">See support options.</a></p></details>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="cta">
-        <div><h2>Ready to simplify your operations?</h2><p>Tell us about your business, your current systems and your goals. We'll help you decide whether Business Central is the right fit.</p></div>
-        <a class="btn btn-primary" href="#contact">Book your free consultation</a>
-      </div>
-    </div>
-  </section>
+  <div class="demo-video" id="demoVideo" data-src="/q84-digital/images/demo.mp4" hidden>
+    <h3>Watch a 90-second walkthrough</h3>
+    <video controls preload="none" poster="/q84-digital/images/demo-poster.jpg"><source src="/q84-digital/images/demo.mp4" type="video/mp4">Your browser doesn't play this video.</video>
+  </div>
+  <p class="shot-note" id="shotNote" style="margin-top:20px">Screens shown with example data.</p>
 </div>
+</section>
 
-<!-- ============ IMPLEMENTATION ============ -->
-<div class="view" data-view="implementation" hidden>
-  <div class="page-head"><div class="wrap stack">
-    <span class="crumb"><a href="#home">Home</a> / Services / Implementation</span>
-    <h1>Business Central implementation</h1>
-    <p class="lede">A structured rollout that gets your team working in Business Central with clean data, tested processes and support after go-live.</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="#contact">Discuss your project</a></div>
-  </div></div>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Who we help</span><h2>Built for businesses where inventory is the business</h2></div>
+  <div class="grid g3">
+    <a class="card" href="/q84-digital/industries/distribution/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></span><span class="tag">Wholesale distribution</span><h3>Stock you can trust</h3><p>Counts that drift, purchasing done by hand and systems that don't talk to each other.</p><span class="more">Distribution →</span></a>
+    <a class="card" href="/q84-digital/industries/manufacturing/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V10l6 4V10l6 4V6h6v15z"/><path d="M7 17h2M12 17h2M17 17h2"/></svg></span><span class="tag">Manufacturing</span><h3>See production clearly</h3><p>Little visibility into production, hard-to-trace costs and planning that lives in someone's head.</p><span class="more">Manufacturing →</span></a>
+    <a class="card" href="/q84-digital/integrations/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v11h16V9"/><path d="M4 9a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0 2.7 2.7 0 005.3 0"/></svg></span><span class="tag">E-commerce &amp; retail</span><h3>One view of every order</h3><p>Online orders, stock and accounting kept in separate places and reconciled by hand.</p><span class="more">Shopify and integrations →</span></a>
+  </div>
+</div></section>
 
-  <section>
-    <div class="wrap split">
-      <div class="stack"><span class="eyebrow">Common problems</span><h2>Why ERP projects go sideways</h2></div>
-      <ul class="checks">
-        <li><div><strong>Vague scope.</strong> Nobody agrees on what "done" means, so the budget keeps moving.</div></li>
-        <li><div><strong>Dirty data.</strong> Old records get loaded as-is and cause problems from day one.</div></li>
-        <li><div><strong>Too much customization.</strong> Custom code replaces standard features and makes upgrades painful.</div></li>
-        <li><div><strong>Rushed testing.</strong> Real processes aren't tested end to end before go-live.</div></li>
-        <li><div><strong>Untrained users.</strong> People go back to spreadsheets because nobody showed them how.</div></li>
-      </ul>
-    </div>
-  </section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What we deliver</span><h2>From first conversation to everyday support</h2></div>
+  <div class="svc">
+    <a href="/q84-digital/implementation/"><h3>Implementation</h3><p>Business Central set up around your processes, from chart of accounts to go-live.</p><span class="more">Implementation →</span></a>
+    <a href="/q84-digital/data-migration/"><h3>Data migration</h3><p>Clean, verified data moved from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Data migration →</span></a>
+    <a href="/q84-digital/integrations/"><h3>Integrations &amp; automation</h3><p>Business Central connected to e-commerce, shipping, CRM and Power BI.</p><span class="more">Integrations →</span></a>
+    <a href="/q84-digital/licensing/"><h3>Licensing &amp; advice</h3><p>The right licence mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing →</span></a>
+    <a href="/q84-digital/support/"><h3>Ongoing support</h3><p>Fixes, improvements and training once you're live, hourly or monthly.</p><span class="more">Support →</span></a>
+  </div>
+</div></section>
 
-  <section class="band">
-    <div class="wrap">
-      <div class="section-head"><span class="eyebrow">Our method</span><h2>Phases and what each one delivers</h2></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Phase</th><th>What happens</th><th>You receive</th></tr></thead>
-          <tbody>
-            <tr><td>01 Discovery</td><td>Workshops on finance, sales, purchasing, inventory and reporting.</td><td>Current-state summary and requirements list</td></tr>
-            <tr><td>02 Solution design</td><td>Map each requirement to standard features, configuration or extension.</td><td>Solution design, project plan and fixed scope</td></tr>
-            <tr><td>03 Build</td><td>Configure setups, posting groups and dimensions; build approved extensions and integrations.</td><td>Configured test environment</td></tr>
-            <tr><td>04 Data migration</td><td>Map, clean and load master data and opening balances; reconcile against the old system.</td><td>Signed-off reconciliation</td></tr>
-            <tr><td>05 Testing &amp; training</td><td>Your team runs real scenarios end to end. Role-based training.</td><td>Test sign-off and training materials</td></tr>
-            <tr><td>06 Go-live &amp; support</td><td>Cutover plan, first period close and hands-on help.</td><td>Live system and support handover</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="section-head"><span class="eyebrow">Data migration</span><h2>Moving from your current system</h2><p class="lede">We move customers, vendors, items, open documents and balances, then reconcile so your numbers match on day one.</p></div>
-      <div class="grid g4">
-        <div class="card"><span class="tag">From</span><h3>QuickBooks</h3><p>Customers, vendors, items, open AR/AP and trial balance.</p></div>
-        <div class="card"><span class="tag">From</span><h3>Sage</h3><p>Master data, open transactions and historical balances.</p></div>
-        <div class="card"><span class="tag">From</span><h3>Dynamics NAV</h3><p>Upgrade or re-implement, depending on version and custom code.</p></div>
-        <div class="card"><span class="tag">From</span><h3>Spreadsheets</h3><p>Structured templates, cleansing and validation before load.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap split">
-      <div class="stack"><span class="eyebrow">Timeline &amp; cost</span><h2>What drives the size of a project</h2><p class="lede">We give you a fixed scope and estimate after discovery, so the number is based on your business and not a guess.</p></div>
-      <ul class="checks">
-        <li><div><strong>Modules in scope.</strong> Finance only, or also inventory, warehousing and manufacturing.</div></li>
-        <li><div><strong>Number of companies and locations.</strong> Multi-entity and multi-warehouse setups take more work.</div></li>
-        <li><div><strong>Data volume and quality.</strong> Clean data loads faster than messy data.</div></li>
-        <li><div><strong>Integrations.</strong> Each connected system adds design and testing time.</div></li>
-        <li><div><strong>Custom development.</strong> Extensions are scoped and estimated separately.</div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section><div class="wrap"><div class="cta"><div><h2>Planning a Business Central project?</h2><p>Start with a free consultation. We'll talk through your systems and give you a realistic view of scope.</p></div><a class="btn btn-primary" href="#contact">Book a consultation</a></div></div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Implementation examples</span><h2>What a project looks like</h2><p class="lede">Three typical starting points and how we'd approach each one.</p></div>
+  <div class="grid g3">
+  <article class="example"><span class="label">Illustrative scenario</span><h3>Wholesale distributor</h3>
+    <dl><div><dt>Challenge</dt><dd>Inventory kept in spreadsheets, accounting in a separate system and purchase orders written by hand.</dd></div>
+    <div><dt>Approach</dt><dd>Business Central with inventory, purchasing and warehouse receiving, picking and shipping.</dd></div>
+    <div><dt>Intended outcome</dt><dd>One view of stock across locations and purchasing driven by reorder points.</dd></div></dl></article>
+  <article class="example"><span class="label">Illustrative scenario</span><h3>E-commerce business</h3>
+    <dl><div><dt>Challenge</dt><dd>Shopify orders, stock levels and accounting handled in three places and reconciled by hand.</dd></div>
+    <div><dt>Approach</dt><dd>Business Central connected to Shopify for orders, items, stock and payments.</dd></div>
+    <div><dt>Intended outcome</dt><dd>Less manual order entry and stock levels that stay in step with the online store.</dd></div></dl></article>
+  <article class="example"><span class="label">Illustrative scenario</span><h3>Manufacturing company</h3>
+    <dl><div><dt>Challenge</dt><dd>Little visibility into production and product costs worked out in spreadsheets.</dd></div>
+    <div><dt>Approach</dt><dd>Business Central Premium with bills of materials, production orders and cost reporting.</dd></div>
+    <div><dt>Intended outcome</dt><dd>Planned production and product costs that come straight from the system.</dd></div></dl></article>
 </div>
+<p class="shot-note" style="margin-top:16px">These scenarios show how we approach typical projects. They are not client case studies.</p>
+</div></section>
 
-<!-- ============ PRICING ============ -->
-<div class="view" data-view="pricing" hidden>
-  <div class="page-head"><div class="wrap stack">
-    <span class="crumb"><a href="#home">Home</a> / Business Central / Licensing &amp; pricing</span>
-    <h1>Business Central licensing and pricing</h1>
-    <p class="lede">Understand what you'll pay for software, implementation and support, and how to choose the right licences.</p>
-  </div></div>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">How we work</span><h2>A structured path to go-live</h2></div>
+  <ol class="steps">
+    <li><h3>Discovery</h3><p>Review your systems, processes and goals.</p></li>
+    <li><h3>Design</h3><p>Agree scope, setup, integrations and plan.</p></li>
+    <li><h3>Build</h3><p>Configure, migrate data, build approved extensions.</p></li>
+    <li><h3>Testing</h3><p>Run real processes end to end and train your team.</p></li>
+    <li><h3>Go-live</h3><p>Switch over with hands-on help afterwards.</p></li>
+  </ol>
+  <p style="margin-top:28px"><a class="more" href="/q84-digital/implementation/">See each phase and what you receive →</a></p>
+</div></section>
 
-  <section>
-    <div class="wrap">
-      <div class="section-head"><span class="eyebrow">Licence types</span><h2>Choosing the right licences</h2><p class="lede">Microsoft sets Business Central licence prices. Most companies combine a few full users with lower-cost licences for people who only view data or do light tasks.</p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Licence</th><th>Who it's for</th><th>Typical use</th></tr></thead>
-          <tbody>
-            <tr><td>Essentials</td><td>Full users</td><td>Finance, sales, purchasing, inventory, warehousing, projects</td></tr>
-            <tr><td>Premium</td><td>Full users who need more</td><td>Everything in Essentials, plus manufacturing and service management</td></tr>
-            <tr><td>Team Members</td><td>Light users</td><td>View data, approve documents, update basic records</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note" style="margin-top:20px">Current per-user prices are published by Microsoft and change from time to time. We'll confirm today's pricing in your estimate. Microsoft licence fees are separate from our consulting fees.</p>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="section-head"><span class="eyebrow">Total cost</span><h2>The three parts of your Business Central budget</h2></div>
-      <div class="grid g3">
-        <div class="card"><span class="tag">Recurring</span><h3>Software licensing</h3><p>Monthly subscription per user, based on licence type and headcount. Some add-on apps from AppSource carry their own fees.</p></div>
-        <div class="card"><span class="tag">One-time</span><h3>Implementation</h3><p>Scoped after discovery. Driven by modules, data migration, integrations and custom development.</p></div>
-        <div class="card"><span class="tag">Ongoing</span><h3>Support</h3><p>Hourly as needed, or a monthly plan with included hours and faster response.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap split">
-      <div class="stack"><span class="eyebrow">Your estimate</span><h2>What we need to give you a number</h2></div>
-      <ul class="checks">
-        <li><div>How many people will use the system, and what they need to do.</div></li>
-        <li><div>Which areas you want in scope: finance, inventory, warehouse, manufacturing.</div></li>
-        <li><div>The system you use today and roughly how much data you have.</div></li>
-        <li><div>Other tools that need to connect, such as Shopify, shipping or CRM.</div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section><div class="wrap"><div class="cta"><div><h2>Get a Business Central cost estimate</h2><p>Share a few details and we'll come back with licensing and implementation ranges for your business.</p></div><a class="btn btn-primary" href="#contact">Request an estimate</a></div></div></section>
+<section class="band" id="fit"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Choosing the right ERP</span><h2>Not sure Business Central is enough for your operations?</h2>
+  <p class="lede">Business Central has solid warehouse features, but it isn't the same as the advanced warehouse management in Dynamics 365 Supply Chain Management. With hands-on experience in both, we'll help you pick the right fit instead of selling you one product.</p></div>
+  <div class="fit">
+  <div class="card"><span class="tag">Often the right fit</span><h3>Business Central</h3><p>Standard inventory and warehouse processes: receiving, put-away, picking, shipping and bin-level stock for small and midsize operations.</p></div>
+  <div class="card"><span class="tag">When you need more</span><h3>Business Central plus a warehouse extension</h3><p>Barcode scanning, handheld devices or more advanced picking, added through a specialist app from Microsoft AppSource.</p></div>
+  <div class="card"><span class="tag">For complex operations</span><h3>Dynamics 365 Supply Chain Management</h3><p>High-volume or multi-site warehousing, advanced wave picking, transportation management and complex supply chains.</p></div>
 </div>
+</div></section>
 
-<!-- ============ INTEGRATIONS ============ -->
-<div class="view" data-view="integrations" hidden>
-  <div class="page-head"><div class="wrap stack">
-    <span class="crumb"><a href="#home">Home</a> / Services / Integrations &amp; customization</span>
-    <h1>Business Central integrations and customization</h1>
-    <p class="lede">Connect Business Central to the tools you already use, and extend it where standard features don't cover your process.</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="#contact">Discuss your requirements</a></div>
-  </div></div>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Pricing</span><h2>Know what Business Central will cost</h2><p class="lede">Licences are a monthly Microsoft subscription. Implementation is a one-time project. Support is hourly or monthly.</p></div>
+  <div class="grid g3">
+    <div class="card"><span class="tag">From Microsoft</span><h3>Licences</h3><p>Essentials is US$80 and Premium US$110 per full user per month at Microsoft's US list prices.</p></div>
+    <div class="card"><span class="tag">One-time</span><h3>Implementation</h3><p>Quoted after discovery, based on modules, data, integrations and companies.</p></div>
+    <div class="card"><span class="tag">Ongoing</span><h3>Support</h3><p>Pay as you go, or a monthly plan with included hours.</p></div>
+  </div>
+  <p style="margin-top:28px"><a class="btn btn-primary" href="/q84-digital/licensing/#calculator">Estimate your costs</a></p>
+</div></section>
 
-  <section>
-    <div class="wrap">
-      <div class="section-head"><span class="eyebrow">What we build</span><h2>Connected systems, less manual entry</h2></div>
-      <div class="grid g3">
-        <div class="card"><span class="tag">Extensions</span><h3>AL development</h3><p>Custom fields, pages, reports and business logic built as upgrade-safe extensions.</p></div>
-        <div class="card"><span class="tag">APIs</span><h3>System integrations</h3><p>Two-way data sync with other business systems through Business Central's APIs.</p></div>
-        <div class="card"><span class="tag">Commerce</span><h3>E-commerce</h3><p>Orders, inventory and pricing kept in sync with Shopify and other storefronts.</p></div>
-        <div class="card"><span class="tag">Logistics</span><h3>Shipping &amp; fulfillment</h3><p>Carrier rates, labels and tracking connected to warehouse shipments.</p></div>
-        <div class="card"><span class="tag">Automation</span><h3>Power Automate</h3><p>Approvals, notifications and routine tasks handled automatically.</p></div>
-        <div class="card"><span class="tag">Reporting</span><h3>Power BI</h3><p>Financial and operational dashboards built on live Business Central data.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap split">
-      <div class="stack"><span class="eyebrow">Our approach</span><h2>Configure first, customize only when it pays off</h2><p class="lede">Every custom line of code is something to maintain. We check whether standard features or an existing app can do the job before we build.</p></div>
-      <ul class="checks">
-        <li><div><strong>Fit check.</strong> Standard setup, AppSource app or custom extension: we compare the options with you.</div></li>
-        <li><div><strong>Upgrade-safe.</strong> Extensions follow Microsoft's model, so updates don't break your system.</div></li>
-        <li><div><strong>Documented.</strong> You get notes on what was built and how it works.</div></li>
-        <li><div><strong>Tested.</strong> Integrations are tested with real data volumes and error cases.</div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="note">Coming from Dynamics 365 Supply Chain Management or CRM? We work across the Dynamics 365 family, so we can help connect Business Central with Dataverse, Sales and Field Service.</div>
-    </div>
-  </section>
-
-  <section><div class="wrap"><div class="cta"><div><h2>Have a system that needs to connect?</h2><p>Tell us what you're using today. We'll suggest the simplest way to make it work with Business Central.</p></div><a class="btn btn-primary" href="#contact">Book a consultation</a></div></div></section>
-</div>
-
-<!-- ============ SUPPORT ============ -->
-<div class="view" data-view="support" hidden>
-  <div class="page-head"><div class="wrap stack">
-    <span class="crumb"><a href="#home">Home</a> / Services / Support</span>
-    <h1>Business Central support</h1>
-    <p class="lede">Already using Business Central? Get help fixing issues, improving your setup and training your team, from consultants who know the system well.</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="#contact">Get support</a></div>
-  </div></div>
-
-  <section>
-    <div class="wrap">
-      <div class="section-head"><span class="eyebrow">What we help with</span><h2>Support that goes beyond tickets</h2></div>
-      <div class="grid g3">
-        <div class="plain"><h3>Troubleshooting</h3><p>Posting errors, setup problems, failed jobs and unexpected results.</p></div>
-        <div class="plain"><h3>Configuration improvements</h3><p>Cleaner posting groups, dimensions, approvals and number series.</p></div>
-        <div class="plain"><h3>User training</h3><p>Role-based sessions for new staff or new processes.</p></div>
-        <div class="plain"><h3>Process reviews</h3><p>Find manual steps and slow spots, and fix them.</p></div>
-        <div class="plain"><h3>Integration support</h3><p>Monitor and fix connections with other systems.</p></div>
-        <div class="plain"><h3>Enhancements</h3><p>Small extensions, reports and changes as your business grows.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="section-head"><span class="eyebrow">Ways to work with us</span><h2>Choose the support model that fits</h2></div>
-      <div class="grid g2">
-        <div class="card"><span class="tag">Flexible</span><h3>Hourly consulting</h3><p>Pay only for the time you use. Good for occasional questions and one-off fixes.</p><a class="more" href="#contact">Ask about hourly rates →</a></div>
-        <div class="card"><span class="tag">Predictable</span><h3>Monthly support plan</h3><p>A set number of hours each month, priority response and a regular check-in on your system.</p><a class="more" href="#contact">Ask about monthly plans →</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section><div class="wrap"><div class="cta"><div><h2>Need help with Business Central today?</h2><p>Describe the issue and we'll get back to you with next steps.</p></div><a class="btn btn-primary" href="#contact">Contact support</a></div></div></section>
-</div>
-
-<!-- ============ CONTACT ============ -->
-<div class="view" data-view="contact" hidden>
-  <div class="page-head"><div class="wrap stack">
-    <span class="crumb"><a href="#home">Home</a> / Book a consultation</span>
-    <h1>Book a free consultation</h1>
-    <p class="lede">Tell us about your business and what you want to achieve. We'll reply within one business day to set up a call.</p>
-  </div></div>
-
-  <section style="padding-top:32px">
-    <div class="wrap split">
-      <div>
-        <form id="contactForm" novalidate>
-          <div class="row">
-            <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" id="e-name" hidden>Enter your name so we know who to reply to.</span></div>
-            <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
-          </div>
-          <div class="row">
-            <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err" id="e-email" hidden>Enter an email address like name@company.com.</span></div>
-            <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"><span class="hint">Optional</span></div>
-          </div>
-          <div class="row">
-            <div class="field"><label for="f-topic">What do you need help with?</label>
-              <select id="f-topic" name="topic">
-                <option>New Business Central implementation</option>
-                <option>Licensing and pricing</option>
-                <option>Data migration</option>
-                <option>Integrations or customization</option>
-                <option>Support for an existing system</option>
-                <option>Not sure yet</option>
-              </select></div>
-            <div class="field"><label for="f-system">Current system</label>
-              <select id="f-system" name="system">
-                <option>QuickBooks</option><option>Sage</option><option>Dynamics NAV</option><option>Business Central</option><option>Spreadsheets</option><option>Other</option>
-              </select></div>
-          </div>
-          <div class="field"><label for="f-users">Number of users</label>
-            <select id="f-users" name="users"><option>1–5</option><option selected>6–20</option><option>21–50</option><option>50+</option></select></div>
-          <div class="field"><label for="f-msg">Tell us about your goals</label><textarea id="f-msg" name="message" placeholder="e.g. We sell through Shopify and want inventory and accounting in one place"></textarea></div>
-          <div><button class="btn btn-primary" type="submit">Request consultation</button></div>
-        </form>
-        <div class="sent" id="sent" hidden>
-          <h3>Thanks, we have your details</h3>
-          <p>We'll be in touch within one business day to book your consultation.</p>
-        </div>
-      </div>
-      <aside class="contact-side">
-        <div class="card"><span class="tag">What to expect</span><h3>A 30-minute call</h3><p>We'll talk through your current systems, your goals and whether Business Central is a good fit. No obligation.</p></div>
-        <div class="card"><span class="tag">Email</span><p class="mono" style="color:var(--ink);user-select:all">hello@q84digital.com</p></div>
-        <div class="card"><span class="tag">Location</span><p>Vancouver, British Columbia. Serving clients across Canada and the United States.</p></div>
-      </aside>
-    </div>
-  </section>
-</div>
-
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Common questions</h2><p class="lede">Don't see yours? <a href="/q84-digital/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>What is Microsoft Dynamics 365 Business Central?</summary><p>It’s Microsoft’s cloud ERP for small and midsize businesses. It brings accounting, inventory, sales, purchasing, warehousing and reporting into one system that works with Microsoft 365.</p></details><details><summary>Is Business Central right for a distribution or inventory-heavy business?</summary><p>For most small and midsize distributors, yes. It handles multi-location stock, purchasing, bins, picking and shipping. If your warehouse is very high-volume or complex, we’ll tell you whether an extension or Dynamics 365 Supply Chain Management fits better. <a href="/q84-digital/business-central/#fit">Is Business Central enough? →</a></p></details><details><summary>How much does Business Central cost?</summary><p>Licences are a monthly per-user subscription from Microsoft. Implementation is a one-time project quoted after a free discovery call. Our calculator estimates your licence cost in a minute. <a href="/q84-digital/licensing/">Estimate your costs →</a></p></details><details><summary>How long does implementation take?</summary><p>A focused finance and inventory rollout usually takes a few months. Projects with manufacturing, advanced warehousing or several integrations take longer. You get a timeline after discovery. <a href="/q84-digital/implementation/">How implementation works →</a></p></details><details><summary>Can Business Central replace QuickBooks?</summary><p>Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration. <a href="/q84-digital/data-migration/">Data migration →</a></p></details><details><summary>Can Business Central integrate with Shopify?</summary><p>Yes. Business Central has a Shopify connector, and we build other integrations through its APIs. <a href="/q84-digital/integrations/">Integrations →</a></p></details><details><summary>Who will I actually work with?</summary><p>Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it. <a href="/q84-digital/#consultant">Meet the consultant →</a></p></details></div>
+</div></section>
+<section><div class="wrap"><div class="cta"><div><h2>Let’s talk about your ERP project</h2><p>Book a free, no-obligation consultation. You’ll speak directly with the consultant who would deliver your project.</p></div>
+<div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a consultation</a></div></div></div></section>
 </main>
-
 <footer>
   <div class="wrap">
     <div class="foot">
       <div class="stack" style="gap:12px">
-        <a class="logo" href="#home"><span class="logo-mark">Q84</span>Q84 Digital</a>
-        <p>Microsoft Dynamics 365 Business Central implementation, integration and support.</p>
+        <a class="logo" href="/q84-digital/"><span class="logo-mark">Q84</span>Q84 Digital</a>
+        <p>Business Central implementation and ERP consulting for distributors, manufacturers and inventory-driven businesses.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li>Vancouver, British Columbia</li></ul>
       </div>
-      <div><h4>Business Central</h4><ul><li><a href="#capabilities">Overview</a></li><li><a href="#pricing">Licensing &amp; pricing</a></li></ul></div>
-      <div><h4>Services</h4><ul><li><a href="#implementation">Implementation</a></li><li><a href="#implementation">Data migration</a></li><li><a href="#integrations">Integrations</a></li><li><a href="#support">Support</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="#contact">Contact</a></li><li><a href="#contact">Book a consultation</a></li></ul></div>
+      <div><h4>Business Central</h4><ul><li><a href="/q84-digital/business-central/">Overview &amp; features</a></li><li><a href="/q84-digital/licensing/">Licensing &amp; pricing</a></li><li><a href="/q84-digital/business-central/#fit">Is Business Central enough?</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="/q84-digital/implementation/">Implementation</a></li><li><a href="/q84-digital/data-migration/">Data migration</a></li><li><a href="/q84-digital/integrations/">Integrations</a></li><li><a href="/q84-digital/support/">Support</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/q84-digital/#consultant">About</a></li><li><a href="/q84-digital/industries/distribution/">Distribution</a></li><li><a href="/q84-digital/industries/manufacturing/">Manufacturing</a></li><li><a href="/q84-digital/contact/">Contact</a></li><li><a href="/q84-digital/privacy/">Privacy</a></li></ul></div>
     </div>
-    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Q84 Digital is an independent consultancy.</span></div>
   </div>
 </footer>
-
-<script>
-(function(){
-  var views=document.querySelectorAll('.view');
-  var names=['home','implementation','pricing','integrations','support','contact'];
-  var links=document.querySelectorAll('[data-nav]');
-  var menu=document.getElementById('navLinks'), btn=document.getElementById('menuBtn');
-  function route(){
-    var h=(location.hash||'#home').slice(1);
-    var target=names.indexOf(h)>-1?h:'home';
-    var anchor=names.indexOf(h)>-1?null:document.getElementById(h);
-    views.forEach(function(v){v.hidden=v.dataset.view!==target});
-    links.forEach(function(a){ if(a.dataset.nav===target) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
-    menu.classList.remove('open'); btn.setAttribute('aria-expanded','false');
-    if(anchor){ anchor.scrollIntoView(); } else { window.scrollTo(0,0); }
-  }
-  window.addEventListener('hashchange',route); route();
-  btn.addEventListener('click',function(){var o=menu.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
-
-  var form=document.getElementById('contactForm');
-  function check(id,ok){var e=document.getElementById('e-'+id);e.hidden=ok;return ok}
-  ['name','email'].forEach(function(id){
-    var el=document.getElementById('f-'+id);
-    el.addEventListener('blur',function(){ if(el.value) validate(id); });
-    el.addEventListener('input',function(){ document.getElementById('e-'+id).hidden=true; });
-  });
-  function validate(id){
-    var v=document.getElementById('f-'+id).value.trim();
-    return check(id, id==='email'? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : v.length>0);
-  }
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var a=validate('name'), b=validate('email');
-    if(!(a&&b)){ document.getElementById(a?'f-email':'f-name').focus(); return; }
-    form.hidden=true; document.getElementById('sent').hidden=false;
-  });
-
-  // Product tour tabs
-  var tabs=[].slice.call(document.querySelectorAll('.tour-tab'));
-  function selectTab(t,focus){
-    tabs.forEach(function(x){
-      var on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1;
-      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
-    });
-    if(focus) t.focus();
-  }
-  tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){selectTab(t)});
-    t.addEventListener('keydown',function(e){
-      var j=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:e.key==='Home'?0:e.key==='End'?tabs.length-1:null;
-      if(j===null) return; e.preventDefault(); selectTab(tabs[(j+tabs.length)%tabs.length],true);
-    });
-  });
-
-  // Real screenshots replace the example screens when the files exist in /images
-  if(location.protocol.indexOf('http')===0){
-    document.querySelectorAll('[data-shot]').forEach(function(fig){
-      var img=new Image();
-      img.onload=function(){
-        img.alt=fig.getAttribute('data-alt')||''; img.loading='lazy';
-        var body=fig.querySelector('.shot-body'); body.replaceWith(img);
-        var tag=fig.querySelector('.shot-bar span'); if(tag) tag.textContent='';
-        var n=document.getElementById('shotNote'); if(n) n.hidden=true;
-      };
-      img.src=fig.getAttribute('data-shot');
-    });
-    var vid=document.getElementById('demoVideo');
-    fetch('images/demo.mp4',{method:'HEAD'}).then(function(r){ if(r.ok) vid.hidden=false; }).catch(function(){});
-  }
-})();
-</script>
+<script src="/q84-digital/assets/site.js" defer></script>
 </body>
 </html>

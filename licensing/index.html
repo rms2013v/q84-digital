@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Business Central Pricing &amp; Cost Calculator | Q84 Digital</title>
+<meta name="description" content="Business Central licence prices for Essentials, Premium and Team Members, a cost calculator for your users, and what drives implementation and support costs.">
+<link rel="canonical" href="https://rms2013v.github.io/q84-digital/licensing/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="Business Central Pricing &amp; Cost Calculator | Q84 Digital">
+<meta property="og:description" content="Business Central licence prices for Essentials, Premium and Team Members, a cost calculator for your users, and what drives implementation and support costs.">
+<meta property="og:url" content="https://rms2013v.github.io/q84-digital/licensing/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Open+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="/q84-digital/assets/site.css">
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": ""};</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/q84-digital/" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/q84-digital/business-central/">Business Central</a><details class="dd current"><summary>Services</summary><div class="dd-menu"><a href="/q84-digital/implementation/">Implementation</a><a href="/q84-digital/licensing/" aria-current="page">Licensing &amp; pricing</a><a href="/q84-digital/data-migration/">Data migration</a><a href="/q84-digital/integrations/">Integrations &amp; customization</a><a href="/q84-digital/support/">Support</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/q84-digital/industries/distribution/">Wholesale distribution</a><a href="/q84-digital/industries/manufacturing/">Manufacturing</a></div></details><a href="/q84-digital/#consultant">About</a>
+      <a class="btn btn-primary" href="/q84-digital/contact/">Book a consultation</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/q84-digital/">Home</a> / Services / Licensing &amp; pricing</nav>
+<h1>Business Central licensing and pricing</h1>
+<p class="lede">What you’ll pay Microsoft for licences, what drives implementation cost, and a quick calculator for your own numbers.</p>
+</div></div>
+<section style="padding-top:32px" id="calculator"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Cost estimator</span><h2>Estimate your Business Central costs</h2></div>
+  <form class="calc" id="calc" onsubmit="return false">
+    <div class="stack" style="gap:22px">
+      <fieldset><legend>Licence plan</legend><div class="choice">
+        <label><input type="radio" name="plan" value="essentials" checked> Essentials</label>
+        <label><input type="radio" name="plan" value="premium"> Premium</label></div></fieldset>
+      <div class="row">
+        <div class="field"><label for="c-full">Full users</label><input id="c-full" type="number" min="0" max="999" value="8" inputmode="numeric"><span class="hint">People who post orders, invoices or journals</span></div>
+        <div class="field"><label for="c-team">Team Members</label><input id="c-team" type="number" min="0" max="999" value="5" inputmode="numeric"><span class="hint">People who mainly view, approve or update records</span></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="c-companies">Companies</label><input id="c-companies" type="number" min="1" max="99" value="1" inputmode="numeric"></div>
+        <div class="field"><label for="c-int">Integrations needed</label><input id="c-int" type="number" min="0" max="20" value="1" inputmode="numeric"><span class="hint">e.g. Shopify, shipping, CRM</span></div>
+      </div>
+      <div class="field"><label for="c-from">Moving from</label>
+        <select id="c-from" name="from"><option value="qb">QuickBooks</option><option value="sage">Sage</option><option value="nav">Dynamics NAV</option><option value="other-erp">Another ERP</option><option value="sheets">Spreadsheets</option><option value="none">Nothing yet</option></select></div>
+      <fieldset><legend>Areas in scope</legend><div class="choice">
+        <label><input type="checkbox" name="mod" data-w="1" data-label="Inventory and purchasing" checked> Inventory &amp; purchasing</label>
+        <label><input type="checkbox" name="mod" data-w="2" data-label="Warehouse processes"> Warehouse</label>
+        <label><input type="checkbox" name="mod" data-w="3" data-label="Manufacturing" data-premium> Manufacturing</label>
+        <label><input type="checkbox" name="mod" data-w="2" data-label="Service management" data-premium> Service management</label></div></fieldset>
+    </div>
+    <div class="calc-out" aria-live="polite">
+      <div><div class="sub">Microsoft licences per month</div><div class="big" id="o-monthly">$0</div><div class="sub"><span id="o-annual">$0</span> per year</div></div>
+      <div class="line"><span>Full users</span><span id="o-full"></span></div>
+      <div class="line"><span>Team Members</span><span id="o-team"></span></div>
+      <p class="sub" id="o-hint" hidden style="color:inherit">Manufacturing and service management need the Premium plan.</p>
+      <div class="line" style="display:block"><div class="sub">Likely implementation size</div><div style="font:600 1.4rem var(--display)" id="o-size"></div><p class="sub" id="o-size-desc"></p></div>
+      <div><div class="sub" style="margin-bottom:6px">What drives your scope</div><ul id="o-drivers"></ul></div>
+      <a class="btn btn-primary" href="/q84-digital/contact/">Get a quote for implementation</a>
+      <p class="sub">Licence figures use Microsoft's US list prices (per user per month, annual commitment) effective November 2025. Canadian dollar prices differ. Implementation is quoted after a free discovery call.</p>
+    </div>
+  </form>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Licence types</span><h2>Choosing the right licences</h2><p class="lede">Most companies combine a few full users with lower-cost Team Members licences for people who only view data or do light tasks. All full users in a company must be on the same plan.</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Licence</th><th>US list price</th><th>Who it's for</th><th>Typical use</th></tr></thead>
+    <tbody>
+      <tr><td>Essentials</td><td>$80 / user / month</td><td>Full users</td><td>Finance, sales, purchasing, inventory, warehousing, projects</td></tr>
+      <tr><td>Premium</td><td>$110 / user / month</td><td>Full users who need more</td><td>Everything in Essentials, plus manufacturing and service management</td></tr>
+      <tr><td>Team Members</td><td>$8 / user / month</td><td>Light users</td><td>View data, approve documents, update basic records</td></tr>
+    </tbody></table></div>
+  <p class="note" style="margin-top:20px">Prices are Microsoft's US list prices effective November 1, 2025, and may change. We confirm current pricing in your currency in every estimate. Microsoft licence fees are separate from our consulting fees.</p>
+</div></section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Total cost</span><h2>The parts of a Business Central budget</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Cost</th><th>Type</th><th>What it depends on</th></tr></thead>
+    <tbody>
+      <tr><td>Licences</td><td>Monthly</td><td>Plan and number of full and light users</td></tr>
+      <tr><td>Implementation</td><td>One-time</td><td>Modules, companies, processes and custom work</td></tr>
+      <tr><td>Data migration</td><td>One-time</td><td>Source systems, data volume and data quality</td></tr>
+      <tr><td>Integrations</td><td>One-time plus upkeep</td><td>Number of systems and how complex the data flow is</td></tr>
+      <tr><td>Add-on apps</td><td>Monthly</td><td>AppSource apps you choose, priced by their publishers</td></tr>
+      <tr><td>Support</td><td>Hourly or monthly</td><td>How much help you want after go-live</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap"><div class="cta"><div><h2>Get a cost estimate for your business</h2><p>Share a few details and we’ll come back with licensing and implementation ranges.</p></div>
+<div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a consultation</a></div></div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/q84-digital/"><span class="logo-mark">Q84</span>Q84 Digital</a>
+        <p>Business Central implementation and ERP consulting for distributors, manufacturers and inventory-driven businesses.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li>Vancouver, British Columbia</li></ul>
+      </div>
+      <div><h4>Business Central</h4><ul><li><a href="/q84-digital/business-central/">Overview &amp; features</a></li><li><a href="/q84-digital/licensing/">Licensing &amp; pricing</a></li><li><a href="/q84-digital/business-central/#fit">Is Business Central enough?</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="/q84-digital/implementation/">Implementation</a></li><li><a href="/q84-digital/data-migration/">Data migration</a></li><li><a href="/q84-digital/integrations/">Integrations</a></li><li><a href="/q84-digital/support/">Support</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/q84-digital/#consultant">About</a></li><li><a href="/q84-digital/industries/distribution/">Distribution</a></li><li><a href="/q84-digital/industries/manufacturing/">Manufacturing</a></li><li><a href="/q84-digital/contact/">Contact</a></li><li><a href="/q84-digital/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Q84 Digital is an independent consultancy.</span></div>
+  </div>
+</footer>
+<script src="/q84-digital/assets/site.js" defer></script>
+</body>
+</html>
