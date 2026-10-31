@@ -67,12 +67,13 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 
 /* Hero */
 .hero{padding-block:clamp(48px,8vw,96px) clamp(40px,6vw,72px)}
-.hero-center{display:grid;justify-items:center;text-align:center;gap:22px;max-width:900px;margin:0 auto}
-.hero-center .eyebrow{align-self:center}
-.hero-center .lede{margin:0 auto;max-width:640px}
+.hero-center{display:grid;justify-items:start;text-align:left;gap:22px}
+.hero-center>*{max-width:860px}
+.hero-center .eyebrow{align-self:start}
+.hero-center .lede{margin:0;max-width:680px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
-.hero-center .hero-actions{justify-content:center}
-.props{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;color:var(--muted);font-size:.93rem;padding:0;margin:0;list-style:none}
+.hero-center .hero-actions{justify-content:flex-start}
+.props{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px 24px;color:var(--muted);font-size:.93rem;padding:0;margin:0;list-style:none}
 .props li{display:flex;gap:8px;align-items:center}
 .props li::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.8' fill='none' stroke='%232563EB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
 .hero-cards{margin-top:clamp(40px,6vw,64px)}
@@ -236,7 +237,7 @@ footer{border-top:1px solid var(--line);padding-block:48px 32px;margin-top:40px;
   .dd>summary{padding:.75rem .8rem}
   .dd-menu{position:static;box-shadow:none;border:0;padding:0 0 4px 12px;min-width:0}
 }
-.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px;margin-top:28px;color:var(--muted);font-size:.93rem}
+.trust{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px 32px;margin-top:28px;color:var(--muted);font-size:.93rem}
 .trust strong{color:var(--ink);font-family:var(--display);font-weight:600}
 .profile{display:grid;grid-template-columns:300px minmax(0,1fr);gap:48px;align-items:start}
 @media (max-width:860px){.profile{grid-template-columns:1fr;gap:28px}}
