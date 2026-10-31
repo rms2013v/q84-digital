@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Business Central Data Migration | Q84 Digital</title>
-<meta name="description" content="Move to Business Central with clean, reconciled data. Migration from QuickBooks, Sage, Dynamics NAV, other ERPs and spreadsheets.">
+<meta name="description" content="Move to Business Central with clean, reconciled data. Migration from QuickBooks, Sage, Dynamics NAV, other ERPs and spreadsheets, with a worked example and FAQs.">
 <link rel="canonical" href="https://rms2013v.github.io/q84-digital/data-migration/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Q84 Digital">
 <meta property="og:title" content="Business Central Data Migration | Q84 Digital">
-<meta property="og:description" content="Move to Business Central with clean, reconciled data. Migration from QuickBooks, Sage, Dynamics NAV, other ERPs and spreadsheets.">
+<meta property="og:description" content="Move to Business Central with clean, reconciled data. Migration from QuickBooks, Sage, Dynamics NAV, other ERPs and spreadsheets, with a worked example and FAQs.">
 <meta property="og:url" content="https://rms2013v.github.io/q84-digital/data-migration/">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex, nofollow">
@@ -17,7 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Open+Sans:wght@400;600&display=swap">
-<link rel="stylesheet" href="/q84-digital/assets/site.css?v=bd99154c">
+<link rel="stylesheet" href="/q84-digital/assets/site.css?v=d1046600">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does a data migration take?", "acceptedAnswer": {"@type": "Answer", "text": "For most small and midsize businesses the migration runs alongside the implementation over three to six weeks, with at least two trial loads before the final cutover. The final load itself usually happens over a weekend or at a month-end."}}, {"@type": "Question", "name": "Do we have to bring over all our historical transactions?", "acceptedAnswer": {"@type": "Answer", "text": "Usually not. Most companies bring over open items, balances and a summary of past results, and keep the old system or an export for reference. Detailed history can be migrated, but it adds cost and rarely pays off."}}, {"@type": "Question", "name": "Who cleans up the data?", "acceptedAnswer": {"@type": "Answer", "text": "We do the heavy lifting: finding duplicates, gaps and inconsistent codes, and fixing what can be fixed automatically. Your team makes the business decisions, such as which customers are inactive and which item numbers to keep."}}, {"@type": "Question", "name": "Can we keep using our old system during the project?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You keep working as normal until cutover. We take a final extract at an agreed point, load it, reconcile it and then you switch to Business Central."}}]}</script>
 <script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": ""};</script>
 </head>
 <body>
@@ -36,10 +37,11 @@
 <div class="page-head"><div class="wrap stack">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/q84-digital/">Home</a> / Services / Data migration</nav>
 <h1>Business Central data migration</h1>
-<p class="lede">Move customers, vendors, items, open documents and balances into Business Central, then reconcile so your numbers match on day one.</p><div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a free ERP assessment</a></div>
+<p class="lede">Move customers, vendors, items, open documents and balances into Business Central, then reconcile everything so your numbers match on day one.</p><div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a free ERP assessment</a></div>
 </div></div>
 <section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Where you're coming from</span><h2>Systems we migrate from</h2></div>
+  <div class="section-head"><span class="eyebrow">Where you're coming from</span><h2>Systems we migrate from</h2>
+  <p class="lede">Every source system has its own quirks. QuickBooks stores items and customers differently from Business Central, and Dynamics NAV often carries years of custom fields. We plan the move around the system you actually have.</p></div>
   <div class="grid g4">
     <div class="card"><span class="tag">From</span><h3>QuickBooks</h3><p>Customers, vendors, items, open receivables and payables, and trial balance.</p></div>
     <div class="card"><span class="tag">From</span><h3>Sage</h3><p>Master data, open transactions and historical balances.</p></div>
@@ -48,18 +50,40 @@
   </div>
 </div></section>
 <section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Our process</span><h2>Five steps to clean data</h2></div>
-  <ol class="steps">
-    <li><h3>Map</h3><p>Match old fields and codes to Business Central.</p></li>
-    <li><h3>Cleanse</h3><p>Remove duplicates, fix gaps and retire old records.</p></li>
-    <li><h3>Load</h3><p>Trial loads into a test company first.</p></li>
-    <li><h3>Validate</h3><p>Your team checks records and spot-tests transactions.</p></li>
-    <li><h3>Reconcile</h3><p>Balances matched to the old system and signed off.</p></li>
-  </ol>
+  <div class="section-head"><span class="eyebrow">Our process</span><h2>Five steps to clean, trusted data</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Step</th><th>What happens</th><th>Your team's role</th></tr></thead>
+    <tbody>
+      <tr><td>1. Map</td><td>Old fields, codes and structures are matched to Business Central, including posting groups and dimensions.</td><td>Confirm how you want customers, items and accounts grouped.</td></tr>
+      <tr><td>2. Cleanse</td><td>Duplicates, missing values and inactive records are flagged and fixed.</td><td>Decide which records to retire or merge.</td></tr>
+      <tr><td>3. Trial load</td><td>Data is loaded into a test company using Business Central configuration packages.</td><td>None yet. This is our check.</td></tr>
+      <tr><td>4. Validate</td><td>Records are spot-checked and real transactions are posted against the migrated data.</td><td>Finance and warehouse leads review and test.</td></tr>
+      <tr><td>5. Reconcile</td><td>Balances, open items and stock values are matched to the old system before go-live.</td><td>Sign off the reconciliation.</td></tr>
+    </tbody></table></div>
 </div></section>
 <section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">What moves</span><h2>What we usually migrate</h2><p class="lede">We agree with you how much history to bring over. Often it's open items and balances, with older history kept for reference.</p></div>
-  <ul class="checks"><li><div>Customers, vendors, items and contacts</div></li><li><div>Chart of accounts and opening balances</div></li><li><div>Open sales and purchase orders</div></li><li><div>Open receivables and payables</div></li><li><div>Stock on hand by location, with costs</div></li></ul>
+  <div class="stack"><span class="eyebrow">How much history?</span><h2>Choose what to bring over</h2><p class="lede">Bringing everything over sounds safe but often means moving years of messy data. Most companies choose the middle option.</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Option</th><th>What moves</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td>Open items only</td><td>Master data, open orders, open receivables and payables, stock and opening balances</td><td>Fast, clean starts</td></tr>
+      <tr><td>Plus summary history</td><td>The above, plus monthly general ledger balances for one or two prior years</td><td>Year-over-year reporting in Business Central</td></tr>
+      <tr><td>Detailed history</td><td>Individual historical transactions</td><td>Specific audit or reporting needs. Quoted separately.</td></tr>
+    </tbody></table></div>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="worked">
+  <span class="label">Worked example · Illustrative scenario</span>
+  <h3>Moving a 25-person distributor off QuickBooks Desktop</h3>
+  <p>A distributor runs accounting in QuickBooks Desktop with around 1,800 customers. Its 4,000 items and stock levels for two warehouses live in spreadsheets, and month-end takes a week of reconciling.</p>
+  <div class="table-wrap"><table><thead><tr><th>Stage</th><th>What happens</th></tr></thead><tbody><tr><td>Weeks 1 to 2</td><td>Map QuickBooks customers, vendors and accounts to Business Central. Merge the item spreadsheets into one list and agree cleansing rules with the owner.</td></tr><tr><td>Week 3</td><td>First trial load into a test company. Duplicate customers and inconsistent unit-of-measure codes are found and fixed.</td></tr><tr><td>Week 4</td><td>Finance posts test invoices and payments. The warehouse lead checks stock by location and bin.</td></tr><tr><td>Week 5</td><td>Second trial load. Receivables, payables and the trial balance reconcile to QuickBooks.</td></tr><tr><td>Cutover weekend</td><td>Physical stock count, final load of open items and opening balances, and sign-off before Monday trading.</td></tr></tbody></table></div>
+  <p><strong>Outcome:</strong> The company starts in Business Central with balances that match QuickBooks to the cent, one item list and stock it can trust, with no gap in trading.</p>
+  <p class="shot-note">This example shows how we approach this kind of project. It is not a client case study.</p>
+</div>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Frequently asked questions</h2><p class="lede">Have a different question? <a href="/q84-digital/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>How long does a data migration take?</summary><p>For most small and midsize businesses the migration runs alongside the implementation over three to six weeks, with at least two trial loads before the final cutover. The final load itself usually happens over a weekend or at a month-end.</p></details><details><summary>Do we have to bring over all our historical transactions?</summary><p>Usually not. Most companies bring over open items, balances and a summary of past results, and keep the old system or an export for reference. Detailed history can be migrated, but it adds cost and rarely pays off.</p></details><details><summary>Who cleans up the data?</summary><p>We do the heavy lifting: finding duplicates, gaps and inconsistent codes, and fixing what can be fixed automatically. Your team makes the business decisions, such as which customers are inactive and which item numbers to keep.</p></details><details><summary>Can we keep using our old system during the project?</summary><p>Yes. You keep working as normal until cutover. We take a final extract at an agreed point, load it, reconcile it and then you switch to Business Central.</p></details></div>
 </div></section>
 <section><div class="wrap"><div class="cta"><div><h2>Planning your move to Business Central?</h2><p>Book a free ERP assessment. In 30 minutes you’ll get an honest view of whether Business Central fits, what it would involve and what to do next.</p></div>
 <div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a free ERP assessment</a></div></div></div></section>

@@ -305,3 +305,12 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .video-poster .video-label{position:absolute;left:16px;bottom:16px;padding:6px 12px;border-radius:999px;background:rgba(15,23,42,.75);color:#fff;font-size:.85rem;font-weight:600}
 .video-poster:hover .play{filter:brightness(1.06)}
 .offer{display:grid;gap:10px}
+.worked{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,4vw,36px);display:grid;gap:14px;max-width:100%}
+.worked>p{color:var(--muted);max-width:75ch}
+.worked>p strong{color:var(--ink)}
+.worked .label{font:600 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.worked h3{font-size:1.35rem}
+.worked td:first-child{font-weight:600;white-space:nowrap}
+.founder .li{display:grid;place-items:center;width:36px;height:36px;margin-left:4px;border-radius:50%;color:var(--muted);flex:none}
+.founder .li:hover{color:var(--accent);background:var(--accent-soft)}
+.founder .li svg{width:18px;height:18px;fill:currentColor}

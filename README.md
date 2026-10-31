@@ -27,6 +27,8 @@ git add -A && git commit -m "Update site" && git push
 | `partner_statement` | Optional text for the "Are you a Microsoft partner?" FAQ. |
 | `case_studies` | List of real projects. When filled, replaces the example scenarios on the homepage. Each item: `title`, `industry`, `size`, `challenge`, `solution`, `results` (list). |
 | `testimonials` | List of real client quotes. Each item: `quote`, `name`, `role`, `company`. Section appears only when filled. |
+| `linkedin_url` | Founder's LinkedIn profile. Used in the founder schema (`sameAs`) and shown on the homepage and contact page. |
+| `prices_checked` | Date Microsoft prices were last verified (YYYY-MM-DD). Shown as "Last updated" next to prices, with a link to Microsoft's pricing page. Update it whenever you re-check prices. |
 | `allow_indexing` | `false` adds a noindex tag to every page and blocks crawlers in robots.txt. Set to `true` at launch. |
 | `site_url`, `base` | Change to `https://q84digital.com/` and `/` when the custom domain is connected. |
 

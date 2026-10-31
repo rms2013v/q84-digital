@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Business Central Integrations &amp; Shopify | Q84 Digital</title>
-<meta name="description" content="Connect Business Central to Shopify, shipping, CRM and Power BI, and extend it with AL extensions and Power Automate, built to Microsoft’s extension model.">
+<meta name="description" content="Connect Business Central to Shopify, shipping carriers, CRM, EDI providers and Power BI, and extend it with AL and Power Automate. Includes a worked example and FAQs.">
 <link rel="canonical" href="https://rms2013v.github.io/q84-digital/integrations/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Q84 Digital">
 <meta property="og:title" content="Business Central Integrations &amp; Shopify | Q84 Digital">
-<meta property="og:description" content="Connect Business Central to Shopify, shipping, CRM and Power BI, and extend it with AL extensions and Power Automate, built to Microsoft’s extension model.">
+<meta property="og:description" content="Connect Business Central to Shopify, shipping carriers, CRM, EDI providers and Power BI, and extend it with AL and Power Automate. Includes a worked example and FAQs.">
 <meta property="og:url" content="https://rms2013v.github.io/q84-digital/integrations/">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex, nofollow">
@@ -17,7 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Open+Sans:wght@400;600&display=swap">
-<link rel="stylesheet" href="/q84-digital/assets/site.css?v=bd99154c">
+<link rel="stylesheet" href="/q84-digital/assets/site.css?v=d1046600">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Will integrations break when Business Central updates?", "acceptedAnswer": {"@type": "Answer", "text": "Microsoft releases two major updates a year. Integrations built on its standard APIs and extension model are designed to survive them, and we test custom work against each release preview so problems show up before your production system updates."}}, {"@type": "Question", "name": "Do integrations run in real time?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the connection. Some sync within minutes, others run on a schedule such as every 15 minutes or nightly. We pick the timing based on what the business needs, such as near real-time stock for an online store and nightly for reporting."}}, {"@type": "Question", "name": "Do we always need custom code?", "acceptedAnswer": {"@type": "Answer", "text": "No. We check for a standard connector or an AppSource app first, such as Microsoft’s Shopify connector. Custom development is only for gaps those options can’t cover."}}, {"@type": "Question", "name": "Are there running costs?", "acceptedAnswer": {"@type": "Answer", "text": "Sometimes. Connector apps often have a monthly subscription, and some integrations use Azure services billed by Microsoft. We include these costs in the estimate so there are no surprises."}}]}</script>
 <script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": ""};</script>
 </head>
 <body>
@@ -39,7 +40,8 @@
 <p class="lede">Connect Business Central to the tools you already use, and extend it where standard features don’t cover your process.</p><div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a free ERP assessment</a></div>
 </div></div>
 <section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">What we build</span><h2>Connected systems, less manual entry</h2></div>
+  <div class="section-head"><span class="eyebrow">What we build</span><h2>Connected systems, less manual entry</h2>
+  <p class="lede">Every time someone retypes an order, a tracking number or a stock level, you pay for it in time and errors. Integrations remove those steps so data is entered once and flows where it is needed.</p></div>
   <div class="grid g3">
     <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><span class="tag">Extensions</span><h3>AL development</h3><p>Custom fields, pages, reports and business logic built as extensions.</p></div>
     <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></span><span class="tag">APIs</span><h3>System integrations</h3><p>Data sync with other business systems through Business Central's APIs.</p></div>
@@ -49,11 +51,37 @@
     <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12A9 9 0 1112 3v9z"/><path d="M15 3.5A9 9 0 0120.5 9H15z"/></svg></span><span class="tag">Reporting</span><h3>Power BI</h3><p>Financial and operational dashboards on live Business Central data.</p></div>
   </div>
 </div></section>
-<section class="band"><div class="wrap split">
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Common integrations</span><h2>What typically connects to Business Central</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>System</th><th>What syncs</th><th>Usual approach</th></tr></thead>
+    <tbody>
+      <tr><td>Shopify</td><td>Orders, customers, items, stock levels and payments</td><td>Microsoft's built-in Shopify connector</td></tr>
+      <tr><td>Shipping carriers</td><td>Rates, labels and tracking numbers</td><td>An AppSource shipping app or an API integration</td></tr>
+      <tr><td>EDI trading partners</td><td>Purchase orders, advance ship notices and invoices</td><td>An app from a specialist EDI provider</td></tr>
+      <tr><td>Dynamics 365 Sales</td><td>Accounts, contacts, products and orders</td><td>Microsoft's standard Dataverse integration</td></tr>
+      <tr><td>Power BI</td><td>Financial and operational data</td><td>Microsoft's Business Central Power BI apps, extended as needed</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Our approach</span><h2>Configure first, customize only when it pays off</h2><p class="lede">Every custom line of code is something to maintain. We check whether standard features or an existing app can do the job before we build anything.</p></div>
-  <ul class="checks"><li><div><strong>Fit check.</strong> Standard setup, AppSource app or custom extension: we compare the options with you.</div></li><li><div><strong>Built for updates.</strong> Extensions follow Microsoft’s extension model, which keeps Business Central updates much smoother. We still test custom work against each major release.</div></li><li><div><strong>Documented.</strong> You get notes on what was built and how it works.</div></li><li><div><strong>Tested.</strong> Integrations are tested with realistic data volumes and error cases.</div></li></ul>
+  <ul class="checks"><li><div><strong>Fit check.</strong> Standard setup, AppSource app or custom extension: we compare the options and their running costs with you.</div></li><li><div><strong>Clear data flow.</strong> We agree which system owns each piece of data, how often it syncs and what happens when something fails.</div></li><li><div><strong>Built for updates.</strong> Extensions follow Microsoft’s extension model, which keeps Business Central updates much smoother. We still test custom work against each major release.</div></li><li><div><strong>Tested properly.</strong> Integrations are tested with realistic data volumes, duplicates and error cases, not just the happy path.</div></li><li><div><strong>Documented.</strong> You get notes on what was built, how it works and how to monitor it.</div></li></ul>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="worked">
+  <span class="label">Worked example · Illustrative scenario</span>
+  <h3>Connecting a Shopify store to Business Central</h3>
+  <p>An e-commerce distributor sells through Shopify and keeps its accounting in Business Central. Staff re-enter every web order, stock levels are updated by hand twice a day, and the store sometimes sells items that are out of stock.</p>
+  <div class="table-wrap"><table><thead><tr><th>Stage</th><th>What happens</th></tr></thead><tbody><tr><td>Design</td><td>Agree that Business Central owns items, prices and stock, and Shopify owns web orders. Map product variants to item variants.</td></tr><tr><td>Setup</td><td>Configure Microsoft’s Shopify connector: item sync, stock sync by location, and order import with customer matching.</td></tr><tr><td>Rules</td><td>Orders with unknown items or failed payments go to a review list instead of creating bad sales orders.</td></tr><tr><td>Testing</td><td>Run test orders, refunds and partial shipments through the full flow, from Shopify order to shipment, invoice and payment.</td></tr><tr><td>Go-live</td><td>Switch on scheduled sync and train staff to clear the exceptions list each morning.</td></tr></tbody></table></div>
+  <p><strong>Outcome:</strong> Web orders arrive in Business Central without retyping, the store shows stock that matches the warehouse, and staff only touch the orders that genuinely need attention.</p>
+  <p class="shot-note">This example shows how we approach this kind of project. It is not a client case study.</p>
+</div>
 </div></section>
 <section><div class="wrap"><div class="note">Also running Dynamics 365 Sales, Customer Service or Field Service? We work across the Dynamics 365 family and can connect Business Central with Dataverse and your CRM.</div></div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Frequently asked questions</h2><p class="lede">Have a different question? <a href="/q84-digital/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>Will integrations break when Business Central updates?</summary><p>Microsoft releases two major updates a year. Integrations built on its standard APIs and extension model are designed to survive them, and we test custom work against each release preview so problems show up before your production system updates.</p></details><details><summary>Do integrations run in real time?</summary><p>It depends on the connection. Some sync within minutes, others run on a schedule such as every 15 minutes or nightly. We pick the timing based on what the business needs, such as near real-time stock for an online store and nightly for reporting.</p></details><details><summary>Do we always need custom code?</summary><p>No. We check for a standard connector or an AppSource app first, such as Microsoft’s Shopify connector. Custom development is only for gaps those options can’t cover.</p></details><details><summary>Are there running costs?</summary><p>Sometimes. Connector apps often have a monthly subscription, and some integrations use Azure services billed by Microsoft. We include these costs in the estimate so there are no surprises.</p></details></div>
+</div></section>
 <section><div class="wrap"><div class="cta"><div><h2>Have a system that needs to connect?</h2><p>Tell us what you use today. We’ll suggest the simplest reliable way to make it work with Business Central.</p></div>
 <div class="hero-actions"><a class="btn btn-primary" href="/q84-digital/contact/">Book a free ERP assessment</a></div></div></div></section>
 </main>
