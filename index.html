@@ -111,6 +111,48 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
   @keyframes post{from{background:var(--accent-soft)}to{background:transparent}}
 }
 
+/* Product tour */
+.tour-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tour-tab{font:600 .93rem var(--body);min-height:44px;padding:.6rem 1.1rem;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.tour-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tour-panel{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:28px;align-items:start}
+@media (max-width:900px){.tour-panel{grid-template-columns:1fr}}
+.tour-copy{display:grid;gap:12px}
+.tour-copy p{color:var(--muted)}
+.tour-copy .checks{gap:10px;font-size:.95rem}
+.shot{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;box-shadow:0 18px 40px -28px rgba(15,23,42,.45);min-width:0}
+.shot img{display:block;width:100%;height:auto}
+.shot-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--bg);font-size:.8rem;color:var(--muted)}
+.shot-bar b{color:var(--ink);font-weight:600}
+.shot-body{padding:18px;display:grid;gap:16px;font-size:.85rem;overflow-x:auto}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:4px}
+.kpi span{color:var(--muted);font-size:.75rem}
+.kpi strong{font:600 1.15rem var(--display);font-variant-numeric:tabular-nums}
+.kpi.warn strong{color:var(--cta)}
+.bars{display:flex;align-items:flex-end;gap:8px;height:110px;padding:8px 4px 0;border-bottom:1px solid var(--line)}
+.bars div{flex:1;background:var(--accent);border-radius:4px 4px 0 0;opacity:.85}
+.bars div:last-child{opacity:1}
+.bar-labels{display:flex;gap:8px;font-size:.72rem;color:var(--muted)}
+.bar-labels span{flex:1;text-align:center}
+.mini{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:520px}
+.mini th,.mini td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.mini th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+.mini td.n,.mini th.n{text-align:right}
+.mini tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--accent-soft);color:var(--accent)}
+.pill.low{background:color-mix(in srgb,var(--cta) 16%,transparent);color:var(--cta)}
+.fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fields div{display:grid;gap:2px}
+.fields span{font-size:.72rem;color:var(--muted)}
+.totals{display:flex;justify-content:flex-end;gap:28px;font-variant-numeric:tabular-nums}
+.totals strong{font-family:var(--display)}
+.shot-note{font-size:.78rem;color:var(--muted)}
+.demo-video{margin-top:32px;display:grid;gap:12px}
+.demo-video video{width:100%;max-width:100%;border-radius:var(--radius);border:1px solid var(--line);background:#000}
+
 /* Grids & cards */
 .grid{display:grid;gap:20px}
 .g2{grid-template-columns:repeat(2,1fr)}
@@ -255,6 +297,132 @@ footer{border-top:1px solid var(--line);padding-block:48px 32px;margin-top:40px;
         <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg></span><h3>Inventory &amp; warehouse</h3><p>Accurate stock, picking and shipping across locations.</p></div>
         <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></span><h3>Integrations</h3><p>Shopify, shipping, CRM and Power BI connected.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="tour" style="border-top:1px solid var(--line)">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">See it in action</span>
+        <h2>What your team will work in every day</h2>
+        <p class="lede">Business Central puts finance, stock, orders and the warehouse on the same screens. Here's what each area looks like.</p>
+      </div>
+
+      <div class="tour-tabs" role="tablist" aria-label="Business Central areas">
+        <button class="tour-tab" role="tab" id="tab-dash" aria-controls="panel-dash" aria-selected="true">Dashboard</button>
+        <button class="tour-tab" role="tab" id="tab-inv" aria-controls="panel-inv" aria-selected="false" tabindex="-1">Inventory</button>
+        <button class="tour-tab" role="tab" id="tab-sales" aria-controls="panel-sales" aria-selected="false" tabindex="-1">Sales orders</button>
+        <button class="tour-tab" role="tab" id="tab-wh" aria-controls="panel-wh" aria-selected="false" tabindex="-1">Warehouse</button>
+      </div>
+
+      <div class="tour-panel" role="tabpanel" id="panel-dash" aria-labelledby="tab-dash">
+        <figure class="shot" style="margin:0" data-shot="images/dashboard.png" data-alt="Business Central role center dashboard showing sales, receivables and inventory figures">
+          <div class="shot-bar"><b>Role Center · Business Manager</b><span>Example data</span></div>
+          <div class="shot-body">
+            <div class="kpis">
+              <div class="kpi"><span>Sales this month</span><strong>$184,250</strong></div>
+              <div class="kpi"><span>Overdue receivables</span><strong>$12,480</strong></div>
+              <div class="kpi"><span>Inventory value</span><strong>$612,900</strong></div>
+              <div class="kpi warn"><span>Items below reorder</span><strong>7</strong></div>
+            </div>
+            <div>
+              <div style="font-weight:600;margin-bottom:6px">Sales by month</div>
+              <div class="bars" aria-hidden="true"><div style="height:48%"></div><div style="height:56%"></div><div style="height:52%"></div><div style="height:64%"></div><div style="height:71%"></div><div style="height:83%"></div></div>
+              <div class="bar-labels" aria-hidden="true"><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span></div>
+            </div>
+          </div>
+        </figure>
+        <div class="tour-copy">
+          <h3>Financial and operational visibility</h3>
+          <p>Each person opens Business Central to a home page built for their role, with the numbers they need first.</p>
+          <ul class="checks"><li><div>Cash, receivables and sales at a glance</div></li><li><div>Drill into any figure to see the entries behind it</div></li><li><div>Power BI reports on live data</div></li></ul>
+        </div>
+      </div>
+
+      <div class="tour-panel" role="tabpanel" id="panel-inv" aria-labelledby="tab-inv" hidden>
+        <figure class="shot" style="margin:0" data-shot="images/inventory.png" data-alt="Business Central item list showing stock by location and reorder points">
+          <div class="shot-bar"><b>Items</b><span>Example data</span></div>
+          <div class="shot-body">
+            <table class="mini">
+              <thead><tr><th>No.</th><th>Description</th><th>Location</th><th class="n">On hand</th><th class="n">Reorder point</th><th class="n">Unit cost</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>1000</td><td>Steel shelf bracket</td><td>MAIN</td><td class="n">1,240</td><td class="n">400</td><td class="n">3.85</td><td><span class="pill">OK</span></td></tr>
+                <tr><td>1010</td><td>Pallet wrap, 18 in</td><td>MAIN</td><td class="n">86</td><td class="n">120</td><td class="n">24.10</td><td><span class="pill low">Reorder</span></td></tr>
+                <tr><td>1020</td><td>Hex bolt M10 (box)</td><td>EAST</td><td class="n">530</td><td class="n">200</td><td class="n">11.40</td><td><span class="pill">OK</span></td></tr>
+                <tr><td>1030</td><td>Shipping carton, large</td><td>MAIN</td><td class="n">2,015</td><td class="n">800</td><td class="n">1.12</td><td><span class="pill">OK</span></td></tr>
+                <tr><td>1040</td><td>Label roll, 4x6</td><td>EAST</td><td class="n">34</td><td class="n">60</td><td class="n">18.75</td><td><span class="pill low">Reorder</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </figure>
+        <div class="tour-copy">
+          <h3>Stock, locations and item tracking</h3>
+          <p>See what you have, where it is and what it cost, across every warehouse and location.</p>
+          <ul class="checks"><li><div>Stock by location and bin</div></li><li><div>Reorder points and planning suggestions</div></li><li><div>Lot and serial number tracking</div></li></ul>
+        </div>
+      </div>
+
+      <div class="tour-panel" role="tabpanel" id="panel-sales" aria-labelledby="tab-sales" hidden>
+        <figure class="shot" style="margin:0" data-shot="images/sales-order.png" data-alt="Business Central sales order with customer details, order lines and totals">
+          <div class="shot-bar"><b>Sales Order · SO-101009</b><span>Example data</span></div>
+          <div class="shot-body">
+            <div class="fields">
+              <div><span>Customer</span><b>Northshore Supply</b></div>
+              <div><span>Order date</span><b>Oct 28, 2026</b></div>
+              <div><span>Ship from</span><b>MAIN</b></div>
+              <div><span>Status</span><b><span class="pill">Released</span></b></div>
+            </div>
+            <table class="mini">
+              <thead><tr><th>Item</th><th>Description</th><th class="n">Qty</th><th class="n">Unit price</th><th class="n">Line amount</th></tr></thead>
+              <tbody>
+                <tr><td>1000</td><td>Steel shelf bracket</td><td class="n">400</td><td class="n">7.50</td><td class="n">3,000.00</td></tr>
+                <tr><td>1020</td><td>Hex bolt M10 (box)</td><td class="n">120</td><td class="n">22.00</td><td class="n">2,640.00</td></tr>
+                <tr><td>1030</td><td>Shipping carton, large</td><td class="n">1,000</td><td class="n">2.40</td><td class="n">2,400.00</td></tr>
+              </tbody>
+            </table>
+            <div class="totals"><span>Subtotal <strong>8,040.00</strong></span><span>Tax <strong>965.00</strong></span><span>Total <strong>9,005.00</strong></span></div>
+          </div>
+        </figure>
+        <div class="tour-copy">
+          <h3>Customer orders and invoicing</h3>
+          <p>Go from quote to order to shipment to invoice without retyping anything.</p>
+          <ul class="checks"><li><div>Prices, discounts and credit limits applied automatically</div></li><li><div>Stock checked as you enter lines</div></li><li><div>Post the invoice and the ledger updates</div></li></ul>
+        </div>
+      </div>
+
+      <div class="tour-panel" role="tabpanel" id="panel-wh" aria-labelledby="tab-wh" hidden>
+        <figure class="shot" style="margin:0" data-shot="images/warehouse-pick.png" data-alt="Business Central warehouse pick with take and place lines by bin">
+          <div class="shot-bar"><b>Warehouse Pick · PI-000142</b><span>Example data</span></div>
+          <div class="shot-body">
+            <div class="fields">
+              <div><span>Source</span><b>SO-101009</b></div>
+              <div><span>Location</span><b>MAIN</b></div>
+              <div><span>Assigned to</span><b>Picker 2</b></div>
+              <div><span>Lines</span><b>6</b></div>
+            </div>
+            <table class="mini">
+              <thead><tr><th>Action</th><th>Item</th><th>Bin</th><th class="n">Qty to handle</th><th class="n">Qty handled</th></tr></thead>
+              <tbody>
+                <tr><td>Take</td><td>1000 Steel shelf bracket</td><td>A-03-02</td><td class="n">400</td><td class="n">400</td></tr>
+                <tr><td>Place</td><td>1000 Steel shelf bracket</td><td>SHIP-01</td><td class="n">400</td><td class="n">400</td></tr>
+                <tr><td>Take</td><td>1020 Hex bolt M10 (box)</td><td>B-11-04</td><td class="n">120</td><td class="n">0</td></tr>
+                <tr><td>Place</td><td>1020 Hex bolt M10 (box)</td><td>SHIP-01</td><td class="n">120</td><td class="n">0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </figure>
+        <div class="tour-copy">
+          <h3>Picking, shipping and inventory movements</h3>
+          <p>Warehouse staff get clear take-and-place instructions by bin, on a desktop or a handheld device.</p>
+          <ul class="checks"><li><div>Receive, put away, pick and ship</div></li><li><div>Bin-level stock that stays accurate</div></li><li><div>Shipments post straight to the sales order</div></li></ul>
+        </div>
+      </div>
+
+      <div class="demo-video" id="demoVideo" hidden>
+        <h3>Watch a 90-second walkthrough</h3>
+        <video controls preload="none" poster="images/demo-poster.jpg"><source src="images/demo.mp4" type="video/mp4">Your browser doesn't play this video.</video>
+      </div>
+      <p class="shot-note" id="shotNote" style="margin-top:20px">Screens shown with example data.</p>
     </div>
   </section>
 
@@ -694,6 +862,39 @@ footer{border-top:1px solid var(--line);padding-block:48px 32px;margin-top:40px;
     if(!(a&&b)){ document.getElementById(a?'f-email':'f-name').focus(); return; }
     form.hidden=true; document.getElementById('sent').hidden=false;
   });
+
+  // Product tour tabs
+  var tabs=[].slice.call(document.querySelectorAll('.tour-tab'));
+  function selectTab(t,focus){
+    tabs.forEach(function(x){
+      var on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
+    });
+    if(focus) t.focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){selectTab(t)});
+    t.addEventListener('keydown',function(e){
+      var j=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:e.key==='Home'?0:e.key==='End'?tabs.length-1:null;
+      if(j===null) return; e.preventDefault(); selectTab(tabs[(j+tabs.length)%tabs.length],true);
+    });
+  });
+
+  // Real screenshots replace the example screens when the files exist in /images
+  if(location.protocol.indexOf('http')===0){
+    document.querySelectorAll('[data-shot]').forEach(function(fig){
+      var img=new Image();
+      img.onload=function(){
+        img.alt=fig.getAttribute('data-alt')||''; img.loading='lazy';
+        var body=fig.querySelector('.shot-body'); body.replaceWith(img);
+        var tag=fig.querySelector('.shot-bar span'); if(tag) tag.textContent='';
+        var n=document.getElementById('shotNote'); if(n) n.hidden=true;
+      };
+      img.src=fig.getAttribute('data-shot');
+    });
+    var vid=document.getElementById('demoVideo');
+    fetch('images/demo.mp4',{method:'HEAD'}).then(function(r){ if(r.ok) vid.hidden=false; }).catch(function(){});
+  }
 })();
 </script>
 </body>
