@@ -19,7 +19,7 @@
   "social_linkedin_url": "",
   "social_youtube_url": "",
   "scheduler": {
-    "timezone": "America/Vancouver",
+    "timezone": "America/Los_Angeles",
     "weekdays": [
       1,
       2,

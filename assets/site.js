@@ -145,7 +145,7 @@
   // ---- Appointment scheduler (request a time) ----
   if (CFG.scheduler && CFG.scheduler.start) {
     var S = CFG.scheduler;
-    var BTZ = S.timezone || 'America/Vancouver';
+    var BTZ = S.timezone || 'America/Los_Angeles';
     var SLOT = S.slot_minutes || 30;
     var visitorTZ = (Intl.DateTimeFormat().resolvedOptions().timeZone) || 'your time zone';
 
@@ -243,13 +243,13 @@
     function pick(at, btn) {
       chosen = at;
       pressed(slotsEl, btn);
-      var biz = at.toLocaleString('en-US', { timeZone: BTZ, hour: 'numeric', minute: '2-digit' });
+      var biz = at.toLocaleString('en-US', { timeZone: BTZ, hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
       picked.innerHTML = '';
       var strong = document.createElement('strong');
       strong.textContent = at.toLocaleString([], longFmt);
       picked.appendChild(document.createTextNode('Requested time: '));
       picked.appendChild(strong);
-      picked.appendChild(document.createTextNode(' (' + SLOT + ' minutes, ' + biz + ' Vancouver time)'));
+      picked.appendChild(document.createTextNode(' (' + SLOT + ' minutes, ' + biz + ')'));
       bookForm.hidden = false;
       document.getElementById('b-name').focus({ preventScroll: true });
       bookForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -391,7 +391,7 @@
       if (bad.length) { document.getElementById('b-' + bad[0]).focus(); return; }
       if (bookForm.querySelector('[name="_gotcha"]').value) return;
       var when = chosen.toLocaleString([], longFmt);
-      var pacific = chosen.toLocaleString('en-US', { timeZone: BTZ, weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      var pacific = chosen.toLocaleString('en-US', { timeZone: BTZ, weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
       var data = {
         type: 'assessment_request',
         name: bookForm.elements['name'].value.trim(), email: bookForm.elements['email'].value.trim(), company: bookForm.elements['company'].value.trim(),
@@ -413,7 +413,7 @@
             bStatus.textContent = 'Your request didn’t go through. Try again, or email ' + CFG.email + ' with your preferred time.';
           });
       } else {
-        var body = 'Requested time: ' + pacific + ' Vancouver time (' + when + ' in ' + visitorTZ + ')\nName: ' + data.name +
+        var body = 'Requested time: ' + pacific + ' (' + when + ' in ' + visitorTZ + ')\nName: ' + data.name +
           '\nCompany: ' + data.company + '\nEmail: ' + data.email + '\n\n' + data.notes;
         location.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('ERP assessment request: ' + data.company) + '&body=' + encodeURIComponent(body);
         done('Your email app should open with your request for ' + when + ' ready to send. Once it’s sent, Oleh will confirm with a calendar invite. If your email app didn’t open, email ' + CFG.email + '.');
