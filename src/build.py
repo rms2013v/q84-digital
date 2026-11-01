@@ -377,16 +377,17 @@ impl_text = (f'Most implementations fall between {esc(impl_range)}, depending on
 
 add('', 'home',
     'Business Central for Distribution & Manufacturing | Q84 Digital',
-    'Take control of inventory, orders and warehouse operations with Microsoft Dynamics 365 Business Central, implemented by a senior consultant with 15+ years of Dynamics and supply chain experience.',
+    'Take control of your inventory, operations and finances with Microsoft Dynamics 365 Business Central. Senior-led implementation for distributors and manufacturers, with 15+ years of Dynamics experience.',
     f'''<section class="hero"><div class="wrap">
   <div class="{HERO_CLASS}"><div class="hero-center">
     <span class="eyebrow">Business Central for distribution &amp; manufacturing</span>
-    <h1>Take control of your inventory, orders and operations</h1>
-    <p class="lede">We implement Microsoft Dynamics 365 Business Central around the way your distribution or manufacturing business actually runs, from finance and inventory to warehouse operations and shipping integrations.</p>
-    <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#problems">See the problems we solve</a></div>
+    <h1>Take control of your inventory, operations and finances <span class="h1-accent">with Microsoft Business Central</span></h1>
+    <p class="lede lede-strong">Replace disconnected accounting, inventory and warehouse systems with one connected ERP platform.</p>
+    <p class="lede">Q84 Digital helps distributors and manufacturers implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
+    <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#tour">See how it works</a></div>
     <div class="founder"><span class="founder-photo">{avatar_small}</span><span><strong>Led by Oleh Karnaukhov</strong><span>15+ years of Microsoft Dynamics and supply chain experience</span></span>{f'<a class="li" href="{esc(LINKEDIN)}" target="_blank" rel="noopener me" aria-label="Oleh Karnaukhov on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>' if LINKEDIN else ''}</div>
   </div>{HERO_ART}</div>
-  <div class="trust"><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Senior-led</strong> delivery, start to finish</span><span><strong>Serving businesses</strong> across the United States</span></div>
+  <div class="trust"><span><strong>Senior-led</strong> implementation</span><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Serving businesses</strong> across the United States</span></div>
 </div></section>
 
 <section class="band" id="problems"><div class="wrap">
