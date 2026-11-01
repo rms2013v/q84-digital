@@ -380,7 +380,6 @@ add('', 'home',
     'Take control of your inventory, operations and finances with Microsoft Dynamics 365 Business Central. Senior-led implementation for distributors and manufacturers, with 15+ years of Dynamics experience.',
     f'''<section class="hero"><div class="wrap">
   <div class="{HERO_CLASS}"><div class="hero-center">
-    <span class="eyebrow">Business Central for distribution &amp; manufacturing</span>
     <h1>Take control of your inventory, operations and finances <span class="h1-accent">with Microsoft Business Central</span></h1>
     <p class="lede lede-strong">Replace disconnected accounting, inventory and warehouse systems with one connected ERP platform.</p>
     <p class="lede">Q84 Digital helps distributors and manufacturers implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
