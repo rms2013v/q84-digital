@@ -330,9 +330,21 @@ def add(path, nav, title, desc, body, schema=None):
 
 photo = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov, founder of Q84 Digital" width="480" height="480">' if CFG.get('consultant_photo') else 'OK'
 
-HERO_IMG = next((f for f in ('hero-flow.webp', 'hero-flow.png', 'hero-flow.jpg') if os.path.exists(os.path.join(ROOT, 'images', f))), None)
+HERO_SET = [
+    ('hero-flow.webp', 'Illustration of an order moving from sales order to warehouse, shipment, invoice and reporting'),
+    ('hero-warehouse-cutaway.webp', 'Illustration of a warehouse with racks, pallets and a dashboard showing operations'),
+    ('hero-operations-desk.webp', 'Illustration of a desk with a laptop showing an inventory dashboard, a barcode scanner and boxes'),
+    ('hero-connected-business.webp', 'Illustration of an office, warehouse and delivery van connected to one dashboard'),
+    ('hero-manufacturing-line.webp', 'Illustration of a production line with a robotic arm, conveyor, boxes and a monitoring screen'),
+    ('hero-loading-dock.webp', 'Illustration of delivery trucks at a loading dock with pallets of boxes and a checklist'),
+    ('hero-warehouse-aisle.webp', 'Illustration of a warehouse aisle with stocked racks, a forklift and a stock dashboard'),
+    ('hero-packing-station.webp', 'Illustration of a packing station with a monitor, barcode scanner, tape dispenser and boxes'),
+]
+HERO_SET = [h for h in HERO_SET if os.path.exists(os.path.join(ROOT, 'images', h[0]))]
+HERO_IMG = HERO_SET[0][0] if HERO_SET else None
 HERO_CLASS = 'hero-split' if HERO_IMG else ''
-HERO_ART = (f'<figure class="hero-art"><img src="@/images/{HERO_IMG}" alt="Illustration of an order moving from sales order to warehouse, shipment, invoice and reporting" width="1024" height="1024" fetchpriority="high"></figure>' if HERO_IMG else '')
+_hero_list = json.dumps([['@/images/' + f, alt] for f, alt in HERO_SET]).replace('</', '<\\/')
+HERO_ART = (f'''<figure class="hero-art"><img id="heroImg" alt="{esc(HERO_SET[0][1])}" width="1024" height="1024" fetchpriority="high"><script>(function(){{var l={_hero_list},k='q84hero',p=-1;try{{var v=sessionStorage.getItem(k);if(v!==null)p=+v}}catch(e){{}}var i=Math.floor(Math.random()*l.length);if(l.length>1&&i===p)i=(i+1)%l.length;try{{sessionStorage.setItem(k,i)}}catch(e){{}}var m=document.getElementById('heroImg');m.alt=l[i][1];m.src=l[i][0];}})();</script><noscript><img src="@/images/{HERO_SET[0][0]}" alt="{esc(HERO_SET[0][1])}" width="1024" height="1024"></noscript></figure>''' if HERO_IMG else '')
 
 # HOME
 AVATAR_ATTR = '' if CFG.get('consultant_photo') else ' aria-hidden="true"'

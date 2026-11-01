@@ -12,3 +12,7 @@ The homepage "See it in action" section shows example screens until you add real
 | `demo-poster.jpg` | Still image (16:9) shown behind the play button |
 
 Tips: capture from your own demo company (for example CRONUS) at 1600px wide or more, use example data only, and keep each PNG under about 400 KB.
+
+## Homepage hero images
+
+The homepage shows one of the `hero-*.webp` images (plus `hero-flow.webp`) at random on each visit. To add or remove one, edit `HERO_SET` in `src/build.py` and rebuild.

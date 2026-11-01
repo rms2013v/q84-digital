@@ -397,3 +397,4 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .next-slot strong{font:600 1rem var(--display);font-variant-numeric:tabular-nums}
 .next-slot:hover{border-color:var(--cta);background:var(--accent-soft)}
 .next-fallback{grid-column:1/-1}
+.hero-art img:not([src]){display:none}
