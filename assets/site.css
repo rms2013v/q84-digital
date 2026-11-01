@@ -6,7 +6,7 @@ img{max-width:100%}
 :root{
   --bg:#F8FAFC; --surface:#FFFFFF; --ink:#1E293B; --muted:#475569; --line:#E2E8F0;
   --accent:#2563EB; --accent-ink:#FFFFFF; --accent-soft:#E9EFF8; --warm:#2563EB;
-  --danger:#DC2626; --cta:#2563EB; --cta-hover:#1D4ED8; --cta-ink:#FFFFFF; --warn:#C2410C; --band:#1E293B; --band-ink:#F8FAFC;
+  --danger:#DC2626; --cta:#1E3A8A; --cta-hover:#172F70; --cta-ink:#FFFFFF; --warn:#C2410C; --band:#1E293B; --band-ink:#F8FAFC;
   --display:"Poppins", "Segoe UI", system-ui, sans-serif;
   --body:"Open Sans", "Segoe UI", system-ui, sans-serif;
   --mono:"Poppins", "Segoe UI", system-ui, sans-serif;
@@ -15,11 +15,11 @@ img{max-width:100%}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0B1220; --surface:#131C2E; --ink:#E2E8F0; --muted:#94A3B8; --line:#26324A;
   --accent:#60A5FA; --accent-ink:#0B1220; --accent-soft:#1A2742; --warm:#60A5FA;
-  --danger:#F87171; --cta:#2563EB; --cta-hover:#3B6FF0; --cta-ink:#FFFFFF; --warn:#FB923C; --band:#1A2742; --band-ink:#E2E8F0; color-scheme:dark}}
+  --danger:#F87171; --cta:#3B5BDB; --cta-hover:#4A69E2; --cta-ink:#FFFFFF; --warn:#FB923C; --band:#1A2742; --band-ink:#E2E8F0; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0B1220; --surface:#131C2E; --ink:#E2E8F0; --muted:#94A3B8; --line:#26324A;
   --accent:#60A5FA; --accent-ink:#0B1220; --accent-soft:#1A2742; --warm:#60A5FA;
-  --danger:#F87171; --cta:#2563EB; --cta-hover:#3B6FF0; --cta-ink:#FFFFFF; --warn:#FB923C; --band:#1A2742; --band-ink:#E2E8F0; color-scheme:dark}
+  --danger:#F87171; --cta:#3B5BDB; --cta-hover:#4A69E2; --cta-ink:#FFFFFF; --warn:#FB923C; --band:#1A2742; --band-ink:#E2E8F0; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
@@ -362,3 +362,7 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .alt-contact form,.alt-contact .sent{margin-bottom:20px}
 .nav-links .btn-primary{color:var(--cta-ink);background:var(--cta)}
 .nav-links .btn-primary:hover{color:var(--cta-ink);background:var(--cta-hover)}
+
+.cta .btn-primary{background:#FFFFFF;color:#1E3A8A}
+.cta .btn-primary:hover{background:#E6ECFA;color:#1E3A8A}
+.cta .btn-ghost{background:transparent;color:var(--band-ink);border-color:color-mix(in srgb,var(--band-ink) 35%,transparent)}
