@@ -463,7 +463,19 @@ add('business-central/', 'business-central',
     'What Business Central does, its core features for finance, inventory, sales, purchasing and warehousing, and how to tell whether it fits your operations.',
     page_head('Business Central', 'Business Central', 'Microsoft Dynamics 365 Business Central',
               'One cloud ERP for finance, inventory, sales, purchasing and warehousing, built for small and midsize companies and connected to Microsoft 365.') + f'''
-<section><div class="wrap">
+<section id="overview-video"><div class="wrap split video-split">
+  <div class="stack"><span class="eyebrow">Watch the overview</span><h2>See Business Central in three minutes</h2>
+  <p class="lede">Microsoft\u2019s official overview of Business Central: how finance, sales, inventory and operations come together in one system.</p>
+  {checks(['Connected finance, sales and operations', 'Built-in Microsoft 365 and Copilot features', 'Runs in the cloud, accessible anywhere'])}</div>
+  <figure class="yt" style="margin:0">
+    <button class="video-poster" type="button" data-youtube="X7B99e3mNfI" data-title="Microsoft Dynamics 365 Business Central Overview" aria-label="Play video: Microsoft Dynamics 365 Business Central Overview, 3 minutes 13 seconds">
+      <img src="https://i.ytimg.com/vi/X7B99e3mNfI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+      <span class="play" aria-hidden="true"></span><span class="video-label">Business Central overview \u00b7 3:13</span>
+    </button>
+    <figcaption class="shot-note">Video by Microsoft. Plays from YouTube when you press play.</figcaption>
+  </figure>
+</div></section>
+<section class="band"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Core features</span><h2>One system for the whole business</h2></div>
   <div class="grid g3">
     <div class="plain">{icon('ledger')}<h3>Financial management</h3><p>General ledger, payables, receivables, bank reconciliation, dimensions and financial reporting.</p></div>
@@ -477,12 +489,12 @@ add('business-central/', 'business-central',
     <div class="plain">{icon('tools')}<h3>Extensions</h3><p>Apps from Microsoft AppSource and custom AL extensions for specific needs.</p></div>
   </div>
 </div></section>
-<section class="band" id="fit"><div class="wrap">
+<section id="fit"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Choosing the right ERP</span><h2>Is Business Central enough for your operations?</h2>
   <p class="lede">For most small and midsize distributors it is. For very high-volume or complex warehousing, an extension or Dynamics 365 Supply Chain Management may be a better fit. Because we've worked hands-on with both, we can give you a straight answer.</p></div>
   {FIT}
 </div></section>
-<section><div class="wrap split">
+<section class="band"><div class="wrap split">
   <div class="stack"><span class="eyebrow">Moving from QuickBooks?</span><h2>Signs you've outgrown entry-level accounting</h2></div>
   {checks(['<strong>Inventory lives in spreadsheets.</strong> Stock counts and costs are tracked outside your accounting system.', '<strong>Several companies or locations.</strong> Consolidation and inter-company work take days.', '<strong>Reporting is manual.</strong> Month-end means exporting and rebuilding reports in Excel.', '<strong>Too many disconnected tools.</strong> Orders, stock and accounting are reconciled by hand.'])}
 </div></section>
@@ -1025,6 +1037,7 @@ add('privacy/', 'privacy', 'Privacy Policy | Q84 Digital',
 <h2>What we collect</h2><p>When you request a consultation we collect the details you enter: your name, business email, company, the topic you choose and any message you write.</p>
 <h2>How we use it</h2><p>We use your information only to reply to your request, arrange a consultation and follow up about your project. We don't sell or rent it, and we don't add you to marketing lists without your consent.</p>
 <h2>Analytics</h2>{analytics_line}
+<h2>Embedded videos</h2><p>Some pages include videos hosted on YouTube. Nothing loads from YouTube until you press play. When you do, the video plays from YouTube’s privacy-enhanced mode and YouTube’s privacy policy applies.</p>
 <h2>Sharing</h2><p>We share information only with service providers that help us run this website and handle email, and only as needed to provide those services, or where the law requires it.</p>
 <h2>Retention and your rights</h2><p>We keep inquiries for as long as needed to respond and manage any resulting work. You can ask to see, correct or delete your information at any time by emailing <span style="user-select:all">{esc(EMAIL)}</span>. Under Canada's PIPEDA you can also contact the Office of the Privacy Commissioner of Canada.</p>
 </div></section>''')

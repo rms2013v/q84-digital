@@ -67,6 +67,19 @@
   // Click-to-play video: the player loads only when the visitor asks for it
   [].forEach.call(document.querySelectorAll('.video-poster'), function (b) {
     b.addEventListener('click', function () {
+      var yt = b.getAttribute('data-youtube');
+      if (yt) {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + yt + '?autoplay=1&rel=0&modestbranding=1';
+        f.title = b.getAttribute('data-title') || 'Video';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen = true;
+        f.referrerPolicy = 'strict-origin-when-cross-origin';
+        f.className = 'yt-frame';
+        b.replaceWith(f);
+        if (window.gtag) gtag('event', 'video_start', { video: yt });
+        return;
+      }
       var v = document.createElement('video');
       v.src = b.getAttribute('data-video');
       v.controls = true; v.autoplay = true; v.playsInline = true;

@@ -410,3 +410,7 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .h1-accent{display:block;color:var(--accent)}
 .hero .lede-strong{color:var(--ink);font-weight:600;font-size:1.15rem}
 .hero-center .lede+.lede{margin-top:-10px}
+.video-split{align-items:center}
+.yt{display:grid;gap:8px;min-width:0}
+.yt .video-poster img{object-fit:cover}
+.yt-frame{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--radius);background:#000;display:block}
