@@ -142,6 +142,11 @@
     });
   }
 
+  // Placeholder social links: do nothing until real URLs are set
+  [].forEach.call(document.querySelectorAll('[data-placeholder]'), function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); });
+  });
+
   // Booking link clicks count as conversions
   [].forEach.call(document.querySelectorAll('[data-booking]'), function (a) {
     a.addEventListener('click', function () {

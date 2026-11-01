@@ -69,6 +69,7 @@ NAV = [
         ('distribution', 'Wholesale distribution', '@/industries/distribution/'),
         ('manufacturing', 'Manufacturing', '@/industries/manufacturing/'),
     ]),
+    ('blog', 'Blog', '@/blog/', None),
 ]
 
 def header(current):
@@ -95,6 +96,19 @@ def header(current):
   </div>
 </header>'''
 
+SOCIAL_SVG = {
+    'linkedin': '<path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/>',
+    'youtube': '<path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12a31 31 0 00.5 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.8 15.1V8.9l5.8 3.1z"/>',
+}
+
+def social_links():
+    out = []
+    for key, label in (('linkedin', 'LinkedIn'), ('youtube', 'YouTube')):
+        url = CFG.get(f'social_{key}_url') or ''
+        href = f'href="{esc(url)}" target="_blank" rel="noopener"' if url else 'href="#" data-placeholder'
+        out.append(f'<a class="social" {href} aria-label="Q84 Digital on {label}"><svg viewBox="0 0 24 24" aria-hidden="true">{SOCIAL_SVG[key]}</svg></a>')
+    return '<div class="socials">' + ''.join(out) + '</div>'
+
 def footer():
     legal = f'Q84 Digital is operated by {esc(CFG["legal_name"])}. ' if CFG.get('legal_name') else ''
     phone = f'<li>{esc(CFG["phone"])}</li>' if CFG.get('phone') else ''
@@ -105,10 +119,11 @@ def footer():
         <a class="logo" href="@/"><span class="logo-mark">Q84</span>Q84 Digital</a>
         <p>Business Central implementation for distribution and manufacturing businesses, led by a senior supply chain consultant.</p>
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Vancouver, British Columbia</li></ul>
+        {social_links()}
       </div>
       <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/data-migration/">Data migration</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/support/">Support</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
     <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Q84 Digital is an independent consultancy.</span></div>
   </div>
@@ -843,6 +858,61 @@ add('industries/manufacturing/', 'manufacturing',
 <section><div class="wrap"><div class="note">Manufacturing features need the Business Central Premium license. <a href="@/licensing/#calculator">Estimate your license cost.</a></div></div></section>
 {faq_section(FAQ_MFG)}
 {cta('Talk about your production processes')}''', [faq_schema(FAQ_MFG)])
+
+# BLOG
+# Each post: slug, title, date (YYYY-MM-DD), summary, tag, body (HTML), placeholder (True = shows a draft notice)
+POSTS = [
+    dict(slug='signs-you-have-outgrown-quickbooks',
+         title='Seven signs your distribution business has outgrown QuickBooks',
+         date='2026-10-31', tag='ERP selection', placeholder=True,
+         summary='Placeholder summary. A short description of the article will appear here, about two sentences long, to help readers decide whether to read on.',
+         body='''<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+<h2>1. Placeholder heading</h2>
+<p>Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean lacinia bibendum nulla sed consectetur.</p>
+<h2>2. Placeholder heading</h2>
+<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Curabitur blandit tempus porttitor.</p>
+<ul><li>Placeholder bullet point one</li><li>Placeholder bullet point two</li><li>Placeholder bullet point three</li></ul>
+<h2>3. Placeholder heading</h2>
+<p>Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui.</p>
+<blockquote>Placeholder pull quote. A short, memorable line from the article can go here.</blockquote>
+<h2>What to do next</h2>
+<p>Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>'''),
+]
+
+def fmt_date(d):
+    x = date.fromisoformat(d)
+    return f'<time datetime="{d}">{x.strftime("%B")} {x.day}, {x.year}</time>'
+
+def post_card(p):
+    draft = '<span class="pill low">Placeholder</span>' if p.get('placeholder') else ''
+    return f'''<a class="card post-card" href="@/blog/{p['slug']}/"><span class="tag">{esc(p['tag'])}</span>{draft}<h3>{esc(p['title'])}</h3><p>{esc(p['summary'])}</p><span class="post-meta">{fmt_date(p['date'])} \u00b7 Oleh Karnaukhov</span></a>'''
+
+add('blog/', 'blog', 'Business Central & ERP Blog | Q84 Digital',
+    'Practical articles on Microsoft Dynamics 365 Business Central, ERP selection, inventory and warehouse operations for distributors and manufacturers.',
+    page_head('Blog', 'Blog', 'Insights on Business Central and operations',
+              'Practical articles on ERP selection, inventory, warehousing and getting the most out of Business Central.', button=False) + f'''
+<section style="padding-top:32px"><div class="wrap">
+  <div class="grid g3">{''.join(post_card(p) for p in sorted(POSTS, key=lambda p: p['date'], reverse=True))}</div>
+</div></section>
+{cta()}''')
+
+for p in POSTS:
+    avatar = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="" width="48" height="48">' if CFG.get('consultant_photo') else 'OK'
+    notice = '<div class="note" style="margin-bottom:24px"><strong>Placeholder article.</strong> This page uses dummy text to show the blog layout. Real content will replace it before launch.</div>' if p.get('placeholder') else ''
+    schema = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p['title'], "datePublished": p['date'],
+              "author": {"@id": URL + "#oleh-karnaukhov"}, "publisher": {"@id": URL + "#organization"},
+              "mainEntityOfPage": URL + f"blog/{p['slug']}/"}
+    add(f"blog/{p['slug']}/", 'blog', f"{p['title']} | Q84 Digital", p['summary'],
+        f'''<article class="post"><div class="wrap post-wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="@/">Home</a> / <a href="@/blog/">Blog</a></nav>
+  <span class="tag post-tag">{esc(p['tag'])}</span>
+  <h1>{esc(p['title'])}</h1>
+  <div class="byline"><span class="founder-photo">{avatar}</span><span><strong>Oleh Karnaukhov</strong><span>{fmt_date(p['date'])}</span></span></div>
+  {notice}
+  <div class="post-body">{p['body']}</div>
+  <p style="margin-top:32px"><a class="more" href="@/blog/">\u2190 All articles</a></p>
+</div></article>
+{cta()}''', [schema])
 
 # CONTACT
 booking_block = ''

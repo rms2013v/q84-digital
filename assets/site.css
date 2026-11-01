@@ -314,3 +314,22 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .founder .li{display:grid;place-items:center;width:36px;height:36px;margin-left:4px;border-radius:50%;color:var(--muted);flex:none}
 .founder .li:hover{color:var(--accent);background:var(--accent-soft)}
 .founder .li svg{width:18px;height:18px;fill:currentColor}
+.socials{display:flex;gap:8px;margin-top:4px}
+.social{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
+.social:hover{color:var(--accent);border-color:var(--accent)}
+.social svg{width:18px;height:18px;fill:currentColor}
+.post-card .pill{justify-self:start}
+.post-meta{color:var(--muted);font-size:.85rem;margin-top:auto}
+.post-card{grid-template-rows:auto auto auto 1fr auto}
+.post{padding-block:clamp(40px,6vw,72px) 8px}
+.post-wrap{display:grid;gap:18px}
+.post-wrap>*{max-width:720px}
+.post-tag{font:600 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.byline{display:flex;align-items:center;gap:12px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.byline strong{display:block;font-size:.95rem}
+.byline span span{display:block;color:var(--muted);font-size:.88rem}
+.post-body{display:grid;gap:16px;font-size:1.06rem;line-height:1.75}
+.post-body p,.post-body li{color:var(--ink)}
+.post-body h2{font-size:1.45rem;margin-top:16px}
+.post-body ul{margin:0;padding-left:22px;display:grid;gap:6px}
+.post-body blockquote{margin:8px 0;padding:16px 22px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;font-family:var(--display);font-size:1.15rem}

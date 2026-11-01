@@ -29,8 +29,13 @@ git add -A && git commit -m "Update site" && git push
 | `testimonials` | List of real client quotes. Each item: `quote`, `name`, `role`, `company`. Section appears only when filled. |
 | `linkedin_url` | Founder's LinkedIn profile. Used in the founder schema (`sameAs`) and shown on the homepage and contact page. |
 | `prices_checked` | Date Microsoft prices were last verified (YYYY-MM-DD). Shown as "Last updated" next to prices, with a link to Microsoft's pricing page. Update it whenever you re-check prices. |
+| `social_linkedin_url`, `social_youtube_url` | Company LinkedIn and YouTube links for the footer icons. Empty = icons show but do nothing. |
 | `allow_indexing` | `false` adds a noindex tag to every page and blocks crawlers in robots.txt. Set to `true` at launch. |
 | `site_url`, `base` | Change to `https://q84digital.com/` and `/` when the custom domain is connected. |
+
+## Blog
+
+Posts live in the `POSTS` list in `src/build.py`. Each needs a `slug`, `title`, `date`, `tag`, `summary` and HTML `body`. Set `placeholder` to `False` (or remove it) for real articles so the draft notice disappears.
 
 ## Screenshots and demo video
 
