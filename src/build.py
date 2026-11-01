@@ -125,7 +125,7 @@ def footer():
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/data-migration/">Data migration</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/support/">Support</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
-    <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Q84 Digital is an independent consultancy.</span></div>
+    <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
   </div>
 </footer>'''
 
