@@ -30,6 +30,7 @@ git add -A && git commit -m "Update site" && git push
 | `linkedin_url` | Founder's LinkedIn profile. Used in the founder schema (`sameAs`) and shown on the homepage and contact page. |
 | `prices_checked` | Date Microsoft prices were last verified (YYYY-MM-DD). Shown as "Last updated" next to prices, with a link to Microsoft's pricing page. Update it whenever you re-check prices. |
 | `social_linkedin_url`, `social_youtube_url` | Company LinkedIn and YouTube links for the footer icons. Empty = icons show but do nothing. |
+| `scheduler` | Working hours for the contact-page scheduler: `timezone`, `weekdays` (0=Sun to 6=Sat), `start`, `end`, `slot_minutes`, `days_ahead`, `min_notice_hours`. Ignored when `booking_url` is set (the booking page is embedded instead). |
 | `allow_indexing` | `false` adds a noindex tag to every page and blocks crawlers in robots.txt. Set to `true` at launch. |
 | `site_url`, `base` | Change to `https://q84digital.com/` and `/` when the custom domain is connected. |
 

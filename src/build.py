@@ -46,7 +46,7 @@ CTA_LABEL = 'Book a free ERP assessment'
 if CFG.get('booking_url'):
     CTA_ATTR = f'href="{html.escape(CFG["booking_url"], quote=True)}" data-booking target="_blank" rel="noopener"'
 else:
-    CTA_ATTR = 'href="@/contact/"'
+    CTA_ATTR = 'href="@/contact/#schedule"'
 
 def icon(name):
     return f'<span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON[name]}</svg></span>'
@@ -915,33 +915,60 @@ for p in POSTS:
 {cta()}''', [schema])
 
 # CONTACT
-booking_block = ''
-if CFG.get('booking_url'):
-    booking_block = f'''<div class="card"><span class="tag">Fastest</span><h3>Pick a time for your assessment</h3><p>Choose a 30-minute slot and you’ll get a calendar invite straight away.</p><a class="btn btn-primary" href="{esc(CFG['booking_url'])}" data-booking target="_blank" rel="noopener">Choose a time</a></div>
-<p class="or">or send a message and we’ll arrange a time</p>'''
 phone_card = f'<div class="card"><span class="tag">Phone</span><p class="mono" style="color:var(--ink);user-select:all">{esc(CFG["phone"])}</p></div>' if CFG.get('phone') else ''
+if CFG.get('booking_url'):
+    SCHEDULER = f'''<div class="sched" id="schedule">
+  <div class="sched-head"><h2>Pick a time</h2><p class="hint">Choose a 30-minute slot. You’ll get a calendar invite straight away.</p></div>
+  <iframe class="sched-embed" src="{esc(CFG['booking_url'])}" title="Book a free ERP assessment" loading="lazy"></iframe>
+  <p class="hint">Calendar not loading? <a href="{esc(CFG['booking_url'])}" data-booking target="_blank" rel="noopener">Open the booking page</a>.</p>
+</div>'''
+else:
+    SCHEDULER = '''<div class="sched" id="schedule">
+  <div class="sched-head"><h2>Pick a time</h2><p class="hint" id="tzNote">Times are shown in your time zone.</p></div>
+  <div class="sched-step"><h3><span class="num">1</span> Choose a day</h3><div class="days" id="days" role="group" aria-label="Available days"></div></div>
+  <div class="sched-step"><h3><span class="num">2</span> Choose a time</h3><div class="slots" id="slots" role="group" aria-label="Available times" aria-live="polite"><p class="hint">Choose a day to see available times.</p></div></div>
+  <form class="sched-step" id="bookForm" novalidate hidden>
+    <h3><span class="num">3</span> Your details</h3>
+    <p class="picked" id="picked"></p>
+    <div class="row">
+      <div class="field"><label for="b-name">Name</label><input id="b-name" name="name" autocomplete="name" required><span class="err" id="be-name" hidden>Enter your name so we know who to expect.</span></div>
+      <div class="field"><label for="b-email">Business email</label><input id="b-email" name="email" type="email" autocomplete="email" required><span class="err" id="be-email" hidden>Enter an email address like name@company.com.</span></div>
+    </div>
+    <div class="field"><label for="b-company">Company</label><input id="b-company" name="company" autocomplete="organization" required><span class="err" id="be-company" hidden>Enter your company name.</span></div>
+    <div class="field"><label for="b-notes">Anything we should know? <span class="hint">(optional)</span></label><textarea id="b-notes" name="notes" placeholder="e.g. We run QuickBooks and two warehouses"></textarea></div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="b-gotcha">Leave this empty</label><input id="b-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div class="hero-actions"><button class="btn btn-primary" type="submit">Request this time</button><button class="btn btn-ghost" type="button" id="changeTime">Change time</button></div>
+    <p class="hint" id="bookStatus" role="status" hidden></p>
+  </form>
+  <div class="sent" id="bookSent" hidden role="status" tabindex="-1"><h3>Your time is requested</h3><p id="bookSentText"></p></div>
+  <noscript><p class="hint">The scheduler needs JavaScript. Email ''' + esc(EMAIL) + ''' with a few times that suit you.</p></noscript>
+</div>'''
+
 add('contact/', 'contact',
     'Free ERP Readiness Assessment | Q84 Digital',
     'Book a free 30-minute ERP readiness assessment. Find out whether Business Central fits your distribution or manufacturing business, what it would involve and what it would cost.',
     page_head('Contact', 'Free ERP assessment', 'Book a free ERP readiness assessment',
               'In 30 minutes with Oleh you’ll get an honest view of whether Business Central fits your business, what the project would involve and a rough idea of cost.', button=False) + f'''
-<section style="padding-top:32px"><div class="wrap split">
+<section style="padding-top:32px"><div class="wrap contact-grid">
   <div class="stack" style="gap:20px">
-    {booking_block}
-    <form id="contactForm" novalidate>
-      <div class="row">
-        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" id="e-name" hidden>Enter your name so we know who to reply to.</span></div>
-        <div class="field"><label for="f-email">Business email</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err" id="e-email" hidden>Enter an email address like name@company.com.</span></div>
-      </div>
-      <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization" required><span class="err" id="e-company" hidden>Enter your company name.</span></div>
-      <div class="field"><label for="f-topic">What are you looking for?</label>
-        <select id="f-topic" name="topic"><option>A new Business Central implementation</option><option>Pricing or licensing advice</option><option>Data migration</option><option>Integrations or customization</option><option>Support for an existing system</option><option>Help choosing an ERP</option></select></div>
-      <div class="field"><label for="f-msg">Brief description <span class="hint">(optional)</span></label><textarea id="f-msg" name="message"></textarea></div>
-      <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-gotcha">Leave this empty</label><input id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
-      <div><button class="btn btn-primary" type="submit">Request my assessment</button></div>
-      <p class="hint" id="formStatus" role="status" hidden></p>
-    </form>
-    <div class="sent" id="sent" hidden role="status"><h3>Thanks, your request is in</h3><p>We'll reply within one business day to schedule your assessment.</p></div>
+    {SCHEDULER}
+    <details class="alt-contact">
+      <summary>Prefer to send a message instead?</summary>
+      <form id="contactForm" novalidate>
+        <div class="row">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" id="e-name" hidden>Enter your name so we know who to reply to.</span></div>
+          <div class="field"><label for="f-email">Business email</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err" id="e-email" hidden>Enter an email address like name@company.com.</span></div>
+        </div>
+        <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization" required><span class="err" id="e-company" hidden>Enter your company name.</span></div>
+        <div class="field"><label for="f-topic">What are you looking for?</label>
+          <select id="f-topic" name="topic"><option>A new Business Central implementation</option><option>Pricing or licensing advice</option><option>Data migration</option><option>Integrations or customization</option><option>Support for an existing system</option><option>Help choosing an ERP</option></select></div>
+        <div class="field"><label for="f-msg">Brief description <span class="hint">(optional)</span></label><textarea id="f-msg" name="message"></textarea></div>
+        <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-gotcha">Leave this empty</label><input id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+        <div><button class="btn btn-primary" type="submit">Send message</button></div>
+        <p class="hint" id="formStatus" role="status" hidden></p>
+      </form>
+      <div class="sent" id="sent" hidden role="status"><h3>Thanks, your message is in</h3><p>We'll reply within one business day.</p></div>
+    </details>
   </div>
   <aside class="contact-side">
     <div class="card offer"><span class="tag">What you get</span><h3>Your free assessment</h3><ul class="checks"><li><div>A review of your current systems and pain points</div></li><li><div>An honest view of whether Business Central fits, or what would fit better</div></li><li><div>The likely project size, timeline and license cost</div></li><li><div>Clear next steps, with no obligation</div></li></ul></div>
@@ -984,7 +1011,7 @@ def render(p):
     schema = ''.join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>\n' for s in p['schema'])
     noindex = '' if CFG.get('allow_indexing', True) else '<meta name="robots" content="noindex, nofollow">\n'
     verify = noindex + (f'<meta name="google-site-verification" content="{esc(CFG["gsc_verification"])}">\n' if CFG.get('gsc_verification') else '')
-    client = json.dumps({'email': EMAIL, 'formEndpoint': CFG.get('form_endpoint', '')})
+    client = json.dumps({'email': EMAIL, 'formEndpoint': CFG.get('form_endpoint', ''), 'scheduler': CFG.get('scheduler', {})})
     doc = f'''<!doctype html>
 <html lang="en">
 <head>

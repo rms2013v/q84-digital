@@ -17,5 +17,20 @@
   "linkedin_url": "https://www.linkedin.com/in/olehkarnaukhov/",
   "prices_checked": "2026-10-31",
   "social_linkedin_url": "",
-  "social_youtube_url": ""
+  "social_youtube_url": "",
+  "scheduler": {
+    "timezone": "America/Vancouver",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start": "08:00",
+    "end": "16:00",
+    "slot_minutes": 30,
+    "days_ahead": 10,
+    "min_notice_hours": 24
+  }
 }
