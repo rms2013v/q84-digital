@@ -173,18 +173,31 @@
     var start = hm(S.start || '08:00'), end = hm(S.end || '16:00');
     var earliest = Date.now() + (S.min_notice_hours || 24) * 3600000;
     var today = partsIn(new Date(), BTZ);
-    var days = [];
-    for (var i = 0; i < 60 && days.length < (S.days_ahead || 10); i++) {
+    var MONTHS = Math.max(1, S.months_ahead || 3);
+    var avail = {};
+    var lastMonth = new Date(Date.UTC(today.year, today.month + MONTHS, 1));
+    for (var i = 0; i < 400; i++) {
       var dUTC = new Date(Date.UTC(today.year, today.month - 1, today.day + i, 12));
+      if (dUTC >= lastMonth) break;
       var y = dUTC.getUTCFullYear(), m = dUTC.getUTCMonth() + 1, d = dUTC.getUTCDate();
       if ((S.weekdays || [1, 2, 3, 4, 5]).indexOf(dUTC.getUTCDay()) === -1) continue;
+      if ((S.blocked_dates || []).indexOf(dUTC.toISOString().slice(0, 10)) !== -1) continue;
       var slots = [];
       for (var t = start[0] * 60 + start[1]; t + SLOT <= end[0] * 60 + end[1]; t += SLOT) {
         var at = zoned(y, m, d, Math.floor(t / 60), t % 60, BTZ);
         if (at.getTime() >= earliest) slots.push(at);
       }
-      if (slots.length) days.push({ label: dUTC, slots: slots });
+      if (slots.length) avail[y + '-' + m + '-' + d] = { label: dUTC, slots: slots };
     }
+    var keys = Object.keys(avail);
+    var firstKey = keys.length ? keys[0].split('-') : [today.year, today.month];
+    var monthList = [];
+    for (var k = 0; k < MONTHS; k++) {
+      var md = new Date(Date.UTC(+firstKey[0], +firstKey[1] - 1 + k, 1, 12));
+      monthList.push({ y: md.getUTCFullYear(), m: md.getUTCMonth() + 1, label: md });
+    }
+    var endKey = new Date(Date.UTC(monthList[MONTHS - 1].y, monthList[MONTHS - 1].m, 1));
+    keys.forEach(function (key) { if (avail[key].label >= endKey) delete avail[key]; });
 
     var tzNote = document.getElementById('tzNote');
     if (tzNote) tzNote.textContent = 'Times are shown in your time zone (' + visitorTZ.replace(/_/g, ' ') + ').';
@@ -193,23 +206,11 @@
     var bookForm = document.getElementById('bookForm');
     var picked = document.getElementById('picked');
     var chosen = null;
-    var dayFmt = { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' };
     var timeFmt = { hour: 'numeric', minute: '2-digit' };
     var longFmt = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
 
     function pressed(group, btn) {
       [].forEach.call(group.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', b === btn); });
-    }
-    function showDay(day, btn) {
-      pressed(schedEl, btn);
-      slotsEl.innerHTML = '';
-      day.slots.forEach(function (at) {
-        var b = document.createElement('button');
-        b.type = 'button'; b.className = 'slot'; b.setAttribute('aria-pressed', 'false');
-        b.textContent = at.toLocaleTimeString([], timeFmt);
-        b.addEventListener('click', function () { pick(at, b); });
-        slotsEl.appendChild(b);
-      });
     }
     function pick(at, btn) {
       chosen = at;
@@ -226,27 +227,90 @@
       bookForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    if (!days.length) {
-      slotsEl.innerHTML = '';
-      var p = document.createElement('p'); p.className = 'hint';
-      p.textContent = 'No times are open right now. Send a message below and we’ll find a time.';
-      slotsEl.appendChild(p);
-    }
-    days.forEach(function (day, idx) {
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed', 'false');
-      var parts = day.label.toLocaleDateString([], dayFmt).split(', ');
-      b.innerHTML = '<span></span><strong></strong>';
-      b.firstChild.textContent = parts[0];
-      b.lastChild.textContent = parts.slice(1).join(', ') || parts[0];
-      b.addEventListener('click', function () { showDay(day, b); });
-      schedEl.appendChild(b);
-      if (idx === 0) showDay(day, b);
+    var grid = document.getElementById('calGrid');
+    var monthSel = document.getElementById('calMonth');
+    var prevBtn = document.getElementById('calPrev'), nextBtn = document.getElementById('calNext');
+    var slotsTitle = document.getElementById('slotsTitle');
+    var monthIdx = 0, selectedKey = null;
+
+    monthList.forEach(function (mo, i) {
+      var o = document.createElement('option');
+      o.value = i;
+      o.textContent = mo.label.toLocaleDateString([], { month: 'long', year: 'numeric', timeZone: 'UTC' });
+      monthSel.appendChild(o);
     });
+
+    function noTimes(msg) {
+      slotsEl.innerHTML = '';
+      var p = document.createElement('p'); p.className = 'hint'; p.textContent = msg;
+      slotsEl.appendChild(p);
+      slotsTitle.textContent = 'Choose a time';
+    }
+    function selectDay(key) {
+      selectedKey = key;
+      var day = avail[key];
+      [].forEach.call(grid.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-key') === key); });
+      bookForm.hidden = true; chosen = null;
+      slotsTitle.textContent = day.label.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' });
+      slotsEl.innerHTML = '';
+      day.slots.forEach(function (at) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'slot'; b.setAttribute('aria-pressed', 'false');
+        b.textContent = at.toLocaleTimeString([], timeFmt);
+        b.addEventListener('click', function () { pick(at, b); });
+        slotsEl.appendChild(b);
+      });
+    }
+    function renderMonth(idx) {
+      monthIdx = idx;
+      monthSel.value = idx;
+      prevBtn.classList.toggle('is-off', idx === 0);
+      nextBtn.classList.toggle('is-off', idx === monthList.length - 1);
+      prevBtn.tabIndex = idx === 0 ? -1 : 0;
+      nextBtn.tabIndex = idx === monthList.length - 1 ? -1 : 0;
+      var mo = monthList[idx];
+      var first = new Date(Date.UTC(mo.y, mo.m - 1, 1)).getUTCDay();
+      var count = new Date(Date.UTC(mo.y, mo.m, 0)).getUTCDate();
+      grid.innerHTML = '';
+      for (var e = 0; e < first; e++) { var sp = document.createElement('span'); sp.className = 'cal-blank'; grid.appendChild(sp); }
+      var firstAvail = null;
+      for (var dd = 1; dd <= count; dd++) {
+        var key = mo.y + '-' + mo.m + '-' + dd;
+        if (avail[key]) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'cal-day'; b.textContent = dd;
+          b.setAttribute('data-key', key);
+          b.setAttribute('aria-pressed', 'false');
+          b.setAttribute('aria-label', avail[key].label.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }) + ', ' + avail[key].slots.length + ' times available');
+          (function (k2) { b.addEventListener('click', function () { selectDay(k2); }); })(key);
+          grid.appendChild(b);
+          if (!firstAvail) firstAvail = key;
+        } else {
+          var off = document.createElement('span'); off.className = 'cal-off'; off.textContent = dd;
+          off.setAttribute('aria-hidden', 'true');
+          grid.appendChild(off);
+        }
+      }
+      if (selectedKey && grid.querySelector('[data-key="' + selectedKey + '"]')) selectDay(selectedKey);
+      else if (firstAvail) selectDay(firstAvail);
+      else noTimes('No open times this month. Try the next month, or send a message below.');
+    }
+    prevBtn.addEventListener('click', function () { if (monthIdx > 0) renderMonth(monthIdx - 1); });
+    nextBtn.addEventListener('click', function () { if (monthIdx < monthList.length - 1) renderMonth(monthIdx + 1); });
+    monthSel.addEventListener('change', function () { renderMonth(+monthSel.value); });
+
+    var startIdx = 0;
+    for (var q = 0; q < monthList.length; q++) {
+      var mq = monthList[q], has = false;
+      for (var key2 in avail) { if (key2.indexOf(mq.y + '-' + mq.m + '-') === 0) { has = true; break; } }
+      if (has) { startIdx = q; break; }
+    }
+    if (Object.keys(avail).length) renderMonth(startIdx);
+    else { renderMonth(0); noTimes('No times are open right now. Send a message below and we’ll find a time.'); }
 
     document.getElementById('changeTime').addEventListener('click', function () {
       bookForm.hidden = true; chosen = null;
-      pressed(slotsEl, null);
+      [].forEach.call(slotsEl.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', 'false'); });
       slotsEl.querySelector('button') && slotsEl.querySelector('button').focus();
     });
 
@@ -269,8 +333,7 @@
     var bStatus = document.getElementById('bookStatus');
     function done(text) {
       bookForm.hidden = true;
-      document.getElementById('days').closest('.sched-step').hidden = true;
-      slotsEl.closest('.sched-step').hidden = true;
+      document.getElementById('schedPick').hidden = true;
       var sent = document.getElementById('bookSent');
       document.getElementById('bookSentText').textContent = text;
       sent.hidden = false; sent.focus();

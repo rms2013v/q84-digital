@@ -925,8 +925,20 @@ if CFG.get('booking_url'):
 else:
     SCHEDULER = '''<div class="sched" id="schedule">
   <div class="sched-head"><h2>Pick a time</h2><p class="hint" id="tzNote">Times are shown in your time zone.</p></div>
-  <div class="sched-step"><h3><span class="num">1</span> Choose a day</h3><div class="days" id="days" role="group" aria-label="Available days"></div></div>
-  <div class="sched-step"><h3><span class="num">2</span> Choose a time</h3><div class="slots" id="slots" role="group" aria-label="Available times" aria-live="polite"><p class="hint">Choose a day to see available times.</p></div></div>
+  <div class="sched-pick" id="schedPick">
+    <div class="sched-step"><h3><span class="num">1</span> Choose a day</h3>
+      <div class="cal" id="days">
+        <div class="cal-head">
+          <button type="button" class="cal-nav" id="calPrev" aria-label="Previous month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <label class="sr-only" for="calMonth">Month</label><select id="calMonth"></select>
+          <button type="button" class="cal-nav" id="calNext" aria-label="Next month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="cal-dow" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="cal-grid" id="calGrid" role="group" aria-label="Available days"></div>
+      </div>
+    </div>
+    <div class="sched-step"><h3><span class="num">2</span> <span id="slotsTitle">Choose a time</span></h3><div class="slots" id="slots" role="group" aria-label="Available times" aria-live="polite"><p class="hint">Choose a day to see available times.</p></div></div>
+  </div>
   <form class="sched-step" id="bookForm" novalidate hidden>
     <h3><span class="num">3</span> Your details</h3>
     <p class="picked" id="picked"></p>
