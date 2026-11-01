@@ -301,7 +301,7 @@ ORG_SCHEMA = {
     "@context": "https://schema.org", "@type": "ProfessionalService", "name": "Q84 Digital",
     "url": URL, "email": EMAIL,
     "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.",
-    "areaServed": [{"@type": "Country", "name": "United States"}],
+    "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}],
     "address": {"@type": "PostalAddress", "addressLocality": "Vancouver", "addressRegion": "BC", "addressCountry": "CA"},
     "@id": URL + "#organization",
     "founder": {"@id": URL + "#oleh-karnaukhov"},
