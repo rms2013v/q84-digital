@@ -143,8 +143,7 @@
   }
 
   // ---- Appointment scheduler (request a time) ----
-  var schedEl = document.getElementById('days');
-  if (schedEl && CFG.scheduler) {
+  if (CFG.scheduler && CFG.scheduler.start) {
     var S = CFG.scheduler;
     var BTZ = S.timezone || 'America/Vancouver';
     var SLOT = S.slot_minutes || 30;
@@ -198,6 +197,35 @@
     }
     var endKey = new Date(Date.UTC(monthList[MONTHS - 1].y, monthList[MONTHS - 1].m, 1));
     keys.forEach(function (key) { if (avail[key].label >= endKey) delete avail[key]; });
+
+    // Closing section: show the next few open times on every page
+    var nextEl = document.getElementById('nextSlots');
+    if (nextEl) {
+      var upcoming = [];
+      Object.keys(avail).some(function (key) {
+        var sl = avail[key].slots;
+        upcoming.push(sl[Math.min(2, sl.length - 1)]);
+        return upcoming.length >= 3;
+      });
+      if (upcoming.length) {
+        nextEl.innerHTML = '';
+        upcoming.forEach(function (at) {
+          var a = document.createElement('a');
+          a.className = 'next-slot';
+          a.href = nextEl.getAttribute('data-contact') + '?slot=' + encodeURIComponent(at.toISOString()) + '#schedule';
+          var day = document.createElement('span');
+          day.textContent = at.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+          var time = document.createElement('strong');
+          time.textContent = at.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+          a.appendChild(day); a.appendChild(time);
+          a.setAttribute('aria-label', 'Request ' + at.toLocaleString([], { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' }));
+          nextEl.appendChild(a);
+        });
+      }
+    }
+
+    var schedEl = document.getElementById('days');
+    if (schedEl) {
 
     var tzNote = document.getElementById('tzNote');
     if (tzNote) tzNote.textContent = 'Times are shown in your time zone (' + visitorTZ.replace(/_/g, ' ') + ').';
@@ -308,6 +336,24 @@
     if (Object.keys(avail).length) renderMonth(startIdx);
     else { renderMonth(0); noTimes('No times are open right now. Send a message below and we’ll find a time.'); }
 
+    // A time chosen in the closing section arrives as ?slot=ISO: open that day and time
+    var wanted = new URLSearchParams(location.search).get('slot');
+    if (wanted) {
+      var wt = Date.parse(wanted);
+      Object.keys(avail).some(function (key) {
+        var idx = -1;
+        avail[key].slots.some(function (at, n) { if (at.getTime() === wt) { idx = n; return true; } return false; });
+        if (idx === -1) return false;
+        var parts = key.split('-');
+        for (var mi = 0; mi < monthList.length; mi++) {
+          if (monthList[mi].y === +parts[0] && monthList[mi].m === +parts[1]) { selectedKey = key; renderMonth(mi); break; }
+        }
+        var btn = slotsEl.querySelectorAll('button')[idx];
+        if (btn) btn.click();
+        return true;
+      });
+    }
+
     document.getElementById('changeTime').addEventListener('click', function () {
       bookForm.hidden = true; chosen = null;
       [].forEach.call(slotsEl.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', 'false'); });
@@ -376,6 +422,7 @@
     });
   }
 
+  }
   // Placeholder social links: do nothing until real URLs are set
   [].forEach.call(document.querySelectorAll('[data-placeholder]'), function (a) {
     a.addEventListener('click', function (e) { e.preventDefault(); });

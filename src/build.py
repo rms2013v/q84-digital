@@ -129,10 +129,19 @@ def footer():
   </div>
 </footer>'''
 
-def cta(title='Let’s talk about your ERP project', text='Book a free ERP assessment. In 30 minutes you’ll get an honest view of whether Business Central fits, what it would involve and what to do next.'):
-    second = '<a class="btn btn-ghost" href="@/contact/">Send a message instead</a>' if CFG.get('booking_url') else ''
-    return f'''<section><div class="wrap"><div class="cta"><div><h2>{title}</h2><p>{text}</p></div>
-<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a>{second}</div></div></div></section>'''
+def cta(title='Find out if Business Central fits your business', text='Pick a time for your free 30-minute ERP assessment with the consultant who would deliver your project.'):
+    if CFG.get('booking_url'):
+        right = f'''<div class="next"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>'''
+    else:
+        right = f'''<div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="@/contact/"><a class="next-slot next-fallback" href="@/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="@/contact/#schedule">See all times \u2192</a>
+    </div>'''
+    return f'''<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>{title}</h2><p>{text}</p></div>
+    {right}
+  </div></div></section>'''
 
 def page_head(title, crumb, h1, lede, button=True):
     btn = f'<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>' if button else ''
