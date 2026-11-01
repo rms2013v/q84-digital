@@ -387,7 +387,7 @@ add('', 'home',
     <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#tour">See how it works</a></div>
     <div class="founder"><span class="founder-photo">{avatar_small}</span><span><strong>Led by Oleh Karnaukhov</strong><span>15+ years of Microsoft Dynamics and supply chain experience</span></span>{f'<a class="li" href="{esc(LINKEDIN)}" target="_blank" rel="noopener me" aria-label="Oleh Karnaukhov on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>' if LINKEDIN else ''}</div>
   </div>{HERO_ART}</div>
-  <div class="trust"><span><strong>Senior-led</strong> implementation</span><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Serving businesses</strong> across the United States</span></div>
+  <div class="trust"><span><strong>Senior-led</strong> implementation</span><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Serving businesses</strong> across North America</span></div>
 </div></section>
 
 <section class="band" id="problems"><div class="wrap">
@@ -1021,7 +1021,7 @@ add('contact/', 'contact',
     <div class="card"><span class="tag">Email</span><p class="mono" style="color:var(--ink);user-select:all">{esc(EMAIL)}</p></div>
     {f'<div class="card"><span class="tag">LinkedIn</span><p><a href="{esc(LINKEDIN)}" target="_blank" rel="noopener me">Oleh Karnaukhov on LinkedIn</a></p></div>' if LINKEDIN else ''}
     {phone_card}
-    <div class="card"><span class="tag">Location</span><p>Serving businesses across the United States. Based in Vancouver, British Columbia.</p></div>
+    <div class="card"><span class="tag">Location</span><p>Serving businesses across North America. Based in Vancouver, British Columbia.</p></div>
   </aside>
 </div></section>''')
 
