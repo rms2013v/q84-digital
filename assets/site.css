@@ -437,3 +437,147 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .resource-card:hover{border-color:var(--accent)}
 .resource-art{display:grid;place-items:center;height:180px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(135deg,var(--hero-top),var(--accent-soft))}
 .resource-art svg{width:56px;height:56px}
+
+/* =====================================================================
+   Design language v2: calmer type, squarer buttons, quiet labels,
+   large colour shapes, floating section menu, framed product shots
+   ===================================================================== */
+:root{
+  --bg:#F7F7F7; --surface:#FFFFFF; --surface-2:#EDEDED; --ink:#0E1726; --muted:#4B5563; --line:#E3E3E3;
+  --cta:#2A446F; --cta-hover:#213759; --chip-on:#1E304F;
+  --display:"Segoe UI Variable Display","Segoe UI",Poppins,system-ui,sans-serif;
+  --body:"Segoe UI Variable Text","Segoe UI","Open Sans",system-ui,sans-serif;
+  --mono:var(--body);
+  --radius:24px; --radius-sm:8px;
+  --shadow:0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.14);
+  --shadow-lg:0 0 2px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.14);
+  --shape-warm:linear-gradient(200deg,#FDE68A 0%,#FBBF24 45%,#F59E0B 100%);
+  --shape-blue:linear-gradient(160deg,#60A5FA 0%,#2563EB 55%,#1E3A8A 100%);
+  --frame:#E6ECF8;
+  --wash:linear-gradient(115deg,#FFF6D6 0%,#F1FAEC 45%,#E1F3FB 100%);
+  --hero-top:#F3F1EE; --hero-bottom:#EEF1F8;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1220; --surface:#131C2E; --surface-2:#1C2740; --ink:#E8EDF5; --muted:#9AA7BA; --line:#26324A;
+  --cta:#4C6FA8; --cta-hover:#5A7DB6; --chip-on:#4C6FA8; --frame:#1A2742;
+  --shape-warm:linear-gradient(200deg,#B4802A 0%,#8A5A12 100%); --shape-blue:linear-gradient(160deg,#2B4F8F 0%,#1B2F57 100%);
+  --wash:linear-gradient(115deg,#1D1F1A 0%,#132026 50%,#0F1C2A 100%); --hero-top:#0E1628; --hero-bottom:#0B1220;
+  --shadow:0 0 0 1px rgba(255,255,255,.06),0 2px 6px rgba(0,0,0,.4); --shadow-lg:0 0 0 1px rgba(255,255,255,.08),0 10px 24px rgba(0,0,0,.5)}}
+:root[data-theme="dark"]{
+  --bg:#0B1220; --surface:#131C2E; --surface-2:#1C2740; --ink:#E8EDF5; --muted:#9AA7BA; --line:#26324A;
+  --cta:#4C6FA8; --cta-hover:#5A7DB6; --chip-on:#4C6FA8; --frame:#1A2742;
+  --shape-warm:linear-gradient(200deg,#B4802A 0%,#8A5A12 100%); --shape-blue:linear-gradient(160deg,#2B4F8F 0%,#1B2F57 100%);
+  --wash:linear-gradient(115deg,#1D1F1A 0%,#132026 50%,#0F1C2A 100%); --hero-top:#0E1628; --hero-bottom:#0B1220;
+  --shadow:0 0 0 1px rgba(255,255,255,.06),0 2px 6px rgba(0,0,0,.4); --shadow-lg:0 0 0 1px rgba(255,255,255,.08),0 10px 24px rgba(0,0,0,.5)}
+html,body{overflow-x:clip}
+
+/* 1 + 12 + 13. Type: lighter, larger headings; dark navy ink */
+h1,h2,h3{font-family:var(--display)}
+h1{font-weight:500;letter-spacing:-.025em;line-height:1.12;font-size:clamp(2.3rem,5vw,3.9rem)}
+.hero h1{font-size:clamp(2.2rem,4.6vw,3.6rem)}
+h2{font-weight:500;letter-spacing:-.02em;line-height:1.15;font-size:clamp(1.8rem,3.5vw,3rem)}
+h3{font-weight:600;font-size:1.2rem;line-height:1.35;letter-spacing:0}
+.lede{color:var(--muted)}
+.hero .lede-strong{font-weight:500}
+
+/* 3. Quiet section labels */
+.eyebrow{background:none;padding:0;border-radius:0;color:var(--muted);font:600 .75rem/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase}
+.section-head{gap:14px}
+.section-head.center{margin-inline:auto;text-align:center;justify-items:center}
+.section-head.center .eyebrow{align-self:center}
+
+/* 2. Squarer buttons */
+.btn{border-radius:var(--radius-sm);font-weight:600;min-height:48px;padding:.75rem 1.2rem}
+.btn-sm{min-height:36px;padding:.35rem .9rem;font-size:.88rem}
+.btn-ghost{border-color:var(--ink);background:transparent;color:var(--ink)}
+.btn-ghost:hover{border-color:var(--cta);color:var(--cta);background:var(--surface)}
+@media (prefers-reduced-motion:no-preference){.btn:hover{transform:none}}
+.nav-links a,.dd>summary{border-radius:var(--radius-sm)}
+input,select,textarea{border-radius:var(--radius-sm)}
+
+/* Chips: product tour tabs, industry tabs */
+.tour-tab,.chip{font:500 .95rem var(--body);min-height:40px;padding:.5rem 1.3rem;border-radius:999px;border:0;background:var(--surface-2);color:var(--ink);cursor:pointer;transition:background .15s}
+.tour-tab:hover,.chip:hover{background:color-mix(in srgb,var(--surface-2) 70%,var(--ink) 8%)}
+.tour-tab[aria-selected="true"],.chip[aria-selected="true"]{background:var(--chip-on);color:#fff}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:32px}
+
+/* 8. Softer cards */
+.card,.example,.quote,.worked,.profile-card,.steps li,.cta-next,.promo,.alt-contact,.sched,.calc-out{border-color:transparent!important;box-shadow:var(--shadow)}
+.card,.example,.quote,.worked,.steps li,.cta-next,.promo{border-radius:var(--radius)}
+.steps li{background:var(--surface)}
+.steps li::before{background:var(--chip-on)}
+a.card:hover{box-shadow:var(--shadow-lg);border-color:transparent!important}
+.card .tag,.post-tag,.worked .label{color:var(--muted)}
+.band{border-block:0;background:var(--surface)}
+.table-wrap{border-color:transparent;box-shadow:var(--shadow)}
+.note{border:0;border-radius:12px}
+
+/* 9. Feature grid with thin dividers, line icons, no boxes */
+.fgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 0}
+.fitem{display:grid;gap:10px;align-content:start;padding:4px 28px;border-left:1px solid var(--line);text-decoration:none;color:inherit}
+.fitem .icon{width:auto;height:auto;background:none;border-radius:0;justify-content:start;color:var(--accent);margin-bottom:4px}
+.fitem .icon svg{width:30px;height:30px;stroke-width:1.6}
+.fitem p{color:var(--muted);font-size:.95rem}
+.fitem .fix{color:var(--ink);font-size:.93rem}
+.fitem .fix strong{color:var(--accent)}
+.fitem .more{margin-top:4px;font-size:.88rem;text-decoration:underline;text-underline-offset:3px}
+a.fitem:hover h3{color:var(--accent)}
+@media (max-width:900px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.fgrid{grid-template-columns:1fr;gap:28px}.fitem{padding:0 0 0 18px}}
+
+/* 4. Large colour shapes */
+.hero{overflow:clip;isolation:isolate;border-bottom:0;background:linear-gradient(180deg,var(--hero-top),var(--hero-bottom))}
+.hero::before{content:"";position:absolute;z-index:-1;right:-14vw;top:-18vw;width:min(46vw,640px);aspect-ratio:1;border-radius:50%;background:var(--shape-warm);opacity:.9}
+.hero::after{content:"";position:absolute;z-index:-1;left:-10vw;bottom:-22vw;width:min(40vw,520px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(37,99,235,.18),transparent 70%)}
+.page-head{overflow:clip;isolation:isolate;border-bottom:0;background:linear-gradient(180deg,var(--hero-top),var(--bg))}
+.page-head::before{content:"";position:absolute;z-index:-1;right:-120px;top:-180px;width:min(36vw,420px);aspect-ratio:1;border-radius:50%;background:var(--shape-warm);opacity:.85}
+.wash{position:relative;background:var(--wash)}
+@media (max-width:700px){.hero::before{right:-40vw;top:-30vw;width:80vw}.page-head::before{width:220px;right:-90px;top:-110px}}
+
+/* 7. Framed product shots with an offset shape */
+.hero-art{position:relative;isolation:isolate;padding:14px;border-radius:30px;background:color-mix(in srgb,var(--surface) 70%,transparent);box-shadow:var(--shadow-lg)}
+.hero-art::before{content:"";position:absolute;z-index:-1;left:-28px;bottom:-28px;width:58%;height:62%;border-radius:26px;background:var(--shape-blue)}
+.hero-art img{border:0;border-radius:20px}
+.tour-panel .shot,.yt .video-poster{border:0;box-shadow:0 0 0 12px var(--frame),var(--shadow-lg)}
+.tour-panel .shot{border-radius:18px;margin:12px!important}
+.yt .video-poster{border-radius:18px}
+.yt{padding:12px}
+
+/* 6. Feature explorer: text on the left, screen on the right */
+.tour-panel{grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:48px;align-items:center}
+.tour-copy{order:-1;padding-left:20px;border-left:3px solid var(--cta)}
+.tour-copy h3{font-size:1.3rem}
+@media (max-width:900px){.tour-panel{grid-template-columns:1fr;gap:24px}.tour-copy{order:0}}
+
+/* 5. Floating in-page section menu */
+.subnav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 72px);z-index:15;margin-top:-28px;margin-bottom:-20px;pointer-events:none}
+.subnav-bar{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:900px;margin:0 auto;padding:6px 6px 6px 10px;background:var(--surface);border-radius:14px;box-shadow:var(--shadow-lg)}
+.subnav-links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.subnav-links::-webkit-scrollbar{display:none}
+.subnav-links a{flex:none;padding:.5rem .75rem;border-radius:8px;color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;white-space:nowrap}
+.subnav-links a:hover{color:var(--ink);background:var(--surface-2)}
+.subnav-links a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--cta);border-radius:8px 8px 0 0}
+section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 140px)}
+@media (max-width:700px){.subnav .btn{display:none}.subnav-bar{padding:4px}.subnav{top:calc(env(safe-area-inset-top,0px) + 70px)}}
+
+/* 10. Industry tabs with photo */
+.ind-panel{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:center;max-width:1040px;margin:0 auto}
+.ind-photo{margin:0}
+.ind-photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius)}
+.ind-panel h3{font:500 clamp(1.4rem,2.4vw,1.9rem)/1.2 var(--display);letter-spacing:-.01em}
+.ind-panel p{color:var(--muted)}
+@media (max-width:860px){.ind-panel{grid-template-columns:1fr;gap:24px}}
+
+/* 11. Announcement bar in the hero */
+.announce{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:8px 14px 8px 8px;border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent);box-shadow:var(--shadow);color:var(--ink);text-decoration:none;font-size:.9rem;max-width:100%}
+.announce-tag{padding:3px 10px;border-radius:6px;background:var(--chip-on);color:#fff;font-weight:600;font-size:.78rem}
+.announce-link{color:var(--accent);font-weight:600}
+.announce:hover .announce-link{text-decoration:underline}
+
+/* Odds and ends in the new style */
+.founder{border-color:transparent;box-shadow:var(--shadow)}
+.next-slot{border-radius:12px;border-color:transparent;box-shadow:var(--shadow);background:var(--surface)}
+.promo{background:var(--wash)}
+.cta-section .cta-next{background:var(--surface)}
+.svc{border-top:0}
+.ind-photo img{height:auto}

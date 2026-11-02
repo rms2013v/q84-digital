@@ -336,8 +336,35 @@ def checklist_promo(heading='Is your business ready for a new ERP?', text='Our f
     <div class="hero-actions"><a class="btn btn-primary" {DL_ATTR}>Download the checklist (PDF)</a><a class="btn btn-ghost" href="{CHECKLIST_URL}">See what’s inside</a></div>
     <p class="hint">Fillable PDF, 6 pages. No email required.</p></div>
 </div></div></section>'''
-def add(path, nav, title, desc, body, schema=None, image=None):
-    PAGES.append(dict(path=path, nav=nav, title=title, desc=desc, body=body, schema=schema or [], image=image))
+def add(path, nav, title, desc, body, schema=None, image=None, subnav=False):
+    PAGES.append(dict(path=path, nav=nav, title=title, desc=desc, body=body, schema=schema or [], image=image, subnav=subnav))
+
+def slug(t):
+    return re.sub(r'[^a-z0-9]+', '-', html.unescape(t).lower()).strip('-')
+
+NAV_SHORT = {'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit'}
+def with_subnav(body):
+    # Give each labelled section an id and build a floating in-page menu from the labels
+    items, used = [], set()
+    def fix(m):
+        attrs, inner = m.group(1), m.group(2)
+        if 'promo-section' in attrs or 'cta-section' in attrs: return m.group(0)
+        e = re.search(r'class="eyebrow">(.*?)<', inner)
+        if not e: return m.group(0)
+        idm = re.search(r'id="([^"]+)"', attrs)
+        sid = idm.group(1) if idm else slug(e.group(1))
+        while sid in used: sid += '-2'
+        used.add(sid)
+        items.append((sid, NAV_SHORT.get(html.unescape(e.group(1)), e.group(1))))
+        if not idm: attrs = attrs + f' id="{sid}"'
+        return f'<section{attrs}>{inner}'
+    body = re.sub(r'<section([^>]*)>(.{0,600})', fix, body, flags=re.S)
+    if len(items) < 3: return body
+    nav = ('<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links">'
+           + ''.join(f'<a href="#{i}">{t}</a>' for i, t in items)
+           + f'</div><a class="btn btn-primary btn-sm" {CTA_ATTR}>{CTA_LABEL}</a></div></div></nav>')
+    # place the menu straight after the page header
+    return body.replace('</div></div>\n', '</div></div>\n' + nav + '\n', 1) if body.startswith('<div class="page-head">') else nav + body
 
 photo = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov, founder of Q84 Digital" width="480" height="480">' if CFG.get('consultant_photo') else 'OK'
 
@@ -391,6 +418,7 @@ add('', 'home',
     'Take control of your inventory, operations and finances with Microsoft Dynamics 365 Business Central. Senior-led implementation for distributors and manufacturers, with 15+ years of Dynamics experience.',
     f'''<section class="hero"><div class="wrap">
   <div class="{HERO_CLASS}"><div class="hero-center">
+    <a class="announce" href="{CHECKLIST_URL}"><span class="announce-tag">New</span><span>Free ERP Readiness Checklist for Business Central projects</span><span class="announce-link">Download \u2192</span></a>
     <h1>Take control of your inventory, operations and finances <span class="h1-accent">with Microsoft Business Central</span></h1>
     <p class="lede lede-strong">Replace disconnected accounting, inventory and warehouse systems with one connected ERP platform.</p>
     <p class="lede">Q84 Digital helps distributors and manufacturers implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
@@ -401,17 +429,37 @@ add('', 'home',
 
 <section class="band" id="problems"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Problems we solve</span><h2>You\u2019re not shopping for software. You\u2019re fixing these.</h2></div>
-  <div class="grid g3">
-    <div class="card">{icon('box')}<h3>Inventory you can\u2019t trust</h3><p>Counts drift from what\u2019s on the shelf.</p><p class="fix"><strong>Fix:</strong> stock by location and bin, cycle counts and item tracking in one system.</p></div>
-    <div class="card">{icon('link')}<h3>Accounting and warehouse don\u2019t talk</h3><p>Shipments, invoices and the ledger are reconciled by hand.</p><p class="fix"><strong>Fix:</strong> every shipment and receipt posts straight to the books.</p></div>
-    <div class="card">{icon('receipt')}<h3>Orders processed manually</h3><p>Orders are retyped between email, spreadsheets and systems.</p><p class="fix"><strong>Fix:</strong> one quote-to-cash flow, connected to your online store and carriers.</p></div>
-    <div class="card">{icon('migrate')}<h3>Outgrown QuickBooks</h3><p>No real inventory, multiple companies or reporting you can rely on.</p><p class="fix"><strong>Fix:</strong> a clean, reconciled move to Business Central.</p></div>
-    <div class="card">{icon('warehouse')}<h3>A warehouse that can\u2019t keep up</h3><p>Picking errors, slow shipping and no visibility on the floor.</p><p class="fix"><strong>Fix:</strong> bin-based receiving, picking and shipping that staff can follow.</p></div>
-    <div class="card">{icon('chart')}<h3>Can\u2019t scale or see margins</h3><p>Growth adds more spreadsheets instead of better answers.</p><p class="fix"><strong>Fix:</strong> planning, landed costs and margin reporting on live data.</p></div>
+  <div class="fgrid">
+    <div class="fitem">{icon('box')}<h3>Inventory you can\u2019t trust</h3><p>Counts drift from what\u2019s on the shelf.</p><p class="fix"><strong>Fix:</strong> stock by location and bin, cycle counts and item tracking in one system.</p></div>
+    <div class="fitem">{icon('link')}<h3>Accounting and warehouse don\u2019t talk</h3><p>Shipments, invoices and the ledger are reconciled by hand.</p><p class="fix"><strong>Fix:</strong> every shipment and receipt posts straight to the books.</p></div>
+    <div class="fitem">{icon('receipt')}<h3>Orders processed manually</h3><p>Orders are retyped between email, spreadsheets and systems.</p><p class="fix"><strong>Fix:</strong> one quote-to-cash flow, connected to your online store and carriers.</p></div>
+    <div class="fitem">{icon('migrate')}<h3>Outgrown QuickBooks</h3><p>No real inventory, multiple companies or reporting you can rely on.</p><p class="fix"><strong>Fix:</strong> a clean, reconciled move to Business Central.</p></div>
+    <div class="fitem">{icon('warehouse')}<h3>A warehouse that can\u2019t keep up</h3><p>Picking errors, slow shipping and no visibility on the floor.</p><p class="fix"><strong>Fix:</strong> bin-based receiving, picking and shipping that staff can follow.</p></div>
+    <div class="fitem">{icon('chart')}<h3>Can\u2019t scale or see margins</h3><p>Growth adds more spreadsheets instead of better answers.</p><p class="fix"><strong>Fix:</strong> planning, landed costs and margin reporting on live data.</p></div>
   </div>
 </div></section>
 
 {TOUR}
+
+<section class="wash wash-warm" id="industries"><div class="wrap">
+  <div class="section-head center"><span class="eyebrow">Industries</span><h2>Built around the way you operate</h2></div>
+  <div class="chips" role="tablist" aria-label="Industries">
+    <button class="chip" role="tab" id="itab-dist" aria-controls="ipanel-dist" aria-selected="true">Wholesale distribution</button>
+    <button class="chip" role="tab" id="itab-mfg" aria-controls="ipanel-mfg" aria-selected="false" tabindex="-1">Manufacturing</button>
+  </div>
+  <div class="ind-panel" role="tabpanel" id="ipanel-dist" aria-labelledby="itab-dist">
+    <figure class="ind-photo"><img src="@/images/hero-warehouse-aisle.webp" alt="Warehouse aisle with racking and stock ready to pick" width="1024" height="1024" loading="lazy"></figure>
+    <div class="stack"><h3>Run a responsive, profitable distribution business</h3>
+      <p>Connect purchasing, inventory, warehousing and finance so you always know what you have, where it is and what it earns. Plan replenishment from real demand, pick and ship faster with bins and scanners, and see margins by customer and item.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="@/industries/distribution/">See distribution features</a></div></div>
+  </div>
+  <div class="ind-panel" role="tabpanel" id="ipanel-mfg" aria-labelledby="itab-mfg" hidden>
+    <figure class="ind-photo"><img src="@/images/hero-manufacturing-line.webp" alt="Production line with finished goods moving to packing" width="1024" height="1024" loading="lazy"></figure>
+    <div class="stack"><h3>Plan production and know what each product costs</h3>
+      <p>Manage bills of materials, production orders and material planning in the same system as your stock and books. See shortages before they stop the floor and compare actual costs with standard on every order.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="@/industries/manufacturing/">See manufacturing features</a></div></div>
+  </div>
+</div></section>
 
 <section class="band"><div class="wrap">
   {PROOF}
@@ -420,12 +468,12 @@ add('', 'home',
 
 <section><div class="wrap">
   <div class="section-head"><span class="eyebrow">What we deliver</span><h2>From assessment to everyday support</h2></div>
-  <div class="svc">
-    <a href="@/implementation/"><h3>Implementation</h3><p>Business Central set up around your processes, from chart of accounts to go-live.</p><span class="more">Implementation \u2192</span></a>
-    <a href="@/data-migration/"><h3>Data migration</h3><p>Clean, verified data moved from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Data migration \u2192</span></a>
-    <a href="@/integrations/"><h3>Integrations &amp; automation</h3><p>Business Central connected to e-commerce, shipping, CRM and Power BI.</p><span class="more">Integrations \u2192</span></a>
-    <a href="@/licensing/"><h3>Licensing &amp; advice</h3><p>The right license mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing \u2192</span></a>
-    <a href="@/support/"><h3>Ongoing support</h3><p>Fixes, improvements and training once you\u2019re live, hourly or monthly.</p><span class="more">Support \u2192</span></a>
+  <div class="fgrid">
+    <a class="fitem" href="@/implementation/">{icon('tools')}<h3>Implementation</h3><p>Business Central set up around your processes, from chart of accounts to go-live.</p><span class="more">Implementation \u2192</span></a>
+    <a class="fitem" href="@/data-migration/">{icon('migrate')}<h3>Data migration</h3><p>Clean, verified data moved from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Data migration \u2192</span></a>
+    <a class="fitem" href="@/integrations/">{icon('link')}<h3>Integrations &amp; automation</h3><p>Business Central connected to e-commerce, shipping, CRM and Power BI.</p><span class="more">Integrations \u2192</span></a>
+    <a class="fitem" href="@/licensing/">{icon('receipt')}<h3>Licensing &amp; advice</h3><p>The right license mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing \u2192</span></a>
+    <a class="fitem" href="@/support/">{icon('chart')}<h3>Ongoing support</h3><p>Fixes, improvements and training once you\u2019re live, hourly or monthly.</p><span class="more">Support \u2192</span></a>
   </div>
 </div></section>
 
@@ -487,16 +535,16 @@ add('business-central/', 'business-central',
 </div></section>
 <section class="band"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Core features</span><h2>One system for the whole business</h2></div>
-  <div class="grid g3">
-    <div class="plain">{icon('ledger')}<h3>Financial management</h3><p>General ledger, payables, receivables, bank reconciliation, dimensions and financial reporting.</p></div>
-    <div class="plain">{icon('box')}<h3>Inventory management</h3><p>Items, variants, locations, costing methods, reorder points and planning suggestions.</p></div>
-    <div class="plain">{icon('receipt')}<h3>Sales</h3><p>Quotes, orders, invoicing, pricing, discounts, credit limits and customer management.</p></div>
-    <div class="plain">{icon('cart')}<h3>Purchasing</h3><p>Purchase orders, vendor management, receiving, approvals and drop shipments.</p></div>
-    <div class="plain">{icon('warehouse')}<h3>Warehouse operations</h3><p>Receipts, put-away, picking, shipping, bins and inventory movements.</p></div>
-    <div class="plain">{icon('factory')}<h3>Manufacturing (Premium)</h3><p>Bills of materials, routings, production orders and capacity planning.</p></div>
-    <div class="plain">{icon('pie')}<h3>Reporting &amp; analytics</h3><p>Role-based home pages, Excel analysis and Power BI on live data.</p></div>
-    <div class="plain">{icon('link')}<h3>Integrations</h3><p>A Shopify connector, Microsoft 365 and Dataverse links, and open APIs.</p></div>
-    <div class="plain">{icon('tools')}<h3>Extensions</h3><p>Apps from Microsoft AppSource and custom AL extensions for specific needs.</p></div>
+  <div class="fgrid">
+    <div class="fitem">{icon('ledger')}<h3>Financial management</h3><p>General ledger, payables, receivables, bank reconciliation, dimensions and financial reporting.</p></div>
+    <div class="fitem">{icon('box')}<h3>Inventory management</h3><p>Items, variants, locations, costing methods, reorder points and planning suggestions.</p></div>
+    <div class="fitem">{icon('receipt')}<h3>Sales</h3><p>Quotes, orders, invoicing, pricing, discounts, credit limits and customer management.</p></div>
+    <div class="fitem">{icon('cart')}<h3>Purchasing</h3><p>Purchase orders, vendor management, receiving, approvals and drop shipments.</p></div>
+    <div class="fitem">{icon('warehouse')}<h3>Warehouse operations</h3><p>Receipts, put-away, picking, shipping, bins and inventory movements.</p></div>
+    <div class="fitem">{icon('factory')}<h3>Manufacturing (Premium)</h3><p>Bills of materials, routings, production orders and capacity planning.</p></div>
+    <div class="fitem">{icon('pie')}<h3>Reporting &amp; analytics</h3><p>Role-based home pages, Excel analysis and Power BI on live data.</p></div>
+    <div class="fitem">{icon('link')}<h3>Integrations</h3><p>A Shopify connector, Microsoft 365 and Dataverse links, and open APIs.</p></div>
+    <div class="fitem">{icon('tools')}<h3>Extensions</h3><p>Apps from Microsoft AppSource and custom AL extensions for specific needs.</p></div>
   </div>
 </div></section>
 <section id="fit"><div class="wrap">
@@ -1155,6 +1203,7 @@ def breadcrumb_schema(p):
 def render(p):
     canonical = URL + p['path']
     bc = breadcrumb_schema(p)
+    if p.get('subnav'): p = dict(p, body=with_subnav(p['body']))
     if bc: p = dict(p, schema=p['schema'] + [bc])
     img, img_alt = p.get('image') or ('og-default.jpg', 'Q84 Digital: Microsoft Business Central for distribution and manufacturing')
     img_url = URL + 'images/' + img
@@ -1200,6 +1249,9 @@ def render(p):
 '''
     return doc.replace('@/', BASE)
 
+SUBNAV_PAGES = {'business-central/', 'licensing/', 'implementation/', 'data-migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/'}
+for p in PAGES:
+    if p['path'] in SUBNAV_PAGES: p['subnav'] = True
 for p in PAGES:
     out = os.path.join(ROOT, p['path'], 'index.html')
     os.makedirs(os.path.dirname(out), exist_ok=True)

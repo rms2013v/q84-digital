@@ -28,26 +28,44 @@
     });
   });
 
-  // Product tour tabs
-  var tabs = [].slice.call(document.querySelectorAll('.tour-tab'));
-  function selectTab(t, focus) {
-    tabs.forEach(function (x) {
-      var on = x === t;
-      x.setAttribute('aria-selected', on);
-      x.tabIndex = on ? 0 : -1;
-      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
-    });
-    if (focus) t.focus();
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { selectTab(t); });
-    t.addEventListener('keydown', function (e) {
-      var j = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
-      if (j === null) return;
-      e.preventDefault();
-      selectTab(tabs[(j + tabs.length) % tabs.length], true);
+  // Tab groups (product tour, industries): each tablist works on its own
+  [].forEach.call(document.querySelectorAll('[role="tablist"]'), function (list) {
+    var tabs = [].slice.call(list.querySelectorAll('[role="tab"]'));
+    function selectTab(t, focus) {
+      tabs.forEach(function (x) {
+        var on = x === t;
+        x.setAttribute('aria-selected', on);
+        x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) t.focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { selectTab(t); });
+      t.addEventListener('keydown', function (e) {
+        var j = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+        if (j === null) return;
+        e.preventDefault();
+        selectTab(tabs[(j + tabs.length) % tabs.length], true);
+      });
     });
   });
+
+  // In-page section menu: highlight the section in view
+  var sub = document.querySelector('.subnav');
+  if (sub && 'IntersectionObserver' in window) {
+    var links = [].slice.call(sub.querySelectorAll('a[href^="#"]'));
+    var map = {};
+    links.forEach(function (a) { var el = document.getElementById(a.getAttribute('href').slice(1)); if (el) map[el.id] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (a) { a.removeAttribute('aria-current'); });
+        var a = map[en.target.id]; if (a) { a.setAttribute('aria-current', 'true'); if (a.scrollIntoView && sub.scrollWidth > sub.clientWidth) sub.querySelector('.subnav-links').scrollLeft = a.offsetLeft - 16; }
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
+  }
 
   // Real screenshots replace the example screens once the files exist in /images
   var shots = document.querySelectorAll('[data-shot]');
