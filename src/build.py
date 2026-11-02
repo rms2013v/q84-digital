@@ -123,7 +123,7 @@ def footer():
       </div>
       <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li><li><a href="@/resources/erp-readiness-checklist/">ERP readiness checklist</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/data-migration/">Data migration</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/support/">Support</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/resources/">Resources</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
     <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
   </div>
@@ -336,8 +336,8 @@ def checklist_promo(heading='Is your business ready for a new ERP?', text='Our f
     <div class="hero-actions"><a class="btn btn-primary" {DL_ATTR}>Download the checklist (PDF)</a><a class="btn btn-ghost" href="{CHECKLIST_URL}">See what’s inside</a></div>
     <p class="hint">Fillable PDF, 6 pages. No email required.</p></div>
 </div></div></section>'''
-def add(path, nav, title, desc, body, schema=None):
-    PAGES.append(dict(path=path, nav=nav, title=title, desc=desc, body=body, schema=schema or []))
+def add(path, nav, title, desc, body, schema=None, image=None):
+    PAGES.append(dict(path=path, nav=nav, title=title, desc=desc, body=body, schema=schema or [], image=image))
 
 photo = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov, founder of Q84 Digital" width="480" height="480">' if CFG.get('consultant_photo') else 'OK'
 
@@ -397,7 +397,6 @@ add('', 'home',
     <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#tour">See how it works</a></div>
     <div class="founder"><span class="founder-photo">{avatar_small}</span><span><strong>Led by Oleh Karnaukhov</strong><span>15+ years of Microsoft Dynamics and supply chain experience</span></span>{f'<a class="li" href="{esc(LINKEDIN)}" target="_blank" rel="noopener me" aria-label="Oleh Karnaukhov on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>' if LINKEDIN else ''}</div>
   </div>{HERO_ART}</div>
-  <div class="trust"><span><strong>Senior-led</strong> implementation</span><span><strong>15+ years</strong> of Microsoft Dynamics experience</span><span><strong>Serving businesses</strong> across North America</span></div>
 </div></section>
 
 <section class="band" id="problems"><div class="wrap">
@@ -1053,7 +1052,7 @@ CL_SCHEMA = {"@context": "https://schema.org", "@type": "DigitalDocument", "name
 add('resources/erp-readiness-checklist/', 'resources',
     'Free ERP Readiness Checklist for Business Central | Q84 Digital',
     'Download a free, fillable ERP Readiness Checklist. 52 questions across 9 areas help distributors and manufacturers prepare for a Business Central project.',
-    page_head('Resources', 'Resources / ERP readiness checklist', 'Free ERP Readiness Checklist',
+    page_head('Resources', '<a href="@/resources/">Resources</a> / ERP readiness checklist', 'Free ERP Readiness Checklist',
               'Find the gaps before you choose an ERP. 52 practical questions across 9 areas, written for distributors and manufacturers considering Microsoft Dynamics 365 Business Central.', button=False) + f'''
 <section style="padding-top:32px"><div class="wrap split cl-hero">
   <div class="stack">
@@ -1077,7 +1076,35 @@ add('resources/erp-readiness-checklist/', 'resources',
     <li><h3>Talk it through</h3><p>Bring it to a free 30-minute assessment and we’ll go through the gaps together.</p></li>
   </ol>
 </div></section>
-{cta('Bring your checklist to a free assessment', 'Pick a time for a 30-minute call. We’ll go through your answers and tell you honestly whether Business Central fits.')}''', [CL_SCHEMA])
+{cta('Bring your checklist to a free assessment', 'Pick a time for a 30-minute call. We’ll go through your answers and tell you honestly whether Business Central fits.')}''', [CL_SCHEMA],
+    image=('og-erp-checklist.jpg', 'Q84 Digital free ERP Readiness Checklist: 52 questions across 9 areas'))
+
+# RESOURCES index
+add('resources/', 'resources',
+    'Free Business Central & ERP Resources | Q84 Digital',
+    'Free guides and checklists from Q84 Digital to help distributors and manufacturers plan, choose and implement Microsoft Dynamics 365 Business Central.',
+    page_head('Resources', 'Resources', 'Free ERP resources',
+              'Practical guides and checklists to help you plan, choose and implement Business Central. Free to download, no email required.', button=False) + f'''
+<section style="padding-top:32px"><div class="wrap">
+  <div class="grid g3">
+    <a class="card resource-card" href="{CHECKLIST_URL}">
+      <img src="@/images/erp-checklist-cover.webp" alt="" width="640" height="828" loading="lazy">
+      <span class="tag">Checklist · PDF</span><h3>ERP Readiness Checklist</h3>
+      <p>52 questions across 9 areas to find the gaps before you choose an ERP. Fillable, 6 pages.</p>
+      <span class="more">See what’s inside →</span></a>
+    <a class="card resource-card" href="@/licensing/#calculator">
+      <span class="resource-art">{icon('chart')}</span>
+      <span class="tag">Tool</span><h3>License cost calculator</h3>
+      <p>Estimate your monthly Business Central license cost from your number of users.</p>
+      <span class="more">Estimate your costs →</span></a>
+    <a class="card resource-card" href="@/blog/">
+      <span class="resource-art">{icon('ledger')}</span>
+      <span class="tag">Articles</span><h3>Business Central blog</h3>
+      <p>Practical articles on ERP selection, inventory, warehousing and Business Central.</p>
+      <span class="more">Read the blog →</span></a>
+  </div>
+</div></section>
+{cta()}''')
 
 # PRIVACY
 legal_line = f' Q84 Digital is operated by {esc(CFG["legal_name"])}.' if CFG.get('legal_name') else ''
@@ -1107,8 +1134,30 @@ def analytics():
 
 FAVICON = "data:image/svg+xml," + re.sub(r'\s+', ' ', '''<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>''')
 
+def breadcrumb_schema(p):
+    m = re.search(r'<nav class="crumb"[^>]*>(.*?)</nav>', p['body'], re.S)
+    if not m: return None
+    items = []
+    parts = m.group(1).split(' / ')
+    for idx, part in enumerate(parts):
+        a = re.search(r'<a href="([^"]+)">(.*?)</a>', part)
+        if a: items.append((re.sub('<.*?>', '', a.group(2)).strip(), URL + a.group(1).replace('@/', '')))
+        else:
+            name = re.sub('<.*?>', '', part).strip()
+            if name and idx == len(parts) - 1: items.append((name, None))
+    if items and items[-1][1] is not None and items[-1][1] != URL + p['path']:
+        items.append((p['title'].split(' | ')[0], None))
+    if len(items) < 2: return None
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        dict({"@type": "ListItem", "position": i, "name": html.unescape(n)}, **({"item": u} if u else {}))
+        for i, (n, u) in enumerate(items, 1)]}
+
 def render(p):
     canonical = URL + p['path']
+    bc = breadcrumb_schema(p)
+    if bc: p = dict(p, schema=p['schema'] + [bc])
+    img, img_alt = p.get('image') or ('og-default.jpg', 'Q84 Digital: Microsoft Business Central for distribution and manufacturing')
+    img_url = URL + 'images/' + img
     schema = ''.join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>\n' for s in p['schema'])
     noindex = '' if CFG.get('allow_indexing', True) else '<meta name="robots" content="noindex, nofollow">\n'
     verify = noindex + (f'<meta name="google-site-verification" content="{esc(CFG["gsc_verification"])}">\n' if CFG.get('gsc_verification') else '')
@@ -1126,7 +1175,12 @@ def render(p):
 <meta property="og:title" content="{esc(p['title'])}">
 <meta property="og:description" content="{esc(p['desc'])}">
 <meta property="og:url" content="{canonical}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="{img_url}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{esc(img_alt)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{img_url}">
 {verify}<link rel="icon" href="{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
