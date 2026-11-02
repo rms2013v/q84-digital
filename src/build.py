@@ -121,7 +121,7 @@ def footer():
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Vancouver, British Columbia</li></ul>
         {social_links()}
       </div>
-      <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li></ul></div>
+      <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li><li><a href="@/resources/erp-readiness-checklist/">ERP readiness checklist</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/data-migration/">Data migration</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/support/">Support</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
@@ -325,6 +325,17 @@ if CFG.get('consultant_photo'):
 # ---------------------------------------------------------------- pages
 
 PAGES = []
+
+CHECKLIST_URL = '@/resources/erp-readiness-checklist/'
+CHECKLIST_PDF = '@/downloads/q84-erp-readiness-checklist.pdf'
+DL_ATTR = f'href="{CHECKLIST_PDF}" download data-download="erp-readiness-checklist"'
+def checklist_promo(heading='Is your business ready for a new ERP?', text='Our free ERP Readiness Checklist covers 52 questions across 9 areas, from inventory and warehouse to data and budget. Fill it in with your team, then bring it to your assessment.'):
+    return f'''<section class="promo-section"><div class="wrap"><div class="promo">
+  <a class="promo-cover" href="{CHECKLIST_URL}" tabindex="-1" aria-hidden="true"><img src="@/images/erp-checklist-cover.webp" alt="" width="640" height="828" loading="lazy"></a>
+  <div class="promo-copy"><span class="eyebrow">Free download</span><h2>{heading}</h2><p>{text}</p>
+    <div class="hero-actions"><a class="btn btn-primary" {DL_ATTR}>Download the checklist (PDF)</a><a class="btn btn-ghost" href="{CHECKLIST_URL}">See what’s inside</a></div>
+    <p class="hint">Fillable PDF, 6 pages. No email required.</p></div>
+</div></div></section>'''
 def add(path, nav, title, desc, body, schema=None):
     PAGES.append(dict(path=path, nav=nav, title=title, desc=desc, body=body, schema=schema or []))
 
@@ -454,6 +465,7 @@ add('', 'home',
   <div class="stack"><span class="eyebrow">FAQ</span><h2>Common questions</h2><p class="lede">Don\u2019t see yours? <a href="@/contact/">Ask directly.</a></p></div>
   {faq_html(FAQ_HOME)}
 </div></section>
+{checklist_promo()}
 {cta('Find out if Business Central fits your business')}''', [ORG_SCHEMA, PERSON_SCHEMA, faq_schema(FAQ_HOME)])
 
 # BUSINESS CENTRAL
@@ -497,6 +509,7 @@ add('business-central/', 'business-central',
   <div class="stack"><span class="eyebrow">Moving from QuickBooks?</span><h2>Signs you've outgrown entry-level accounting</h2></div>
   {checks(['<strong>Inventory lives in spreadsheets.</strong> Stock counts and costs are tracked outside your accounting system.', '<strong>Several companies or locations.</strong> Consolidation and inter-company work take days.', '<strong>Reporting is manual.</strong> Month-end means exporting and rebuilding reports in Excel.', '<strong>Too many disconnected tools.</strong> Orders, stock and accounting are reconciled by hand.'])}
 </div></section>
+{checklist_promo('Check your readiness before you choose')}
 {cta('See whether Business Central fits', 'Tell us how your business runs today. We’ll tell you honestly whether Business Central is the right choice.')}''')
 
 # IMPLEMENTATION
@@ -530,6 +543,7 @@ add('implementation/', 'implementation',
   <div class="stack"><span class="eyebrow">Timeline &amp; cost</span><h2>What drives the size of a project</h2><p class="lede">You get a fixed scope and estimate after discovery, based on your business rather than a guess. <a href="@/licensing/#calculator">Try the cost estimator.</a></p></div>
   {checks(['<strong>Modules in scope.</strong> Finance only, or also inventory, warehousing and manufacturing.', '<strong>Companies and locations.</strong> Multi-entity and multi-warehouse setups take more work.', '<strong>Data volume and quality.</strong> Clean data loads faster than messy data.', '<strong>Integrations.</strong> Each connected system adds design and testing time.', '<strong>Custom development.</strong> Extensions are scoped and estimated separately.'])}
 </div></section>
+{checklist_promo('Prepare your team for implementation', 'Use our free ERP Readiness Checklist to find gaps in goals, processes, data and ownership before the project starts. It makes discovery faster and scope clearer.')}
 {cta('Planning a Business Central project?')}''')
 
 # LICENSING
@@ -836,6 +850,7 @@ add('industries/distribution/', 'distribution',
   <div class="section-head"><span class="eyebrow">Right-sized</span><h2>Is Business Central enough for your warehouse?</h2></div>
   {FIT}
 </div></section>
+{checklist_promo()}
 {cta('Talk to a distribution ERP specialist')}''')
 
 FAQ_MFG = [
@@ -890,6 +905,7 @@ add('industries/manufacturing/', 'manufacturing',
 </div></section>
 <section><div class="wrap"><div class="note">Manufacturing features need the Business Central Premium license. <a href="@/licensing/#calculator">Estimate your license cost.</a></div></div></section>
 {faq_section(FAQ_MFG)}
+{checklist_promo()}
 {cta('Talk about your production processes')}''', [faq_schema(FAQ_MFG)])
 
 # BLOG
@@ -927,6 +943,7 @@ add('blog/', 'blog', 'Business Central & ERP Blog | Q84 Digital',
 <section style="padding-top:32px"><div class="wrap">
   <div class="grid g3">{''.join(post_card(p) for p in sorted(POSTS, key=lambda p: p['date'], reverse=True))}</div>
 </div></section>
+{checklist_promo()}
 {cta()}''')
 
 for p in POSTS:
@@ -945,6 +962,7 @@ for p in POSTS:
   <div class="post-body">{p['body']}</div>
   <p style="margin-top:32px"><a class="more" href="@/blog/">\u2190 All articles</a></p>
 </div></article>
+{checklist_promo()}
 {cta()}''', [schema])
 
 # CONTACT
@@ -1017,12 +1035,49 @@ add('contact/', 'contact',
   </div>
   <aside class="contact-side">
     <div class="card offer"><span class="tag">What you get</span><h3>Your free assessment</h3><ul class="checks"><li><div>A review of your current systems and pain points</div></li><li><div>An honest view of whether Business Central fits, or what would fit better</div></li><li><div>The likely project size, timeline and license cost</div></li><li><div>Clear next steps, with no obligation</div></li></ul></div>
+    <div class="card prep"><span class="tag">Prepare for your call</span><h3>ERP Readiness Checklist</h3><p>Fill it in with your team before the call to get more out of your 30 minutes.</p><a class="btn btn-ghost" {DL_ATTR}>Download the PDF</a></div>
     <div class="card"><span class="tag">Email</span><p class="mono" style="color:var(--ink);user-select:all">{esc(EMAIL)}</p></div>
     {f'<div class="card"><span class="tag">LinkedIn</span><p><a href="{esc(LINKEDIN)}" target="_blank" rel="noopener me">Oleh Karnaukhov on LinkedIn</a></p></div>' if LINKEDIN else ''}
     {phone_card}
     <div class="card"><span class="tag">Location</span><p>Serving businesses across North America. Based in Vancouver, British Columbia.</p></div>
   </aside>
 </div></section>''')
+
+
+# RESOURCES: ERP readiness checklist
+CL_AREAS = [('Business goals and ownership', 'Why you need to change, the outcomes you expect and who makes decisions.'), ('Current systems and processes', 'What you use today, what stays and where spreadsheets fill the gaps.'), ('Finance and reporting', 'Chart of accounts, approvals, month-end close, tax and historical data.'), ('Inventory, purchasing and sales', 'Item data, costing, replenishment, pricing and traceability.'), ('Warehouse and fulfillment', 'Receiving to shipping, scanning, bins, carriers and 3PLs.'), ('Manufacturing and service', 'BOMs, routings, production, quality and service work.'), ('Data, integrations and technology', 'Data quality, ecommerce, EDI, CRM and security.'), ('People and change', 'Workshops, testing, training and keeping your team informed.'), ('Budget, timeline and scope', 'Costs, realistic dates, priorities and support after go-live.')]
+CL_SCHEMA = {"@context": "https://schema.org", "@type": "DigitalDocument", "name": "ERP Readiness Checklist",
+             "description": "A free, fillable 52-question checklist to prepare distributors and manufacturers for a Microsoft Dynamics 365 Business Central project.",
+             "encodingFormat": "application/pdf", "url": URL + "downloads/q84-erp-readiness-checklist.pdf",
+             "author": {"@id": URL + "#organization"}, "inLanguage": "en-US", "isAccessibleForFree": True}
+add('resources/erp-readiness-checklist/', 'resources',
+    'Free ERP Readiness Checklist for Business Central | Q84 Digital',
+    'Download a free, fillable ERP Readiness Checklist. 52 questions across 9 areas help distributors and manufacturers prepare for a Business Central project.',
+    page_head('Resources', 'Resources / ERP readiness checklist', 'Free ERP Readiness Checklist',
+              'Find the gaps before you choose an ERP. 52 practical questions across 9 areas, written for distributors and manufacturers considering Microsoft Dynamics 365 Business Central.', button=False) + f'''
+<section style="padding-top:32px"><div class="wrap split cl-hero">
+  <div class="stack">
+    <span class="eyebrow">What it helps you do</span><h2>Get your team aligned before the first workshop</h2>
+    {checks(['<strong>Spot gaps early.</strong> Mark each question Yes, Partly or No and see where decisions are missing.', '<strong>Get everyone involved.</strong> Finance, sales, purchasing, warehouse and IT each have their own section.', '<strong>Have a better first conversation.</strong> Bring it to your assessment and spend the time on what matters.'])}
+    <div class="hero-actions"><a class="btn btn-primary" {DL_ATTR}>Download the checklist (PDF)</a></div>
+    <p class="hint">Fillable PDF, 6 pages, US Letter. Fill it in on screen or print it. No email required.</p>
+  </div>
+  <a class="cl-cover" {DL_ATTR} aria-label="Download the ERP Readiness Checklist PDF"><img src="@/images/erp-checklist-cover.webp" alt="First page of the Q84 Digital ERP Readiness Checklist" width="640" height="828"></a>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What’s inside</span><h2>Nine areas every ERP project depends on</h2></div>
+  <div class="grid g3">{''.join(f'<div class="card"><span class="num-badge">{i:02d}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate(CL_AREAS, 1))}</div>
+  <p class="shot-note" style="margin-top:16px">It ends with a readiness summary, your top five open questions and what a good assessment should cover.</p>
+</div></section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">How to use it</span><h2>Three steps</h2></div>
+  <ol class="steps steps-3">
+    <li><h3>Download</h3><p>Save the PDF and share it with the people who run each area.</p></li>
+    <li><h3>Fill it in</h3><p>Tick Yes, Partly or No and note owners and open questions.</p></li>
+    <li><h3>Talk it through</h3><p>Bring it to a free 30-minute assessment and we’ll go through the gaps together.</p></li>
+  </ol>
+</div></section>
+{cta('Bring your checklist to a free assessment', 'Pick a time for a 30-minute call. We’ll go through your answers and tell you honestly whether Business Central fits.')}''', [CL_SCHEMA])
 
 # PRIVACY
 legal_line = f' Q84 Digital is operated by {esc(CFG["legal_name"])}.' if CFG.get('legal_name') else ''

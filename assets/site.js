@@ -500,3 +500,9 @@
     update();
   }
 })();
+
+/* Track checklist downloads */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('[data-download]');
+  if (a && window.gtag) gtag('event', 'file_download', { file_name: a.getAttribute('data-download'), link_url: a.href });
+});

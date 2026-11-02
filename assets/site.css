@@ -414,3 +414,20 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .yt{display:grid;gap:8px;min-width:0}
 .yt .video-poster img{object-fit:cover}
 .yt-frame{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--radius);background:#000;display:block}
+/* ERP readiness checklist */
+.promo-section{padding-block:clamp(40px,6vw,72px)}
+.promo{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:40px;align-items:center;padding:clamp(24px,4vw,40px);border:1px solid var(--line);border-radius:calc(var(--radius) + 4px);background:linear-gradient(135deg,var(--hero-top),var(--surface) 55%);box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.promo-cover,.cl-cover{display:block;border-radius:10px;overflow:hidden;border:1px solid var(--line);box-shadow:0 12px 32px -12px rgba(15,23,42,.25);transition:transform .2s ease-out}
+.promo-cover:hover,.cl-cover:hover{transform:translateY(-2px)}
+.promo-cover img,.cl-cover img{display:block;width:100%;height:auto}
+.promo-copy{display:grid;gap:14px;min-width:0}
+.promo-copy p{color:var(--muted);max-width:60ch}
+.promo-copy .hero-actions{margin-top:4px}
+.cl-hero{align-items:center}
+.cl-cover{max-width:380px;justify-self:center;width:100%}
+.num-badge{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent);font:600 .85rem var(--display)}
+.steps.steps-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.contact-side .prep .btn{justify-self:start}
+@media (max-width:860px){.steps.steps-3{grid-template-columns:1fr}}
+@media (max-width:640px){.promo{grid-template-columns:1fr;gap:24px}.promo-cover{max-width:180px}}
+@media (prefers-reduced-motion:reduce){.promo-cover,.cl-cover{transition:none}.promo-cover:hover,.cl-cover:hover{transform:none}}
