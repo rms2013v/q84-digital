@@ -1084,9 +1084,7 @@ add('contact/', 'contact',
     <div class="card offer"><span class="tag">What you get</span><h3>Your free assessment</h3><ul class="checks"><li><div>A review of your current systems and pain points</div></li><li><div>An honest view of whether Business Central fits, or what would fit better</div></li><li><div>The likely project size, timeline and license cost</div></li><li><div>Clear next steps, with no obligation</div></li></ul></div>
     <div class="card prep"><span class="tag">Prepare for your call</span><h3>ERP Readiness Checklist</h3><p>Fill it in with your team before the call to get more out of your 30 minutes.</p><a class="btn btn-ghost" {DL_ATTR}>Download the PDF</a></div>
     <div class="card"><span class="tag">Email</span><p class="mono" style="color:var(--ink);user-select:all">{esc(EMAIL)}</p></div>
-    {f'<div class="card"><span class="tag">LinkedIn</span><p><a href="{esc(LINKEDIN)}" target="_blank" rel="noopener me">Oleh Karnaukhov on LinkedIn</a></p></div>' if LINKEDIN else ''}
     {phone_card}
-    <div class="card"><span class="tag">Location</span><p>Serving businesses across North America. Based in Vancouver, British Columbia.</p></div>
   </aside>
 </div></section>''')
 
