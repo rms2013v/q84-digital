@@ -453,13 +453,13 @@ add('', 'home',
     <button class="chip" role="tab" id="itab-mfg" aria-controls="ipanel-mfg" aria-selected="false" tabindex="-1">Manufacturing</button>
   </div>
   <div class="ind-panel" role="tabpanel" id="ipanel-dist" aria-labelledby="itab-dist">
-    <figure class="ind-photo"><img src="@/images/hero-warehouse-aisle.webp" alt="Warehouse aisle with racking and stock ready to pick" width="1024" height="1024" loading="lazy"></figure>
+    <figure class="ind-photo"><img src="@/images/industry-distribution.webp" alt="Delivery truck, pallet jack and pallets of boxes with an order list on a tablet" width="1200" height="900" loading="lazy"></figure>
     <div class="stack"><h3>Run a responsive, profitable distribution business</h3>
       <p>Connect purchasing, inventory, warehousing and finance so you always know what you have, where it is and what it earns. Plan replenishment from real demand, pick and ship faster with bins and scanners, and see margins by customer and item.</p>
       <div class="hero-actions"><a class="btn btn-primary" href="@/industries/distribution/">See distribution features</a></div></div>
   </div>
   <div class="ind-panel" role="tabpanel" id="ipanel-mfg" aria-labelledby="itab-mfg" hidden>
-    <figure class="ind-photo"><img src="@/images/hero-manufacturing-line.webp" alt="Production line with finished goods moving to packing" width="1024" height="1024" loading="lazy"></figure>
+    <figure class="ind-photo"><img src="@/images/industry-manufacturing.webp" alt="Production machine and conveyors moving finished products to packing, with a production chart on screen" width="1200" height="900" loading="lazy"></figure>
     <div class="stack"><h3>Plan production and know what each product costs</h3>
       <p>Manage bills of materials, production orders and material planning in the same system as your stock and books. See shortages before they stop the floor and compare actual costs with standard on every order.</p>
       <div class="hero-actions"><a class="btn btn-primary" href="@/industries/manufacturing/">See manufacturing features</a></div></div>
