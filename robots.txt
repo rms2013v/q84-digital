@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
 
-Sitemap: https://rms2013v.github.io/q84-digital/sitemap.xml
+Sitemap: https://q84digital.com/sitemap.xml
