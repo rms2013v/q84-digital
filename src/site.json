@@ -1,6 +1,6 @@
 {
-  "site_url": "https://rms2013v.github.io/q84-digital/",
-  "base": "/q84-digital/",
+  "site_url": "https://q84digital.com/",
+  "base": "/",
   "email": "hello@q84digital.com",
   "phone": "",
   "booking_url": "",
@@ -9,7 +9,7 @@
   "gsc_verification": "",
   "legal_name": "",
   "consultant_photo": "oleh-karnaukhov.webp",
-  "allow_indexing": false,
+  "allow_indexing": true,
   "implementation_range": "",
   "partner_statement": "Yes. Q84 Digital is a Microsoft partner with full access to Microsoft partner benefits. We help you choose the right licenses, set up Business Central and keep it right-sized as you grow.",
   "case_studies": [],
