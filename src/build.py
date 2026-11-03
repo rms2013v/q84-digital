@@ -363,6 +363,11 @@ def with_subnav(body):
     nav = ('<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links">'
            + ''.join(f'<a href="#{i}">{t}</a>' for i, t in items)
            + f'</div><a class="btn btn-primary btn-sm" {CTA_ATTR}>{CTA_LABEL}</a></div></div></nav>')
+    # the menu has its own booking button, so drop the duplicate one in the page header
+    btn = f'<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>'
+    if body.startswith('<div class="page-head">'):
+        head_end = body.index('</div></div>\n')
+        body = body[:head_end].replace(btn, '', 1) + body[head_end:]
     # place the menu straight after the page header
     return body.replace('</div></div>\n', '</div></div>\n' + nav + '\n', 1) if body.startswith('<div class="page-head">') else nav + body
 
