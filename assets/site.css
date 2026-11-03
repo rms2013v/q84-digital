@@ -581,3 +581,12 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 140p
 .cta-section .cta-next{background:var(--surface)}
 .svc{border-top:0}
 .ind-photo img{height:auto}
+
+/* Brand shape: the Q84 logo tile (rounded square) instead of a circle */
+:root{--shape-brand:linear-gradient(180deg,#3B82F6 0%,#2563EB 100%)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--shape-brand:linear-gradient(180deg,#2F5FB8 0%,#1E4AA0 100%)}}
+:root[data-theme="dark"]{--shape-brand:linear-gradient(180deg,#2F5FB8 0%,#1E4AA0 100%)}
+.hero::before{border-radius:26%;background:var(--shape-brand);opacity:1;right:-9vw;top:-15vw;width:min(38vw,520px)}
+.page-head::before{border-radius:26%;background:var(--shape-brand);opacity:1;right:-110px;top:-170px;width:min(30vw,360px)}
+.hero-art::before{background:var(--shape-warm)}
+@media (max-width:700px){.hero::before{right:-36vw;top:-34vw;width:70vw}.page-head::before{width:200px;right:-90px;top:-120px}}
