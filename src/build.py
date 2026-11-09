@@ -68,6 +68,7 @@ NAV = [
     ('industries', 'Industries', None, [
         ('distribution', 'Wholesale distribution', '@/industries/distribution/'),
         ('manufacturing', 'Manufacturing', '@/industries/manufacturing/'),
+        ('service-industries', 'Service businesses', '@/industries/services/'),
     ]),
     ('blog', 'Blog', '@/blog/', None),
 ]
@@ -123,7 +124,7 @@ def footer():
       </div>
       <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li><li><a href="@/resources/erp-readiness-checklist/">ERP readiness checklist</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/data-migration/">Data migration</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/support/">Support</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/resources/">Resources</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/industries/services/">Service businesses</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/resources/">Resources</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
     <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
   </div>
@@ -342,13 +343,13 @@ def add(path, nav, title, desc, body, schema=None, image=None, subnav=False):
 def slug(t):
     return re.sub(r'[^a-z0-9]+', '-', html.unescape(t).lower()).strip('-')
 
-NAV_SHORT = {'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit'}
+NAV_SHORT = {'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit', 'Marketing agencies': 'Agencies', 'Medical and aesthetic clinics': 'Clinics', 'Who we work with': 'Clients', 'Construction and restoration': 'Construction', 'Step by step': 'Steps'}
 def with_subnav(body):
     # Give each labelled section an id and build a floating in-page menu from the labels
     items, used = [], set()
     def fix(m):
         attrs, inner = m.group(1), m.group(2)
-        if 'promo-section' in attrs or 'cta-section' in attrs: return m.group(0)
+        if 'promo-section' in attrs or 'cta-section' in attrs or 'data-nosubnav' in attrs: return m.group(0)
         e = re.search(r'class="eyebrow">(.*?)<', inner)
         if not e: return m.group(0)
         idm = re.search(r'id="([^"]+)"', attrs)
@@ -960,6 +961,86 @@ add('industries/manufacturing/', 'manufacturing',
 {checklist_promo()}
 {cta('Talk about your production processes')}''', [faq_schema(FAQ_MFG)])
 
+FAQ_SVC = [
+    ('Do we need Business Central Premium for a service business?', 'Not always. Projects, resources, time sheets and project invoicing are in Essentials. Service orders, service items, service contracts and dispatching are part of Service Management, which needs the Premium license.', ('@/licensing/#calculator', 'Estimate your license cost')),
+    ('Is Business Central a good fit for a marketing agency?', 'Yes, for agencies that want time, retainers, media costs and accounting in one system. Projects track each client and campaign, recurring billing handles retainers, and outside costs are re-billed with a markup. Agencies that need detailed creative workflow or proofing usually keep a separate project tool and connect it.', None),
+    ('Can a medical or aesthetic clinic use Business Central?', 'Yes, for finance, deposits, consumables, purchasing and multi-clinic reporting. Patient health records should stay in your clinical or practice management system, which has the privacy controls health data requires. Business Central only needs the patient account and the invoice, and the two systems can be connected.', None),
+    ('Does Business Central work for construction and restoration companies?', 'Yes, for job costing, purchasing, subcontractor invoices, change orders and billing by job or insurance claim. Standard Business Central bills by milestone or percentage complete; if you need AIA-style progress billing with retainage, or a direct link to estimating software such as Xactimate, we add a proven extension from Microsoft AppSource or build the integration.', None),
+    ('Can staff enter time without a full license?', 'Yes. Employees who only fill in time sheets and expenses can use the lower-cost Team Members license, in the browser or the Business Central mobile app.', None),
+    ('How does Business Central handle work in progress on long projects?', 'Projects support several WIP methods, including cost value, sales value, percentage of completion and completed contract. You post WIP at month-end so revenue and costs land in the right period.', None),
+    ('When do we need Dynamics 365 Field Service instead?', 'Business Central covers service orders, contracts and basic dispatching. If you schedule dozens of technicians a day, need route optimization or a full mobile technician app, Dynamics 365 Field Service fits better, and it integrates with Business Central for parts, pricing and invoicing.', None),
+]
+add('industries/services/', 'service-industries',
+    'Business Central for Service Businesses | Q84 Digital',
+    'Business Central for marketing agencies, aesthetic clinics, and construction and restoration firms: time, job costing, deposits, retainers and profit by job.',
+    page_head('Service industries', 'Industries / Service businesses', 'Business Central for service businesses',
+              'From marketing agencies and clinics to construction and restoration crews: track every hour, job and procedure, bill every client and know what actually makes money.') + f'''
+<section data-nosubnav><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Challenges</span><h2>Where service businesses lose margin</h2><p class="lede">In a service business, what you sell is time, skills and parts. When those are tracked in separate spreadsheets and apps, hours go unbilled and nobody can say which jobs are profitable until it’s too late.</p></div>
+  {checks(['<strong>Hours that never get billed.</strong> Time is entered late, on paper or not at all.', '<strong>Budgets tracked in spreadsheets.</strong> Overruns show up after the project is finished.', '<strong>Slow invoicing.</strong> Billing waits for someone to collect time, expenses and parts.', '<strong>Technicians working blind.</strong> No service history, contract terms or parts availability in the field.', '<strong>No profitability view.</strong> Margin by project, customer or contract is a guess.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Who we work with</span><h2>Service businesses we work with</h2></div>
+  <div class="grid g3">
+    <div class="card">{icon('chart')}<span class="pill">Current client</span><h3>Marketing and creative agencies</h3><p>Agencies that sell retainers, campaigns and projects, and need to see time, media spend and margin by client. We support a marketing agency on Business Central today.</p></div>
+    <div class="card">{icon('support')}<span class="pill">Current client</span><h3>Medical and aesthetic clinics</h3><p>Plastic surgery, cosmetic and hair restoration clinics that take deposits, use costly consumables and run more than one location. We support a hair transplant clinic on Business Central today.</p></div>
+    <div class="card">{icon('tools')}<span class="pill">Current client</span><h3>Construction and restoration</h3><p>General contractors, trades, and water, fire and mold restoration companies that need job costing, change orders and insurance claim billing. We support a construction and restoration company on Business Central today.</p></div>
+    <div class="card">{icon('ledger')}<h3>Project-based firms</h3><p>Engineering, IT services, consulting and installation companies that sell fixed-price or time-and-materials projects.</p></div>
+    <div class="card">{icon('truck')}<h3>Field service and maintenance</h3><p>Companies that install, repair and maintain equipment on customer sites, often under service contracts.</p></div>
+  </div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Marketing agencies</span><h2>Business Central for marketing agencies</h2><p class="lede">An agency’s profit depends on billing every hour and every dollar of media it handles for clients. Business Central ties time, costs and billing to each client and campaign, so you see margin while the work is still running.</p></div>
+  {checks(['<strong>Retainers and projects side by side.</strong> Monthly retainers billed on a schedule, with campaigns and one-off projects tracked as their own budgets.', '<strong>Time by client and campaign.</strong> Staff log hours against the right job, and you see who is over-servicing which account.', '<strong>Media and pass-through costs.</strong> Ad spend, printing and freelancer invoices charged to the client’s project and re-billed with your markup.', '<strong>Utilization and capacity.</strong> Billable hours against available hours by person and team.', '<strong>Profit by client.</strong> Revenue, staff cost and outside costs per client, campaign and retainer, not just in total.'])}
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Medical and aesthetic clinics</span><h2>Business Central for plastic surgery and hair restoration clinics</h2><p class="lede">Elective clinics run on deposits, expensive consumables and procedures that are booked weeks ahead. Business Central handles the financial and operational side, while patient records stay in your clinical system.</p></div>
+  {checks(['<strong>Deposits and payment plans.</strong> Take prepayments when a procedure is booked and apply them to the final invoice, including amounts paid through financing companies.', '<strong>Procedure packages.</strong> Price procedures as packages, such as a hair transplant priced by graft count, with the consumables and staff time behind each one.', '<strong>Consumables and medications.</strong> Track stock by clinic and room, with lot numbers and expiry dates, and reorder before supplies run short.', '<strong>Revenue by procedure, provider and location.</strong> See which treatments and surgeons drive profit across every clinic.', '<strong>Multi-clinic accounting.</strong> Separate locations or companies with consolidated reporting for the owners.'])}
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Construction and restoration</span><h2>Business Central for construction and restoration companies</h2><p class="lede">Contractors and restoration firms make or lose money job by job. Business Central gives every job its own budget, costs and billing, so you see the margin on each one while crews are still on site, not months after it closes.</p></div>
+  {checks(['<strong>Job costing.</strong> Labor, materials, equipment and subcontractors posted to each job and phase, with budget against actual at any time.', '<strong>Estimates and change orders.</strong> Turn the estimate into the job budget, and add change orders as new budget lines so extra work gets billed.', '<strong>Subcontractors and purchasing.</strong> Purchase orders and subcontractor invoices charged straight to the job, with approval before payment.', '<strong>Insurance restoration claims.</strong> Track water, fire and mold jobs by claim, invoice the insurance carrier and the homeowner’s deductible separately, and follow up on what’s outstanding.', '<strong>Equipment and crews.</strong> Charge drying equipment, machinery and crew hours to jobs at internal rates, so equipment cost shows up in job margin.', '<strong>Progress billing and work in progress.</strong> Bill by milestone or percentage complete, and post WIP at month-end so revenue lands in the right period.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">How Business Central helps</span><h2>Projects, people and service in one system</h2></div>
+  <div class="grid g3">
+    <div class="card">{icon('chart')}<h3>Projects &amp; budgets</h3><p>Tasks, budgets and planning lines for labor, items and expenses, with budget against actual at any time.</p></div>
+    <div class="card">{icon('key')}<h3>Time sheets &amp; resources</h3><p>Weekly time sheets with approval, resource capacity and cost and billing rates by person or role.</p></div>
+    <div class="card">{icon('receipt')}<h3>Project invoicing</h3><p>Fixed-price, milestone and time-and-materials billing straight from approved time and costs.</p></div>
+    <div class="card">{icon('support')}<h3>Service orders (Premium)</h3><p>Service requests, technician assignment, parts used and labor recorded against the customer’s equipment.</p></div>
+    <div class="card">{icon('shop')}<h3>Service items &amp; contracts</h3><p>Installed equipment with warranty and service history, and contracts invoiced on a schedule.</p></div>
+    <div class="card">{icon('pie')}<h3>Profitability reporting</h3><p>Margin by project, customer and contract, with work in progress posted at month-end.</p></div>
+  </div>
+</div></section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Step by step</span><h2>A project, start to finish</h2></div>
+  <ol class="steps">
+    <li><h3>Quote</h3><p>Estimate labor, materials and expenses on the project’s planning lines.</p></li>
+    <li><h3>Plan</h3><p>Assign people and dates, and order the parts the job needs.</p></li>
+    <li><h3>Deliver</h3><p>Staff record time and expenses; parts are consumed from stock.</p></li>
+    <li><h3>Invoice</h3><p>Approved time and costs become an invoice, or a milestone is billed.</p></li>
+    <li><h3>Review</h3><p>Compare budget with actual and see the margin on every job.</p></li>
+  </ol>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Is it the right fit?</span><h2>Where Business Central works best for services</h2><p class="lede">Business Central suits most small and midsize service companies. Some scheduling-heavy operations need more, and it’s better to know that before you start.</p></div>
+  {checks(['<strong>A good fit:</strong> project-based firms that need budgets, time sheets and project billing tied to their accounting.', '<strong>Add Premium Service Management:</strong> companies that repair or maintain equipment and sell service contracts.', '<strong>Consider Dynamics 365 Field Service:</strong> large technician teams that need advanced scheduling, route optimization and a full mobile app, connected to Business Central.'])}
+</div></section>
+<section><div class="wrap">
+  {worked('An equipment service company replacing paper work orders',
+          'A 35-person company installs and maintains commercial refrigeration equipment. Technicians fill in paper work orders, parts are taken from the van without being recorded, and contract customers are invoiced from a spreadsheet, often weeks late.',
+          [('Design', 'Map installations as projects and repairs as service orders, and define service items for every installed unit with warranty dates.'),
+           ('Build', 'Set up Premium Service Management, service contracts with quarterly billing, van stock as locations and time sheets for technicians.'),
+           ('Data', 'Load customers, installed equipment and active contracts from the spreadsheets after removing duplicates and filling in serial numbers.'),
+           ('Test', 'Run sample jobs end to end, from service request to technician assignment, parts consumption, time entry and invoice.'),
+           ('Go-live', 'Start with contract customers first, then move installation projects once the team is comfortable with the new process.')],
+          'Every visit is recorded with time and parts, contracts invoice automatically each quarter, and the owner sees margin by customer and contract instead of guessing.')}
+</div></section>
+<section><div class="wrap"><div class="note">Service orders and contracts need the Business Central Premium license. Projects and time sheets are included in Essentials. <a href="@/licensing/#calculator">Estimate your license cost.</a></div></div></section>
+{faq_section(FAQ_SVC)}
+{checklist_promo()}
+{cta('Talk about your service operations')}''', [faq_schema(FAQ_SVC)])
+
 # BLOG
 # Each post: slug, title, date (YYYY-MM-DD), summary, tag, body (HTML), placeholder (True = shows a draft notice)
 POSTS = [
@@ -1252,7 +1333,7 @@ def render(p):
 '''
     return doc.replace('@/', BASE)
 
-SUBNAV_PAGES = {'business-central/', 'licensing/', 'implementation/', 'data-migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/'}
+SUBNAV_PAGES = {'business-central/', 'licensing/', 'implementation/', 'data-migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/', 'industries/services/'}
 for p in PAGES:
     if p['path'] in SUBNAV_PAGES: p['subnav'] = True
 for p in PAGES:
