@@ -1,6 +1,12 @@
 (function () {
   var CFG = window.Q84 || {};
 
+  // Form service replies 200 with success "false" when it rejects a submission
+  function sentOk(r) {
+    if (!r.ok) throw new Error();
+    return r.json().then(function (j) { if (String(j.success) === 'false') throw new Error(); });
+  }
+
   // Mobile menu
   var menu = document.getElementById('navLinks');
   var btn = document.getElementById('menuBtn');
@@ -138,7 +144,8 @@
         email: form.elements['email'].value.trim(),
         company: form.elements['company'].value.trim(),
         topic: form.elements['topic'].value,
-        message: form.elements['message'].value.trim()
+        message: form.elements['message'].value.trim(),
+        _subject: 'Website message: ' + form.elements['company'].value.trim()
       };
       var submit = form.querySelector('button[type="submit"]');
 
@@ -149,8 +156,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(data)
-        }).then(function (r) {
-          if (!r.ok) throw new Error();
+        }).then(sentOk).then(function () {
           form.hidden = true;
           document.getElementById('sent').hidden = false;
           if (window.gtag) gtag('event', 'generate_lead', { form: 'consultation' });
@@ -427,14 +433,14 @@
         type: 'assessment_request',
         name: bookForm.elements['name'].value.trim(), email: bookForm.elements['email'].value.trim(), company: bookForm.elements['company'].value.trim(),
         notes: bookForm.elements['notes'].value.trim(), requested_time_utc: chosen.toISOString(),
-        requested_time_pacific: pacific, visitor_time_zone: visitorTZ
+        requested_time_pacific: pacific, visitor_time_zone: visitorTZ,
+        _subject: 'ERP assessment request: ' + bookForm.elements['company'].value.trim() + ' (' + pacific + ')'
       };
       var submit = bookForm.querySelector('button[type="submit"]');
       if (CFG.formEndpoint) {
         submit.disabled = true; submit.textContent = 'Sending…';
         fetch(CFG.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-          .then(function (r) {
-            if (!r.ok) throw new Error();
+          .then(sentOk).then(function () {
             done('We’ve received your request for ' + when + ' (your time). Oleh will confirm by email with a calendar invite, normally within one business day.');
             if (window.gtag) gtag('event', 'generate_lead', { form: 'scheduler' });
           })
