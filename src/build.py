@@ -144,8 +144,16 @@ def cta(title='Find out if Business Central fits your business', text='Pick a ti
     {right}
   </div></div></section>'''
 
-def page_head(title, crumb, h1, lede, button=True):
+def page_head(title, crumb, h1, lede, button=True, art=None):
     btn = f'<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>' if button else ''
+    if art:
+        # art = (file in images/, alt text); keep '</div></div>\n' only at the very end, with_subnav looks for it
+        src, alt = art
+        return f'''<div class="page-head"><div class="wrap page-head-grid"><div class="stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="@/">Home</a> / {crumb}</nav>
+<h1>{h1}</h1>
+<p class="lede">{lede}</p>{btn}
+</div><figure class="page-head-art"><img src="@/images/{src}" alt="{esc(alt)}" width="800" height="595" fetchpriority="high"></figure></div></div>'''
     return f'''<div class="page-head"><div class="wrap stack">
 <nav class="crumb" aria-label="Breadcrumb"><a href="@/">Home</a> / {crumb}</nav>
 <h1>{h1}</h1>
@@ -452,6 +460,7 @@ add('', 'home',
   <div class="chips" role="tablist" aria-label="Industries">
     <button class="chip" role="tab" id="itab-dist" aria-controls="ipanel-dist" aria-selected="true">Wholesale distribution</button>
     <button class="chip" role="tab" id="itab-mfg" aria-controls="ipanel-mfg" aria-selected="false" tabindex="-1">Manufacturing</button>
+    <button class="chip" role="tab" id="itab-svc" aria-controls="ipanel-svc" aria-selected="false" tabindex="-1">Service businesses</button>
   </div>
   <div class="ind-panel" role="tabpanel" id="ipanel-dist" aria-labelledby="itab-dist">
     <figure class="ind-photo"><img src="@/images/industry-distribution.webp" alt="Delivery truck, pallet jack and pallets of boxes with an order list on a tablet" width="1200" height="900" loading="lazy"></figure>
@@ -464,6 +473,12 @@ add('', 'home',
     <div class="stack"><h3>Plan production and know what each product costs</h3>
       <p>Manage bills of materials, production orders and material planning in the same system as your stock and books. See shortages before they stop the floor and compare actual costs with standard on every order.</p>
       <div class="hero-actions"><a class="btn btn-primary" href="@/industries/manufacturing/">See manufacturing features</a></div></div>
+  </div>
+  <div class="ind-panel" role="tabpanel" id="ipanel-svc" aria-labelledby="itab-svc" hidden>
+    <figure class="ind-photo"><img src="@/images/industry-services.webp" alt="Laptop with a project chart, an alarm clock, a hard hat and a clipboard with an invoice" width="1184" height="880" loading="lazy"></figure>
+    <div class="stack"><h3>Bill every hour and know which jobs make money</h3>
+      <p>For marketing agencies, medical and aesthetic clinics, and construction and restoration companies. Track time, projects, deposits and job costs in the same system as your books, invoice faster, and see profit by client, job and contract.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="@/industries/services/">See service business features</a></div></div>
   </div>
 </div></section>
 
@@ -873,7 +888,8 @@ add('industries/distribution/', 'distribution',
     'Business Central for Wholesale Distributors | Q84 Digital',
     'Business Central for wholesale distribution: accurate multi-location inventory, purchasing, warehouse picking and shipping, and landed costs, from a supply chain specialist.',
     page_head('Distribution', 'Industries / Wholesale distribution', 'Business Central for wholesale distributors',
-              'Accurate stock, faster purchasing and a warehouse that ships the right order the first time.') + f'''
+              'Accurate stock, faster purchasing and a warehouse that ships the right order the first time.',
+              art=('page-distribution.webp', 'Illustration of warehouse racking with boxes and a forklift lifting a pallet')) + f'''
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Common challenges</span><h2>Where distributors lose time and margin</h2></div>
   {checks(['<strong>Inventory you can’t trust.</strong> System counts drift from what’s on the shelf.', '<strong>Manual purchasing.</strong> Buyers reorder from memory or spreadsheets.', '<strong>Picking errors.</strong> Wrong items or quantities shipped, and costly returns.', '<strong>Hidden costs.</strong> Freight and duty aren’t added to item costs, so margins look better than they are.'])}
@@ -916,7 +932,8 @@ add('industries/manufacturing/', 'manufacturing',
     'Business Central for Manufacturers | Q84 Digital',
     'Business Central Premium for small and midsize manufacturers: bills of materials, production orders, material planning and product costing, with a worked example and FAQs.',
     page_head('Manufacturing', 'Industries / Manufacturing', 'Business Central for manufacturers',
-              'Plan production, control materials and know what each product really costs to make.') + f'''
+              'Plan production, control materials and know what each product really costs to make.',
+              art=('page-manufacturing.webp', 'Illustration of a machine and conveyor moving metal gears into a box, with a production chart on screen')) + f'''
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Common challenges</span><h2>What holds growing manufacturers back</h2><p class="lede">Most small manufacturers start with accounting software and spreadsheets. That works until order volume grows and nobody can say what’s in production, what’s short or what a product really costs.</p></div>
   {checks(['<strong>No production visibility.</strong> Order status lives on the shop floor, not in the system.', '<strong>Costs worked out in spreadsheets.</strong> Material and labor costs are estimates.', '<strong>Material shortages.</strong> Components run out because demand isn’t planned.', '<strong>Disconnected systems.</strong> Production, stock and accounting don’t share data.'])}
@@ -974,7 +991,8 @@ add('industries/services/', 'service-industries',
     'Business Central for Service Businesses | Q84 Digital',
     'Business Central for marketing agencies, aesthetic clinics, and construction and restoration firms: time, job costing, deposits, retainers and profit by job.',
     page_head('Service industries', 'Industries / Service businesses', 'Business Central for service businesses',
-              'From marketing agencies and clinics to construction and restoration crews: track every hour, job and procedure, bill every client and know what actually makes money.') + f'''
+              'From marketing agencies and clinics to construction and restoration crews: track every hour, job and procedure, bill every client and know what actually makes money.',
+              art=('page-services.webp', 'Illustration of a laptop with a project chart, an alarm clock, a hard hat and a clipboard with an invoice')) + f'''
 <section data-nosubnav><div class="wrap split">
   <div class="stack"><span class="eyebrow">Challenges</span><h2>Where service businesses lose margin</h2><p class="lede">In a service business, what you sell is time, skills and parts. When those are tracked in separate spreadsheets and apps, hours go unbilled and nobody can say which jobs are profitable until it’s too late.</p></div>
   {checks(['<strong>Hours that never get billed.</strong> Time is entered late, on paper or not at all.', '<strong>Budgets tracked in spreadsheets.</strong> Overruns show up after the project is finished.', '<strong>Slow invoicing.</strong> Billing waits for someone to collect time, expenses and parts.', '<strong>Technicians working blind.</strong> No service history, contract terms or parts availability in the field.', '<strong>No profitability view.</strong> Margin by project, customer or contract is a guess.'])}
