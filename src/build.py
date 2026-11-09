@@ -1055,7 +1055,7 @@ else:
     <div class="hero-actions"><button class="btn btn-primary" type="submit">Request this time</button><button class="btn btn-ghost" type="button" id="changeTime">Change time</button></div>
     <p class="hint" id="bookStatus" role="status" hidden></p>
   </form>
-  <div class="sent" id="bookSent" hidden role="status" tabindex="-1"><h3>Your time is requested</h3><p id="bookSentText"></p></div>
+  <div class="sent" id="bookSent" hidden role="status" tabindex="-1"><h3>Thank you, your request has been received</h3><p id="bookSentText"></p></div>
   <noscript><p class="hint">The scheduler needs JavaScript. Email ''' + esc(EMAIL) + ''' with a few times that suit you.</p></noscript>
 </div>'''
 

@@ -145,7 +145,8 @@
         company: form.elements['company'].value.trim(),
         topic: form.elements['topic'].value,
         message: form.elements['message'].value.trim(),
-        _subject: 'Website message: ' + form.elements['company'].value.trim()
+        _subject: 'Website message: ' + form.elements['company'].value.trim(),
+        _template: 'table'
       };
       var submit = form.querySelector('button[type="submit"]');
 
@@ -434,14 +435,17 @@
         name: bookForm.elements['name'].value.trim(), email: bookForm.elements['email'].value.trim(), company: bookForm.elements['company'].value.trim(),
         notes: bookForm.elements['notes'].value.trim(), requested_time_utc: chosen.toISOString(),
         requested_time_pacific: pacific, visitor_time_zone: visitorTZ,
-        _subject: 'ERP assessment request: ' + bookForm.elements['company'].value.trim() + ' (' + pacific + ')'
+        _subject: 'ERP assessment request: ' + bookForm.elements['company'].value.trim() + ' (' + pacific + ')',
+        _template: 'table'
       };
       var submit = bookForm.querySelector('button[type="submit"]');
       if (CFG.formEndpoint) {
         submit.disabled = true; submit.textContent = 'Sending…';
         fetch(CFG.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
           .then(sentOk).then(function () {
-            done('We’ve received your request for ' + when + ' (your time). Oleh will confirm by email with a calendar invite, normally within one business day.');
+            done('Thank you, ' + data.name.split(' ')[0] + '. We’ve received your request for a free ERP readiness assessment on ' + when + ' (your time). ' +
+              'You’ll receive a calendar invitation at ' + data.email + ' within 24 hours. ' +
+              'If you don’t see it, please check your spam folder or contact us at ' + CFG.email + '.');
             if (window.gtag) gtag('event', 'generate_lead', { form: 'scheduler' });
           })
           .catch(function () {
