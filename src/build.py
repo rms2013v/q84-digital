@@ -119,7 +119,7 @@ def footer():
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark">Q84</span>Q84 Digital</a>
         <p>Business Central implementation for distribution and manufacturing businesses, led by a senior supply chain consultant.</p>
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Vancouver, British Columbia</li></ul>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Tacoma, Washington</li></ul>
         {social_links()}
       </div>
       <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li><li><a href="@/resources/erp-readiness-checklist/">ERP readiness checklist</a></li></ul></div>
@@ -311,7 +311,7 @@ ORG_SCHEMA = {
     "url": URL, "email": EMAIL,
     "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.",
     "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}],
-    "address": {"@type": "PostalAddress", "addressLocality": "Vancouver", "addressRegion": "BC", "addressCountry": "CA"},
+    "address": {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"},
     "@id": URL + "#organization",
     "founder": {"@id": URL + "#oleh-karnaukhov"},
     "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "ERP implementation", "Warehouse management", "ERP integration"],
