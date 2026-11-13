@@ -1258,8 +1258,10 @@ add('resources/', 'resources',
 
 # PRIVACY
 legal_line = f' Q84 Digital is operated by {esc(CFG["legal_name"])}.' if CFG.get('legal_name') else ''
-analytics_line = ('<p>We use Google Analytics to understand how visitors use this site, such as which pages are viewed. It sets cookies and collects information like your approximate location and device type. It does not tell us who you are.</p>'
-                  if CFG.get('ga_id') else '<p>This site does not currently use analytics or advertising cookies.</p>')
+analytics_line = ''.join([
+    '<p>We use Google Analytics to understand how visitors use this site, such as which pages are viewed. It sets cookies and collects information like your approximate location and device type. It does not tell us who you are.</p>' if CFG.get('ga_id') else '',
+    '<p>We use Microsoft Clarity to see how visitors use this site, through heatmaps and session recordings of clicks, scrolling and mouse movement. Clarity sets cookies and collects information like your device, browser and approximate location. Text you type into forms is masked and not recorded. The data is processed by Microsoft under the <a href="https://privacy.microsoft.com/privacystatement">Microsoft Privacy Statement</a>.</p>' if CFG.get('clarity_id') else '',
+]) or '<p>This site does not currently use analytics or advertising cookies.</p>'
 add('privacy/', 'privacy', 'Privacy Policy | Q84 Digital',
     'How Q84 Digital collects, uses and protects personal information submitted through this website.',
     page_head('Privacy', 'Privacy', 'Privacy policy', f'Last updated {date.today().strftime("%B %-d, %Y")}.', button=False) + f'''
@@ -1276,11 +1278,16 @@ add('privacy/', 'privacy', 'Privacy Policy | Q84 Digital',
 # ---------------------------------------------------------------- render
 
 def analytics():
-    if not CFG.get('ga_id'):
-        return ''
-    gid = esc(CFG['ga_id'])
-    return f'''<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>
+    out = ''
+    if CFG.get('ga_id'):
+        gid = esc(CFG['ga_id'])
+        out += f'''<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{gid}');</script>'''
+    if CFG.get('clarity_id'):
+        # Microsoft Clarity tag, as given in the Clarity project's setup page
+        cid = esc(CFG['clarity_id'])
+        out += f'''<script>(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);}})(window,document,"clarity","script","{cid}");</script>'''
+    return out
 
 FAVICON = "data:image/svg+xml," + re.sub(r'\s+', ' ', '''<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>''')
 

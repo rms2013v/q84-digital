@@ -20,6 +20,7 @@ git add -A && git commit -m "Update site" && git push
 | `booking_url` | Calendar link (Calendly, Microsoft Bookings). When set, every "Book a free ERP assessment" button opens the calendar directly. |
 | `phone` | Business phone. Shown in the footer and contact page when set. |
 | `ga_id` | Google Analytics 4 measurement ID (`G-XXXXXXX`). Adds analytics and lead-event tracking. |
+| `clarity_id` | Microsoft Clarity project ID (from Clarity → Settings → Setup). Adds heatmaps and session recordings to every page and a Clarity paragraph to the privacy policy. Empty = no Clarity. |
 | `gsc_verification` | Google Search Console HTML-tag verification code. |
 | `legal_name` | Legal company name for the footer and privacy page. |
 | `consultant_photo` | File name of a headshot in `images/` (for example `oleh.jpg`). |
