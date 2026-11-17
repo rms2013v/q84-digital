@@ -250,6 +250,7 @@
         upcoming.forEach(function (at) {
           var a = document.createElement('a');
           a.className = 'next-slot';
+          a.rel = 'nofollow'; // dated ?slot= links are booking shortcuts, not pages to crawl
           a.href = nextEl.getAttribute('data-contact') + '?slot=' + encodeURIComponent(at.toISOString()) + '#schedule';
           var day = document.createElement('span');
           day.textContent = at.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
