@@ -2158,7 +2158,7 @@ add('guides/', 'guides',
 # PRIVACY
 legal_line = f' Q84 Digital is operated by {esc(CFG["legal_name"])}.' if CFG.get('legal_name') else ''
 analytics_line = ''.join([
-    '<p>We use Google Analytics to understand how visitors use this site, such as which pages are viewed. It sets cookies and collects information like your approximate location and device type. It does not tell us who you are.</p>' if CFG.get('ga_id') else '',
+    '<p>We use Google Analytics, loaded through Google Tag Manager, to understand how visitors use this site, such as which pages are viewed and when a form is sent. It sets cookies and collects information like your approximate location and device type. It does not tell us who you are. You can opt out with the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out browser add-on</a>.</p>' if (CFG.get('ga_id') or CFG.get('gtm_id')) else '',
     '<p>We use Microsoft Clarity to see how visitors use this site, through heatmaps and session recordings of clicks, scrolling and mouse movement. Clarity sets cookies and collects information like your device, browser and approximate location. Text you type into forms is masked and not recorded. The data is processed by Microsoft under the <a href="https://privacy.microsoft.com/privacystatement">Microsoft Privacy Statement</a>.</p>' if CFG.get('clarity_id') else '',
 ]) or '<p>This site does not currently use analytics or advertising cookies.</p>'
 add('privacy/', 'privacy', 'Privacy Policy | Q84 Digital',
@@ -2182,6 +2182,10 @@ def analytics():
         gid = esc(CFG['ga_id'])
         out += f'''<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{gid}');</script>'''
+    if CFG.get('gtm_id'):
+        # Google tag (Tag Manager container), as given by Google. Only loads on the live site, not local previews.
+        tid = esc(CFG['gtm_id'])
+        out += f'''<script>if(location.hostname==="{LIVE_HOST}"){{window.dataLayer=window.dataLayer||[];window.gtag=function(){{dataLayer.push(arguments);}};gtag('js',new Date());var s=document.createElement('script');s.async=true;s.src="https://www.googletagmanager.com/gtm.js?id={tid}";document.head.appendChild(s);}}</script>'''
     if CFG.get('clarity_id'):
         # Microsoft Clarity tag, as given in the Clarity project's setup page
         cid = esc(CFG['clarity_id'])
