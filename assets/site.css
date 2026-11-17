@@ -620,3 +620,14 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 140p
 .dl-gate h2{font-size:1.4rem;margin:0;padding-right:32px}
 .dl-close{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;background:transparent;font-size:1.6rem;line-height:1;color:var(--muted);cursor:pointer;border-radius:8px}
 .dl-close:hover{background:var(--accent-soft);color:var(--ink)}
+
+/* Currency: USD by default, CAD for Canadian visitors (html.cad set in <head>) */
+html:not(.cad) .c-cad,html.cad .c-usd{display:none!important}
+.cur-switch{display:inline-flex;align-self:start;justify-self:start;gap:2px;padding:3px;border-radius:999px;background:var(--accent-soft);margin:0 0 16px}
+.cur-switch button{border:0;background:transparent;color:var(--muted);font:600 .8rem var(--display);padding:6px 14px;border-radius:999px;cursor:pointer;min-height:32px}
+.cur-switch button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.cur-switch button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.calc-out .cur-switch{background:rgba(255,255,255,.1);margin:0}
+.calc-out .cur-switch button{color:var(--band-ink);opacity:.75}
+.calc-out .cur-switch button[aria-pressed="true"]{opacity:1;color:var(--ink)}
+.section-head .cur-switch{margin-top:12px}

@@ -40,7 +40,22 @@ ICON = {
 MS_PRICING = 'https://www.microsoft.com/en-us/dynamics-365/products/business-central/pricing'
 _pc = date.fromisoformat(CFG.get('prices_checked') or TODAY)
 PRICES_CHECKED = f'<time datetime="{_pc.isoformat()}">{_pc.strftime("%B")} {_pc.day}, {_pc.year}</time>'
-PRICE_SOURCE = f'Source: <a href="{MS_PRICING}" target="_blank" rel="noopener">Microsoft Business Central pricing</a>. Last updated {PRICES_CHECKED}.'
+MS_PRICING_CA = 'https://www.microsoft.com/en-ca/dynamics-365/products/business-central/pricing'
+
+
+def cur(usd, cad):
+    """Currency-specific content. CSS shows one based on the html.cad class (set in <head>)."""
+    return f'<span class="c-usd">{usd}</span><span class="c-cad">{cad}</span>'
+
+
+CUR_SWITCH = ('<div class="cur-switch" role="group" aria-label="Show prices in">'
+              '<button type="button" data-set-cur="usd" aria-pressed="true">USD</button>'
+              '<button type="button" data-set-cur="cad" aria-pressed="false">CAD</button></div>')
+PRICE_SOURCE = ('Source: ' + cur(f'<a href="{MS_PRICING}" target="_blank" rel="noopener">Microsoft Business Central pricing (US)</a>',
+                                 f'<a href="{MS_PRICING_CA}" target="_blank" rel="noopener">Microsoft Business Central pricing (Canada)</a>')
+                + f'. Last updated {PRICES_CHECKED}.')
+# Canadian implementation ranges (CAD). Rounded from the USD ranges; confirm before going live.
+CAD_RANGES = ('CA$35,000 to CA$85,000', 'CA$85,000 to CA$210,000', 'CA$210,000 and up, often phased')
 LINKEDIN = CFG.get('linkedin_url', '')
 
 CTA_LABEL = 'Book a free ERP assessment'
@@ -576,7 +591,7 @@ add('', 'home',
     <li><h3>Go-live</h3><p>Switch over with hands-on help afterwards.</p></li>
   </ol>
   <div class="grid g3" style="margin-top:24px">
-    <div class="card"><span class="tag">Monthly, from Microsoft</span><h3>Licenses</h3><p>Essentials is $80 and Premium is $110 USD per full user per month at Microsoft\u2019s US list prices.</p><p class="hint">{PRICE_SOURCE}</p></div>
+    <div class="card"><span class="tag">Monthly, from Microsoft</span><h3>Licenses</h3><p>{cur('Essentials is $80 and Premium is $110 USD per full user per month at Microsoft’s US list prices.', 'Essentials is CA$108.50 and Premium is CA$149.20 per full user per month at Microsoft’s Canadian list prices.')}</p><p class="hint">{PRICE_SOURCE}</p></div>
     <div class="card"><span class="tag">One-time</span><h3>Implementation</h3><p>{impl_text}</p></div>
     <div class="card"><span class="tag">Ongoing</span><h3>Support</h3><p>Pay as you go, or a monthly plan with included hours.</p></div>
   </div>
@@ -698,14 +713,15 @@ add('licensing/', 'licensing',
         <label><input type="checkbox" name="mod" data-w="2" data-label="Service management" data-premium> Service management</label></div></fieldset>
     </div>
     <div class="calc-out" aria-live="polite">
-      <div><div class="sub">Microsoft licenses per month (USD)</div><div class="big" id="o-monthly">$0</div><div class="sub"><span id="o-annual">$0</span> USD per year</div></div>
+      ''' + CUR_SWITCH + '''
+      <div><div class="sub">Microsoft licenses per month (''' + cur('USD', 'CAD') + ''')</div><div class="big" id="o-monthly">$0</div><div class="sub"><span id="o-annual">$0</span>''' + cur(' USD', '') + ''' per year</div></div>
       <div class="line"><span>Full users</span><span id="o-full"></span></div>
       <div class="line"><span>Team Members</span><span id="o-team"></span></div>
       <p class="sub" id="o-hint" hidden style="color:inherit">Manufacturing and service management need the Premium plan.</p>
       <div class="line" style="display:block"><div class="sub">Likely implementation size</div><div style="font:600 1.4rem var(--display)" id="o-size"></div><p class="sub" id="o-size-desc"></p></div>
       <div><div class="sub" style="margin-bottom:6px">What drives your scope</div><ul id="o-drivers"></ul></div>
       <a class="btn btn-primary" href="@/contact/">Get a quote for implementation</a>
-      <p class="sub">All figures are in US dollars, using Microsoft's US list prices (per user per month, annual commitment) effective November 2025. ''' + PRICE_SOURCE.replace('<a ', '<a style="color:inherit" ') + ''' Implementation is quoted after a free discovery call. <a href="#included" style="color:inherit">What’s included</a></p>
+      <p class="sub">''' + cur("All figures are in US dollars, using Microsoft's US list prices (per user per month, annual commitment) effective November 2025.", "All figures are in Canadian dollars, using Microsoft's Canadian list prices (per user per month, annual commitment, plus applicable tax).") + ''' ''' + PRICE_SOURCE.replace('<a ', '<a style="color:inherit" ') + ''' Implementation is quoted after a free discovery call. <a href="#included" style="color:inherit">What’s included</a></p>
     </div>
   </form>
 </div></section>
@@ -728,14 +744,15 @@ add('licensing/', 'licensing',
 </div></section>
 <section><div class="wrap">
   <div class="section-head"><span class="eyebrow">License types</span><h2>Business Central Essentials vs Premium</h2><p class="lede">Essentials covers finance, sales, purchasing, inventory, warehousing and projects, which is enough for most distributors and service businesses. Premium adds manufacturing and service management. Most companies combine a few full users with lower-cost Team Members licenses for people who only view data or do light tasks. All full users in a company must be on the same plan.</p></div>
+  ''' + CUR_SWITCH + '''
   <div class="table-wrap"><table>
-    <thead><tr><th>License</th><th>Price (USD)</th><th>Who it's for</th><th>Typical use</th></tr></thead>
+    <thead><tr><th>License</th><th>Price (''' + cur('USD', 'CAD') + ''')</th><th>Who it's for</th><th>Typical use</th></tr></thead>
     <tbody>
-      <tr><td>Essentials</td><td>$80 / user / month</td><td>Full users</td><td>Finance, sales, purchasing, inventory, warehousing, projects</td></tr>
-      <tr><td>Premium</td><td>$110 / user / month</td><td>Full users who need more</td><td>Everything in Essentials, plus manufacturing and service management</td></tr>
-      <tr><td>Team Members</td><td>$8 / user / month</td><td>Light users</td><td>View data, approve documents, update basic records</td></tr>
+      <tr><td>Essentials</td><td>''' + cur('$80', 'CA$108.50') + ''' / user / month</td><td>Full users</td><td>Finance, sales, purchasing, inventory, warehousing, projects</td></tr>
+      <tr><td>Premium</td><td>''' + cur('$110', 'CA$149.20') + ''' / user / month</td><td>Full users who need more</td><td>Everything in Essentials, plus manufacturing and service management</td></tr>
+      <tr><td>Team Members</td><td>''' + cur('$8', 'CA$10.90') + ''' / user / month</td><td>Light users</td><td>View data, approve documents, update basic records</td></tr>
     </tbody></table></div>
-  <p class="note" style="margin-top:20px">Prices are Microsoft's US list prices in US dollars, effective November 1, 2025, and may change. We confirm current pricing in every estimate. Microsoft license fees are separate from our consulting fees.<br>''' + PRICE_SOURCE + '''</p>
+  <p class="note" style="margin-top:20px">''' + cur("Prices are Microsoft's US list prices in US dollars, effective November 1, 2025, and may change.", "Prices are Microsoft's Canadian list prices in Canadian dollars, plus applicable tax, and may change.") + ''' We confirm current pricing in every estimate. Microsoft license fees are separate from our consulting fees.<br>''' + PRICE_SOURCE + '''</p>
 </div></section>
 <section class="band"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Total cost</span><h2>The parts of a Business Central budget</h2></div>
@@ -1918,7 +1935,7 @@ add('guides/implementation-cost/', 'guide-cost',
     guide_head('Implementation cost', 'How much does a Business Central implementation cost?',
                'An honest breakdown of what you’ll pay, where the money goes and what makes projects bigger or smaller.', art=('page-guide-cost.webp', 'Illustration of a calculator printing a receipt, a stack of coins and a piggy bank')) + f'''
 <section style="padding-top:32px"><div class="wrap prose">
-<p><strong>The short answer:</strong> for small and midsize US businesses, a <a href="@/business-central/">Business Central</a> implementation is typically a one-time project in the tens of thousands of dollars, plus monthly Microsoft licenses. A focused finance and inventory rollout sits at the lower end. Multi-company, manufacturing or integration-heavy projects can reach six figures. The rest of this guide explains what drives those numbers.</p>
+<p><strong>The short answer:</strong> for small and midsize {cur('US', 'Canadian')} businesses, a <a href="@/business-central/">Business Central</a> implementation is typically a one-time project in the tens of thousands of dollars, plus monthly Microsoft licenses. A focused finance and inventory rollout sits at the lower end. Multi-company, manufacturing or integration-heavy projects can reach six figures. The rest of this guide explains what drives those numbers.</p>
 <h2>The six parts of a Business Central budget</h2>
 <p>Every Business Central budget is made of the same parts. Some are one-time, some monthly.</p>
 </div></section>
@@ -1926,7 +1943,7 @@ add('guides/implementation-cost/', 'guide-cost',
   <div class="table-wrap"><table>
     <thead><tr><th>Cost</th><th>Type</th><th>What it depends on</th></tr></thead>
     <tbody>
-      <tr><td>Microsoft licenses</td><td>Monthly</td><td>Essentials ($80) or Premium ($110) per full user, plus Team Members ($8) for light users, at Microsoft’s US list prices</td></tr>
+      <tr><td>Microsoft licenses</td><td>Monthly</td><td>{cur('Essentials ($80) or Premium ($110) per full user, plus Team Members ($8) for light users, at Microsoft’s US list prices', 'Essentials (CA$108.50) or Premium (CA$149.20) per full user, plus Team Members (CA$10.90) for light users, at Microsoft’s Canadian list prices')}</td></tr>
       <tr><td>Implementation</td><td>One-time</td><td>Modules, companies, locations and how many processes change</td></tr>
       <tr><td>Data migration</td><td>One-time</td><td>Source system, data volume, data quality and how much history you bring</td></tr>
       <tr><td>Integrations</td><td>One-time plus upkeep</td><td>Number of systems and whether a standard connector exists</td></tr>
@@ -1936,13 +1953,13 @@ add('guides/implementation-cost/', 'guide-cost',
   <p class="shot-note" style="margin-top:12px">{PRICE_SOURCE}</p>
 </div></section>
 <section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Typical ranges</span><h2>What projects of different sizes usually cost</h2><p class="lede">Typical ranges for implementation services at small and midsize US companies, before licenses and apps. Your quote depends on your scope.</p></div>
+  <div class="section-head"><span class="eyebrow">Typical ranges</span><h2>What projects of different sizes usually cost</h2><p class="lede">{cur('Typical ranges for implementation services at small and midsize US companies, in US dollars, before licenses and apps.', 'Typical ranges for implementation services at small and midsize Canadian companies, in Canadian dollars, before licenses, apps and tax.')} Your quote depends on your scope.</p>{CUR_SWITCH}</div>
   <div class="table-wrap"><table>
     <thead><tr><th>Project size</th><th>Typical scope</th><th>Typical implementation cost</th></tr></thead>
     <tbody>
-      <tr><td>Focused</td><td>Finance, sales, purchasing and basic inventory; one company; QuickBooks or spreadsheet migration</td><td>$25,000 to $60,000</td></tr>
-      <tr><td>Standard</td><td>Adds warehouse processes, migration from another ERP, or one or two integrations</td><td>$60,000 to $150,000</td></tr>
-      <tr><td>Complex</td><td>Several companies, manufacturing, advanced warehousing or many integrations</td><td>$150,000 and up, often phased</td></tr>
+      <tr><td>Focused</td><td>Finance, sales, purchasing and basic inventory; one company; QuickBooks or spreadsheet migration</td><td>{cur('$25,000 to $60,000', CAD_RANGES[0])}</td></tr>
+      <tr><td>Standard</td><td>Adds warehouse processes, migration from another ERP, or one or two integrations</td><td>{cur('$60,000 to $150,000', CAD_RANGES[1])}</td></tr>
+      <tr><td>Complex</td><td>Several companies, manufacturing, advanced warehousing or many integrations</td><td>{cur('$150,000 and up, often phased', CAD_RANGES[2])}</td></tr>
     </tbody></table></div>
 </div></section>
 <section><div class="wrap">
@@ -1950,9 +1967,9 @@ add('guides/implementation-cost/', 'guide-cost',
   <div class="table-wrap"><table>
     <thead><tr><th>License</th><th>Users</th><th>Per month</th></tr></thead>
     <tbody>
-      <tr><td>Essentials full users</td><td>10 × $80</td><td>$800</td></tr>
-      <tr><td>Team Members</td><td>10 × $8</td><td>$80</td></tr>
-      <tr><td><strong>Total</strong></td><td></td><td><strong>$880 per month, about $10,560 per year</strong></td></tr>
+      <tr><td>Essentials full users</td><td>10 × {cur('$80', 'CA$108.50')}</td><td>{cur('$800', 'CA$1,085')}</td></tr>
+      <tr><td>Team Members</td><td>10 × {cur('$8', 'CA$10.90')}</td><td>{cur('$80', 'CA$109')}</td></tr>
+      <tr><td><strong>Total</strong></td><td></td><td><strong>{cur('$880 per month, about $10,560 per year', 'CA$1,194 per month, about CA$14,328 per year')}</strong></td></tr>
     </tbody></table></div>
   <p style="margin-top:16px"><a class="btn btn-ghost" href="@/licensing/#calculator">Try the calculator with your numbers</a></p>
 </div></section>
@@ -2208,6 +2225,7 @@ def render(p):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){{var c;try{{c=localStorage.getItem("q84_currency")}}catch(e){{}}if(c!=="usd"&&c!=="cad"){{var z="";try{{z=Intl.DateTimeFormat().resolvedOptions().timeZone||""}}catch(e){{}}c=/^(America\\/(Vancouver|Edmonton|Regina|Swift_Current|Winnipeg|Toronto|Montreal|Halifax|Moncton|Glace_Bay|Goose_Bay|St_Johns|Whitehorse|Dawson|Dawson_Creek|Fort_Nelson|Creston|Yellowknife|Inuvik|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Atikokan|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung|Blanc-Sablon)|Canada\\/)/.test(z)?"cad":"usd"}}if(c==="cad")document.documentElement.classList.add("cad")}})();</script>
 <title>{esc(p['title'])}</title>
 <meta name="description" content="{esc(p['desc'])}">
 <link rel="canonical" href="{canonical}">

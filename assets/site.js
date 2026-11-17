@@ -479,13 +479,20 @@
     });
   });
 
-  // License cost calculator (Microsoft US list prices, per user per month)
+  // License cost calculator (Microsoft list prices per user per month: US in USD, Canada in CAD)
   var calc = document.getElementById('calc');
   if (calc) {
-    var PRICES = { essentials: 80, premium: 110, team: 8 };
-    var fmt = function (n) { return '$' + n.toLocaleString('en-US'); };
+    var PRICE_LIST = { usd: { essentials: 80, premium: 110, team: 8 }, cad: { essentials: 108.5, premium: 149.2, team: 10.9 } };
+    var isCad = function () { return document.documentElement.classList.contains('cad'); };
+    var PRICES = PRICE_LIST.usd;
+    var fmt = function (n) {
+      n = Math.round(n * 100) / 100;
+      var cents = n % 1 !== 0;
+      return (isCad() ? 'CA$' : '$') + n.toLocaleString('en-US', { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: 2 });
+    };
     function num(id) { var v = parseInt(document.getElementById(id).value, 10); return isNaN(v) || v < 0 ? 0 : Math.min(v, 999); }
     function update() {
+      PRICES = isCad() ? PRICE_LIST.cad : PRICE_LIST.usd;
       var plan = calc.querySelector('[name="plan"]:checked').value;
       var full = num('c-full'), team = num('c-team');
       var monthly = full * PRICES[plan] + team * PRICES.team;
@@ -528,6 +535,7 @@
     }
     calc.addEventListener('input', update);
     calc.addEventListener('change', update);
+    document.addEventListener('q84:currency', update);
     update();
   }
 })();
@@ -593,4 +601,25 @@ document.addEventListener('click', function (e) {
     fetch(CFG.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
       .then(once, once);
   });
+})();
+
+/* Currency switch (USD / CAD). Detection runs in <head>; this handles the buttons. */
+(function () {
+  var root = document.documentElement;
+  function sync() {
+    var cad = root.classList.contains('cad');
+    [].forEach.call(document.querySelectorAll('[data-set-cur]'), function (b) {
+      b.setAttribute('aria-pressed', String((b.getAttribute('data-set-cur') === 'cad') === cad));
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-set-cur]');
+    if (!b) return;
+    var c = b.getAttribute('data-set-cur');
+    root.classList.toggle('cad', c === 'cad');
+    try { localStorage.setItem('q84_currency', c); } catch (err) {}
+    sync();
+    document.dispatchEvent(new Event('q84:currency'));
+  });
+  sync();
 })();
