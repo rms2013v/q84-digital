@@ -83,8 +83,6 @@
       fig.querySelector('.shot-body').replaceWith(img);
       var tag = fig.querySelector('.shot-bar span');
       if (tag) tag.textContent = '';
-      var n = document.getElementById('shotNote');
-      if (n) n.hidden = true;
     };
     img.src = fig.getAttribute('data-shot');
   });
@@ -534,3 +532,59 @@ document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('[data-download]');
   if (a && window.gtag) gtag('event', 'file_download', { file_name: a.getAttribute('data-download'), link_url: a.href });
 });
+
+/* Checklist download: ask for an email first, send it to the form inbox, then download */
+(function () {
+  var CFG = window.Q84 || {};
+  var dlg = document.getElementById('dlGate');
+  if (!dlg || typeof dlg.showModal !== 'function') return;
+  var form = document.getElementById('dlForm'), done = document.getElementById('dlDone');
+  var email = document.getElementById('dl-email'), err = document.getElementById('dl-e-email');
+  var KEY = 'q84_checklist_email', pending = null;
+  function known() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function startDownload(href) {
+    var a = document.createElement('a'); a.href = href; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-download]');
+    if (!a || known()) return;
+    e.preventDefault();
+    pending = a.href;
+    form.hidden = false; done.hidden = true; err.hidden = true;
+    dlg.showModal(); email.focus();
+  });
+  function close() { dlg.close(); }
+  document.getElementById('dlClose').addEventListener('click', close);
+  document.getElementById('dlDoneClose').addEventListener('click', close);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { err.hidden = false; email.focus(); return; }
+    err.hidden = true;
+    if (form.elements['_gotcha'].value) return;
+    var data = {
+      type: 'checklist_download', email: v,
+      name: form.elements['name'].value.trim(), company: form.elements['company'].value.trim(),
+      page: location.pathname,
+      _subject: 'Checklist download: ' + v + (form.elements['company'].value.trim() ? ' (' + form.elements['company'].value.trim() + ')' : ''),
+      _template: 'table'
+    };
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; btn.textContent = 'Preparing your download\u2026';
+    function finish() {
+      try { localStorage.setItem(KEY, v); } catch (x) {}
+      btn.disabled = false; btn.textContent = 'Download the checklist';
+      form.hidden = true; done.hidden = false;
+      startDownload(pending || (CFG.checklistPdf || '/downloads/q84-erp-readiness-checklist.pdf'));
+      if (window.gtag) gtag('event', 'generate_lead', { form: 'checklist_download' });
+    }
+    if (!CFG.formEndpoint) { finish(); return; }
+    // Never block the download if the form service is slow or down
+    var fired = false;
+    function once() { if (!fired) { fired = true; clearTimeout(t); finish(); } }
+    var t = setTimeout(once, 6000);
+    fetch(CFG.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
+      .then(once, once);
+  });
+})();

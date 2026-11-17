@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Migrate from Dynamics GP to Business Central | Q84 Digital</title>
+<meta name="description" content="Move from Dynamics GP to Business Central before GP support ends: Microsoft’s migration tools, segments to dimensions, history and add-on replacements.">
+<link rel="canonical" href="https://q84digital.com/migration/dynamics-gp/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="Migrate from Dynamics GP to Business Central | Q84 Digital">
+<meta property="og:description" content="Move from Dynamics GP to Business Central before GP support ends: Microsoft’s migration tools, segments to dimensions, history and add-on replacements.">
+<meta property="og:url" content="https://q84digital.com/migration/dynamics-gp/">
+<meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=8aabd02f">
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "When does Microsoft stop supporting Dynamics GP?", "acceptedAnswer": {"@type": "Answer", "text": "Microsoft has stopped selling Dynamics GP to new customers and has announced that product support, including tax and regulatory updates and technical support, ends on December 31, 2029. Security patches, if needed, continue until April 30, 2031. Check Microsoft’s Dynamics GP lifecycle page for the latest dates."}}, {"@type": "Question", "name": "Can we bring our GP history?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Microsoft’s migration brings summary account history and can add a read-only snapshot of detailed historical transactions, so you can look up old GP documents inside Business Central."}}, {"@type": "Question", "name": "What happens to our GP add-ons?", "acceptedAnswer": {"@type": "Answer", "text": "Each third-party GP product needs a decision: a standard Business Central feature, an AppSource app, or a small extension. We list them all during discovery so nothing is missed."}}, {"@type": "Question", "name": "Is this an upgrade or a new implementation?", "acceptedAnswer": {"@type": "Answer", "text": "It’s a new implementation with a guided data migration. Business Central works differently from GP, so we set it up around how you work today rather than copying GP’s structure."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Migration", "item": "https://q84digital.com/migration/"}, {"@type": "ListItem", "position": 3, "name": "Dynamics GP"}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_notice_hours": 24, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/business-central/">Business Central</a><details class="dd"><summary>Services</summary><div class="dd-menu"><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a></div></details><details class="dd current"><summary>Migration</summary><div class="dd-menu"><a href="/migration/">All migrations</a><a href="/migration/quickbooks/">From QuickBooks</a><a href="/migration/dynamics-gp/" aria-current="page">From Dynamics GP</a><a href="/migration/dynamics-nav/">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd"><summary>Integrations</summary><div class="dd-menu"><a href="/integrations/">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></details><details class="dd"><summary>Guides</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
+      <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap page-head-grid"><div class="stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/migration/">Migration</a> / Dynamics GP</nav>
+<h1>Dynamics GP to Business Central migration</h1>
+<p class="lede">Microsoft is retiring Dynamics GP. Business Central is its natural successor, and Microsoft provides tools to move your data. We plan the move and handle what the tools don’t.</p>
+</div><figure class="page-head-art"><img src="/images/page-mig-gp.webp" alt="Illustration of an old server and filing cabinet sending folders to the cloud and a laptop" width="800" height="595" fetchpriority="high"></figure></div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#why-now">Why now</a><a href="#what-changes">Mapping</a><a href="#our-process">Process</a><a href="#in-depth">In depth</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+<section id="why-now"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Why now</span><h2>Why GP customers are moving</h2><p class="lede">Microsoft has stopped selling Dynamics GP to new customers and has announced an end date for product support. Planning a move now means you choose the timing instead of the deadline choosing it for you.</p></div>
+  <ul class="checks"><li><div><strong>Support has an end date.</strong> Tax updates and technical support stop on December 31, 2029, and security patches stop after April 30, 2031.</div></li><li><div><strong>Fewer GP specialists.</strong> Finding consultants and add-on vendors gets harder each year.</div></li><li><div><strong>Cloud and Microsoft 365.</strong> Business Central runs in the cloud and works with Outlook, Excel and Teams.</div></li><li><div><strong>Microsoft’s migration path.</strong> Business Central includes tools built specifically to bring GP data across.</div></li></ul>
+</div></section>
+<section class="band" id="what-changes"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What changes</span><h2>How GP maps to Business Central</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>In Dynamics GP</th><th>In Business Central</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Account segments</td><td>G/L accounts plus dimensions</td><td>Decide which segments become dimensions before migrating.</td></tr>
+      <tr><td>Customers, vendors, items</td><td>Customers, vendors, items</td><td>Clean up inactive records and item classes first.</td></tr>
+      <tr><td>Open receivables and payables</td><td>Open ledger entries</td><td>Reconciled to GP aging reports.</td></tr>
+      <tr><td>Checkbooks</td><td>Bank accounts</td><td>Bank reconciliation starts fresh at cutover.</td></tr>
+      <tr><td>Historical transactions</td><td>Summary history plus an optional read-only snapshot</td><td>Choose how much detail you really need.</td></tr>
+      <tr><td>SmartLists and Management Reporter</td><td>Lists, Excel, financial reports and Power BI</td><td>Rebuild the reports people actually use, not all of them.</td></tr>
+      <tr><td>Third-party add-ons</td><td>Standard features, AppSource apps or extensions</td><td>List every add-on early; this drives scope.</td></tr>
+    </tbody></table></div>
+</div></section>
+<section id="our-process"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our process</span><h2>A GP migration in five steps</h2></div>
+  <ul class="checks"><li><div><strong>Inventory your GP.</strong> Modules, add-ons, customizations, reports and integrations in use today.</div></li><li><div><strong>Design Business Central.</strong> Chart of accounts, dimensions, posting groups and processes set up for how you work now.</div></li><li><div><strong>Run Microsoft’s migration.</strong> Master data, open transactions and history brought across into a test company.</div></li><li><div><strong>Test and reconcile.</strong> Your team runs real processes and signs off balances against GP.</div></li><li><div><strong>Cut over.</strong> Final migration at a period end, with hands-on support for the first close.</div></li></ul>
+</div></section>
+<section class="band" id="in-depth"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">In depth</span><h2>Planning a Dynamics GP to Business Central migration</h2></div>
+  <div class="prose deep">
+<h3>Use Microsoft’s migration tools, but don’t stop there</h3>
+<p>Business Central includes a cloud migration path built specifically for Dynamics GP. It brings over master data, open transactions and summary account history, and can add a read-only snapshot of detailed history. What it doesn’t do is redesign anything: GP’s account structure, item classes and posting setup come across largely as they were. A GP migration is the right moment to simplify, so we design the Business Central setup first and then map GP data into it.</p>
+<h3>Account segments and dimensions</h3>
+<p>GP stores department, location or division in account segments, which often leads to thousands of accounts. In Business Central, those segments usually become dimensions on a much shorter chart of accounts. The migration tools support this mapping, but the decision about which segments to keep as accounts and which become dimensions is a business decision to make early.</p>
+<h3>Reports and add-ons</h3>
+<p>Long-running GP systems typically carry dozens of SmartLists, Management Reporter reports and third-party add-ons. We list them all, find out which are still used, and replace only those: with standard Business Central lists and financial reports, Excel and Power BI, or an AppSource app. Many turn out to be unused.</p>
+<h3>Timing your move</h3>
+<p>Because Microsoft has announced an end date for GP support, many GP customers will move over the next few years, and experienced consultants will get busier. Starting the assessment early lets you pick a cutover at a fiscal year or quarter end that suits your business, rather than one forced by the support deadline.</p>
+<h3>What GP users notice first in Business Central</h3>
+<p>Business Central runs in a browser instead of a desktop client, uses posting groups to decide accounts automatically, and replaces GP batches with documents and journals that post directly. Finance teams usually adapt quickly; the bigger change is often for operations users, who get more inventory and warehouse capability than GP offered.</p></div>
+</div></section>
+<section id="faq"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Dynamics GP migration questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>When does Microsoft stop supporting Dynamics GP?</summary><p>Microsoft has stopped selling Dynamics GP to new customers and has announced that product support, including tax and regulatory updates and technical support, ends on December 31, 2029. Security patches, if needed, continue until April 30, 2031. Check Microsoft’s Dynamics GP lifecycle page for the latest dates.</p></details><details><summary>Can we bring our GP history?</summary><p>Yes. Microsoft’s migration brings summary account history and can add a read-only snapshot of detailed historical transactions, so you can look up old GP documents inside Business Central.</p></details><details><summary>What happens to our GP add-ons?</summary><p>Each third-party GP product needs a decision: a standard Business Central feature, an AppSource app, or a small extension. We list them all during discovery so nothing is missed.</p></details><details><summary>Is this an upgrade or a new implementation?</summary><p>It’s a new implementation with a guided data migration. Business Central works differently from GP, so we set it up around how you work today rather than copying GP’s structure.</p></details></div>
+</div></section>
+<section data-nosubnav class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>Other migrations</h2></div>
+  <div class="fgrid"><a class="fitem" href="/migration/quickbooks/"><h3>From QuickBooks</h3><p>QuickBooks Online and Desktop to Business Central.</p><span class="more">Read more →</span></a><a class="fitem" href="/migration/dynamics-nav/"><h3>From Dynamics NAV</h3><p>Upgrade or re-implement, depending on version and code.</p><span class="more">Read more →</span></a><a class="fitem" href="/migration/sage/"><h3>From Sage 50 &amp; Sage 100</h3><p>Mapping Sage data and modules to Business Central.</p><span class="more">Read more →</span></a></div>
+</div></section>
+<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>Planning your move off Dynamics GP?</h2><p>Book a free 30-minute call to talk through your GP setup, add-ons and timing.</p></div>
+    <div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="/contact/"><a class="next-slot next-fallback" href="/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="/contact/#schedule">See all times →</a>
+    </div>
+  </div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/"><span class="logo-mark">Q84</span>Q84 Digital</a>
+        <p>Tacoma-based Microsoft Dynamics 365 Business Central partner for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li>Tacoma, Washington</li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></div>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+  </div>
+</footer>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=180860a1" defer></script>
+</body>
+</html>

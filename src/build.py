@@ -48,6 +48,9 @@ if CFG.get('booking_url'):
 else:
     CTA_ATTR = 'href="@/contact/#schedule"'
 
+_digits = re.sub(r'\D', '', CFG.get('phone') or '')
+PHONE_TEL = ('+1' + _digits if len(_digits) == 10 else '+' + _digits) if _digits else ''  # e.g. +12532949237 for tel: links and schema
+
 def icon(name):
     return f'<span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON[name]}</svg></span>'
 
@@ -60,17 +63,43 @@ NAV = [
     ('business-central', 'Business Central', '@/business-central/', None),
     ('services', 'Services', None, [
         ('implementation', 'Implementation', '@/implementation/'),
-        ('licensing', 'Licensing & pricing', '@/licensing/'),
-        ('data-migration', 'Data migration', '@/data-migration/'),
-        ('integrations', 'Integrations & customization', '@/integrations/'),
+        ('rescue', 'Rescue & recovery', '@/rescue/'),
+        ('development', 'Development & AL extensions', '@/development/'),
         ('support', 'Support', '@/support/'),
+        ('licensing', 'Licensing & pricing', '@/licensing/'),
+    ]),
+    ('migration', 'Migration', None, [
+        ('migration', 'All migrations', '@/migration/'),
+        ('mig-quickbooks', 'From QuickBooks', '@/migration/quickbooks/'),
+        ('mig-gp', 'From Dynamics GP', '@/migration/dynamics-gp/'),
+        ('mig-nav', 'From Dynamics NAV', '@/migration/dynamics-nav/'),
+        ('mig-sage', 'From Sage 50 / Sage 100', '@/migration/sage/'),
+        ('mig-sheets', 'From spreadsheets', '@/migration/spreadsheets/'),
     ]),
     ('industries', 'Industries', None, [
         ('distribution', 'Wholesale distribution', '@/industries/distribution/'),
         ('manufacturing', 'Manufacturing', '@/industries/manufacturing/'),
-        ('service-industries', 'Service businesses', '@/industries/services/'),
+        ('ecommerce', 'E-commerce', '@/industries/ecommerce/'),
+        ('service-industries', 'Professional services', '@/industries/professional-services/'),
     ]),
-    ('blog', 'Blog', '@/blog/', None),
+    ('integrations', 'Integrations', None, [
+        ('integrations', 'All integrations', '@/integrations/'),
+        ('int-shopify', 'Shopify', '@/integrations/shopify/'),
+        ('int-edi', 'EDI', '@/integrations/edi/'),
+        ('int-powerbi', 'Power BI reporting', '@/integrations/power-bi/'),
+        ('int-wi', 'Warehouse Insight mobile WMS', '@/integrations/warehouse-insight/'),
+    ]),
+    ('guides', 'Guides', None, [
+        ('guides', 'All guides', '@/guides/'),
+        ('guide-cost', 'Implementation cost', '@/guides/implementation-cost/'),
+        ('guide-timeline', 'Implementation timeline', '@/guides/implementation-timeline/'),
+        ('cmp-netsuite', 'Business Central vs NetSuite', '@/compare/netsuite/'),
+        ('cmp-intacct', 'Business Central vs Sage Intacct', '@/compare/sage-intacct/'),
+        ('cmp-odoo', 'Business Central vs Odoo', '@/compare/odoo/'),
+        ('checklist', 'ERP readiness checklist', '@/guides/erp-readiness-checklist/'),
+        ('blog', 'Blog', '@/blog/'),
+    ]),
+    ('about', 'About', '@/about/', None),
 ]
 
 def header(current):
@@ -106,25 +135,27 @@ def social_links():
     out = []
     for key, label in (('linkedin', 'LinkedIn'), ('youtube', 'YouTube')):
         url = CFG.get(f'social_{key}_url') or ''
-        href = f'href="{esc(url)}" target="_blank" rel="noopener"' if url else 'href="#" data-placeholder'
+        if not url: continue  # only show icons that have a profile to link to
+        href = f'href="{esc(url)}" target="_blank" rel="noopener"'
         out.append(f'<a class="social" {href} aria-label="Q84 Digital on {label}"><svg viewBox="0 0 24 24" aria-hidden="true">{SOCIAL_SVG[key]}</svg></a>')
     return '<div class="socials">' + ''.join(out) + '</div>'
 
 def footer():
     legal = f'Q84 Digital is operated by {esc(CFG["legal_name"])}. ' if CFG.get('legal_name') else ''
-    phone = f'<li>{esc(CFG["phone"])}</li>' if CFG.get('phone') else ''
+    phone = f'<li><a href="tel:{PHONE_TEL}">{esc(CFG["phone"])}</a></li>' if CFG.get('phone') else ''
     return f'''<footer>
   <div class="wrap">
     <div class="foot">
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark">Q84</span>Q84 Digital</a>
-        <p>Business Central implementation for distribution and manufacturing businesses, led by a senior supply chain consultant.</p>
+        <p>Tacoma-based Microsoft Dynamics 365 Business Central partner for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Tacoma, Washington</li></ul>
         {social_links()}
       </div>
-      <div><h4>Business Central</h4><ul><li><a href="@/business-central/">Overview &amp; features</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/business-central/#fit">Is Business Central enough?</a></li><li><a href="@/resources/erp-readiness-checklist/">ERP readiness checklist</a></li></ul></div>
-      <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/data-migration/">Data migration</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/support/">Support</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/industries/services/">Service businesses</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/resources/">Resources</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/rescue/">Rescue &amp; recovery</a></li><li><a href="@/development/">Development</a></li><li><a href="@/support/">Support</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="@/migration/quickbooks/">From QuickBooks</a></li><li><a href="@/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="@/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="@/migration/sage/">From Sage</a></li><li><a href="@/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/industries/ecommerce/">E-commerce</a></li><li><a href="@/industries/professional-services/">Professional services</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="@/about/">About</a></li><li><a href="@/guides/">Guides</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
     <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
   </div>
@@ -280,7 +311,7 @@ TOUR = '''<section id="tour" style="border-top:1px solid var(--line)">
   </div>
 
 ''' + VIDEO + '''
-  <p class="shot-note" id="shotNote" style="margin-top:20px">Screens shown with example data.</p>
+  <p class="shot-note" id="shotNote" style="margin-top:20px">Screens show Business Central with example data from Microsoft’s demo company.</p>
 </div>
 </section>'''
 
@@ -289,10 +320,11 @@ FAQ_HOME = [
     ('Is Business Central right for a distribution or inventory-heavy business?', 'For most small and midsize distributors, yes. It handles multi-location stock, purchasing, bins, picking and shipping. If your warehouse is very high-volume or complex, we’ll tell you whether an extension or Dynamics 365 Supply Chain Management fits better.', ('@/business-central/#fit', 'Is Business Central enough?')),
     ('How much does Business Central cost?', 'Licenses are a monthly per-user subscription from Microsoft. Implementation is a one-time project quoted after a free discovery call. Our calculator estimates your license cost in a minute.', ('@/licensing/', 'Estimate your costs')),
     ('How long does implementation take?', 'A focused finance and inventory rollout usually takes a few months. Projects with manufacturing, advanced warehousing or several integrations take longer. You get a timeline after discovery.', ('@/implementation/', 'How implementation works')),
-    ('Can Business Central replace QuickBooks?', 'Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration.', ('@/data-migration/', 'Data migration')),
-    ('Can Business Central integrate with Shopify?', 'Yes. Business Central has a Shopify connector, and we build other integrations through its APIs.', ('@/integrations/', 'Integrations')),
+    ('Can Business Central replace QuickBooks?', 'Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration.', ('@/migration/quickbooks/', 'QuickBooks to Business Central')),
+    ('Can Business Central integrate with Shopify?', 'Yes. Business Central has a Shopify connector, and we build other integrations through its APIs.', ('@/integrations/shopify/', 'Shopify integration')),
     ('Are you a Microsoft partner?', CFG.get('partner_statement') or 'Q84 Digital is an independent Business Central consultancy. Microsoft licenses are billed by Microsoft or a Microsoft licensing partner. We help you choose the right plan, set it up and keep it right-sized as you grow.', ('@/licensing/', 'Licensing & pricing')),
-    ('Who will I actually work with?', 'Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it.', None),
+    ('Do you only work with companies in Tacoma?', 'No. We’re based in Tacoma and work on site across the Seattle–Tacoma area, and remotely with companies anywhere in the US. Business Central is a cloud system, so most project work happens online either way.', ('@/business-central-partner-tacoma/', 'Business Central in Tacoma & Seattle')),
+    ('Who will I actually work with?', 'Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it.', ('@/about/', 'About Q84 Digital')),
 ]
 
 def faq_html(items):
@@ -310,20 +342,29 @@ ORG_SCHEMA = {
     "@context": "https://schema.org", "@type": "ProfessionalService", "name": "Q84 Digital",
     "url": URL, "email": EMAIL,
     "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.",
-    "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}],
+    "areaServed": {"@type": "Country", "name": "United States"},
     "address": {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"},
     "@id": URL + "#organization",
+    "logo": URL + "images/logo.png", "image": URL + "images/og-default.jpg",
     "founder": {"@id": URL + "#oleh-karnaukhov"},
     "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "ERP implementation", "Warehouse management", "ERP integration"],
 }
 if CFG.get('phone'):
-    ORG_SCHEMA['telephone'] = CFG['phone']
+    ORG_SCHEMA['telephone'] = PHONE_TEL
+if CFG.get('social_linkedin_url'):
+    ORG_SCHEMA['sameAs'] = [u for u in (CFG.get('social_linkedin_url'), CFG.get('social_youtube_url')) if u]
+
+WEBSITE_SCHEMA = {
+    "@context": "https://schema.org", "@type": "WebSite", "@id": URL + "#website",
+    "url": URL, "name": "Q84 Digital", "inLanguage": "en-US",
+    "publisher": {"@id": URL + "#organization"},
+}
 
 PERSON_SCHEMA = {
     "@context": "https://schema.org", "@type": "Person", "@id": URL + "#oleh-karnaukhov",
     "name": "Oleh Karnaukhov", "jobTitle": "Founder and lead consultant",
     "description": "Senior Microsoft Dynamics consultant with more than 15 years of ERP and supply chain experience.",
-    "url": URL, "worksFor": {"@id": URL + "#organization"},
+    "url": URL + "about/", "worksFor": {"@id": URL + "#organization"},
     "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "Warehouse management", "Transportation management", "Dynamics 365 Customer Engagement", "Dynamics 365 Field Service", "ERP integration"],
 }
 if LINKEDIN:
@@ -335,7 +376,7 @@ if CFG.get('consultant_photo'):
 
 PAGES = []
 
-CHECKLIST_URL = '@/resources/erp-readiness-checklist/'
+CHECKLIST_URL = '@/guides/erp-readiness-checklist/'
 CHECKLIST_PDF = '@/downloads/q84-erp-readiness-checklist.pdf'
 DL_ATTR = f'href="{CHECKLIST_PDF}" download data-download="erp-readiness-checklist"'
 def checklist_promo(heading='Is your business ready for a new ERP?', text='Our free ERP Readiness Checklist covers 52 questions across 9 areas, from inventory and warehouse to data and budget. Fill it in with your team, then bring it to your assessment.'):
@@ -343,7 +384,7 @@ def checklist_promo(heading='Is your business ready for a new ERP?', text='Our f
   <a class="promo-cover" href="{CHECKLIST_URL}" tabindex="-1" aria-hidden="true"><img src="@/images/erp-checklist-cover.webp" alt="" width="640" height="828" loading="lazy"></a>
   <div class="promo-copy"><span class="eyebrow">Free download</span><h2>{heading}</h2><p>{text}</p>
     <div class="hero-actions"><a class="btn btn-primary" {DL_ATTR}>Download the checklist (PDF)</a><a class="btn btn-ghost" href="{CHECKLIST_URL}">See what’s inside</a></div>
-    <p class="hint">Fillable PDF, 6 pages. No email required.</p></div>
+    <p class="hint">Free fillable PDF, 6 pages. Enter your email to download.</p></div>
 </div></div></section>'''
 def add(path, nav, title, desc, body, schema=None, image=None, subnav=False):
     PAGES.append(dict(path=path, nav=nav, title=title, desc=desc, body=body, schema=schema or [], image=image, subnav=subnav))
@@ -351,7 +392,13 @@ def add(path, nav, title, desc, body, schema=None, image=None, subnav=False):
 def slug(t):
     return re.sub(r'[^a-z0-9]+', '-', html.unescape(t).lower()).strip('-')
 
-NAV_SHORT = {'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit', 'Marketing agencies': 'Agencies', 'Medical and aesthetic clinics': 'Clinics', 'Who we work with': 'Clients', 'Construction and restoration': 'Construction', 'Step by step': 'Steps'}
+NAV_SHORT = {'What clients say': 'Reviews', 'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit', 'Marketing agencies': 'Agencies', 'Medical and aesthetic clinics': 'Clinics', 'Who we work with': 'Clients', 'Construction and restoration': 'Construction', 'Step by step': 'Steps',
+             'What moves where': 'Mapping', 'What changes': 'Mapping', 'Why companies move': 'Why move', 'Why now': 'Why now', 'Our process': 'Process', 'Two paths': 'Paths',
+             'Warning signs': 'Signs', 'How we fix it': 'How we fix it', 'Root causes': 'Causes', 'Local partner': 'Local', 'Who we help': 'Industries', 'Service area': 'Service area',
+             'What we do': 'Services', 'What we build': 'What we build', 'Our approach': 'Approach', 'What syncs': 'What syncs', 'Beyond the basics': 'More',
+             'Common documents': 'Documents', 'Why it matters': 'Why it matters', 'Two options': 'Options', 'What gets scanned': 'Processes', 'Before scanning': 'Prerequisites',
+             'What we set up': 'Setup', 'Good reports start in Business Central': 'Setup tips', 'Typical ranges': 'Ranges', 'Cost drivers': 'Drivers', 'Keeping costs down': 'Saving money',
+             'Phase by phase': 'Phases', 'Parcel shipping': 'Shipping', 'What we help with': 'Services', 'Ways to work with us': 'Plans', 'What slows projects down': 'Delays', 'Choosing a go-live date': 'Go-live date', 'Worked example': 'Example'}
 def with_subnav(body):
     # Give each labelled section an id and build a floating in-page menu from the labels
     items, used = [], set()
@@ -367,7 +414,7 @@ def with_subnav(body):
         items.append((sid, NAV_SHORT.get(html.unescape(e.group(1)), e.group(1))))
         if not idm: attrs = attrs + f' id="{sid}"'
         return f'<section{attrs}>{inner}'
-    body = re.sub(r'<section([^>]*)>(.{0,600})', fix, body, flags=re.S)
+    body = re.sub(r'<section([^>]*)>((?:(?!<section).){0,600})', fix, body, flags=re.S)  # look ahead only within this section
     if len(items) < 3: return body
     nav = ('<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links">'
            + ''.join(f'<a href="#{i}">{t}</a>' for i, t in items)
@@ -396,11 +443,9 @@ HERO_SET = [h for h in HERO_SET if os.path.exists(os.path.join(ROOT, 'images', h
 HERO_IMG = HERO_SET[0][0] if HERO_SET else None
 HERO_CLASS = 'hero-split' if HERO_IMG else ''
 _hero_list = json.dumps([['@/images/' + f, alt] for f, alt in HERO_SET]).replace('</', '<\\/')
-HERO_ART = (f'''<figure class="hero-art"><img id="heroImg" alt="{esc(HERO_SET[0][1])}" width="1024" height="1024" fetchpriority="high"><script>(function(){{var l={_hero_list},k='q84hero',p=-1;try{{var v=sessionStorage.getItem(k);if(v!==null)p=+v}}catch(e){{}}var i=Math.floor(Math.random()*l.length);if(l.length>1&&i===p)i=(i+1)%l.length;try{{sessionStorage.setItem(k,i)}}catch(e){{}}var m=document.getElementById('heroImg');m.alt=l[i][1];m.src=l[i][0];}})();</script><noscript><img src="@/images/{HERO_SET[0][0]}" alt="{esc(HERO_SET[0][1])}" width="1024" height="1024"></noscript></figure>''' if HERO_IMG else '')
+HERO_ART = (f'''<figure class="hero-art"><img id="heroImg" src="@/images/{HERO_SET[0][0]}" alt="{esc(HERO_SET[0][1])}" width="1024" height="1024" fetchpriority="high"><script>(function(){{var l={_hero_list},k='q84hero',p=-1;try{{var v=sessionStorage.getItem(k);if(v!==null)p=+v}}catch(e){{}}if(p<0){{try{{sessionStorage.setItem(k,0)}}catch(e){{}}return}}var i=(p+1)%l.length;try{{sessionStorage.setItem(k,i)}}catch(e){{}}var m=document.getElementById('heroImg');m.alt=l[i][1];m.src=l[i][0];}})();</script></figure>''' if HERO_IMG else '')
 
 # HOME
-AVATAR_ATTR = '' if CFG.get('consultant_photo') else ' aria-hidden="true"'
-avatar_small = (f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="" width="96" height="96">' if CFG.get('consultant_photo') else '<span>OK</span>')
 
 case_studies = CFG.get('case_studies') or []
 testimonials = CFG.get('testimonials') or []
@@ -421,23 +466,22 @@ else:
 TESTIMONIALS = ''
 if testimonials:
     q = ''.join(f'''<figure class="quote"><blockquote>\u201c{esc(t["quote"])}\u201d</blockquote><figcaption><strong>{esc(t.get("name",""))}</strong>{(", " + esc(t["role"])) if t.get("role") else ""}{(", " + esc(t["company"])) if t.get("company") else ""}</figcaption></figure>''' for t in testimonials)
-    TESTIMONIALS = f'''<section><div class="wrap"><div class="section-head"><span class="eyebrow">What clients say</span><h2>In their words</h2></div><div class="grid g3">{q}</div></div></section>'''
+    TESTIMONIALS = f'''<section><div class="wrap"><div class="section-head"><span class="eyebrow">What clients say</span><h2>In their words</h2></div><div class="grid {'g2' if len(testimonials) == 2 else 'g3'}">{q}</div></div></section>'''
 
 impl_range = CFG.get('implementation_range')
 impl_text = (f'Most implementations fall between {esc(impl_range)}, depending on scope. You get a fixed quote after discovery.'
              if impl_range else 'Quoted as a fixed scope after discovery, based on modules, data, integrations and companies.')
 
 add('', 'home',
-    'Business Central for Distribution & Manufacturing | Q84 Digital',
-    'Take control of your inventory, operations and finances with Microsoft Dynamics 365 Business Central. Senior-led implementation for distributors and manufacturers, with 15+ years of Dynamics experience.',
+    'Microsoft Business Central Partner | Tacoma, WA | Q84 Digital',
+    'Senior-led Microsoft Business Central partner for distributors and manufacturers: implementation, migration from QuickBooks, GP and NAV, and support.',
     f'''<section class="hero"><div class="wrap">
   <div class="{HERO_CLASS}"><div class="hero-center">
     <a class="announce" href="{CHECKLIST_URL}"><span class="announce-tag">New</span><span>Free ERP Readiness Checklist for Business Central projects</span><span class="announce-link">Download \u2192</span></a>
     <h1>Take control of your inventory, operations and finances <span class="h1-accent">with Microsoft Business Central</span></h1>
     <p class="lede lede-strong">Replace disconnected accounting, inventory and warehouse systems with one connected ERP platform.</p>
-    <p class="lede">Q84 Digital helps distributors and manufacturers implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
+    <p class="lede">Q84 Digital is a Tacoma, Washington Business Central partner. We help distributors, manufacturers and service businesses across the Pacific Northwest and the US implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
     <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#tour">See how it works</a></div>
-    <div class="founder"><span class="founder-photo">{avatar_small}</span><span><strong>Led by Oleh Karnaukhov</strong><span>15+ years of Microsoft Dynamics and supply chain experience</span></span>{f'<a class="li" href="{esc(LINKEDIN)}" target="_blank" rel="noopener me" aria-label="Oleh Karnaukhov on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>' if LINKEDIN else ''}</div>
   </div>{HERO_ART}</div>
 </div></section>
 
@@ -460,7 +504,8 @@ add('', 'home',
   <div class="chips" role="tablist" aria-label="Industries">
     <button class="chip" role="tab" id="itab-dist" aria-controls="ipanel-dist" aria-selected="true">Wholesale distribution</button>
     <button class="chip" role="tab" id="itab-mfg" aria-controls="ipanel-mfg" aria-selected="false" tabindex="-1">Manufacturing</button>
-    <button class="chip" role="tab" id="itab-svc" aria-controls="ipanel-svc" aria-selected="false" tabindex="-1">Service businesses</button>
+    <button class="chip" role="tab" id="itab-ecom" aria-controls="ipanel-ecom" aria-selected="false" tabindex="-1">E-commerce</button>
+    <button class="chip" role="tab" id="itab-svc" aria-controls="ipanel-svc" aria-selected="false" tabindex="-1">Professional services</button>
   </div>
   <div class="ind-panel" role="tabpanel" id="ipanel-dist" aria-labelledby="itab-dist">
     <figure class="ind-photo"><img src="@/images/industry-distribution.webp" alt="Delivery truck, pallet jack and pallets of boxes with an order list on a tablet" width="1200" height="900" loading="lazy"></figure>
@@ -474,11 +519,17 @@ add('', 'home',
       <p>Manage bills of materials, production orders and material planning in the same system as your stock and books. See shortages before they stop the floor and compare actual costs with standard on every order.</p>
       <div class="hero-actions"><a class="btn btn-primary" href="@/industries/manufacturing/">See manufacturing features</a></div></div>
   </div>
+  <div class="ind-panel" role="tabpanel" id="ipanel-ecom" aria-labelledby="itab-ecom" hidden>
+    <figure class="ind-photo"><img src="@/images/hero-packing-station.webp" alt="Packing station with boxes, tape and a shipping label printer" width="1024" height="1024" loading="lazy"></figure>
+    <div class="stack"><h3>Sell on every channel from one stock position</h3>
+      <p>Shopify and marketplace orders flow into Business Central, stock syncs back to every store, and payouts reconcile without a spreadsheet. Fulfill from your own warehouse or a 3PL and see true margin after fees, shipping and returns.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="@/industries/ecommerce/">See e-commerce features</a></div></div>
+  </div>
   <div class="ind-panel" role="tabpanel" id="ipanel-svc" aria-labelledby="itab-svc" hidden>
     <figure class="ind-photo"><img src="@/images/industry-services.webp" alt="Laptop with a project chart, an alarm clock, a hard hat and a clipboard with an invoice" width="1184" height="880" loading="lazy"></figure>
     <div class="stack"><h3>Bill every hour and know which jobs make money</h3>
       <p>For marketing agencies, medical and aesthetic clinics, and construction and restoration companies. Track time, projects, deposits and job costs in the same system as your books, invoice faster, and see profit by client, job and contract.</p>
-      <div class="hero-actions"><a class="btn btn-primary" href="@/industries/services/">See service business features</a></div></div>
+      <div class="hero-actions"><a class="btn btn-primary" href="@/industries/professional-services/">See professional services features</a></div></div>
   </div>
 </div></section>
 
@@ -491,8 +542,9 @@ add('', 'home',
   <div class="section-head"><span class="eyebrow">What we deliver</span><h2>From assessment to everyday support</h2></div>
   <div class="fgrid">
     <a class="fitem" href="@/implementation/">{icon('tools')}<h3>Implementation</h3><p>Business Central set up around your processes, from chart of accounts to go-live.</p><span class="more">Implementation \u2192</span></a>
-    <a class="fitem" href="@/data-migration/">{icon('migrate')}<h3>Data migration</h3><p>Clean, verified data moved from QuickBooks, Sage, Dynamics NAV or spreadsheets.</p><span class="more">Data migration \u2192</span></a>
-    <a class="fitem" href="@/integrations/">{icon('link')}<h3>Integrations &amp; automation</h3><p>Business Central connected to e-commerce, shipping, CRM and Power BI.</p><span class="more">Integrations \u2192</span></a>
+    <a class="fitem" href="@/migration/">{icon('migrate')}<h3>Migration</h3><p>Clean, verified data moved from QuickBooks, Dynamics GP, Dynamics NAV, Sage or spreadsheets.</p><span class="more">Migration \u2192</span></a>
+    <a class="fitem" href="@/rescue/">{icon('support')}<h3>Rescue &amp; recovery</h3><p>Stalled or struggling Business Central project? We find what\u2019s wrong and get it back on track.</p><span class="more">Rescue &amp; recovery \u2192</span></a>
+    <a class="fitem" href="@/integrations/">{icon('link')}<h3>Integrations &amp; development</h3><p>Shopify, EDI, Power BI, warehouse scanning and custom AL extensions.</p><span class="more">Integrations \u2192</span></a>
     <a class="fitem" href="@/licensing/">{icon('receipt')}<h3>Licensing &amp; advice</h3><p>The right license mix and a clear view of total cost before you commit.</p><span class="more">Licensing &amp; pricing \u2192</span></a>
     <a class="fitem" href="@/support/">{icon('chart')}<h3>Ongoing support</h3><p>Fixes, improvements and training once you\u2019re live, hourly or monthly.</p><span class="more">Support \u2192</span></a>
   </div>
@@ -534,21 +586,21 @@ add('', 'home',
   {faq_html(FAQ_HOME)}
 </div></section>
 {checklist_promo()}
-{cta('Find out if Business Central fits your business')}''', [ORG_SCHEMA, PERSON_SCHEMA, faq_schema(FAQ_HOME)])
+{cta('Find out if Business Central fits your business')}''', [WEBSITE_SCHEMA, ORG_SCHEMA, PERSON_SCHEMA, faq_schema(FAQ_HOME)])
 
 # BUSINESS CENTRAL
 add('business-central/', 'business-central',
     'What Is Business Central? Features & Fit | Q84 Digital',
     'What Business Central does, its core features for finance, inventory, sales, purchasing and warehousing, and how to tell whether it fits your operations.',
     page_head('Business Central', 'Business Central', 'Microsoft Dynamics 365 Business Central',
-              'One cloud ERP for finance, inventory, sales, purchasing and warehousing, built for small and midsize companies and connected to Microsoft 365.') + f'''
+              'One cloud ERP for finance, inventory, sales, purchasing and warehousing, built for small and midsize companies and connected to Microsoft 365.', art=('page-business-central.webp', 'Illustration of a cloud connected to a ledger, a box, a shopping cart and a bar chart')) + f'''
 <section id="overview-video"><div class="wrap split video-split">
   <div class="stack"><span class="eyebrow">Watch the overview</span><h2>See Business Central in three minutes</h2>
   <p class="lede">Microsoft\u2019s official overview of Business Central: how finance, sales, inventory and operations come together in one system.</p>
   {checks(['Connected finance, sales and operations', 'Built-in Microsoft 365 and Copilot features', 'Runs in the cloud, accessible anywhere'])}</div>
   <figure class="yt" style="margin:0">
     <button class="video-poster" type="button" data-youtube="X7B99e3mNfI" data-title="Microsoft Dynamics 365 Business Central Overview" aria-label="Play video: Microsoft Dynamics 365 Business Central Overview, 3 minutes 13 seconds">
-      <img src="https://i.ytimg.com/vi/X7B99e3mNfI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+      <img src="https://i.ytimg.com/vi/X7B99e3mNfI/hqdefault.jpg" alt="Microsoft Dynamics 365 Business Central overview video" loading="lazy" width="480" height="360">
       <span class="play" aria-hidden="true"></span><span class="video-label">Business Central overview \u00b7 3:13</span>
     </button>
     <figcaption class="shot-note">Video by Microsoft. Plays from YouTube when you press play.</figcaption>
@@ -582,10 +634,10 @@ add('business-central/', 'business-central',
 
 # IMPLEMENTATION
 add('implementation/', 'implementation',
-    'Business Central Implementation Services | Q84 Digital',
-    'A structured Business Central implementation: discovery, design, build, data migration, testing, training and go-live support, led by a senior Dynamics consultant.',
-    page_head('Implementation', 'Services / Implementation', 'Business Central implementation',
-              'A structured rollout that gets your team working in Business Central with clean data, tested processes and support after go-live.') + f'''
+    'Business Central Implementation Partner | Q84 Digital',
+    'A senior-led Business Central implementation partner: discovery, design, build, data migration, testing and go-live, delivered by the consultant who scopes it.',
+    page_head('Implementation', 'Services / Implementation', 'Business Central implementation partner',
+              'A structured rollout that gets your team working in Business Central with clean data, tested processes and support after go-live.', art=('page-implementation.webp', 'Illustration of a laptop with a project plan, steps leading to a flag, a blueprint and a gear')) + f'''
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Common problems</span><h2>Why ERP projects go sideways</h2><p class="lede">Most failed implementations fail for the same few reasons. Our method is built to prevent each one.</p></div>
   {checks(['<strong>Vague scope.</strong> Nobody agrees on what “done” means, so the budget keeps moving.', '<strong>Dirty data.</strong> Old records are loaded as-is and cause problems from day one.', '<strong>Too much customization.</strong> Custom code replaces standard features and makes upgrades harder.', '<strong>Rushed testing.</strong> Real processes aren’t tested end to end before go-live.', '<strong>Untrained users.</strong> People go back to spreadsheets because nobody showed them how.'])}
@@ -608,7 +660,7 @@ add('implementation/', 'implementation',
   {EXAMPLES}
 </div></section>
 <section class="band"><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Timeline &amp; cost</span><h2>What drives the size of a project</h2><p class="lede">You get a fixed scope and estimate after discovery, based on your business rather than a guess. <a href="@/licensing/#calculator">Try the cost estimator.</a></p></div>
+  <div class="stack"><span class="eyebrow">Timeline &amp; cost</span><h2>What drives the size of a project</h2><p class="lede">You get a fixed scope and estimate after discovery, based on your business rather than a guess. Read our guides to <a href="@/guides/implementation-cost/">implementation cost</a> and <a href="@/guides/implementation-timeline/">how long it takes</a>, or <a href="@/licensing/#calculator">try the cost estimator</a>.</p></div>
   {checks(['<strong>Modules in scope.</strong> Finance only, or also inventory, warehousing and manufacturing.', '<strong>Companies and locations.</strong> Multi-entity and multi-warehouse setups take more work.', '<strong>Data volume and quality.</strong> Clean data loads faster than messy data.', '<strong>Integrations.</strong> Each connected system adds design and testing time.', '<strong>Custom development.</strong> Extensions are scoped and estimated separately.'])}
 </div></section>
 {checklist_promo('Prepare your team for implementation', 'Use our free ERP Readiness Checklist to find gaps in goals, processes, data and ownership before the project starts. It makes discovery faster and scope clearer.')}
@@ -616,10 +668,10 @@ add('implementation/', 'implementation',
 
 # LICENSING
 add('licensing/', 'licensing',
-    'Business Central Pricing & Cost Calculator | Q84 Digital',
-    'Business Central license prices for Essentials, Premium and Team Members, a cost calculator for your users, and what drives implementation and support costs.',
-    page_head('Licensing', 'Services / Licensing &amp; pricing', 'Business Central licensing and pricing',
-              'What you’ll pay Microsoft for licenses, what drives implementation cost, and a quick calculator for your own numbers.', button=False) + '''
+    'Business Central Essentials vs Premium Pricing | Q84 Digital',
+    'Business Central Essentials vs Premium: license prices, what each plan includes, Team Members licenses, and a cost calculator for your own users.',
+    page_head('Licensing', 'Services / Licensing &amp; pricing', 'Business Central pricing: Essentials vs Premium',
+              'What you’ll pay Microsoft for licenses, what drives implementation cost, and a quick calculator for your own numbers.', button=False, art=('page-licensing.webp', 'Illustration of three license cards of increasing size, a key and a stack of coins')) + '''
 <section style="padding-top:32px" id="calculator"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Cost estimator</span><h2>Estimate your Business Central costs</h2></div>
   <form class="calc" id="calc" onsubmit="return false">
@@ -673,7 +725,7 @@ add('licensing/', 'licensing',
     </tbody></table></div>
 </div></section>
 <section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">License types</span><h2>Choosing the right licenses</h2><p class="lede">Most companies combine a few full users with lower-cost Team Members licenses for people who only view data or do light tasks. All full users in a company must be on the same plan.</p></div>
+  <div class="section-head"><span class="eyebrow">License types</span><h2>Business Central Essentials vs Premium</h2><p class="lede">Essentials covers finance, sales, purchasing, inventory, warehousing and projects, which is enough for most distributors and service businesses. Premium adds manufacturing and service management. Most companies combine a few full users with lower-cost Team Members licenses for people who only view data or do light tasks. All full users in a company must be on the same plan.</p></div>
   <div class="table-wrap"><table>
     <thead><tr><th>License</th><th>Price (USD)</th><th>Who it's for</th><th>Typical use</th></tr></thead>
     <tbody>
@@ -696,6 +748,7 @@ add('licensing/', 'licensing',
       <tr><td>Support</td><td>Hourly or monthly</td><td>How much help you want after go-live</td></tr>
     </tbody></table></div>
 </div></section>
+<section><div class="wrap"><div class="note">Licenses are only part of the budget. See our guide to <a href="@/guides/implementation-cost/">Business Central implementation cost</a> for the full picture.</div></div></section>
 ''' + cta('Get a cost estimate for your business', 'Share a few details and we’ll come back with licensing and implementation ranges.'))
 
 def worked(title, setup, rows, outcome):
@@ -715,6 +768,14 @@ def faq_section(items, title='Frequently asked questions'):
   {faq_html(items)}
 </div></section>'''
 
+def related(title, items, band=False):
+    # items: (href, heading, text) — a row of link cards to sibling pages
+    cards = ''.join(f'<a class="fitem" href="{h}"><h3>{t}</h3><p>{d}</p><span class="more">Read more →</span></a>' for h, t, d in items)
+    return f'''<section data-nosubnav{' class="band"' if band else ''}><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>{title}</h2></div>
+  <div class="fgrid">{cards}</div>
+</div></section>'''
+
 # DATA MIGRATION
 FAQ_MIG = [
     ('How long does a data migration take?', 'For most small and midsize businesses the migration runs alongside the implementation over three to six weeks, with at least two trial loads before the final cutover. The final load itself usually happens over a weekend or at a month-end.', None),
@@ -722,19 +783,21 @@ FAQ_MIG = [
     ('Who cleans up the data?', 'We do the heavy lifting: finding duplicates, gaps and inconsistent codes, and fixing what can be fixed automatically. Your team makes the business decisions, such as which customers are inactive and which item numbers to keep.', None),
     ('Can we keep using our old system during the project?', 'Yes. You keep working as normal until cutover. We take a final extract at an agreed point, load it, reconcile it and then you switch to Business Central.', None),
 ]
-add('data-migration/', 'data-migration',
-    'Business Central Data Migration | Q84 Digital',
-    'Move to Business Central with clean, reconciled data. Migration from QuickBooks, Sage, Dynamics NAV, other ERPs and spreadsheets, with a worked example and FAQs.',
-    page_head('Data migration', 'Services / Data migration', 'Business Central data migration',
-              'Move customers, vendors, items, open documents and balances into Business Central, then reconcile everything so your numbers match on day one.') + f'''
+add('migration/', 'migration',
+    'Business Central Data Migration Services | Q84 Digital',
+    'Move to Business Central with clean, reconciled data. Migration from QuickBooks, Dynamics GP, Dynamics NAV, Sage, other ERPs and spreadsheets.',
+    page_head('Migration', 'Migration', 'Business Central data migration',
+              'Move customers, vendors, items, open documents and balances into Business Central, then reconcile everything so your numbers match on day one.', art=('page-migration.webp', 'Illustration of boxes and folders moving from an old computer to a laptop and the cloud')) + f'''
 <section><div class="wrap">
   <div class="section-head"><span class="eyebrow">Where you're coming from</span><h2>Systems we migrate from</h2>
-  <p class="lede">Every source system has its own quirks. QuickBooks stores items and customers differently from Business Central, and Dynamics NAV often carries years of custom fields. We plan the move around the system you actually have.</p></div>
-  <div class="grid g4">
-    <div class="card"><span class="tag">From</span><h3>QuickBooks</h3><p>Customers, vendors, items, open receivables and payables, and trial balance.</p></div>
-    <div class="card"><span class="tag">From</span><h3>Sage</h3><p>Master data, open transactions and historical balances.</p></div>
-    <div class="card"><span class="tag">From</span><h3>Dynamics NAV</h3><p>Upgrade or re-implement, depending on version and custom code.</p></div>
-    <div class="card"><span class="tag">From</span><h3>Spreadsheets &amp; other ERPs</h3><p>Structured templates, cleansing and validation before loading.</p></div>
+  <p class="lede">Every source system has its own quirks. QuickBooks stores items and customers differently from Business Central, Dynamics GP has its own migration tools, and Dynamics NAV often carries years of custom code. We plan the move around the system you actually have.</p></div>
+  <div class="fgrid">
+    <a class="fitem" href="@/migration/quickbooks/">{icon('migrate')}<h3>QuickBooks</h3><p>QuickBooks Online and Desktop: customers, vendors, items, open items and balances.</p><span class="more">QuickBooks to Business Central \u2192</span></a>
+    <a class="fitem" href="@/migration/dynamics-gp/">{icon('migrate')}<h3>Dynamics GP</h3><p>Microsoft’s GP-to-Business Central migration tools, plus the cleanup they don’t do.</p><span class="more">GP to Business Central \u2192</span></a>
+    <a class="fitem" href="@/migration/dynamics-nav/">{icon('migrate')}<h3>Dynamics NAV</h3><p>Upgrade or re-implement, depending on your version and custom code.</p><span class="more">NAV to Business Central \u2192</span></a>
+    <a class="fitem" href="@/migration/sage/">{icon('migrate')}<h3>Sage 50 &amp; Sage 100</h3><p>Master data, open transactions and balances, mapped to Business Central.</p><span class="more">Sage to Business Central \u2192</span></a>
+    <a class="fitem" href="@/migration/spreadsheets/">{icon('migrate')}<h3>Spreadsheets</h3><p>Item lists, stock and customer data pulled out of Excel and cleaned up.</p><span class="more">Spreadsheets to Business Central \u2192</span></a>
+    <div class="fitem">{icon('migrate')}<h3>Other ERPs</h3><p>Acumatica, Epicor, homegrown systems and more, using structured templates and validation.</p></div>
   </div>
 </div></section>
 <section class="band"><div class="wrap">
@@ -749,7 +812,7 @@ add('data-migration/', 'data-migration',
       <tr><td>5. Reconcile</td><td>Balances, open items and stock values are matched to the old system before go-live.</td><td>Sign off the reconciliation.</td></tr>
     </tbody></table></div>
 </div></section>
-<section><div class="wrap split">
+<section id="history"><div class="wrap split">
   <div class="stack"><span class="eyebrow">How much history?</span><h2>Choose what to bring over</h2><p class="lede">Bringing everything over sounds safe but often means moving years of messy data. Most companies choose the middle option.</p></div>
   <div class="table-wrap"><table>
     <thead><tr><th>Option</th><th>What moves</th><th>Best for</th></tr></thead>
@@ -759,7 +822,48 @@ add('data-migration/', 'data-migration',
       <tr><td>Detailed history</td><td>Individual historical transactions</td><td>Specific audit or reporting needs. Quoted separately.</td></tr>
     </tbody></table></div>
 </div></section>
+{faq_section(FAQ_MIG)}
+{cta('Planning your move to Business Central?')}''', [faq_schema(FAQ_MIG)])
+
+# MIGRATION PAGES
+MIG_RELATED = lambda skip, band=False: related('Other migrations', band=band, items=[x for x in [
+    ('@/migration/quickbooks/', 'From QuickBooks', 'QuickBooks Online and Desktop to Business Central.'),
+    ('@/migration/dynamics-gp/', 'From Dynamics GP', 'Microsoft’s GP migration tools, plus the cleanup they don’t do.'),
+    ('@/migration/dynamics-nav/', 'From Dynamics NAV', 'Upgrade or re-implement, depending on version and code.'),
+    ('@/migration/sage/', 'From Sage 50 &amp; Sage 100', 'Mapping Sage data and modules to Business Central.'),
+    ('@/migration/spreadsheets/', 'From spreadsheets', 'Turning Excel lists into clean master data.')] if x[0] != skip][:3])
+
+# QUICKBOOKS
+FAQ_QB = [
+    ('Can we migrate from both QuickBooks Online and QuickBooks Desktop?', 'Yes. The data we bring over is the same: chart of accounts, customers, vendors, items, open invoices and bills, and balances. Only the way we extract it differs.', None),
+    ('What happens to payroll?', 'Business Central doesn’t include US payroll. Most companies keep a payroll provider such as ADP or Gusto and post payroll to Business Central as a journal, or connect it with an app.', None),
+    ('Do QuickBooks classes and locations carry over?', 'Yes, as dimensions in Business Central. Dimensions do the same job with more flexibility, so you can report profit by department, location or project.', None),
+    ('Should we bring our transaction history?', 'Usually just open items, balances and monthly totals for one or two prior years. Keep QuickBooks or an export for looking up old invoices.', ('@/migration/#history', 'Choosing how much history')),
+]
+add('migration/quickbooks/', 'mig-quickbooks',
+    'QuickBooks to Business Central Migration | Q84 Digital',
+    'Move from QuickBooks Online or Desktop to Microsoft Dynamics 365 Business Central with clean data, real inventory and balances that reconcile to the cent.',
+    page_head('Migration', '<a href="@/migration/">Migration</a> / QuickBooks', 'QuickBooks to Business Central migration',
+              'You’ve outgrown QuickBooks. We move your accounts, customers, vendors, items and balances into Business Central, then prove the numbers match.', art=('page-mig-quickbooks.webp', 'Illustration of an accounting ledger and calculator, boxes on a pallet and a laptop with an inventory list')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Why companies move</span><h2>Signs you’ve outgrown QuickBooks</h2><p class="lede">QuickBooks is a good accounting system for a small company. It wasn’t built to run inventory, warehouses and several entities. For a closer look, read <a href="@/blog/signs-you-have-outgrown-quickbooks/">seven signs your distribution business has outgrown QuickBooks</a>.</p></div>
+  {checks(['<strong>Inventory lives in spreadsheets.</strong> Stock and costs are tracked outside your books. <a href="@/migration/spreadsheets/">We move those too.</a>', '<strong>More than one location or company.</strong> Consolidation and inter-company work take days.', '<strong>Month-end takes a week.</strong> Reports are rebuilt in Excel every month.', '<strong>File size and speed.</strong> QuickBooks Desktop slows down or hits its limits.', '<strong>No real controls.</strong> Approvals, user permissions and audit trails are thin.'])}
+</div></section>
 <section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What moves where</span><h2>How QuickBooks maps to Business Central</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>In QuickBooks</th><th>In Business Central</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Chart of accounts</td><td>General ledger accounts</td><td>A good time to simplify. Many QuickBooks accounts become dimensions instead.</td></tr>
+      <tr><td>Classes and locations</td><td>Dimensions</td><td>Agree the reporting you want before mapping.</td></tr>
+      <tr><td>Customers and vendors</td><td>Customers and vendors with posting groups</td><td>Duplicates and inactive records cleaned up first.</td></tr>
+      <tr><td>Items (inventory, non-inventory, service)</td><td>Items, with costing method and units of measure</td><td>Stock by location usually comes from spreadsheets and a physical count.</td></tr>
+      <tr><td>Sales tax items</td><td>Tax areas, groups and jurisdictions</td><td>Set up per state; consider a tax engine if you ship to many states.</td></tr>
+      <tr><td>Open invoices and bills</td><td>Open customer and vendor ledger entries</td><td>Reconciled to QuickBooks aging reports.</td></tr>
+      <tr><td>Trial balance</td><td>Opening balances</td><td>Matched to the cent at cutover.</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap">
   {worked('Moving a 25-person distributor off QuickBooks Desktop',
           'A distributor runs accounting in QuickBooks Desktop with around 1,800 customers. Its 4,000 items and stock levels for two warehouses live in spreadsheets, and month-end takes a week of reconciling.',
           [('Weeks 1 to 2', 'Map QuickBooks customers, vendors and accounts to Business Central. Merge the item spreadsheets into one list and agree cleansing rules with the owner.'),
@@ -769,8 +873,144 @@ add('data-migration/', 'data-migration',
            ('Cutover weekend', 'Physical stock count, final load of open items and opening balances, and sign-off before Monday trading.')],
           'The company starts in Business Central with balances that match QuickBooks to the cent, one item list and stock it can trust, with no gap in trading.')}
 </div></section>
-{faq_section(FAQ_MIG)}
-{cta('Planning your move to Business Central?')}''', [faq_schema(FAQ_MIG)])
+{faq_section(FAQ_QB, 'QuickBooks migration questions')}
+{MIG_RELATED('@/migration/quickbooks/')}
+{cta('Ready to move off QuickBooks?', 'Book a free 30-minute call. We’ll look at your QuickBooks setup and tell you what the move involves.')}''', [faq_schema(FAQ_QB)])
+
+# DYNAMICS GP
+FAQ_GP = [
+    ('When does Microsoft stop supporting Dynamics GP?', 'Microsoft has stopped selling Dynamics GP to new customers and has announced that product support, including tax and regulatory updates and technical support, ends on December 31, 2029. Security patches, if needed, continue until April 30, 2031. Check Microsoft’s Dynamics GP lifecycle page for the latest dates.', None),
+    ('Can we bring our GP history?', 'Yes. Microsoft’s migration brings summary account history and can add a read-only snapshot of detailed historical transactions, so you can look up old GP documents inside Business Central.', None),
+    ('What happens to our GP add-ons?', 'Each third-party GP product needs a decision: a standard Business Central feature, an AppSource app, or a small extension. We list them all during discovery so nothing is missed.', None),
+    ('Is this an upgrade or a new implementation?', 'It’s a new implementation with a guided data migration. Business Central works differently from GP, so we set it up around how you work today rather than copying GP’s structure.', None),
+]
+add('migration/dynamics-gp/', 'mig-gp',
+    'Migrate from Dynamics GP to Business Central | Q84 Digital',
+    'Move from Dynamics GP to Business Central before GP support ends: Microsoft’s migration tools, segments to dimensions, history and add-on replacements.',
+    page_head('Migration', '<a href="@/migration/">Migration</a> / Dynamics GP', 'Dynamics GP to Business Central migration',
+              'Microsoft is retiring Dynamics GP. Business Central is its natural successor, and Microsoft provides tools to move your data. We plan the move and handle what the tools don’t.', art=('page-mig-gp.webp', 'Illustration of an old server and filing cabinet sending folders to the cloud and a laptop')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Why now</span><h2>Why GP customers are moving</h2><p class="lede">Microsoft has stopped selling Dynamics GP to new customers and has announced an end date for product support. Planning a move now means you choose the timing instead of the deadline choosing it for you.</p></div>
+  {checks(['<strong>Support has an end date.</strong> Tax updates and technical support stop on December 31, 2029, and security patches stop after April 30, 2031.', '<strong>Fewer GP specialists.</strong> Finding consultants and add-on vendors gets harder each year.', '<strong>Cloud and Microsoft 365.</strong> Business Central runs in the cloud and works with Outlook, Excel and Teams.', '<strong>Microsoft’s migration path.</strong> Business Central includes tools built specifically to bring GP data across.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What changes</span><h2>How GP maps to Business Central</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>In Dynamics GP</th><th>In Business Central</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Account segments</td><td>G/L accounts plus dimensions</td><td>Decide which segments become dimensions before migrating.</td></tr>
+      <tr><td>Customers, vendors, items</td><td>Customers, vendors, items</td><td>Clean up inactive records and item classes first.</td></tr>
+      <tr><td>Open receivables and payables</td><td>Open ledger entries</td><td>Reconciled to GP aging reports.</td></tr>
+      <tr><td>Checkbooks</td><td>Bank accounts</td><td>Bank reconciliation starts fresh at cutover.</td></tr>
+      <tr><td>Historical transactions</td><td>Summary history plus an optional read-only snapshot</td><td>Choose how much detail you really need.</td></tr>
+      <tr><td>SmartLists and Management Reporter</td><td>Lists, Excel, financial reports and Power BI</td><td>Rebuild the reports people actually use, not all of them.</td></tr>
+      <tr><td>Third-party add-ons</td><td>Standard features, AppSource apps or extensions</td><td>List every add-on early; this drives scope.</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our process</span><h2>A GP migration in five steps</h2></div>
+  {checks(['<strong>Inventory your GP.</strong> Modules, add-ons, customizations, reports and integrations in use today.', '<strong>Design Business Central.</strong> Chart of accounts, dimensions, posting groups and processes set up for how you work now.', '<strong>Run Microsoft’s migration.</strong> Master data, open transactions and history brought across into a test company.', '<strong>Test and reconcile.</strong> Your team runs real processes and signs off balances against GP.', '<strong>Cut over.</strong> Final migration at a period end, with hands-on support for the first close.'])}
+</div></section>
+{faq_section(FAQ_GP, 'Dynamics GP migration questions')}
+{MIG_RELATED('@/migration/dynamics-gp/')}
+{cta('Planning your move off Dynamics GP?', 'Book a free 30-minute call to talk through your GP setup, add-ons and timing.')}''', [faq_schema(FAQ_GP)])
+
+# DYNAMICS NAV
+FAQ_NAV = [
+    ('Can we upgrade NAV directly to Business Central online?', 'Not in one step. NAV 2018 and earlier versions first need upgrading to a Business Central on-premises version, then Microsoft’s cloud migration moves the data online. Older NAV versions often get a fresh implementation with data migration instead, which can be quicker and cleaner.', None),
+    ('What happens to our NAV customizations?', 'Old C/AL code can’t run in Business Central online. Each customization is either replaced with a standard feature, replaced with an AppSource app, or rewritten as an AL extension. Many turn out to be unnecessary.', ('@/development/', 'AL development')),
+    ('Is NAV still supported?', 'Every version of Dynamics NAV is past mainstream support. NAV 2018, the last version, reaches the end of extended support on January 11, 2028. Check Microsoft’s lifecycle pages for your exact version.', None),
+    ('Should we move to the cloud or stay on-premises?', 'Most companies choose Business Central online: Microsoft handles hosting, updates and backups. On-premises still exists for specific needs, and we’ll discuss the trade-offs with you.', None),
+]
+add('migration/dynamics-nav/', 'mig-nav',
+    'Dynamics NAV to Business Central Upgrade | Q84 Digital',
+    'Upgrade from Microsoft Dynamics NAV to Business Central: upgrade or re-implement, what happens to C/AL customizations, and moving to the cloud.',
+    page_head('Migration', '<a href="@/migration/">Migration</a> / Dynamics NAV', 'Dynamics NAV to Business Central upgrade',
+              'Business Central is the modern version of NAV. Getting there depends on your NAV version and how much custom code you carry. We’ll help you choose the right path.', art=('page-mig-nav.webp', 'Illustration of steps leading from an old monitor up to a modern laptop')) + f'''
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Two paths</span><h2>Upgrade or re-implement?</h2><p class="lede">There’s no single right answer. The choice depends on your version, your customizations and how well NAV still fits your business.</p></div>
+  <div class="grid g2">
+    <div class="card"><span class="tag">Technical upgrade</span><h3>Bring your data and setup forward</h3>
+      <ul class="checks"><li><div>Best for recent NAV versions with clean data</div></li><li><div>Keeps your history and setup largely as-is</div></li><li><div>Customizations rewritten as AL extensions</div></li><li><div>Several upgrade steps for older versions</div></li></ul></div>
+    <div class="card"><span class="tag">Re-implementation</span><h3>Start clean, bring the data you need</h3>
+      <ul class="checks"><li><div>Best for older versions or heavy customization</div></li><li><div>Uses standard Business Central features first</div></li><li><div>Open items, balances and summary history migrated</div></li><li><div>Often simpler to maintain afterwards</div></li></ul></div>
+  </div>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Custom code</span><h2>What happens to your NAV customizations</h2><p class="lede">Years of NAV customizations are often the biggest part of the project. Many are no longer needed because Business Central now does the job as standard.</p></div>
+  {checks(['<strong>Replace with standard.</strong> Features that Business Central has added since your NAV version.', '<strong>Replace with an app.</strong> Proven AppSource apps for EDI, warehouse scanning, shipping and more.', '<strong>Rewrite as an extension.</strong> Genuinely unique processes rebuilt in AL, upgrade-safe.', '<strong>Retire.</strong> Reports and fields nobody uses anymore.'])}
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our process</span><h2>From NAV to Business Central</h2></div>
+  {checks(['<strong>Assess.</strong> NAV version, modules, objects, customizations, add-ons and integrations.', '<strong>Choose the path.</strong> Upgrade or re-implement, with the cost and effort of each laid out.', '<strong>Rework custom code.</strong> Each customization replaced, rebuilt or retired.', '<strong>Migrate and test.</strong> Data moved into a test environment and checked by your team.', '<strong>Go live.</strong> Cutover at a period end with support for the first close.'])}
+</div></section>
+{faq_section(FAQ_NAV, 'NAV upgrade questions')}
+{MIG_RELATED('@/migration/dynamics-nav/')}
+{cta('Still running Dynamics NAV?', 'Book a free 30-minute call. We’ll look at your version and customizations and suggest the simplest path.')}''', [faq_schema(FAQ_NAV)])
+
+# SAGE
+FAQ_SAGE = [
+    ('Does Microsoft provide a migration tool for Sage?', 'Not a dedicated one like it does for Dynamics GP. We extract data from Sage using its reports and, where available, its ODBC connection, then load it with Business Central’s configuration packages.', None),
+    ('Can Business Central replace Sage 100 manufacturing?', 'For most discrete manufacturers, yes. Business Central Premium covers bills of materials, production orders, routings and costing. We compare your Sage 100 work order setup with Business Central during discovery.', ('@/industries/manufacturing/', 'Business Central for manufacturing')),
+    ('How long does a Sage migration take?', 'The data migration usually runs over three to six weeks alongside the wider implementation, with at least two trial loads before cutover.', ('@/guides/implementation-timeline/', 'Implementation timeline')),
+]
+add('migration/sage/', 'mig-sage',
+    'Sage 50 & Sage 100 to Business Central Migration | Q84 Digital',
+    'Move from Sage 50 or Sage 100 to Microsoft Dynamics 365 Business Central: what maps where, how data is extracted, and how balances are reconciled.',
+    page_head('Migration', '<a href="@/migration/">Migration</a> / Sage', 'Sage 50 and Sage 100 to Business Central',
+              'Moving from Sage 50 or Sage 100? We map your Sage data and modules to Business Central, clean it up and reconcile every balance before you switch.', art=('page-mig-sage.webp', 'Illustration of binders on a conveyor moving into a laptop')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Why companies move</span><h2>When Sage stops keeping up</h2></div>
+  {checks(['<strong>Sage 50 limits.</strong> Inventory, multi-location stock and users outgrow a small-business system.', '<strong>Sage 100 on old servers.</strong> On-premises hardware, add-ons and upgrades to maintain.', '<strong>Disconnected tools.</strong> E-commerce, warehouse and reporting running beside Sage, not inside it.', '<strong>Microsoft 365.</strong> Teams wanting Outlook, Excel and Teams to work with their ERP.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What moves where</span><h2>How Sage maps to Business Central</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>In Sage</th><th>In Business Central</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Chart of accounts and departments</td><td>G/L accounts plus dimensions</td><td>Sub-account structures often become dimensions.</td></tr>
+      <tr><td>Customers and vendors</td><td>Customers and vendors with posting groups</td><td>Duplicates and inactive records cleaned up first.</td></tr>
+      <tr><td>Inventory items</td><td>Items, units of measure and costing methods</td><td>Confirm costing method; changing it later is hard.</td></tr>
+      <tr><td>Sage 100 sales and purchase orders</td><td>Open sales and purchase orders</td><td>Only open documents move.</td></tr>
+      <tr><td>Sage 100 bills of materials and work orders</td><td>Production BOMs and production orders (Premium)</td><td>Routings are added if you track operations.</td></tr>
+      <tr><td>Open invoices and bills</td><td>Open customer and vendor ledger entries</td><td>Reconciled to Sage aging reports.</td></tr>
+    </tbody></table></div>
+</div></section>
+{faq_section(FAQ_SAGE, 'Sage migration questions').replace('<section class="band">', '<section>', 1)}
+{MIG_RELATED('@/migration/sage/', band=True)}
+{cta('Thinking about leaving Sage?', 'Book a free 30-minute call to talk through your Sage setup and what the move involves.')}''', [faq_schema(FAQ_SAGE)])
+
+# SPREADSHEETS
+FAQ_XLS = [
+    ('Do we need to clean our spreadsheets before starting?', 'No. Send them as they are. We find duplicates, gaps and inconsistent codes and give you a short list of business decisions, such as which item numbers to keep.', None),
+    ('Can we still use Excel with Business Central?', 'Yes. Business Central opens almost any list in Excel, and many lists can be edited in Excel and published back. Your team keeps the tool they know, with one source of truth behind it.', None),
+    ('How do we get accurate opening stock?', 'With a physical count just before go-live. We load item data in advance, then post the counted quantities as opening stock at cutover.', None),
+]
+add('migration/spreadsheets/', 'mig-sheets',
+    'Moving from Spreadsheets to Business Central | Q84 Digital',
+    'Replace inventory, customer and order spreadsheets with Microsoft Dynamics 365 Business Central: cleaning Excel data, building master data and opening stock.',
+    page_head('Migration', '<a href="@/migration/">Migration</a> / Spreadsheets', 'From spreadsheets to Business Central',
+              'When inventory, pricing and orders live in Excel, nobody trusts the numbers. We turn your spreadsheets into clean Business Central data.', art=('page-mig-sheets.webp', 'Illustration of a pile of printed spreadsheets and a calculator turning into a neat database')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">The problem</span><h2>Why spreadsheets stop working</h2></div>
+  {checks(['<strong>Several versions of the truth.</strong> Each team keeps its own copy, and they never match.', '<strong>No audit trail.</strong> Nobody knows who changed a price or a stock level, or when.', '<strong>Manual re-entry.</strong> Orders and invoices are typed again into the accounting system.', '<strong>Errors that cost money.</strong> A wrong formula becomes a wrong order or a wrong margin.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Our process</span><h2>From Excel to clean master data</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Step</th><th>What happens</th><th>Your team’s role</th></tr></thead>
+    <tbody>
+      <tr><td>1. Collect</td><td>Gather every spreadsheet that holds items, prices, customers, vendors or stock.</td><td>Send what you use today.</td></tr>
+      <tr><td>2. Combine</td><td>Merge versions into one list per subject and flag conflicts.</td><td>Decide which value wins.</td></tr>
+      <tr><td>3. Standardize</td><td>Consistent item numbers, units of measure, categories and pricing.</td><td>Approve naming and numbering rules.</td></tr>
+      <tr><td>4. Load</td><td>Templates and configuration packages load the data into a test company.</td><td>Spot-check key records.</td></tr>
+      <tr><td>5. Count and go live</td><td>Physical count, opening stock posted, spreadsheets retired.</td><td>Count and sign off.</td></tr>
+    </tbody></table></div>
+</div></section>
+{faq_section(FAQ_XLS, 'Spreadsheet migration questions').replace('<section class="band">', '<section>', 1)}
+{MIG_RELATED('@/migration/spreadsheets/', band=True)}
+{cta('Ready to retire the spreadsheets?', 'Book a free 30-minute call. Bring one of your spreadsheets and we’ll show you what it looks like in Business Central.')}''', [faq_schema(FAQ_XLS)])
+
 
 # INTEGRATIONS
 FAQ_INT = [
@@ -780,20 +1020,23 @@ FAQ_INT = [
     ('Are there running costs?', 'Sometimes. Connector apps often have a monthly subscription, and some integrations use Azure services billed by Microsoft. We include these costs in the estimate so there are no surprises.', None),
 ]
 add('integrations/', 'integrations',
-    'Business Central Integrations & Shopify | Q84 Digital',
-    'Connect Business Central to Shopify, shipping carriers, CRM, EDI providers and Power BI, and extend it with AL and Power Automate. Includes a worked example and FAQs.',
-    page_head('Integrations', 'Services / Integrations &amp; customization', 'Business Central integrations and customization',
-              'Connect Business Central to the tools you already use, and extend it where standard features don’t cover your process.') + f'''
+    'Business Central Integrations & Customization | Q84 Digital',
+    'Connect Business Central to Shopify, EDI partners, carriers, CRM and Power BI, add warehouse scanning, and extend it with AL and Power Automate.',
+    page_head('Integrations', 'Integrations', 'Business Central integrations and customization',
+              'Connect Business Central to the tools you already use, and extend it where standard features don’t cover your process.', art=('page-integrations.webp', 'Illustration of a central hub connected to a laptop, phone, shopping bag and delivery truck')) + f'''
 <section><div class="wrap">
   <div class="section-head"><span class="eyebrow">What we build</span><h2>Connected systems, less manual entry</h2>
   <p class="lede">Every time someone retypes an order, a tracking number or a stock level, you pay for it in time and errors. Integrations remove those steps so data is entered once and flows where it is needed.</p></div>
   <div class="grid g3">
-    <div class="card">{icon('tools')}<span class="tag">Extensions</span><h3>AL development</h3><p>Custom fields, pages, reports and business logic built as extensions.</p></div>
-    <div class="card">{icon('link')}<span class="tag">APIs</span><h3>System integrations</h3><p>Data sync with other business systems through Business Central's APIs.</p></div>
-    <div class="card">{icon('shop')}<span class="tag">Commerce</span><h3>Shopify &amp; e-commerce</h3><p>Orders, items, stock and pricing kept in step with your online store.</p></div>
+    <a class="card" href="@/integrations/shopify/">{icon('shop')}<span class="tag">Commerce</span><h3>Shopify &amp; e-commerce</h3><p>Orders, items, stock and pricing kept in step with your online store.</p><span class="more">Shopify integration \u2192</span></a>
+    <a class="card" href="@/integrations/edi/">{icon('receipt')}<span class="tag">Trading partners</span><h3>EDI</h3><p>Purchase orders, ship notices and invoices exchanged with retailers and suppliers.</p><span class="more">EDI integration \u2192</span></a>
+    <a class="card" href="@/integrations/power-bi/">{icon('pie')}<span class="tag">Reporting</span><h3>Power BI</h3><p>Financial and operational dashboards on live Business Central data.</p><span class="more">Power BI reporting \u2192</span></a>
+    <a class="card" href="@/integrations/warehouse-insight/">{icon('box')}<span class="tag">Mobile WMS</span><h3>Warehouse Insight</h3><p>A scanner-first warehouse app for receiving, picking, counts and license plates.</p><span class="more">Warehouse Insight \u2192</span></a>
+    <a class="card" href="@/development/">{icon('tools')}<span class="tag">Extensions</span><h3>AL development</h3><p>Custom fields, pages, reports and business logic built as extensions.</p><span class="more">Development \u2192</span></a>
     <div class="card">{icon('truck')}<span class="tag">Logistics</span><h3>Shipping &amp; fulfillment</h3><p>Carrier rates, labels and tracking connected to warehouse shipments.</p></div>
+    <div class="card">{icon('link')}<span class="tag">APIs</span><h3>System integrations</h3><p>Data sync with CRM and other business systems through Business Central's APIs.</p></div>
     <div class="card">{icon('chart')}<span class="tag">Automation</span><h3>Power Automate</h3><p>Approvals, notifications and routine tasks handled automatically.</p></div>
-    <div class="card">{icon('pie')}<span class="tag">Reporting</span><h3>Power BI</h3><p>Financial and operational dashboards on live Business Central data.</p></div>
+    <div class="card">{icon('ledger')}<span class="tag">Microsoft 365</span><h3>Outlook, Excel &amp; Teams</h3><p>Business Central data where your team already works.</p></div>
   </div>
 </div></section>
 <section class="band"><div class="wrap">
@@ -812,7 +1055,12 @@ add('integrations/', 'integrations',
   <div class="stack"><span class="eyebrow">Our approach</span><h2>Configure first, customize only when it pays off</h2><p class="lede">Every custom line of code is something to maintain. We check whether standard features or an existing app can do the job before we build anything.</p></div>
   {checks(['<strong>Fit check.</strong> Standard setup, AppSource app or custom extension: we compare the options and their running costs with you.', '<strong>Clear data flow.</strong> We agree which system owns each piece of data, how often it syncs and what happens when something fails.', '<strong>Built for updates.</strong> Extensions follow Microsoft’s extension model, which keeps Business Central updates much smoother. We still test custom work against each major release.', '<strong>Tested properly.</strong> Integrations are tested with realistic data volumes, duplicates and error cases, not just the happy path.', '<strong>Documented.</strong> You get notes on what was built, how it works and how to monitor it.'])}
 </div></section>
-<section class="band"><div class="wrap">
+<section><div class="wrap"><div class="note">Also running Dynamics 365 Sales, Customer Service or Field Service? We work across the Dynamics 365 family and can connect Business Central with Dataverse and your CRM.</div></div></section>
+{faq_section(FAQ_INT)}
+{cta('Have a system that needs to connect?', 'Tell us what you use today. We’ll suggest the simplest reliable way to make it work with Business Central.')}''', [faq_schema(FAQ_INT)])
+
+# INTEGRATION PAGES
+SHOPIFY_WORKED = f'''<section class="band"><div class="wrap">
   {worked('Connecting a Shopify store to Business Central',
           'An e-commerce distributor sells through Shopify and keeps its accounting in Business Central. Staff re-enter every web order, stock levels are updated by hand twice a day, and the store sometimes sells items that are out of stock.',
           [('Design', 'Agree that Business Central owns items, prices and stock, and Shopify owns web orders. Map product variants to item variants.'),
@@ -822,9 +1070,219 @@ add('integrations/', 'integrations',
            ('Go-live', 'Switch on scheduled sync and train staff to clear the exceptions list each morning.')],
           'Web orders arrive in Business Central without retyping, the store shows stock that matches the warehouse, and staff only touch the orders that genuinely need attention.')}
 </div></section>
-<section><div class="wrap"><div class="note">Also running Dynamics 365 Sales, Customer Service or Field Service? We work across the Dynamics 365 family and can connect Business Central with Dataverse and your CRM.</div></div></section>
-{faq_section(FAQ_INT)}
-{cta('Have a system that needs to connect?', 'Tell us what you use today. We’ll suggest the simplest reliable way to make it work with Business Central.')}''', [faq_schema(FAQ_INT)])
+'''
+INT_RELATED = lambda skip: related('Other integrations', [x for x in [
+    ('@/integrations/shopify/', 'Shopify', 'Orders, items, stock and payouts synced with your store.'),
+    ('@/integrations/edi/', 'EDI', 'Orders, ship notices and invoices with trading partners.'),
+    ('@/integrations/power-bi/', 'Power BI', 'Dashboards on live Business Central data.'),
+    ('@/integrations/warehouse-insight/', 'Warehouse Insight', 'Mobile WMS app for receiving, picking, counts and license plates.')] if x[0] != skip][:3])
+
+# SHOPIFY
+FAQ_SHOP = [
+    ('Does the Shopify connector cost extra?', 'No. Microsoft’s Shopify connector is included with Business Central. You pay for your Shopify plan and Business Central licenses as usual.', None),
+    ('Can we connect more than one Shopify store?', 'Yes. The connector supports several stores, each with its own settings for items, prices, locations and order handling.', None),
+    ('Which system should own prices and stock?', 'Usually Business Central. It knows what’s in every warehouse and what’s already promised to other orders, so it should tell Shopify what’s available to sell.', None),
+    ('What about Shopify B2B?', 'The connector supports Shopify’s B2B features on Shopify Plus, including company accounts and their locations. We check which parts you need during setup.', None),
+]
+add('integrations/shopify/', 'int-shopify',
+    'Business Central Shopify Integration | Q84 Digital',
+    'Connect Shopify to Business Central with Microsoft’s connector: products, stock, customers, orders, refunds and payouts, set up and tested.',
+    page_head('Integrations', '<a href="@/integrations/">Integrations</a> / Shopify', 'Business Central Shopify integration',
+              'Web orders flow into Business Central, stock flows back to your store, and nobody retypes anything. We set up Microsoft’s Shopify connector around how you sell.', art=('page-shopify.webp', 'Illustration of a laptop order list and a phone store page syncing, with a shopping cart of boxes')) + f'''
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What syncs</span><h2>What the Shopify connector handles</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Data</th><th>Direction</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Products and variants</td><td>Business Central to Shopify (or both ways)</td><td>Item variants map to Shopify variants.</td></tr>
+      <tr><td>Prices</td><td>Business Central to Shopify</td><td>Including price lists for different customer groups.</td></tr>
+      <tr><td>Stock levels</td><td>Business Central to Shopify</td><td>By location, so the store only sells what you can ship.</td></tr>
+      <tr><td>Customers</td><td>Both ways</td><td>Matched by email or phone to avoid duplicates.</td></tr>
+      <tr><td>Orders</td><td>Shopify to Business Central</td><td>Created as sales orders or invoices, automatically or after review.</td></tr>
+      <tr><td>Fulfillments and tracking</td><td>Business Central to Shopify</td><td>Customers get tracking when you ship.</td></tr>
+      <tr><td>Refunds, returns and payouts</td><td>Shopify to Business Central</td><td>So finance can reconcile Shopify payouts to the bank.</td></tr>
+    </tbody></table></div>
+</div></section>
+''' + SHOPIFY_WORKED + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Beyond the basics</span><h2>When you need more than the connector</h2></div>
+  {checks(['<strong>Bundles and kits.</strong> Sold as one product, shipped as several items.', '<strong>Marketplaces.</strong> Amazon, Walmart and other channels through specialist connector apps.', '<strong>3PL fulfillment.</strong> Orders passed to a third-party warehouse and confirmed back.', '<strong>Custom rules.</strong> Order routing, fraud holds or special pricing logic built as small extensions.'])}
+</div></section>
+{faq_section(FAQ_SHOP, 'Shopify integration questions')}
+{INT_RELATED('@/integrations/shopify/')}
+{cta('Connect your Shopify store to Business Central', 'Book a free 30-minute call. We’ll look at how you sell today and how the connector would fit.')}''', [faq_schema(FAQ_SHOP)])
+
+# EDI
+FAQ_EDI = [
+    ('Does Business Central have EDI built in?', 'No. EDI is handled by a specialist EDI provider, usually through an app from Microsoft AppSource that connects their network to Business Central. We help you choose the provider and set up the connection.', None),
+    ('Which EDI documents do we need?', 'It depends on your trading partners. Most retailers require at least purchase orders (850), ship notices (856) and invoices (810), and some add order acknowledgments (855) or inventory updates (846). Each partner has its own rules, so we start from their requirements.', None),
+    ('How long does it take to add a trading partner?', 'Usually a few weeks, most of it spent on the partner’s testing and certification. Once the first partner is live, the next ones are faster.', None),
+]
+add('integrations/edi/', 'int-edi',
+    'Business Central EDI Integration | Q84 Digital',
+    'Set up EDI with Microsoft Dynamics 365 Business Central: purchase orders, ship notices, invoices and inventory updates with retailers and trading partners.',
+    page_head('Integrations', '<a href="@/integrations/">Integrations</a> / EDI', 'Business Central EDI integration',
+              'Retailers and large customers expect EDI. We connect Business Central to an EDI provider so orders come in, ship notices go out and invoices are accepted the first time.', art=('page-edi.webp', 'Illustration of documents travelling between a store and a warehouse')) + f'''
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Common documents</span><h2>EDI documents most distributors exchange</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Document</th><th>X12 code</th><th>In Business Central</th></tr></thead>
+    <tbody>
+      <tr><td>Purchase order (in)</td><td>850</td><td>Creates a sales order</td></tr>
+      <tr><td>Order acknowledgment (out)</td><td>855</td><td>Confirms quantities, prices and dates</td></tr>
+      <tr><td>Advance ship notice (out)</td><td>856</td><td>Sent from the warehouse shipment, with carton and pallet detail</td></tr>
+      <tr><td>Invoice (out)</td><td>810</td><td>Sent when the sales invoice posts</td></tr>
+      <tr><td>Inventory advice (out)</td><td>846</td><td>Shares available stock with the trading partner</td></tr>
+      <tr><td>Warehouse shipping order and advice</td><td>940 / 945</td><td>Used with third-party warehouses</td></tr>
+    </tbody></table></div>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Why it matters</span><h2>Getting EDI right saves real money</h2><p class="lede">Retailers charge back for late ship notices, wrong labels and mismatched invoices. Most chargebacks come from data that was right in one system and wrong in another.</p></div>
+  {checks(['<strong>Orders without retyping.</strong> EDI orders become sales orders automatically, with exceptions flagged.', '<strong>Ship notices from real data.</strong> Built from what was actually picked and packed.', '<strong>Compliant labels.</strong> Carton and pallet labels with the barcodes partners require.', '<strong>Invoices that match.</strong> Prices and quantities checked against the original order.'])}
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our process</span><h2>How we set up EDI</h2></div>
+  {checks(['<strong>Collect partner requirements.</strong> Each retailer’s documents, rules and label specs.', '<strong>Choose the provider.</strong> An EDI network with a proven Business Central connector.', '<strong>Map and configure.</strong> EDI fields mapped to Business Central customers, items and units of measure.', '<strong>Test and certify.</strong> Test documents exchanged until the partner signs off.', '<strong>Go live and monitor.</strong> Exceptions reviewed daily until everything runs clean.'])}
+</div></section>
+{faq_section(FAQ_EDI, 'EDI questions')}
+{INT_RELATED('@/integrations/edi/')}
+{cta('A retailer asking you for EDI?', 'Book a free 30-minute call. Bring the requirements and we’ll explain what it takes in Business Central.')}''', [faq_schema(FAQ_EDI)])
+
+# POWER BI
+FAQ_PBI = [
+    ('Do we need Power BI licenses?', 'To build and share reports, people usually need a Power BI Pro license, which some Microsoft 365 plans include. Viewing reports inside Business Central follows the same Power BI licensing rules. We confirm the right setup for your team.', None),
+    ('How current is the data?', 'Reports refresh on a schedule, typically several times a day. For truly live numbers, Business Central’s own pages and Excel views are always up to date.', None),
+    ('Can we report across several companies?', 'Yes. Power BI can combine data from several Business Central companies into one report, which is often simpler than consolidating in Business Central for management reporting.', None),
+]
+add('integrations/power-bi/', 'int-powerbi',
+    'Business Central Power BI Reporting Setup | Q84 Digital',
+    'Power BI reporting for Business Central: Microsoft’s ready-made reports, custom dashboards, dimensions and multi-company reporting, set up properly.',
+    page_head('Integrations', '<a href="@/integrations/">Integrations</a> / Power BI', 'Business Central Power BI reporting',
+              'Stop rebuilding reports in Excel every month. We set up Power BI on your Business Central data so the numbers your team needs are always one click away.', art=('page-power-bi.webp', 'Illustration of a monitor with a reporting dashboard, a bar chart and a pie chart')) + f'''
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What we set up</span><h2>From ready-made reports to custom dashboards</h2></div>
+  <div class="grid g3">
+    <div class="card">{icon('pie')}<h3>Microsoft’s ready-made reports</h3><p>Finance, sales, purchasing, inventory, projects and manufacturing reports from Microsoft, connected and configured.</p></div>
+    <div class="card">{icon('chart')}<h3>Custom dashboards</h3><p>The handful of numbers your leadership team actually runs the business on, on one page.</p></div>
+    <div class="card">{icon('ledger')}<h3>Inside Business Central</h3><p>Reports embedded in role centers, so people see them where they already work.</p></div>
+  </div>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Examples</span><h2>Reports our clients ask for most</h2></div>
+  {checks(['<strong>Margin by customer, item and salesperson.</strong> Including landed costs and discounts.', '<strong>Inventory health.</strong> Stock value, slow movers, stockouts and days on hand by location.', '<strong>Cash and receivables.</strong> Aging, collections and cash forecast.', '<strong>Sales trends.</strong> This year against last year, by region, channel and product line.', '<strong>Job and project profitability.</strong> Budget against actual for service businesses.'])}
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Good reports start in Business Central</span><h2>Why setup matters</h2><p class="lede">Power BI can only slice data the way Business Central records it. Clean dimensions, item categories and customer groups make reports simple; messy ones make them impossible.</p></div>
+  {checks(['<strong>Dimensions.</strong> Department, location, channel or project recorded on every transaction.', '<strong>Categories.</strong> Item categories and customer groups that match how you report.', '<strong>Definitions.</strong> One agreed meaning for margin, revenue and on-time delivery.'])}
+</div></section>
+{faq_section(FAQ_PBI, 'Power BI questions')}
+{INT_RELATED('@/integrations/power-bi/')}
+{cta('Want reports you don’t have to rebuild every month?', 'Book a free 30-minute call. Tell us which numbers matter and we’ll show you how to get them.')}''', [faq_schema(FAQ_PBI)])
+
+# WAREHOUSE INSIGHT (mobile WMS app for Business Central)
+WI_SHOT = next((f for f in ('shot-warehouse-insight-app.webp', 'shot-warehouse-insight-app.png') if os.path.exists(os.path.join(ROOT, 'images', f))), None)
+WI_FIG = (f'<figure class="phone-shot"><img src="@/images/{WI_SHOT}" alt="Warehouse Insight mobile app home screen with item inquiry, bin inquiry, count, receive, put-away, move, pick, ship, consumption, output, assembly order, license plate and scratchpad" width="329" height="664" loading="lazy"><figcaption>The Warehouse Insight home screen on a handheld device.</figcaption></figure>'
+          if WI_SHOT else '')
+FAQ_WI = [
+    ('Does Warehouse Insight replace Business Central’s warehouse features?', 'No. It works on top of them. Receipts, put-aways, picks, shipments and counts are still Business Central documents; Warehouse Insight gives your team a fast, scanner-first way to process them on the floor.', None),
+    ('Which devices does it run on?', 'Rugged Android handhelds with built-in barcode scanners are the usual choice for warehouse work. We help you choose and test devices before you buy a fleet.', None),
+    ('Does it support manufacturing?', 'Yes. The app includes consumption and output, so shop-floor staff can record materials used and finished goods produced against production orders, and assembly orders for kitting.', ('@/industries/manufacturing/', 'Business Central for manufacturing')),
+    ('How is it licensed?', 'Warehouse Insight is an add-on app available through Microsoft AppSource, with its own subscription from the publisher, separate from your Business Central licenses. We include the cost in your estimate.', None),
+    ('What does Order Ship Express cost?', 'The app itself is free. You pay the carriers for postage through an EasyPost account, and EasyPost’s discounted rates can lower what you pay today. You need accounts with the carriers you want to use.', None),
+    ('Can Order Ship Express handle international or freight shipments?', 'It is designed for domestic parcel shipping with up to three carriers. For international parcels, more carriers or LTL and truckload freight, a more advanced shipping app is the better fit, and we’ll recommend one during discovery.', None),
+]
+add('integrations/warehouse-insight/', 'int-wi',
+    'Warehouse Insight Mobile WMS for Business Central | Q84 Digital',
+    'Warehouse Insight mobile WMS and Order Ship Express parcel shipping for Business Central: scan, pick, pack and print carrier labels, set up by Q84 Digital.',
+    page_head('Integrations', '<a href="@/integrations/">Integrations</a> / Warehouse Insight', 'Warehouse Insight mobile WMS for Business Central',
+              'A scanner-first warehouse app for Business Central. Your team receives, puts away, picks, ships and counts on handheld devices, and every scan updates Business Central straight away.', art=('page-warehouse-insight.webp', 'Illustration of a handheld scanner, a labeled parcel and a label printer printing a shipping label')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">What it is</span><h2>Business Central in your warehouse team’s hands</h2>
+    <p class="lede">Warehouse Insight is an advanced warehouse management app for Microsoft Dynamics 365 Business Central. It runs on rugged handhelds and puts every everyday warehouse task on one simple home screen, with large buttons designed for scanning on the move.</p>
+    <p>Instead of walking back to a desk to update the system, staff scan the item, the bin and the quantity where the work happens. Business Central stays accurate in real time, and paper pick lists and count sheets disappear.</p></div>
+  {WI_FIG}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Functions</span><h2>Every warehouse task on one screen</h2></div>
+  <div class="grid g3">
+    <div class="card">{icon('box')}<h3>Item and bin inquiry</h3><p>Scan an item to see where it is and how many are available, or scan a bin to see what it holds.</p></div>
+    <div class="card">{icon('truck')}<h3>Receive and put-away</h3><p>Receive against purchase orders by scanning, then put goods away into the right bins.</p></div>
+    <div class="card">{icon('warehouse')}<h3>Pick and ship</h3><p>Follow picks bin by bin, confirm each item with a scan, and ship from the device.</p></div>
+    <div class="card">{icon('migrate')}<h3>Movement and ad-hoc moves</h3><p>Process planned movements, or move stock between bins on the spot when the floor needs it.</p></div>
+    <div class="card">{icon('ledger')}<h3>Counts</h3><p>Cycle counts and basic counts by scanning, without printed count sheets.</p></div>
+    <div class="card">{icon('factory')}<h3>Consumption, output and assembly</h3><p>Record materials used and finished goods produced, and process assembly orders for kits.</p></div>
+    <div class="card">{icon('shop')}<h3>License plates</h3><p>Track pallets and cartons as license plates, so a whole pallet moves or ships with one scan.</p></div>
+    <div class="card">{icon('receipt')}<h3>Scratchpad</h3><p>Capture quick scans and notes on the device for tasks that don’t fit a standard document.</p></div>
+    <div class="card">{icon('chart')}<h3>Live in Business Central</h3><p>Every scan posts or updates the Business Central document, so stock and orders are always current.</p></div>
+  </div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Why it matters</span><h2>What changes on the warehouse floor</h2><p class="lede">Scanning removes the two biggest sources of warehouse errors: picking the wrong item and typing the wrong quantity.</p></div>
+  {checks(['<strong>Fewer picking errors.</strong> A scan confirms the right item and bin before anything ships.', '<strong>Inventory you can trust.</strong> Stock moves are recorded as they happen, not at the end of the day.', '<strong>Faster receiving and shipping.</strong> No paperwork to key in afterwards.', '<strong>Counting without shutdowns.</strong> Count a few bins every day instead of closing for a full count.', '<strong>Pallet-level tracking.</strong> License plates keep pallets and cartons together from receipt to shipment.'])}
+</div></section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Parcel shipping</span><h2>Ship parcels with Order Ship Express</h2>
+    <p class="lede">Once an order is picked and packed, it still needs a carrier label. Order Ship Express is a free shipping app for Business Central from Insight Works, the publisher of Warehouse Insight. It connects Business Central to carriers through EasyPost, so your team can compare rates and print labels without leaving the order.</p></div>
+  <div class="grid g3">
+    <div class="card">{icon('chart')}<h3>Live rate shopping</h3><p>Compare carrier services and prices from the sales order before you choose how to ship.</p></div>
+    <div class="card">{icon('truck')}<h3>Multiple carriers</h3><p>Connect up to three carriers through an EasyPost account, such as UPS, USPS, FedEx or DHL, and pick one per shipment.</p></div>
+    <div class="card">{icon('receipt')}<h3>Labels from the order</h3><p>Print carrier-approved labels directly from the sales order, using standard or custom package sizes, with no retyping.</p></div>
+    <div class="card">{icon('box')}<h3>Tracking back in Business Central</h3><p>Tracking numbers and freight charges are written back to the sales order, so customer service can answer “where is my order?” from Business Central.</p></div>
+    <div class="card">{icon('migrate')}<h3>Return labels</h3><p>Create return labels from posted shipments or invoices, something standard Business Central doesn’t offer.</p></div>
+    <div class="card">{icon('pie')}<h3>Freight charges and markups</h3><p>Add shipping charges to orders automatically, with optional markup rules per carrier for what you bill customers.</p></div>
+  </div>
+  <div class="note" style="margin-top:24px">Order Ship Express has no license fee; you pay the carriers for postage through EasyPost. It is built for domestic parcel shipping in North America. For international shipping, more than three carriers, or LTL and full-truckload freight, Insight Works offers a separate, more advanced shipping app, and we can help you choose.</div>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our role</span><h2>How we set up Warehouse Insight</h2></div>
+  {checks(['<strong>Warehouse review.</strong> We walk your floor and map how goods are received, stored, picked and shipped today.', '<strong>Business Central setup.</strong> Locations, bins, zones and warehouse documents configured for how you work.', '<strong>Barcodes and labels.</strong> Item, bin and license plate labels designed and tested with your printers.', '<strong>Devices and app setup.</strong> Handhelds tested on your Wi-Fi, users and functions configured in Warehouse Insight.', '<strong>Carrier labels.</strong> Order Ship Express connected to your carrier accounts, with package sizes and freight rules set up.', '<strong>Training and go-live.</strong> Hands-on training on the floor, one process at a time, and support through the first weeks.'])}
+</div></section>
+<section><div class="wrap"><div class="note">Warehouse Insight and Order Ship Express are third-party apps from Insight Works, available through Microsoft AppSource. Their costs are separate from Microsoft’s Business Central licenses.</div></div></section>
+{faq_section(FAQ_WI, 'Warehouse Insight questions')}
+{INT_RELATED('@/integrations/warehouse-insight/')}
+{cta('Want scanning in your warehouse?', 'Book a free 30-minute call. We’ll look at your warehouse processes and show you how Warehouse Insight would fit.')}''', [faq_schema(FAQ_WI)])
+
+
+# E-COMMERCE INDUSTRY
+FAQ_ECOM = [
+    ('Is Business Central a good fit for an e-commerce brand?', 'Yes, once you have real inventory, more than one sales channel or a warehouse to run. Smaller stores selling a few products through one channel may be fine with simpler tools for now.', None),
+    ('Can Business Central handle Amazon and other marketplaces?', 'Yes, through connector apps from Microsoft AppSource. Shopify has Microsoft’s own connector; other channels use specialist apps.', ('@/integrations/shopify/', 'Shopify integration')),
+    ('Can we use a third-party warehouse?', 'Yes. Orders can be passed to a 3PL and shipment confirmations posted back, often over EDI or an API.', ('@/integrations/edi/', 'EDI integration')),
+]
+add('industries/ecommerce/', 'ecommerce',
+    'Business Central for E-commerce Brands | Q84 Digital',
+    'Business Central for e-commerce brands: Shopify and marketplace orders, multi-location stock, fulfillment, returns and payout reconciliation.',
+    page_head('E-commerce', 'Industries / E-commerce', 'Business Central for e-commerce brands',
+              'Orders from every channel in one system, stock you can trust across warehouses and 3PLs, and payouts that reconcile without a spreadsheet.', art=('page-ecommerce.webp', 'Illustration of a phone with an online store, shopping bag, parcels and a delivery scooter')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Common challenges</span><h2>Where growing online brands get stuck</h2></div>
+  {checks(['<strong>Overselling.</strong> Stock in the store doesn’t match the warehouse.', '<strong>Orders typed twice.</strong> Web orders re-entered for fulfillment and accounting.', '<strong>Payouts that don’t reconcile.</strong> Fees, refunds and reserves make bank matching painful.', '<strong>Margins you can’t see.</strong> Shipping, returns and channel fees never reach product margin.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">How Business Central helps</span><h2>One system behind every channel</h2></div>
+  <div class="grid g3">
+    <div class="card">{icon('shop')}<h3>Shopify, built in</h3><p>Microsoft’s connector syncs products, stock, orders, refunds and payouts.</p></div>
+    <div class="card">{icon('cart')}<h3>Marketplaces</h3><p>Amazon and other channels through specialist connector apps.</p></div>
+    <div class="card">{icon('box')}<h3>Multi-location stock</h3><p>Stock by warehouse, 3PL and store, with what’s available to sell on each channel.</p></div>
+    <div class="card">{icon('truck')}<h3>Fulfillment</h3><p>Picking, packing and shipping in your warehouse, or orders sent to a 3PL.</p></div>
+    <div class="card">{icon('receipt')}<h3>Returns &amp; refunds</h3><p>Returns received into stock and refunds posted to the right customer.</p></div>
+    <div class="card">{icon('pie')}<h3>True product margin</h3><p>Landed cost, channel fees and shipping included in margin reporting.</p></div>
+  </div>
+</div></section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">How it flows</span><h2>An online order, start to finish</h2></div>
+  <ol class="steps">
+    <li><h3>Order</h3><p>The order is placed on Shopify or a marketplace.</p></li>
+    <li><h3>Import</h3><p>Business Central creates the sales order automatically.</p></li>
+    <li><h3>Fulfill</h3><p>Your warehouse or 3PL picks, packs and ships.</p></li>
+    <li><h3>Track</h3><p>Tracking goes back to the store and the customer.</p></li>
+    <li><h3>Reconcile</h3><p>The payout matches orders, fees and refunds.</p></li>
+  </ol>
+</div></section>
+{faq_section(FAQ_ECOM)}
+{related('Related', [('@/integrations/shopify/', 'Shopify integration', 'How the Shopify connector is set up and tested.'), ('@/integrations/warehouse-insight/', 'Warehouse Insight', 'Scanner-first picking, packing and counts.'), ('@/industries/distribution/', 'Wholesale distribution', 'Selling B2B as well as online.')])}
+{cta('Running an online brand on too many tools?', 'Book a free 30-minute call. We’ll map your channels, warehouse and finance and show where Business Central fits.')}''', [faq_schema(FAQ_ECOM)])
+
 
 # SUPPORT
 FAQ_SUP = [
@@ -835,9 +1293,9 @@ FAQ_SUP = [
 ]
 add('support/', 'support',
     'Business Central Support Services | Q84 Digital',
-    'Business Central support from a senior consultant: health checks, troubleshooting, configuration fixes, training and enhancements. Hourly or monthly, with a worked example and FAQs.',
+    'Business Central support from a senior consultant: health checks, troubleshooting, setup fixes, training and enhancements, billed hourly or monthly.',
     page_head('Support', 'Services / Support', 'Business Central support',
-              'Already using Business Central? Get help fixing issues, improving your setup and training your team, from a consultant who knows the system well.') + f'''
+              'Already using Business Central? Get help fixing issues, improving your setup and training your team, from a consultant who knows the system well.', art=('page-support.webp', 'Illustration of a headset beside a laptop showing a chat bubble and a check mark, with a wrench and a mug')) + f'''
 <section><div class="wrap">
   <div class="section-head"><span class="eyebrow">What we help with</span><h2>Support that goes beyond tickets</h2>
   <p class="lede">Most support requests are symptoms of something in the setup: a posting group pointing to the wrong account, a missing batch job or a process people work around. We fix the request and the cause behind it.</p></div>
@@ -886,7 +1344,7 @@ add('support/', 'support',
 # INDUSTRIES
 add('industries/distribution/', 'distribution',
     'Business Central for Wholesale Distributors | Q84 Digital',
-    'Business Central for wholesale distribution: accurate multi-location inventory, purchasing, warehouse picking and shipping, and landed costs, from a supply chain specialist.',
+    'Business Central for wholesale distributors: multi-location inventory, purchasing, picking, shipping and landed costs, set up by a supply chain specialist.',
     page_head('Distribution', 'Industries / Wholesale distribution', 'Business Central for wholesale distributors',
               'Accurate stock, faster purchasing and a warehouse that ships the right order the first time.',
               art=('page-distribution.webp', 'Illustration of warehouse racking with boxes and a forklift lifting a pallet')) + f'''
@@ -930,7 +1388,7 @@ FAQ_MFG = [
 ]
 add('industries/manufacturing/', 'manufacturing',
     'Business Central for Manufacturers | Q84 Digital',
-    'Business Central Premium for small and midsize manufacturers: bills of materials, production orders, material planning and product costing, with a worked example and FAQs.',
+    'Business Central Premium for small and midsize manufacturers: bills of materials, production orders, material planning and product costing, with examples.',
     page_head('Manufacturing', 'Industries / Manufacturing', 'Business Central for manufacturers',
               'Plan production, control materials and know what each product really costs to make.',
               art=('page-manufacturing.webp', 'Illustration of a machine and conveyor moving metal gears into a box, with a production chart on screen')) + f'''
@@ -987,10 +1445,10 @@ FAQ_SVC = [
     ('How does Business Central handle work in progress on long projects?', 'Projects support several WIP methods, including cost value, sales value, percentage of completion and completed contract. You post WIP at month-end so revenue and costs land in the right period.', None),
     ('When do we need Dynamics 365 Field Service instead?', 'Business Central covers service orders, contracts and basic dispatching. If you schedule dozens of technicians a day, need route optimization or a full mobile technician app, Dynamics 365 Field Service fits better, and it integrates with Business Central for parts, pricing and invoicing.', None),
 ]
-add('industries/services/', 'service-industries',
-    'Business Central for Service Businesses | Q84 Digital',
-    'Business Central for marketing agencies, aesthetic clinics, and construction and restoration firms: time, job costing, deposits, retainers and profit by job.',
-    page_head('Service industries', 'Industries / Service businesses', 'Business Central for service businesses',
+add('industries/professional-services/', 'service-industries',
+    'Business Central for Professional Services | Q84 Digital',
+    'Business Central for professional services: project accounting, time, retainers and job costing for agencies, clinics, construction and restoration firms.',
+    page_head('Professional services', 'Industries / Professional services', 'Business Central for professional services and project-based businesses',
               'From marketing agencies and clinics to construction and restoration crews: track every hour, job and procedure, bill every client and know what actually makes money.',
               art=('page-services.webp', 'Illustration of a laptop with a project chart, an alarm clock, a hard hat and a clipboard with an invoice')) + f'''
 <section data-nosubnav><div class="wrap split">
@@ -1007,6 +1465,7 @@ add('industries/services/', 'service-industries',
     <div class="card">{icon('truck')}<h3>Field service and maintenance</h3><p>Companies that install, repair and maintain equipment on customer sites, often under service contracts.</p></div>
   </div>
 </div></section>
+{TESTIMONIALS}
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Marketing agencies</span><h2>Business Central for marketing agencies</h2><p class="lede">An agency’s profit depends on billing every hour and every dollar of media it handles for clients. Business Central ties time, costs and billing to each client and campaign, so you see margin while the work is still running.</p></div>
   {checks(['<strong>Retainers and projects side by side.</strong> Monthly retainers billed on a schedule, with campaigns and one-off projects tracked as their own budgets.', '<strong>Time by client and campaign.</strong> Staff log hours against the right job, and you see who is over-servicing which account.', '<strong>Media and pass-through costs.</strong> Ad spend, printing and freelancer invoices charged to the client’s project and re-billed with your markup.', '<strong>Utilization and capacity.</strong> Billable hours against available hours by person and team.', '<strong>Profit by client.</strong> Revenue, staff cost and outside costs per client, campaign and retainer, not just in total.'])}
@@ -1059,24 +1518,221 @@ add('industries/services/', 'service-industries',
 {checklist_promo()}
 {cta('Talk about your service operations')}''', [faq_schema(FAQ_SVC)])
 
+# COMPANY & SERVICE PAGES
+# ABOUT
+about_photo = (f'<figure class="page-head-art about-photo"><img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov, founder of Q84 Digital" width="400" height="400"></figure>'
+               if CFG.get('consultant_photo') else '')
+ABOUT_SCHEMA = dict(PERSON_SCHEMA)
+add('about/', 'about',
+    'About Q84 Digital | Business Central Consultant in Tacoma, WA',
+    'Q84 Digital is a senior-led Business Central consultancy in Tacoma, Washington, founded by Oleh Karnaukhov after 15+ years in Dynamics and supply chain.',
+    page_head('About', 'About', 'About Q84 Digital',
+              'A senior-led Business Central consultancy in Tacoma, Washington. The person who scopes your project is the person who delivers it.') + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Who we are</span><h2>Senior Dynamics expertise on every project</h2>
+    <p class="lede">Q84 Digital was founded by Oleh Karnaukhov, a Microsoft Dynamics consultant with more than 15 years of ERP and supply chain experience. Before starting Q84 Digital he worked across the Dynamics 365 family, from Business Central to Supply Chain Management, Customer Engagement and Field Service.</p>
+    <p>That range matters when you choose an ERP. Because we’ve worked hands-on with both Business Central and the larger Dynamics 365 products, we can tell you honestly when Business Central is enough and when it isn’t.</p>
+  </div>
+  {about_photo}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Experience</span><h2>Where our experience comes from</h2></div>
+  <div class="grid g3">
+    <div class="card">{icon('ledger')}<h3>Business Central</h3><p>Implementation, migration, integration and support for small and midsize companies.</p></div>
+    <div class="card">{icon('warehouse')}<h3>Supply chain &amp; warehousing</h3><p>Inventory, purchasing, warehouse and transportation processes, from the shop floor up.</p></div>
+    <div class="card">{icon('link')}<h3>The wider Dynamics 365 family</h3><p>Supply Chain Management, Customer Engagement and Field Service, and how they connect to Business Central.</p></div>
+  </div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">How we work</span><h2>What you can expect from us</h2></div>
+  {checks(['<strong>Senior-led from start to finish.</strong> No hand-off from sales to a junior delivery team.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultant supports you once you’re live.'])}
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Based in Tacoma</span><h2>Local to the Puget Sound, working across the US</h2><p class="lede">We’re based in Tacoma, Washington. We work on site with companies across the Seattle–Tacoma area and remotely with clients anywhere in the US.</p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central in Tacoma &amp; Seattle →</a></p></div>
+  {checks(['<strong>Who we work with today:</strong> distributors, a marketing agency, a hair transplant clinic and a construction and restoration company.', '<strong>Microsoft partner:</strong> ' + esc(CFG.get('partner_statement') or 'We help you choose and manage the right Microsoft licenses.')])}
+</div></section>
+{cta('Talk to the person who would deliver your project')}''', [ABOUT_SCHEMA])
+
+# TACOMA / SEATTLE
+LOCAL_SCHEMA = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": URL + "#organization", "name": "Q84 Digital",
+                "areaServed": [{"@type": "City", "name": n} for n in ('Tacoma', 'Seattle', 'Bellevue', 'Kent', 'Auburn', 'Puyallup', 'Federal Way', 'Lakewood', 'Everett', 'Olympia')] + [{"@type": "State", "name": "Washington"}]}
+FAQ_LOCAL = [
+    ('Do you meet clients in person?', 'Yes, for companies in the Seattle–Tacoma area. Discovery workshops, warehouse walkthroughs, training and go-live support can happen at your office or warehouse. Day-to-day project work happens online.', None),
+    ('Can Business Central handle Washington sales tax?', 'Yes. Washington uses destination-based sales tax, so the rate depends on where goods are delivered. Business Central handles this with tax areas and jurisdictions, or you can connect a tax engine such as Avalara if you ship to many locations or several states.', None),
+    ('Do you only work with companies in Washington?', 'No. We’re based in Tacoma, but Business Central is a cloud system and we work remotely with companies across the US.', None),
+]
+add('business-central-partner-tacoma/', 'local',
+    'Business Central Consultant in Seattle & Tacoma, WA | Q84 Digital',
+    'Business Central consultants in Seattle, Tacoma and across Washington: on-site workshops, implementation and support for Puget Sound businesses.',
+    page_head('Seattle & Tacoma', 'Business Central in Seattle &amp; Tacoma', 'Business Central consultant in Seattle, Tacoma &amp; Washington',
+              'Senior-led Microsoft Dynamics 365 Business Central implementation and support for companies in Tacoma, Seattle and across the Puget Sound.', art=('page-tacoma.webp', 'Illustration of a port with a container crane, cargo ship, warehouse and a snow-capped mountain')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Local partner</span><h2>A Business Central consultant down the road, not across the country</h2>
+    <p class="lede">Q84 Digital is based in Tacoma. For Puget Sound companies that means workshops in your building, a consultant who can walk your warehouse floor, and someone nearby when you go live.</p></div>
+  {checks(['<strong>On-site when it matters.</strong> Discovery workshops, warehouse walkthroughs, training and go-live day.', '<strong>Online the rest of the time.</strong> Design, build and testing happen remotely, which keeps costs down.', '<strong>Pacific time, same working day.</strong> Questions get answered while your team is still at work.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Who we help</span><h2>Business Central for Puget Sound businesses</h2>
+    <p class="lede">The region runs on distribution, manufacturing and services, from port-linked importers to Kent Valley warehouses and professional firms in Seattle and Bellevue.</p></div>
+  <div class="fgrid">
+    <a class="fitem" href="@/industries/distribution/">{icon('truck')}<h3>Distributors &amp; importers</h3><p>Multi-location stock, landed costs on imported goods, and warehouse picking and shipping.</p><span class="more">Distribution →</span></a>
+    <a class="fitem" href="@/industries/manufacturing/">{icon('factory')}<h3>Manufacturers</h3><p>Bills of materials, production orders, material planning and product costing.</p><span class="more">Manufacturing →</span></a>
+    <a class="fitem" href="@/industries/ecommerce/">{icon('shop')}<h3>E-commerce brands</h3><p>Shopify and marketplace orders, stock sync and fulfillment in one system.</p><span class="more">E-commerce →</span></a>
+    <a class="fitem" href="@/industries/professional-services/">{icon('ledger')}<h3>Professional services</h3><p>Agencies, clinics, construction and restoration companies that bill by job, project or contract.</p><span class="more">Service businesses →</span></a>
+  </div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Service area</span><h2>Where we work on site</h2><p class="lede">We visit clients across the Seattle–Tacoma area and work remotely with companies anywhere in the US.</p></div>
+  {checks(['<strong>South Sound:</strong> Tacoma, Fife, Puyallup, Lakewood, University Place, Gig Harbor and Olympia.', '<strong>Kent Valley &amp; South King County:</strong> Kent, Auburn, Federal Way, Renton and Tukwila.', '<strong>Seattle &amp; Eastside:</strong> Seattle, Bellevue, Redmond and Kirkland.', '<strong>North Sound:</strong> Lynnwood, Everett and Marysville.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What we do</span><h2>Business Central services</h2></div>
+  <div class="fgrid">
+    <a class="fitem" href="@/implementation/">{icon('tools')}<h3>Implementation</h3><p>Business Central set up around your processes, from discovery to go-live.</p><span class="more">Implementation →</span></a>
+    <a class="fitem" href="@/migration/">{icon('migrate')}<h3>Migration</h3><p>From QuickBooks, Dynamics GP, Dynamics NAV, Sage or spreadsheets.</p><span class="more">Migration →</span></a>
+    <a class="fitem" href="@/rescue/">{icon('support')}<h3>Rescue &amp; recovery</h3><p>Stalled projects and systems that never worked properly.</p><span class="more">Rescue &amp; recovery →</span></a>
+    <a class="fitem" href="@/support/">{icon('chart')}<h3>Support</h3><p>Fixes, improvements and training once you’re live.</p><span class="more">Support →</span></a>
+  </div>
+</div></section>
+{faq_section(FAQ_LOCAL, 'Questions from Washington businesses').replace('<section class="band">', '<section>', 1)}
+{cta('Meet a Business Central consultant in Tacoma', 'Book a free 30-minute call. If you’re in the Puget Sound area, we can follow up with an on-site visit.')}''', [LOCAL_SCHEMA, faq_schema(FAQ_LOCAL)])
+
+# RESCUE
+FAQ_RES = [
+    ('Can we switch Business Central partners in the middle of a project?', 'Yes. Your Business Central environment and data belong to you, and your licenses can stay where they are or move to a new partner. We’ll help you get admin access, documentation and any custom code handed over cleanly.', None),
+    ('Do we have to start over?', 'Rarely. Most struggling systems have a sound foundation with specific problems on top: wrong setup, bad data or unfinished processes. We fix those first. A fresh start is only worth it when the setup is wrong at its core, and we’ll show you why before recommending it.', None),
+    ('How quickly can you start?', 'The health check usually starts within one to two weeks of your call. If something is blocking daily work, such as invoices that won’t post, we deal with that first.', None),
+    ('What does a health check cost?', 'It’s a fixed-price review agreed up front, sized to your system. You get a written report you can act on with us, on your own or with another partner.', None),
+]
+add('rescue/', 'rescue',
+    'Business Central Rescue & Recovery Partner | Q84 Digital',
+    'Business Central project stalled, over budget or live but not working? A senior consultant finds what went wrong and gets your system back on track.',
+    page_head('Rescue', 'Services / Rescue &amp; recovery', 'Business Central rescue and recovery',
+              'Your Business Central project has stalled, run over budget, or gone live without working properly. We find out why and get it back on track.', art=('page-rescue.webp', 'Illustration of a laptop dashboard with a warning turning green, a life ring, a toolbox and a checklist')) + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Warning signs</span><h2>Does this sound familiar?</h2><p class="lede">A struggling ERP rarely fails all at once. It shows up as workarounds, spreadsheets coming back and a team that stops trusting the numbers.</p></div>
+  {checks(['<strong>The go-live date keeps moving.</strong> Months later, you’re still not live and the budget is gone.', '<strong>Live, but nobody trusts it.</strong> Inventory, receivables or margins don’t match reality.', '<strong>Month-end takes longer than before.</strong> Finance reconciles Business Central against spreadsheets.', '<strong>Your partner has gone quiet.</strong> Tickets sit unanswered, or the consultants you knew have left.', '<strong>Too much custom code.</strong> Every Microsoft update breaks something.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">How we fix it</span><h2>From health check to a stable system</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Step</th><th>What happens</th><th>You receive</th></tr></thead>
+    <tbody>
+      <tr><td>1. Triage</td><td>We deal with anything stopping daily work, such as documents that won’t post or a broken integration.</td><td>Business running again</td></tr>
+      <tr><td>2. Health check</td><td>Review of setup, posting groups, data, extensions, integrations and how your team actually uses the system.</td><td>Written findings, ranked by business impact</td></tr>
+      <tr><td>3. Recovery plan</td><td>What to fix, in what order, with effort and cost for each item. Some are quick wins, some are projects.</td><td>Fixed-scope plan you approve</td></tr>
+      <tr><td>4. Fix</td><td>Correct setups, clean data, replace fragile customizations with standard features, finish missing processes.</td><td>A system that matches how you work</td></tr>
+      <tr><td>5. Retrain &amp; hand over</td><td>Role-based training and simple guides, then ongoing support if you want it.</td><td>A team that trusts the system</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Root causes</span><h2>What usually goes wrong</h2><p class="lede">Most rescues trace back to the same handful of causes. Knowing which one you have tells us how big the fix is.</p></div>
+  {checks(['<strong>Posting setup.</strong> General and inventory posting groups that don’t match how the business reports.', '<strong>Data loaded as-is.</strong> Duplicates, wrong units of measure and bad opening balances.', '<strong>Processes never finished.</strong> Warehouse, approvals or purchasing set up halfway.', '<strong>Customization instead of configuration.</strong> Code replacing features Business Central already has.', '<strong>No training.</strong> Users never learned the new way, so they kept the old one.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  {worked('Fixing month-end at a distributor whose project stalled',
+          'A 30-person distributor went live on Business Central with its first partner a year earlier. Inventory value never matches the balance sheet, month-end takes two weeks, and the original consultants have moved on.',
+          [('Week 1', 'Triage: fix the two integrations that stopped syncing orders, so daily trading is back to normal.'),
+           ('Weeks 2 to 3', 'Health check finds inventory posting groups mapped to the wrong accounts and item costs never adjusted.'),
+           ('Weeks 4 to 6', 'Correct posting setup, run cost adjustment, reconcile inventory to the general ledger and document the month-end routine.'),
+           ('Weeks 7 to 8', 'Replace a custom costing report with standard Business Central reports and train the finance team on the new close checklist.')],
+          'Inventory reconciles to the balance sheet every month, and month-end drops from two weeks to three days.')}
+</div></section>
+{faq_section(FAQ_RES) .replace('<section class="band">', '<section>', 1)}
+{related('Related services', band=True, items=[('@/support/', 'Business Central support', 'Hourly or monthly help once your system is stable.'), ('@/implementation/', 'Implementation', 'How we run a project so it doesn’t need rescuing.'), ('@/development/', 'Development', 'Replacing fragile customizations with clean extensions.')])}
+{cta('Get your Business Central project back on track', 'Tell us what’s happening. We’ll tell you honestly how big the fix is.')}''', [faq_schema(FAQ_RES)])
+
+# DEVELOPMENT
+FAQ_DEV = [
+    ('Will custom extensions break when Business Central updates?', 'Extensions built on Microsoft’s extension model don’t change Business Central’s own code, which makes updates far safer than old-style customizations. We still test every extension against Microsoft’s release previews before each major update.', None),
+    ('Who owns the code?', 'You should. We recommend keeping your extension source code in a repository your company controls, such as Azure DevOps or GitHub, so you’re never locked in to one developer.', None),
+    ('Can you take over extensions someone else wrote?', 'Yes. We review the code first, fix anything risky and document what it does before making changes.', None),
+    ('Do you build AppSource apps?', 'Our focus is extensions for your company (per-tenant extensions). If your idea would help many Business Central customers, we can talk about what publishing on AppSource involves.', None),
+]
+add('development/', 'development',
+    'Business Central Developer & Custom AL Extensions | Q84 Digital',
+    'Hire a Business Central developer for custom AL extensions, reports, APIs and integrations, built on Microsoft’s extension model so updates stay safe.',
+    page_head('Development', 'Services / Development', 'Business Central development and AL extensions',
+              'Custom fields, pages, reports, business logic and integrations, built as AL extensions that survive Microsoft’s updates.', art=('page-development.webp', 'Illustration of a laptop showing code, puzzle pieces snapping together and a gear')) + f'''
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What we build</span><h2>Custom work for Business Central</h2>
+  <p class="lede">Every company has a few processes that standard Business Central doesn’t quite cover. We build those as clean extensions, and only after checking that standard features or an existing app can’t do the job.</p></div>
+  <div class="grid g3">
+    <div class="card">{icon('tools')}<h3>AL extensions</h3><p>New fields, pages, validations and business logic, added without touching Microsoft’s code.</p></div>
+    <div class="card">{icon('receipt')}<h3>Reports &amp; documents</h3><p>Invoices, packing slips, labels and management reports in Word, Excel or RDLC layouts.</p></div>
+    <div class="card">{icon('link')}<h3>APIs &amp; integrations</h3><p>Custom API pages and connections to the other systems your business runs on.</p></div>
+    <div class="card">{icon('chart')}<h3>Automation</h3><p>Job queue tasks, workflows and Power Automate flows for routine work.</p></div>
+    <div class="card">{icon('warehouse')}<h3>Warehouse &amp; operations</h3><p>Picking rules, labels and scanning steps tailored to how your floor works.</p></div>
+    <div class="card">{icon('migrate')}<h3>NAV code conversion</h3><p>Old C/AL customizations rewritten as AL extensions, or replaced with standard features.</p></div>
+  </div>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our approach</span><h2>Build less, build it right</h2><p class="lede">Every line of custom code is something to test and maintain. The best extension is often the one you don’t need.</p></div>
+  {checks(['<strong>Fit check first.</strong> Standard setup, an AppSource app or a custom extension: we compare cost and upkeep with you.', '<strong>Written specification.</strong> You approve what will be built, and the price, before work starts.', '<strong>Built for updates.</strong> Microsoft’s extension model, events and APIs only. No changes to base code.', '<strong>Tested and documented.</strong> Tested against realistic data and Microsoft’s release previews, with notes your team can read.', '<strong>Your code, your repository.</strong> We recommend keeping the source in a repository your company controls.'])}
+</div></section>
+<section><div class="wrap">
+  {worked('A custom pallet label for a distributor',
+          'A distributor prints pallet labels from a separate program and types order details into it by hand. Mislabeled pallets cause returns from two large retail customers.',
+          [('Spec', 'Agree label content per customer: order number, PO, ship-to, carton count and a scannable code.'),
+           ('Build', 'An AL extension adds a label layout and a Print Pallet Label action on warehouse shipments.'),
+           ('Test', 'Print labels for real orders and scan them with the customers’ required formats.'),
+           ('Deploy', 'Install in production after the test sign-off, with a one-page guide for the shipping team.')],
+          'Labels print straight from the shipment with no retyping, and label-related returns stop.')}
+</div></section>
+{faq_section(FAQ_DEV)}
+{related('Related services', [('@/integrations/', 'Integrations', 'Shopify, EDI, Power BI and other systems connected to Business Central.'), ('@/migration/dynamics-nav/', 'NAV to Business Central', 'Moving old NAV customizations to modern extensions.'), ('@/rescue/', 'Rescue &amp; recovery', 'Fixing systems weighed down by risky custom code.')])}
+{cta('Need something Business Central doesn’t do out of the box?', 'Describe the process. We’ll tell you whether it needs custom work, an app or just the right setup.')}''', [faq_schema(FAQ_DEV)])
+
+
 # BLOG
 # Each post: slug, title, date (YYYY-MM-DD), summary, tag, body (HTML), placeholder (True = shows a draft notice)
 POSTS = [
     dict(slug='signs-you-have-outgrown-quickbooks',
          title='Seven signs your distribution business has outgrown QuickBooks',
-         date='2026-10-31', tag='ERP selection', placeholder=True,
-         summary='Placeholder summary. A short description of the article will appear here, about two sentences long, to help readers decide whether to read on.',
-         body='''<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
-<h2>1. Placeholder heading</h2>
-<p>Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean lacinia bibendum nulla sed consectetur.</p>
-<h2>2. Placeholder heading</h2>
-<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Curabitur blandit tempus porttitor.</p>
-<ul><li>Placeholder bullet point one</li><li>Placeholder bullet point two</li><li>Placeholder bullet point three</li></ul>
-<h2>3. Placeholder heading</h2>
-<p>Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui.</p>
-<blockquote>Placeholder pull quote. A short, memorable line from the article can go here.</blockquote>
+         seo_title='7 Signs Your Distribution Business Has Outgrown QuickBooks',
+         date='2026-11-16', tag='ERP selection',
+         summary='QuickBooks is a great start for a small business. These seven signs mean your distribution company has grown past it, and what to do next.',
+         body='''<p>QuickBooks is where most distributors start, and for good reason: it’s affordable, familiar and good at basic accounting. But distribution is an inventory business, and QuickBooks was built for accounting first. Somewhere between a few hundred and a few thousand SKUs, the workarounds start to cost more than the software saves. Here are the seven signs we see most often.</p>
+<h2>1. Your real inventory lives in a spreadsheet</h2>
+<p>If the stock numbers your team trusts are in Excel rather than QuickBooks, your books are only as accurate as the last time someone copied numbers across. Every manual update is a chance to oversell, under-order or misstate inventory value on the balance sheet. (Here’s <a href="@/migration/spreadsheets/">how spreadsheet data moves into an ERP</a>.)</p>
+<h2>2. You stock more than one location</h2>
+<p>A second warehouse, a 3PL or even a van stock location changes everything. You need to know what’s where, move stock between locations and pick from the right place. QuickBooks can track locations in its higher editions, but bins, transfers and location-level replenishment quickly push past what it was designed for.</p>
+<h2>3. Purchasing runs on memory</h2>
+<p>When buyers reorder based on gut feel or a weekly spreadsheet review, you end up with too much of what doesn’t sell and not enough of what does. A distribution ERP suggests purchase orders from reorder points, lead times and actual demand.</p>
+<h2>4. You can’t see true margin</h2>
+<p>Freight, duty and handling change what a product really costs you. If landed costs never reach the item, your margin reports are optimistic, and some of your best-selling products may be your least profitable.</p>
+<h2>5. Month-end takes a week</h2>
+<p>If finance spends days exporting, reconciling and rebuilding reports in Excel, the system isn’t doing its job. Inventory value that doesn’t match the general ledger is the classic symptom.</p>
+<h2>6. Orders are typed more than once</h2>
+<p>A web order retyped for the warehouse, then again for invoicing, costs time and causes errors. When orders come from Shopify, EDI or email, they should flow into one system automatically.</p>
+<h2>7. Your team has outgrown the file</h2>
+<p>Slow company files, user limits, thin permissions and no approval workflows are signs the business has grown past a small-business tool. Growth should make your systems more useful, not more fragile.</p>
+<blockquote>If three or more of these sound familiar, it’s time to look at an ERP, not another spreadsheet.</blockquote>
+<h2>Is it QuickBooks, or is it your processes?</h2>
+<p>Before blaming the software, it’s worth checking. Some problems follow you to any system: no one owns the item list, receipts aren’t entered on the day goods arrive, or counts are never reconciled. A new ERP won’t fix those on its own, but it does make them visible and gives you the tools to enforce better habits, such as required fields, approval workflows and posted entries that can’t be quietly edited.</p>
+<p>A useful test: if your team follows a consistent process and still needs spreadsheets to get answers, the system is the bottleneck. If the process itself varies from person to person, fix that first, ideally as part of the ERP project.</p>
+<h2>What about QuickBooks Enterprise or add-on apps?</h2>
+<p>Many distributors try to stretch QuickBooks first, with QuickBooks Enterprise’s advanced inventory or a separate inventory app synced to QuickBooks Online. That can buy a year or two. The trade-offs show up as the business grows: two systems to reconcile, sync errors to chase, reporting split across tools, and limits on users, locations or transaction volume. When you find yourself adding a third or fourth app to cover gaps, you’re effectively building an ERP out of parts, without the single database that makes an ERP worth having.</p>
+<h2>What moving to an ERP actually involves</h2>
+<p>For a small or midsize distributor, a move from QuickBooks to an ERP such as Business Central usually takes two to six months, depending on how many locations, integrations and warehouse processes are in scope. The main steps are:</p>
+<ul><li><strong>Discovery:</strong> how you buy, stock, sell, ship and close the month today.</li><li><strong>Design:</strong> chart of accounts, dimensions, item setup and warehouse processes in the new system.</li><li><strong>Data migration:</strong> customers, vendors, items, open invoices and bills, and opening balances, with stock from a physical count.</li><li><strong>Testing and training:</strong> your team runs real orders end to end before go-live.</li><li><strong>Go-live:</strong> usually at the start of a month, with support through the first close.</li></ul>
+<p>Most of your QuickBooks history doesn’t need to move. Keep QuickBooks available for lookups, and bring open items, balances and summary history into the new system. See <a href="@/guides/implementation-timeline/">how long implementation takes</a> for a week-by-week example.</p>
+<h2>What it costs</h2>
+<p>An ERP costs more than QuickBooks, both in monthly licenses and in a one-time implementation. The return comes from the problems above: fewer stockouts and overstock, faster month-end, less retyping and fewer costly mistakes. Our <a href="@/guides/implementation-cost/">implementation cost guide</a> breaks down the budget, and the <a href="@/licensing/#calculator">license calculator</a> estimates your monthly cost from your number of users.</p>
+<h2>Questions to ask before choosing a replacement</h2>
+<ul><li>Does it track stock by location and bin, with costs that flow to the general ledger?</li><li>Can it suggest purchase orders from reorder points, lead times and open orders?</li><li>How does it handle landed costs such as freight and duty?</li><li>Can it take orders from your web store and EDI customers without retyping?</li><li>Can your team use Excel and Outlook with it?</li><li>Who will implement and support it, and have they moved other distributors off QuickBooks?</li></ul>
+<p>A system that answers yes to most of these will remove the workarounds that QuickBooks forces on a growing distributor. A partner who has done the move before will help you avoid the data problems that make migrations painful: duplicate customers, inconsistent units of measure and inventory values that don’t match the books.</p>
+<h2>How long can you wait?</h2>
+<p>There’s rarely a perfect moment to change systems, but there are bad ones. Avoid starting an ERP project right before your busiest season, and avoid going live in the middle of it. Most distributors plan to go live in a quieter month, which means starting the project three to six months earlier. If you can see the signs above today, the cost of waiting another year is usually more stockouts, more overstock and more hours lost to reconciling, at a time when the business is larger and the move is harder.</p>
+<h2>Making the case internally</h2>
+<p>Owners and finance leaders usually want the business case in numbers. Estimate the hours spent each month on retyping orders, reconciling inventory and rebuilding reports; the cost of stockouts and emergency freight; and the stock written off or discounted because nobody knew it was there. Even rough figures usually show that the workarounds already cost more than the system would. Pair that with the risks of staying put: key-person dependency on whoever maintains the spreadsheets, and growth that the current setup can’t support.</p>
+<h2>Who should be involved</h2>
+<p>An ERP decision isn’t only finance’s. Involve whoever runs purchasing, the warehouse and sales from the start; they will use the system every day and know where today’s workarounds are. A small selection team of three or four people, with one clear decision-maker, usually works better than a large committee.</p>
+<h2>Common mistakes when leaving QuickBooks</h2>
+<ul><li><strong>Bringing all the history.</strong> Years of transactions slow the project and rarely get used. Bring open items, balances and summary history; keep QuickBooks for lookups.</li><li><strong>Copying the old chart of accounts.</strong> A move is the best chance to simplify it and use dimensions instead of dozens of similar accounts.</li><li><strong>Skipping the physical count.</strong> Opening stock should come from a count, not from the spreadsheet everyone already distrusts.</li><li><strong>Training too early.</strong> Train people in the last few weeks before go-live, on their own data, so it sticks.</li></ul>
 <h2>What to do next</h2>
-<p>Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>'''),
+<p>Start by writing down what hurts most and what “better” would look like: accurate stock by location, faster month-end, fewer typed orders. Then look at systems built for distribution. Microsoft Dynamics 365 Business Central is a common next step for QuickBooks users because it adds real inventory, warehousing and purchasing while keeping finance familiar and working with Microsoft 365.</p>
+<p>Moving is less disruptive than most companies expect. Customers, vendors, items, open invoices and balances come across; the old transaction history usually stays in QuickBooks for reference. See <a href="@/migration/quickbooks/">how a QuickBooks to Business Central migration works</a>, or use our <a href="@/guides/erp-readiness-checklist/">free ERP readiness checklist</a> to get your team on the same page first.</p>'''),
 ]
 
 def fmt_date(d):
@@ -1085,30 +1741,30 @@ def fmt_date(d):
 
 def post_card(p):
     draft = '<span class="pill low">Placeholder</span>' if p.get('placeholder') else ''
-    return f'''<a class="card post-card" href="@/blog/{p['slug']}/"><span class="tag">{esc(p['tag'])}</span>{draft}<h3>{esc(p['title'])}</h3><p>{esc(p['summary'])}</p><span class="post-meta">{fmt_date(p['date'])} \u00b7 Oleh Karnaukhov</span></a>'''
+    return f'''<a class="card post-card" href="@/blog/{p['slug']}/"><span class="tag">{esc(p['tag'])}</span>{draft}<h3>{esc(p['title'])}</h3><p>{esc(p['summary'])}</p><span class="post-meta">{fmt_date(p['date'])}</span></a>'''
 
 add('blog/', 'blog', 'Business Central & ERP Blog | Q84 Digital',
     'Practical articles on Microsoft Dynamics 365 Business Central, ERP selection, inventory and warehouse operations for distributors and manufacturers.',
     page_head('Blog', 'Blog', 'Insights on Business Central and operations',
               'Practical articles on ERP selection, inventory, warehousing and getting the most out of Business Central.', button=False) + f'''
 <section style="padding-top:32px"><div class="wrap">
+  <h2 class="sr-only">Latest articles</h2>
   <div class="grid g3">{''.join(post_card(p) for p in sorted(POSTS, key=lambda p: p['date'], reverse=True))}</div>
 </div></section>
 {checklist_promo()}
 {cta()}''')
 
 for p in POSTS:
-    avatar = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="" width="48" height="48">' if CFG.get('consultant_photo') else 'OK'
     notice = '<div class="note" style="margin-bottom:24px"><strong>Placeholder article.</strong> This page uses dummy text to show the blog layout. Real content will replace it before launch.</div>' if p.get('placeholder') else ''
-    schema = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p['title'], "datePublished": p['date'],
-              "author": {"@id": URL + "#oleh-karnaukhov"}, "publisher": {"@id": URL + "#organization"},
+    schema = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p['title'], "datePublished": p['date'], "dateModified": p.get('updated', p['date']), "image": URL + "images/og-default.jpg",
+              "author": {"@id": URL + "#organization"}, "publisher": {"@id": URL + "#organization"},
               "mainEntityOfPage": URL + f"blog/{p['slug']}/"}
-    add(f"blog/{p['slug']}/", 'blog', f"{p['title']} | Q84 Digital", p['summary'],
+    add(f"blog/{p['slug']}/", 'blog', p.get('seo_title') or f"{p['title']} | Q84 Digital", p['summary'],
         f'''<article class="post"><div class="wrap post-wrap">
   <nav class="crumb" aria-label="Breadcrumb"><a href="@/">Home</a> / <a href="@/blog/">Blog</a></nav>
   <span class="tag post-tag">{esc(p['tag'])}</span>
   <h1>{esc(p['title'])}</h1>
-  <div class="byline"><span class="founder-photo">{avatar}</span><span><strong>Oleh Karnaukhov</strong><span>{fmt_date(p['date'])}</span></span></div>
+  <div class="byline"><span><span>{fmt_date(p['date'])}</span></span></div>
   {notice}
   <div class="post-body">{p['body']}</div>
   <p style="margin-top:32px"><a class="more" href="@/blog/">\u2190 All articles</a></p>
@@ -1117,7 +1773,7 @@ for p in POSTS:
 {cta()}''', [schema])
 
 # CONTACT
-phone_card = f'<div class="card"><span class="tag">Phone</span><p class="mono" style="color:var(--ink);user-select:all">{esc(CFG["phone"])}</p></div>' if CFG.get('phone') else ''
+phone_card = f'<div class="card"><span class="tag">Phone</span><p class="mono" style="color:var(--ink)"><a href="tel:{PHONE_TEL}" style="color:inherit">{esc(CFG["phone"])}</a></p></div>' if CFG.get('phone') else ''
 if CFG.get('booking_url'):
     SCHEDULER = f'''<div class="sched" id="schedule">
   <div class="sched-head"><h2>Pick a time</h2><p class="hint">Choose a 30-minute slot. You’ll get a calendar invite straight away.</p></div>
@@ -1160,7 +1816,7 @@ else:
 
 add('contact/', 'contact',
     'Free ERP Readiness Assessment | Q84 Digital',
-    'Book a free 30-minute ERP readiness assessment. Find out whether Business Central fits your distribution or manufacturing business, what it would involve and what it would cost.',
+    'Book a free 30-minute ERP readiness assessment. Find out whether Business Central fits your business, what it would involve and what it would cost.',
     page_head('Contact', 'Free ERP assessment', 'Book a free ERP readiness assessment',
               'In 30 minutes with Oleh you’ll get an honest view of whether Business Central fits your business, what the project would involve and a rough idea of cost.', button=False) + f'''
 <section style="padding-top:32px"><div class="wrap contact-grid">
@@ -1193,23 +1849,23 @@ add('contact/', 'contact',
 </div></section>''')
 
 
-# RESOURCES: ERP readiness checklist
+# GUIDES: ERP readiness checklist
 CL_AREAS = [('Business goals and ownership', 'Why you need to change, the outcomes you expect and who makes decisions.'), ('Current systems and processes', 'What you use today, what stays and where spreadsheets fill the gaps.'), ('Finance and reporting', 'Chart of accounts, approvals, month-end close, tax and historical data.'), ('Inventory, purchasing and sales', 'Item data, costing, replenishment, pricing and traceability.'), ('Warehouse and fulfillment', 'Receiving to shipping, scanning, bins, carriers and 3PLs.'), ('Manufacturing and service', 'BOMs, routings, production, quality and service work.'), ('Data, integrations and technology', 'Data quality, ecommerce, EDI, CRM and security.'), ('People and change', 'Workshops, testing, training and keeping your team informed.'), ('Budget, timeline and scope', 'Costs, realistic dates, priorities and support after go-live.')]
 CL_SCHEMA = {"@context": "https://schema.org", "@type": "DigitalDocument", "name": "ERP Readiness Checklist",
              "description": "A free, fillable 52-question checklist to prepare distributors and manufacturers for a Microsoft Dynamics 365 Business Central project.",
              "encodingFormat": "application/pdf", "url": URL + "downloads/q84-erp-readiness-checklist.pdf",
              "author": {"@id": URL + "#organization"}, "inLanguage": "en-US", "isAccessibleForFree": True}
-add('resources/erp-readiness-checklist/', 'resources',
+add('guides/erp-readiness-checklist/', 'checklist',
     'Free ERP Readiness Checklist for Business Central | Q84 Digital',
     'Download a free, fillable ERP Readiness Checklist. 52 questions across 9 areas help distributors and manufacturers prepare for a Business Central project.',
-    page_head('Resources', '<a href="@/resources/">Resources</a> / ERP readiness checklist', 'Free ERP Readiness Checklist',
+    page_head('Guides', '<a href="@/guides/">Guides</a> / ERP readiness checklist', 'Free ERP Readiness Checklist',
               'Find the gaps before you choose an ERP. 52 practical questions across 9 areas, written for distributors and manufacturers considering Microsoft Dynamics 365 Business Central.', button=False) + f'''
 <section style="padding-top:32px"><div class="wrap split cl-hero">
   <div class="stack">
     <span class="eyebrow">What it helps you do</span><h2>Get your team aligned before the first workshop</h2>
     {checks(['<strong>Spot gaps early.</strong> Mark each question Yes, Partly or No and see where decisions are missing.', '<strong>Get everyone involved.</strong> Finance, sales, purchasing, warehouse and IT each have their own section.', '<strong>Have a better first conversation.</strong> Bring it to your assessment and spend the time on what matters.'])}
     <div class="hero-actions"><a class="btn btn-primary" {DL_ATTR}>Download the checklist (PDF)</a></div>
-    <p class="hint">Fillable PDF, 6 pages, US Letter. Fill it in on screen or print it. No email required.</p>
+    <p class="hint">Fillable PDF, 6 pages, US Letter. Fill it in on screen or print it. Enter your email to download.</p>
   </div>
   <a class="cl-cover" {DL_ATTR} aria-label="Download the ERP Readiness Checklist PDF"><img src="@/images/erp-checklist-cover.webp" alt="First page of the Q84 Digital ERP Readiness Checklist" width="640" height="828"></a>
 </div></section>
@@ -1229,24 +1885,247 @@ add('resources/erp-readiness-checklist/', 'resources',
 {cta('Bring your checklist to a free assessment', 'Pick a time for a 30-minute call. We’ll go through your answers and tell you honestly whether Business Central fits.')}''', [CL_SCHEMA],
     image=('og-erp-checklist.jpg', 'Q84 Digital free ERP Readiness Checklist: 52 questions across 9 areas'))
 
-# RESOURCES index
-add('resources/', 'resources',
-    'Free Business Central & ERP Resources | Q84 Digital',
-    'Free guides and checklists from Q84 Digital to help distributors and manufacturers plan, choose and implement Microsoft Dynamics 365 Business Central.',
-    page_head('Resources', 'Resources', 'Free ERP resources',
-              'Practical guides and checklists to help you plan, choose and implement Business Central. Free to download, no email required.', button=False) + f'''
+# GUIDES & COMPARISONS
+def guide_head(crumb, h1, lede, updated=TODAY, art=None):
+    return page_head('Guides', f'<a href="@/guides/">Guides</a> / {crumb}', h1, lede + f' <span class="hint">Updated {fmt_date(updated)} · <a href="@/about/">Oleh Karnaukhov</a></span>', button=False, art=art)
+
+def article_schema(path, headline, desc):
+    return {"@context": "https://schema.org", "@type": "Article", "headline": headline, "description": desc,
+            "dateModified": TODAY, "image": URL + "images/og-default.jpg", "author": {"@id": URL + "#oleh-karnaukhov"}, "publisher": {"@id": URL + "#organization"},
+            "mainEntityOfPage": URL + path}
+
+GUIDE_LIST = [
+    ('@/guides/implementation-cost/', 'Guide', 'Business Central implementation cost', 'What a Business Central project really costs, line by line, with typical ranges.'),
+    ('@/guides/implementation-timeline/', 'Guide', 'How long implementation takes', 'Typical timelines by project size, phase by phase, and what slows projects down.'),
+    ('@/compare/netsuite/', 'Comparison', 'Business Central vs NetSuite', 'Two leading mid-market cloud ERPs compared honestly.'),
+    ('@/compare/sage-intacct/', 'Comparison', 'Business Central vs Sage Intacct', 'Full ERP or finance-first cloud accounting?'),
+    ('@/compare/odoo/', 'Comparison', 'Business Central vs Odoo', 'Microsoft’s ERP against the modular, open-source-based alternative.'),
+    ('@/licensing/#calculator', 'Tool', 'License cost calculator', 'Estimate your monthly Business Central license cost.'),
+]
+
+# COST GUIDE
+COST_DESC = 'What a Business Central implementation costs: licenses, implementation, data migration, integrations, apps and support, with typical ranges by project size.'
+FAQ_COST = [
+    ('Why don’t you publish a fixed price?', 'Because two companies with the same number of users can need very different projects. One may need finance and basic inventory; another needs warehousing, manufacturing and three integrations. We give a fixed quote after discovery, once we know which one you are.', None),
+    ('What’s the most common reason budgets grow?', 'Scope that wasn’t written down. Requirements that surface late, such as a forgotten integration or a report finance relies on, are the biggest driver of overruns.', None),
+    ('Can we lower the cost by doing some work ourselves?', 'Yes. Teams that clean their own data, write their own test scripts and train their own users after a train-the-trainer session can reduce consulting time noticeably.', None),
+]
+add('guides/implementation-cost/', 'guide-cost',
+    'Business Central Implementation Cost (2026 Guide) | Q84 Digital',
+    COST_DESC,
+    guide_head('Implementation cost', 'How much does a Business Central implementation cost?',
+               'An honest breakdown of what you’ll pay, where the money goes and what makes projects bigger or smaller.', art=('page-guide-cost.webp', 'Illustration of a calculator printing a receipt, a stack of coins and a piggy bank')) + f'''
+<section style="padding-top:32px"><div class="wrap prose">
+<p><strong>The short answer:</strong> for small and midsize US businesses, a <a href="@/business-central/">Business Central</a> implementation is typically a one-time project in the tens of thousands of dollars, plus monthly Microsoft licenses. A focused finance and inventory rollout sits at the lower end. Multi-company, manufacturing or integration-heavy projects can reach six figures. The rest of this guide explains what drives those numbers.</p>
+<h2>The six parts of a Business Central budget</h2>
+<p>Every Business Central budget is made of the same parts. Some are one-time, some monthly.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap">
+  <div class="table-wrap"><table>
+    <thead><tr><th>Cost</th><th>Type</th><th>What it depends on</th></tr></thead>
+    <tbody>
+      <tr><td>Microsoft licenses</td><td>Monthly</td><td>Essentials ($80) or Premium ($110) per full user, plus Team Members ($8) for light users, at Microsoft’s US list prices</td></tr>
+      <tr><td>Implementation</td><td>One-time</td><td>Modules, companies, locations and how many processes change</td></tr>
+      <tr><td>Data migration</td><td>One-time</td><td>Source system, data volume, data quality and how much history you bring</td></tr>
+      <tr><td>Integrations</td><td>One-time plus upkeep</td><td>Number of systems and whether a standard connector exists</td></tr>
+      <tr><td>Add-on apps</td><td>Monthly</td><td>AppSource apps for EDI, scanning, shipping or tax, priced by their publishers</td></tr>
+      <tr><td>Support</td><td>Hourly or monthly</td><td>How much help you want after go-live</td></tr>
+    </tbody></table></div>
+  <p class="shot-note" style="margin-top:12px">{PRICE_SOURCE}</p>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Typical ranges</span><h2>What projects of different sizes usually cost</h2><p class="lede">Typical ranges for implementation services at small and midsize US companies, before licenses and apps. Your quote depends on your scope.</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Project size</th><th>Typical scope</th><th>Typical implementation cost</th></tr></thead>
+    <tbody>
+      <tr><td>Focused</td><td>Finance, sales, purchasing and basic inventory; one company; QuickBooks or spreadsheet migration</td><td>$25,000 to $60,000</td></tr>
+      <tr><td>Standard</td><td>Adds warehouse processes, migration from another ERP, or one or two integrations</td><td>$60,000 to $150,000</td></tr>
+      <tr><td>Complex</td><td>Several companies, manufacturing, advanced warehousing or many integrations</td><td>$150,000 and up, often phased</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Worked example</span><h2>License cost for a 20-person distributor</h2><p class="lede">Ten people post orders, invoices and journals; ten more mostly look things up and approve.</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>License</th><th>Users</th><th>Per month</th></tr></thead>
+    <tbody>
+      <tr><td>Essentials full users</td><td>10 × $80</td><td>$800</td></tr>
+      <tr><td>Team Members</td><td>10 × $8</td><td>$80</td></tr>
+      <tr><td><strong>Total</strong></td><td></td><td><strong>$880 per month, about $10,560 per year</strong></td></tr>
+    </tbody></table></div>
+  <p style="margin-top:16px"><a class="btn btn-ghost" href="@/licensing/#calculator">Try the calculator with your numbers</a></p>
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Cost drivers</span><h2>What makes a project bigger</h2></div>
+  {checks(['<strong>Manufacturing.</strong> Bills of materials, routings and costing add design and testing time, and need Premium.', '<strong>Warehousing.</strong> Bins, directed picking and scanning add setup, devices and training.', '<strong>Several companies.</strong> Each entity needs setup; inter-company and consolidation add more.', '<strong>Integrations.</strong> Each connected system adds design, build and testing.', '<strong>Messy data.</strong> Cleaning duplicate customers and inconsistent items takes real time.', '<strong>Custom development.</strong> Every extension must be specified, built, tested and maintained.'])}
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Keeping costs down</span><h2>How to spend less without cutting corners</h2></div>
+  {checks(['<strong>Start with standard features.</strong> Adapt processes to Business Central where it costs you nothing to do so.', '<strong>Phase the project.</strong> Go live with finance and inventory first, then add warehousing or integrations.', '<strong>Clean data early.</strong> Start deleting duplicates and inactive records before the project starts.', '<strong>Name an owner.</strong> One person who can make decisions quickly saves weeks.', '<strong>Use the readiness checklist.</strong> <a href="' + CHECKLIST_URL + '">Our free checklist</a> surfaces scope gaps before they become change orders.'])}
+</div></section>
+{faq_section(FAQ_COST, 'Cost questions')}
+{related('Keep reading', [('@/guides/implementation-timeline/', 'How long implementation takes', 'Timelines by project size and phase.'), ('@/licensing/', 'Essentials vs Premium', 'Which license plan you need.'), ('@/implementation/', 'Our implementation method', 'How we scope and deliver a project.')])}
+{cta('Get a real number for your project', 'Book a free 30-minute call. We’ll give you a realistic range and tell you what would change it.')}''',
+    [article_schema('guides/implementation-cost/', 'How much does a Business Central implementation cost?', COST_DESC), faq_schema(FAQ_COST)])
+
+# TIMELINE GUIDE
+TIME_DESC = 'How long a Business Central implementation takes: typical timelines by project size, what happens in each phase, and what slows projects down.'
+add('guides/implementation-timeline/', 'guide-timeline',
+    'How Long Does Business Central Implementation Take? | Q84 Digital',
+    TIME_DESC,
+    guide_head('Implementation timeline', 'How long does a Business Central implementation take?',
+               'Typical timelines by project size, what happens week by week, and the decisions that keep a project on schedule.', art=('page-guide-timeline.webp', 'Illustration of a calendar, an hourglass and a timeline with milestones')) + f'''
+<section style="padding-top:32px"><div class="wrap prose">
+<p><strong>The short answer:</strong> a focused Business Central rollout for a small or midsize company usually takes two to three months. Adding warehousing, an ERP migration or integrations stretches it to three to six months. Multi-company or manufacturing projects often run six months or more, usually in phases.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap">
+  <div class="table-wrap"><table>
+    <thead><tr><th>Project size</th><th>Typical scope</th><th>Typical timeline</th></tr></thead>
+    <tbody>
+      <tr><td>Focused</td><td>Finance, sales, purchasing and basic inventory, one company, straightforward data move</td><td>2 to 3 months</td></tr>
+      <tr><td>Standard</td><td>Adds warehouse processes, migration from another ERP, or one or two integrations</td><td>3 to 6 months</td></tr>
+      <tr><td>Complex</td><td>Several companies, manufacturing, advanced warehousing or multiple integrations</td><td>6 months or more, often phased</td></tr>
+    </tbody></table></div>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Phase by phase</span><h2>Where the time goes in a standard project</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Phase</th><th>Typical length</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td>Discovery</td><td>2 to 4 weeks</td><td>Workshops by area, current processes and requirements</td></tr>
+      <tr><td>Design</td><td>1 to 3 weeks</td><td>Requirements mapped to standard features, apps or extensions; fixed scope agreed</td></tr>
+      <tr><td>Build</td><td>4 to 10 weeks</td><td>Configuration, extensions and integrations, with data migration running alongside</td></tr>
+      <tr><td>Testing &amp; training</td><td>3 to 6 weeks</td><td>Your team runs real processes end to end; role-based training</td></tr>
+      <tr><td>Go-live &amp; first close</td><td>2 to 4 weeks</td><td>Cutover, hands-on support and the first month-end in Business Central</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">What slows projects down</span><h2>The usual causes of delay</h2></div>
+  {checks(['<strong>Slow decisions.</strong> Questions waiting a week for an answer add up to months.', '<strong>Team availability.</strong> Key users who can’t step away from daily work for workshops and testing.', '<strong>Data cleanup left late.</strong> Dirty data found during the final load.', '<strong>Scope added mid-project.</strong> New requirements after design is signed off.', '<strong>Third parties.</strong> EDI partners, 3PLs or other vendors with their own schedules.'])}
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Choosing a go-live date</span><h2>When to switch over</h2></div>
+  {checks(['<strong>Start of a month or quarter.</strong> Opening balances are cleaner and reporting periods line up.', '<strong>Avoid your busy season.</strong> Retailers and distributors usually avoid Q4.', '<strong>Not the start of the year if you can help it.</strong> Year-end close and the go-live in the same weeks overload finance.', '<strong>Leave a buffer.</strong> Two weeks of slack between final testing and go-live.'])}
+</div></section>
+{related('Keep reading', [('@/guides/implementation-cost/', 'Implementation cost', 'What a Business Central project really costs.'), ('@/implementation/', 'Our implementation method', 'The phases and deliverables of our projects.'), (CHECKLIST_URL, 'ERP readiness checklist', '52 questions to prepare your team.')])}
+{cta('Planning a go-live date?', 'Book a free 30-minute call and we’ll sketch a realistic timeline for your project.')}''',
+    [article_schema('guides/implementation-timeline/', 'How long does a Business Central implementation take?', TIME_DESC)])
+
+# COMPARISONS
+def compare_page(path, nav, other, title, desc, lede, rows, bc_better, other_better, faqs, rel, extra='', art=None):
+    tr = ''.join(f'<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>' for a, b, c in rows)
+    add(path, nav, title, desc,
+        guide_head(f'Business Central vs {other}', f'Business Central vs {other}', lede, art=art) + f'''
 <section style="padding-top:32px"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Side by side</span><h2>How they compare</h2><p class="lede">A general comparison for small and midsize companies. Both products change often; check current details with each vendor. New to Business Central? Start with <a href="@/business-central/">what Business Central does</a>.</p></div>
+  <div class="table-wrap"><table class="compare">
+    <thead><tr><th></th><th>Business Central</th><th>{other}</th></tr></thead>
+    <tbody>{tr}</tbody></table></div>
+  <div class="prose" style="margin-top:40px">{extra}</div>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="grid g2">
+    <div class="card"><span class="tag">Choose Business Central if</span><h3>Business Central fits better when…</h3>{checks(bc_better)}</div>
+    <div class="card"><span class="tag">Choose {other} if</span><h3>{other} fits better when…</h3>{checks(other_better)}</div>
+  </div>
+  <p class="shot-note" style="margin-top:16px">We implement Business Central, so we’re not neutral. We’ve tried to be fair, and we’ll tell you on a call if another system suits you better.</p>
+</div></section>
+{faq_section(faqs).replace('<section class="band">', '<section>', 1)}
+{related('Other comparisons', rel, band=True)}
+{cta(f'Deciding between Business Central and {other}?', 'Book a free 30-minute call. We’ll look at your requirements and give you a straight answer.')}''',
+        [article_schema(path, f'Business Central vs {other}', desc), faq_schema(faqs)])
+
+CMP_REL = {
+    'netsuite': ('@/compare/netsuite/', 'Business Central vs NetSuite', 'Two leading mid-market cloud ERPs.'),
+    'intacct': ('@/compare/sage-intacct/', 'Business Central vs Sage Intacct', 'Full ERP or finance-first accounting?'),
+    'odoo': ('@/compare/odoo/', 'Business Central vs Odoo', 'Microsoft’s ERP against the modular alternative.'),
+    'cost': ('@/guides/implementation-cost/', 'Implementation cost', 'What a Business Central project really costs.'),
+}
+
+compare_page('compare/netsuite/', 'cmp-netsuite', 'NetSuite',
+    'Business Central vs NetSuite: Honest Comparison | Q84 Digital',
+    'Business Central vs Oracle NetSuite for small and midsize companies: pricing model, features, customization, Microsoft 365 and when each one fits.',
+    'Both are leading cloud ERPs for growing companies. They differ most in pricing model, ecosystem and how they’re customized.',
+    [('Vendor', 'Microsoft', 'Oracle'),
+     ('Deployment', 'Cloud (Microsoft-hosted), on-premises still available', 'Cloud only'),
+     ('Pricing', 'Published per-user prices: Essentials, Premium and Team Members', 'Quoted per customer: base subscription plus users and modules'),
+     ('Implementation', 'Through Microsoft partners', 'Through Oracle NetSuite or its partners'),
+     ('Customization', 'AL extensions, Power Platform and AppSource apps', 'SuiteScript (JavaScript), SuiteFlow and SuiteApps'),
+     ('Microsoft 365', 'Built in: Outlook, Excel, Teams, Power BI', 'Available through integrations'),
+     ('Multi-entity', 'Several companies with consolidation and inter-company', 'Strong multi-subsidiary support in NetSuite OneWorld'),
+     ('E-commerce', 'Shopify connector built in; others via apps', 'SuiteCommerce and connectors')],
+    ['Your company runs on Microsoft 365 and wants Outlook, Excel and Teams to work with the ERP.', 'You want published per-user pricing and a choice of implementation partners.', 'You’re moving from QuickBooks, Dynamics GP or Dynamics NAV.', 'Inventory, warehousing and light manufacturing are central to the business.'],
+    ['You run many subsidiaries across countries and need deep global consolidation from day one.', 'You prefer a single vendor for software and implementation.', 'You already use NetSuite add-ons or SuiteCommerce heavily.'],
+    [('Is Business Central cheaper than NetSuite?', 'Often, especially on licenses, because Business Central has published per-user prices and Team Members licenses for light users. Implementation cost depends far more on scope than on the product. Get quotes for the same scope to compare fairly.', ('@/guides/implementation-cost/', 'Implementation cost')),
+     ('Can we move from NetSuite to Business Central?', 'Yes. Master data, open items and balances move with the same process we use for other ERPs.', ('@/migration/', 'Data migration'))],
+    [CMP_REL['intacct'], CMP_REL['odoo'], CMP_REL['cost']], extra='''<h2>Comparing cost fairly</h2>
+<p>Business Central publishes its per-user prices: Essentials and Premium for full users, and low-cost Team Members licenses for people who mostly view and approve. NetSuite is quoted per customer, usually as a base platform fee plus users and add-on modules. That makes a like-for-like comparison harder than it looks.</p>
+<p>The fairest way to compare is to price the same scope on both: the same number of full and light users, the same modules, and three to five years of subscription rather than year one. Ask both vendors how renewal pricing works, since multi-year contract terms make a real difference to total cost.</p>
+<h2>Who implements it</h2>
+<p>Business Central is sold and implemented almost entirely through Microsoft partners, so you can choose a firm by industry, size and location, and change partners later without changing software. NetSuite can be implemented by Oracle NetSuite’s own services team or by partners. Either way, the consultant’s experience in your industry matters more than the product logo.</p>
+<h2>Day to day with Microsoft 365</h2>
+<p>For teams that live in Outlook, Excel and Teams, Business Central’s Microsoft 365 integration is a practical difference. Sales staff can create quotes from Outlook, finance can open almost any list in Excel and publish changes back, and colleagues can share a live customer or order card in a Teams chat.</p>
+<h2>Switching between them</h2>
+<p>Companies move in both directions. A move is a new implementation either way: master data, open transactions and balances are migrated, and detailed history usually stays in the old system for reference.</p>''', art=('page-cmp-netsuite.webp', 'Illustration of a balance scale weighing a laptop against a cloud'))
+
+compare_page('compare/sage-intacct/', 'cmp-intacct', 'Sage Intacct',
+    'Business Central vs Sage Intacct: Honest Comparison | Q84 Digital',
+    'Microsoft Dynamics 365 Business Central vs Sage Intacct: full ERP or finance-first cloud accounting, inventory and operations, multi-entity and when each fits.',
+    'Sage Intacct is a finance-first cloud accounting system. Business Central is a full ERP. The right choice depends on how much of your business is inventory and operations.',
+    [('Focus', 'Full ERP: finance, inventory, warehousing, manufacturing, projects', 'Financial management first, with optional modules'),
+     ('Vendor', 'Microsoft', 'Sage'),
+     ('Inventory &amp; warehousing', 'Built in, including bins, picking and shipping', 'Inventory module available; lighter on warehousing'),
+     ('Manufacturing', 'Built into Premium', 'Usually through partner solutions'),
+     ('Multi-entity', 'Several companies with consolidation', 'A known strength, with dimensions and consolidation'),
+     ('Pricing', 'Published per-user prices', 'Quoted per customer'),
+     ('Microsoft 365', 'Built in', 'Available through integrations')],
+    ['You hold inventory, run a warehouse or manufacture products.', 'You want one system for operations and finance, not finance plus separate tools.', 'Your team lives in Microsoft 365.'],
+    ['You’re a services, nonprofit or software company with little or no inventory.', 'Finance is the main buyer and multi-entity accounting is the core need.', 'You already run Sage products and want to stay in that family.'],
+    [('Can Sage Intacct handle inventory?', 'It has an inventory module that suits simpler needs. Companies with warehouses, bins, picking or manufacturing usually find a full ERP such as Business Central a better fit.', None),
+     ('We use Sage 50 or Sage 100. Is Intacct the natural next step?', 'Not automatically. Sage Intacct is a different product from Sage 50 and Sage 100, so either move is a new implementation. Choose on fit, not on the name.', ('@/migration/sage/', 'Sage to Business Central'))],
+    [CMP_REL['netsuite'], CMP_REL['odoo'], CMP_REL['cost']], extra='''<h2>Inventory-heavy or finance-first?</h2>
+<p>The most useful question is where your complexity sits. If the hard part of your business is purchasing, stock, warehouse and fulfillment, you need a full ERP, and Business Central handles those processes natively. If the hard part is accounting itself, such as many entities, complex revenue recognition or detailed dimensional reporting with little or no inventory, a finance-first system like Sage Intacct is built for that.</p>
+<h2>Multi-entity and consolidation</h2>
+<p>Both handle several companies. Sage Intacct is known for multi-entity accounting and dimension-based reporting. Business Central runs each entity as a company with consolidation and inter-company postings, which suits most small and midsize groups, and Power BI can report across companies when you need a combined view.</p>
+<h2>What it means for your team</h2>
+<p>With a finance-first system, operations teams often keep separate tools for inventory, orders or projects, and those need integrating. With a full ERP, more of the business works in one system, but setup covers more departments. Be clear about which teams the new system has to serve before comparing products.</p>''', art=('page-cmp-intacct.webp', 'Illustration of a balance scale weighing warehouse boxes and a forklift against an accounting ledger'))
+
+compare_page('compare/odoo/', 'cmp-odoo', 'Odoo',
+    'Business Central vs Odoo: Honest Comparison | Q84 Digital',
+    'Microsoft Dynamics 365 Business Central vs Odoo for small and midsize companies: accounting depth, apps, customization, pricing, partners and when each fits.',
+    'Odoo is a modular, open-source-based business suite with apps for almost everything. Business Central is Microsoft’s ERP with deep accounting and operations. They suit different companies.',
+    [('Model', 'Commercial cloud ERP from Microsoft', 'Open-source Community edition plus a paid Enterprise edition'),
+     ('Scope', 'Finance, inventory, warehousing, manufacturing, projects', 'Very broad: ERP plus CRM, website, POS, e-commerce and more'),
+     ('Accounting depth', 'Strong US accounting, controls and audit trail', 'Capable, with depth varying by country and version'),
+     ('Customization', 'AL extensions and Power Platform', 'Python modules; very flexible'),
+     ('Upgrades', 'Microsoft updates twice a year; extensions stay compatible', 'Version upgrades can require reworking custom modules'),
+     ('Ecosystem', 'Microsoft 365, Power BI, AppSource', 'Odoo Apps store and community modules'),
+     ('Pricing', 'Published per-user prices', 'Published per-user pricing for Enterprise; Community is free')],
+    ['Accounting controls, audit trail and reporting matter to your finance team and auditors.', 'You want Microsoft 365 and Power BI working with your ERP.', 'You’re growing past 20 or 30 users and want a large partner ecosystem in the US.', 'You’re replacing QuickBooks, Dynamics GP or Dynamics NAV.'],
+    ['Budget is the deciding factor and your needs are simple.', 'You want one suite for website, POS, CRM and operations.', 'You have in-house Python developers and want full control of the code.'],
+    [('Is Odoo cheaper than Business Central?', 'Licenses can be cheaper, especially with the Community edition. Total cost depends on implementation and custom development, which can close the gap. Compare quotes for the same scope.', ('@/guides/implementation-cost/', 'Implementation cost')),
+     ('Can Odoo and Business Central work together?', 'Possible, but rarely worth it. Running two systems for the same processes usually means duplicate data and reconciliation work.', None)],
+    [CMP_REL['netsuite'], CMP_REL['intacct'], CMP_REL['cost']], extra='''<h2>Community vs Enterprise</h2>
+<p>Odoo comes in two editions. Community is free and open source; Enterprise is paid per user and adds apps and features, including full accounting, plus hosting options and upgrade support. When you compare costs, compare Odoo Enterprise with the apps you actually need, not the free edition.</p>
+<h2>Breadth vs depth</h2>
+<p>Odoo’s strength is breadth: CRM, website, e-commerce, point of sale, HR and operations in one suite. Business Central focuses on finance and operations, and connects to Microsoft’s other products, such as Dynamics 365 Sales, Power BI and Microsoft 365, for the rest. Companies whose finance team and auditors need strong controls and US reporting usually lean towards Business Central; companies wanting one low-cost suite for everything often look at Odoo.</p>
+<h2>Customization and upgrades</h2>
+<p>Odoo is customized in Python and is very flexible, but custom modules often need rework when you move to a new major version. Business Central extensions are built on Microsoft’s extension model and are designed to keep working through Microsoft’s twice-yearly updates, which keeps long-term maintenance predictable.</p>''', art=('page-cmp-odoo.webp', 'Illustration of a balance scale weighing a single blue cube against many puzzle pieces'))
+
+# GUIDES HUB
+add('guides/', 'guides',
+    'Business Central Guides, Comparisons & Checklists | Q84 Digital',
+    'Free Business Central guides: implementation cost and timeline, comparisons with NetSuite, Sage Intacct and Odoo, and an ERP readiness checklist.',
+    page_head('Guides', 'Guides', 'Business Central guides',
+              'Practical guides, honest comparisons and free tools to help you plan, choose and implement Business Central.', button=False, art=('page-guides.webp', 'Illustration of an open guidebook, a stack of books and a light bulb')) + f'''
+<section style="padding-top:32px"><div class="wrap">
+  <h2 class="sr-only">All guides and tools</h2>
   <div class="grid g3">
     <a class="card resource-card" href="{CHECKLIST_URL}">
       <img src="@/images/erp-checklist-cover.webp" alt="" width="640" height="828" loading="lazy">
       <span class="tag">Checklist · PDF</span><h3>ERP Readiness Checklist</h3>
       <p>52 questions across 9 areas to find the gaps before you choose an ERP. Fillable, 6 pages.</p>
       <span class="more">See what’s inside →</span></a>
-    <a class="card resource-card" href="@/licensing/#calculator">
-      <span class="resource-art">{icon('chart')}</span>
-      <span class="tag">Tool</span><h3>License cost calculator</h3>
-      <p>Estimate your monthly Business Central license cost from your number of users.</p>
-      <span class="more">Estimate your costs →</span></a>
+    {''.join(f'<a class="card resource-card" href="{h}"><span class="resource-art">{icon("chart" if t != "Comparison" else "link")}</span><span class="tag">{t}</span><h3>{n}</h3><p>{d}</p><span class="more">Read →</span></a>' for h, t, n, d in GUIDE_LIST)}
     <a class="card resource-card" href="@/blog/">
       <span class="resource-art">{icon('ledger')}</span>
       <span class="tag">Articles</span><h3>Business Central blog</h3>
@@ -1255,6 +2134,7 @@ add('resources/', 'resources',
   </div>
 </div></section>
 {cta()}''')
+
 
 # PRIVACY
 legal_line = f' Q84 Digital is operated by {esc(CFG["legal_name"])}.' if CFG.get('legal_name') else ''
@@ -1267,12 +2147,12 @@ add('privacy/', 'privacy', 'Privacy Policy | Q84 Digital',
     page_head('Privacy', 'Privacy', 'Privacy policy', f'Last updated {date.today().strftime("%B %-d, %Y")}.', button=False) + f'''
 <section style="padding-top:24px"><div class="wrap prose">
 <p>This policy explains how Q84 Digital handles personal information you share through this website.{legal_line}</p>
-<h2>What we collect</h2><p>When you request a consultation we collect the details you enter: your name, business email, company, the topic you choose and any message you write.</p>
+<h2>What we collect</h2><p>When you request a consultation we collect the details you enter: your name, business email, company, the topic you choose and any message you write. When you download the ERP Readiness Checklist we collect your email address and, if you enter them, your first name and company.</p>
 <h2>How we use it</h2><p>We use your information only to reply to your request, arrange a consultation and follow up about your project. We don't sell or rent it, and we don't add you to marketing lists without your consent.</p>
 <h2>Analytics</h2>{analytics_line}
 <h2>Embedded videos</h2><p>Some pages include videos hosted on YouTube. Nothing loads from YouTube until you press play. When you do, the video plays from YouTube’s privacy-enhanced mode and YouTube’s privacy policy applies.</p>
 <h2>Sharing</h2><p>We share information only with service providers that help us run this website and handle email, and only as needed to provide those services, or where the law requires it.</p>
-<h2>Retention and your rights</h2><p>We keep inquiries for as long as needed to respond and manage any resulting work. You can ask to see, correct or delete your information at any time by emailing <span style="user-select:all">{esc(EMAIL)}</span>. Under Canada's PIPEDA you can also contact the Office of the Privacy Commissioner of Canada.</p>
+<h2>Retention and your rights</h2><p>We keep inquiries for as long as needed to respond and manage any resulting work. You can ask to see, correct or delete your information at any time by emailing <span style="user-select:all">{esc(EMAIL)}</span>. If you have a concern we haven’t resolved, you can also contact the Washington State Attorney General’s Office.</p>
 </div></section>''')
 
 # ---------------------------------------------------------------- render
@@ -1340,9 +2220,8 @@ def render(p):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{img_url}">
 {verify}<link rel="icon" href="{FAVICON}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Open+Sans:wght@400;600&display=swap">
+<link rel="preload" href="@/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="@/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="@/assets/site.css?v={CSS_V}">
 {analytics()}{schema}<script>window.Q84={client};</script>
 </head>
@@ -1352,13 +2231,69 @@ def render(p):
 {p['body']}
 </main>
 {footer()}
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="@/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="@/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
 <script src="@/assets/site.js?v={JS_V}" defer></script>
 </body>
 </html>
 '''
     return doc.replace('@/', BASE)
 
-SUBNAV_PAGES = {'business-central/', 'licensing/', 'implementation/', 'data-migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/', 'industries/services/'}
+SUBNAV_PAGES = {'business-central/', 'licensing/', 'implementation/', 'migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/', 'industries/professional-services/',
+                'rescue/', 'development/', 'business-central-partner-tacoma/', 'industries/ecommerce/',
+                'migration/quickbooks/', 'migration/dynamics-gp/', 'migration/dynamics-nav/', 'migration/sage/', 'migration/spreadsheets/',
+                'integrations/shopify/', 'integrations/edi/', 'integrations/power-bi/', 'integrations/warehouse-insight/',
+                'guides/implementation-cost/', 'guides/implementation-timeline/'}
+# In-depth sections live in src/content_deep.py: path -> (h2, prose html). Each is placed before the
+# page's FAQ (or related links / checklist promo / booking section, whichever comes first).
+import sys
+sys.path.insert(0, os.path.join(ROOT, 'src'))
+from content_deep import DEEP
+DEEP_MARKERS = ('<span class="eyebrow">FAQ</span>', '<section data-nosubnav', '<section class="promo-section"', '<section class="cta-section"')
+DEEP_NO_SUBNAV = {'industries/professional-services/'}  # menu already full on these pages
+def add_deep(body, h2, prose, nosub=False):
+    sec = f'''<section{' data-nosubnav' if nosub else ''}><div class="wrap">
+  <div class="section-head"><span class="eyebrow">In depth</span><h2>{h2}</h2></div>
+  <div class="prose deep">{prose}</div>
+</div></section>
+'''
+    for m in DEEP_MARKERS:
+        i = body.find(m)
+        if i >= 0:
+            i = body.rfind('<section', 0, i) if m.startswith('<span') else i
+            return body[:i] + sec + body[i:]
+    return body + sec
+
+def alternate_bands(body):
+    # re-shade content sections plain/band in turn; sections with padding-top:0 continue the one before
+    band = True
+    def fix(m):
+        nonlocal band
+        attrs = m.group(1) or ''
+        if re.search(r'class="(?!band")', attrs): return m.group(0)
+        if 'padding-top:0' not in attrs: band = not band
+        attrs = attrs.replace(' class="band"', '')
+        return f'<section{attrs}{" class=\"band\"" if band else ""}>'
+    return re.sub(r'<section((?: [^>]*)?)>', fix, body)
+
+for p in PAGES:
+    if p['path'] in DEEP:
+        p['body'] = alternate_bands(add_deep(p['body'], *DEEP[p['path']], nosub=p['path'] in DEEP_NO_SUBNAV))
 for p in PAGES:
     if p['path'] in SUBNAV_PAGES: p['subnav'] = True
 for p in PAGES:
@@ -1372,6 +2307,17 @@ nf = dict(path='404.html', nav='', title='Page not found | Q84 Digital', desc='T
                                     'The link may be out of date. Try the homepage or book a consultation.') )
 html404 = render(nf).replace(f'<link rel="canonical" href="{URL}404.html">\n', '<meta name="robots" content="noindex">\n')
 open(os.path.join(ROOT, '404.html'), 'w').write(html404)
+
+# Old URLs renamed before launch: GitHub Pages has no server redirects, so leave a small page that forwards
+REDIRECTS = {'integrations/warehouse-mobile/': 'integrations/warehouse-insight/', 'industries/services/': 'industries/professional-services/', 'data-migration/': 'migration/', 'resources/': 'guides/', 'resources/erp-readiness-checklist/': 'guides/erp-readiness-checklist/'}
+for old, new in REDIRECTS.items():
+    os.makedirs(os.path.join(ROOT, old), exist_ok=True)
+    open(os.path.join(ROOT, old, 'index.html'), 'w').write(f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Moved | Q84 Digital</title>
+<link rel="canonical" href="{URL}{new}"><meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={BASE}{new}"></head>
+<body><p>This page has moved to <a href="{BASE}{new}">{URL}{new}</a>.</p></body></html>
+''')
 
 # sitemap + robots
 urls = ''.join(f'<url><loc>{URL}{p["path"]}</loc><lastmod>{TODAY}</lastmod></url>' for p in PAGES)

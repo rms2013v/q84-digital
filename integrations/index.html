@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Business Central Integrations &amp; Shopify | Q84 Digital</title>
-<meta name="description" content="Connect Business Central to Shopify, shipping carriers, CRM, EDI providers and Power BI, and extend it with AL and Power Automate. Includes a worked example and FAQs.">
+<title>Business Central Integrations &amp; Customization | Q84 Digital</title>
+<meta name="description" content="Connect Business Central to Shopify, EDI partners, carriers, CRM and Power BI, add warehouse scanning, and extend it with AL and Power Automate.">
 <link rel="canonical" href="https://q84digital.com/integrations/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Q84 Digital">
-<meta property="og:title" content="Business Central Integrations &amp; Shopify | Q84 Digital">
-<meta property="og:description" content="Connect Business Central to Shopify, shipping carriers, CRM, EDI providers and Power BI, and extend it with AL and Power Automate. Includes a worked example and FAQs.">
+<meta property="og:title" content="Business Central Integrations &amp; Customization | Q84 Digital">
+<meta property="og:description" content="Connect Business Central to Shopify, EDI partners, carriers, CRM and Power BI, add warehouse scanning, and extend it with AL and Power Automate.">
 <meta property="og:url" content="https://q84digital.com/integrations/">
 <meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
 <meta property="og:image:width" content="1200">
@@ -17,14 +17,12 @@
 <meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
-<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Open+Sans:wght@400;600&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=cbb205ad">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=8aabd02f">
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Will integrations break when Business Central updates?", "acceptedAnswer": {"@type": "Answer", "text": "Microsoft releases two major updates a year. Integrations built on its standard APIs and extension model are designed to survive them, and we test custom work against each release preview so problems show up before your production system updates."}}, {"@type": "Question", "name": "Do integrations run in real time?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the connection. Some sync within minutes, others run on a schedule such as every 15 minutes or nightly. We pick the timing based on what the business needs, such as near real-time stock for an online store and nightly for reporting."}}, {"@type": "Question", "name": "Do we always need custom code?", "acceptedAnswer": {"@type": "Answer", "text": "No. We check for a standard connector or an AppSource app first, such as Microsoft’s Shopify connector. Custom development is only for gaps those options can’t cover."}}, {"@type": "Question", "name": "Are there running costs?", "acceptedAnswer": {"@type": "Answer", "text": "Sometimes. Connector apps often have a monthly subscription, and some integrations use Azure services billed by Microsoft. We include these costs in the estimate so there are no surprises."}}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Integrations & customization"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Integrations"}]}</script>
 <script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_notice_hours": 24, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
 </head>
 <body>
@@ -34,28 +32,31 @@
     <a class="logo" href="/" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <nav class="nav-links" id="navLinks" aria-label="Main">
-      <a href="/business-central/">Business Central</a><details class="dd current"><summary>Services</summary><div class="dd-menu"><a href="/implementation/">Implementation</a><a href="/licensing/">Licensing &amp; pricing</a><a href="/data-migration/">Data migration</a><a href="/integrations/" aria-current="page">Integrations &amp; customization</a><a href="/support/">Support</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/services/">Service businesses</a></div></details><a href="/blog/">Blog</a>
+      <a href="/business-central/">Business Central</a><details class="dd"><summary>Services</summary><div class="dd-menu"><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a></div></details><details class="dd"><summary>Migration</summary><div class="dd-menu"><a href="/migration/">All migrations</a><a href="/migration/quickbooks/">From QuickBooks</a><a href="/migration/dynamics-gp/">From Dynamics GP</a><a href="/migration/dynamics-nav/">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd current"><summary>Integrations</summary><div class="dd-menu"><a href="/integrations/" aria-current="page">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></details><details class="dd"><summary>Guides</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
       <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
     </nav>
   </div>
 </header>
 <main id="main">
-<div class="page-head"><div class="wrap stack">
-<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / Services / Integrations &amp; customization</nav>
+<div class="page-head"><div class="wrap page-head-grid"><div class="stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / Integrations</nav>
 <h1>Business Central integrations and customization</h1>
 <p class="lede">Connect Business Central to the tools you already use, and extend it where standard features don’t cover your process.</p>
-</div></div>
-<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#what-we-build">What we build</a><a href="#common-integrations">Common integrations</a><a href="#our-approach">Our approach</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+</div><figure class="page-head-art"><img src="/images/page-integrations.webp" alt="Illustration of a central hub connected to a laptop, phone, shopping bag and delivery truck" width="800" height="595" fetchpriority="high"></figure></div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#what-we-build">What we build</a><a href="#common-integrations">Common integrations</a><a href="#our-approach">Approach</a><a href="#in-depth">In depth</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
 <section id="what-we-build"><div class="wrap">
   <div class="section-head"><span class="eyebrow">What we build</span><h2>Connected systems, less manual entry</h2>
   <p class="lede">Every time someone retypes an order, a tracking number or a stock level, you pay for it in time and errors. Integrations remove those steps so data is entered once and flows where it is needed.</p></div>
   <div class="grid g3">
-    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><span class="tag">Extensions</span><h3>AL development</h3><p>Custom fields, pages, reports and business logic built as extensions.</p></div>
-    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></span><span class="tag">APIs</span><h3>System integrations</h3><p>Data sync with other business systems through Business Central's APIs.</p></div>
-    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v11h16V9"/><path d="M4 9a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0 2.7 2.7 0 005.3 0"/></svg></span><span class="tag">Commerce</span><h3>Shopify &amp; e-commerce</h3><p>Orders, items, stock and pricing kept in step with your online store.</p></div>
+    <a class="card" href="/integrations/shopify/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v11h16V9"/><path d="M4 9a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0 2.7 2.7 0 005.3 0"/></svg></span><span class="tag">Commerce</span><h3>Shopify &amp; e-commerce</h3><p>Orders, items, stock and pricing kept in step with your online store.</p><span class="more">Shopify integration →</span></a>
+    <a class="card" href="/integrations/edi/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span><span class="tag">Trading partners</span><h3>EDI</h3><p>Purchase orders, ship notices and invoices exchanged with retailers and suppliers.</p><span class="more">EDI integration →</span></a>
+    <a class="card" href="/integrations/power-bi/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12A9 9 0 1112 3v9z"/><path d="M15 3.5A9 9 0 0120.5 9H15z"/></svg></span><span class="tag">Reporting</span><h3>Power BI</h3><p>Financial and operational dashboards on live Business Central data.</p><span class="more">Power BI reporting →</span></a>
+    <a class="card" href="/integrations/warehouse-insight/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></span><span class="tag">Mobile WMS</span><h3>Warehouse Insight</h3><p>A scanner-first warehouse app for receiving, picking, counts and license plates.</p><span class="more">Warehouse Insight →</span></a>
+    <a class="card" href="/development/"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><span class="tag">Extensions</span><h3>AL development</h3><p>Custom fields, pages, reports and business logic built as extensions.</p><span class="more">Development →</span></a>
     <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></span><span class="tag">Logistics</span><h3>Shipping &amp; fulfillment</h3><p>Carrier rates, labels and tracking connected to warehouse shipments.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></span><span class="tag">APIs</span><h3>System integrations</h3><p>Data sync with CRM and other business systems through Business Central's APIs.</p></div>
     <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span><span class="tag">Automation</span><h3>Power Automate</h3><p>Approvals, notifications and routine tasks handled automatically.</p></div>
-    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12A9 9 0 1112 3v9z"/><path d="M15 3.5A9 9 0 0120.5 9H15z"/></svg></span><span class="tag">Reporting</span><h3>Power BI</h3><p>Financial and operational dashboards on live Business Central data.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 15h3"/></svg></span><span class="tag">Microsoft 365</span><h3>Outlook, Excel &amp; Teams</h3><p>Business Central data where your team already works.</p></div>
   </div>
 </div></section>
 <section class="band" id="common-integrations"><div class="wrap">
@@ -74,18 +75,22 @@
   <div class="stack"><span class="eyebrow">Our approach</span><h2>Configure first, customize only when it pays off</h2><p class="lede">Every custom line of code is something to maintain. We check whether standard features or an existing app can do the job before we build anything.</p></div>
   <ul class="checks"><li><div><strong>Fit check.</strong> Standard setup, AppSource app or custom extension: we compare the options and their running costs with you.</div></li><li><div><strong>Clear data flow.</strong> We agree which system owns each piece of data, how often it syncs and what happens when something fails.</div></li><li><div><strong>Built for updates.</strong> Extensions follow Microsoft’s extension model, which keeps Business Central updates much smoother. We still test custom work against each major release.</div></li><li><div><strong>Tested properly.</strong> Integrations are tested with realistic data volumes, duplicates and error cases, not just the happy path.</div></li><li><div><strong>Documented.</strong> You get notes on what was built, how it works and how to monitor it.</div></li></ul>
 </div></section>
-<section class="band"><div class="wrap">
-  <div class="worked">
-  <span class="label">Worked example · Illustrative scenario</span>
-  <h3>Connecting a Shopify store to Business Central</h3>
-  <p>An e-commerce distributor sells through Shopify and keeps its accounting in Business Central. Staff re-enter every web order, stock levels are updated by hand twice a day, and the store sometimes sells items that are out of stock.</p>
-  <div class="table-wrap"><table><thead><tr><th>Stage</th><th>What happens</th></tr></thead><tbody><tr><td>Design</td><td>Agree that Business Central owns items, prices and stock, and Shopify owns web orders. Map product variants to item variants.</td></tr><tr><td>Setup</td><td>Configure Microsoft’s Shopify connector: item sync, stock sync by location, and order import with customer matching.</td></tr><tr><td>Rules</td><td>Orders with unknown items or failed payments go to a review list instead of creating bad sales orders.</td></tr><tr><td>Testing</td><td>Run test orders, refunds and partial shipments through the full flow, from Shopify order to shipment, invoice and payment.</td></tr><tr><td>Go-live</td><td>Switch on scheduled sync and train staff to clear the exceptions list each morning.</td></tr></tbody></table></div>
-  <p><strong>Outcome:</strong> Web orders arrive in Business Central without retyping, the store shows stock that matches the warehouse, and staff only touch the orders that genuinely need attention.</p>
-  <p class="shot-note">This example shows how we approach this kind of project. It is not a client case study.</p>
-</div>
+<section class="band"><div class="wrap"><div class="note">Also running Dynamics 365 Sales, Customer Service or Field Service? We work across the Dynamics 365 family and can connect Business Central with Dataverse and your CRM.</div></div></section>
+<section id="in-depth"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">In depth</span><h2>Planning an integration that keeps working</h2></div>
+  <div class="prose deep">
+<p>Most integration problems aren’t technical. They come from unclear ownership of data and no plan for what happens when something fails. Before building any connection we agree a few basics with you:</p>
+<ul>
+<li><strong>System of record:</strong> which system owns each piece of data, such as items, prices, customers, orders and stock.</li>
+<li><strong>Timing:</strong> real time, every few minutes, or nightly, based on what the business actually needs.</li>
+<li><strong>Error handling:</strong> where failed records go, who reviews them and how quickly.</li>
+<li><strong>Monitoring:</strong> how you’ll know if a sync stops, before a customer notices.</li>
+</ul>
+<p>We then choose the simplest reliable option: Microsoft’s own connectors first, then proven AppSource apps, then custom API work for what’s left.</p>
+<h3>Integration or AppSource app?</h3>
+<p>Before commissioning a custom integration, check Microsoft AppSource. Many common connections, including shipping carriers, EDI networks, sales tax engines, payment providers and marketplaces, already have maintained apps. A subscription to a proven app is usually cheaper over five years than building and maintaining the same connection yourself.</p><p>Every integration we build or set up comes with notes on how it works, where errors appear and who to contact when something changes.</p></div>
 </div></section>
-<section id="faq"><div class="wrap"><div class="note">Also running Dynamics 365 Sales, Customer Service or Field Service? We work across the Dynamics 365 family and can connect Business Central with Dataverse and your CRM.</div></div></section>
-<section class="band"><div class="wrap split">
+<section class="band" id="faq"><div class="wrap split">
   <div class="stack"><span class="eyebrow">FAQ</span><h2>Frequently asked questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
   <div class="faq"><details><summary>Will integrations break when Business Central updates?</summary><p>Microsoft releases two major updates a year. Integrations built on its standard APIs and extension model are designed to survive them, and we test custom work against each release preview so problems show up before your production system updates.</p></details><details><summary>Do integrations run in real time?</summary><p>It depends on the connection. Some sync within minutes, others run on a schedule such as every 15 minutes or nightly. We pick the timing based on what the business needs, such as near real-time stock for an online store and nightly for reporting.</p></details><details><summary>Do we always need custom code?</summary><p>No. We check for a standard connector or an AppSource app first, such as Microsoft’s Shopify connector. Custom development is only for gaps those options can’t cover.</p></details><details><summary>Are there running costs?</summary><p>Sometimes. Connector apps often have a monthly subscription, and some integrations use Azure services billed by Microsoft. We include these costs in the estimate so there are no surprises.</p></details></div>
 </div></section>
@@ -103,17 +108,35 @@
     <div class="foot">
       <div class="stack" style="gap:12px">
         <a class="logo" href="/"><span class="logo-mark">Q84</span>Q84 Digital</a>
-        <p>Business Central implementation for distribution and manufacturing businesses, led by a senior supply chain consultant.</p>
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li>Tacoma, Washington</li></ul>
-        <div class="socials"><a class="social" href="#" data-placeholder aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a><a class="social" href="#" data-placeholder aria-label="Q84 Digital on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12a31 31 0 00.5 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.8 15.1V8.9l5.8 3.1z"/></svg></a></div>
+        <p>Tacoma-based Microsoft Dynamics 365 Business Central partner for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li>Tacoma, Washington</li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></div>
       </div>
-      <div><h4>Business Central</h4><ul><li><a href="/business-central/">Overview &amp; features</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/business-central/#fit">Is Business Central enough?</a></li><li><a href="/resources/erp-readiness-checklist/">ERP readiness checklist</a></li></ul></div>
-      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/data-migration/">Data migration</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/support/">Support</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/services/">Service businesses</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resources/">Resources</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
     </div>
     <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=c04cc126" defer></script>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=180860a1" defer></script>
 </body>
 </html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Business Central Power BI Reporting Setup | Q84 Digital</title>
+<meta name="description" content="Power BI reporting for Business Central: Microsoft’s ready-made reports, custom dashboards, dimensions and multi-company reporting, set up properly.">
+<link rel="canonical" href="https://q84digital.com/integrations/power-bi/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="Business Central Power BI Reporting Setup | Q84 Digital">
+<meta property="og:description" content="Power BI reporting for Business Central: Microsoft’s ready-made reports, custom dashboards, dimensions and multi-company reporting, set up properly.">
+<meta property="og:url" content="https://q84digital.com/integrations/power-bi/">
+<meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=8aabd02f">
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do we need Power BI licenses?", "acceptedAnswer": {"@type": "Answer", "text": "To build and share reports, people usually need a Power BI Pro license, which some Microsoft 365 plans include. Viewing reports inside Business Central follows the same Power BI licensing rules. We confirm the right setup for your team."}}, {"@type": "Question", "name": "How current is the data?", "acceptedAnswer": {"@type": "Answer", "text": "Reports refresh on a schedule, typically several times a day. For truly live numbers, Business Central’s own pages and Excel views are always up to date."}}, {"@type": "Question", "name": "Can we report across several companies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Power BI can combine data from several Business Central companies into one report, which is often simpler than consolidating in Business Central for management reporting."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Integrations", "item": "https://q84digital.com/integrations/"}, {"@type": "ListItem", "position": 3, "name": "Power BI"}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_notice_hours": 24, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/business-central/">Business Central</a><details class="dd"><summary>Services</summary><div class="dd-menu"><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a></div></details><details class="dd"><summary>Migration</summary><div class="dd-menu"><a href="/migration/">All migrations</a><a href="/migration/quickbooks/">From QuickBooks</a><a href="/migration/dynamics-gp/">From Dynamics GP</a><a href="/migration/dynamics-nav/">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd current"><summary>Integrations</summary><div class="dd-menu"><a href="/integrations/">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/" aria-current="page">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></details><details class="dd"><summary>Guides</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
+      <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap page-head-grid"><div class="stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/integrations/">Integrations</a> / Power BI</nav>
+<h1>Business Central Power BI reporting</h1>
+<p class="lede">Stop rebuilding reports in Excel every month. We set up Power BI on your Business Central data so the numbers your team needs are always one click away.</p>
+</div><figure class="page-head-art"><img src="/images/page-power-bi.webp" alt="Illustration of a monitor with a reporting dashboard, a bar chart and a pie chart" width="800" height="595" fetchpriority="high"></figure></div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#what-we-set-up">Setup</a><a href="#examples">Examples</a><a href="#good-reports-start-in-business-central">Setup tips</a><a href="#in-depth">In depth</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+<section id="what-we-set-up"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What we set up</span><h2>From ready-made reports to custom dashboards</h2></div>
+  <div class="grid g3">
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12A9 9 0 1112 3v9z"/><path d="M15 3.5A9 9 0 0120.5 9H15z"/></svg></span><h3>Microsoft’s ready-made reports</h3><p>Finance, sales, purchasing, inventory, projects and manufacturing reports from Microsoft, connected and configured.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span><h3>Custom dashboards</h3><p>The handful of numbers your leadership team actually runs the business on, on one page.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 15h3"/></svg></span><h3>Inside Business Central</h3><p>Reports embedded in role centers, so people see them where they already work.</p></div>
+  </div>
+</div></section>
+<section class="band" id="examples"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Examples</span><h2>Reports our clients ask for most</h2></div>
+  <ul class="checks"><li><div><strong>Margin by customer, item and salesperson.</strong> Including landed costs and discounts.</div></li><li><div><strong>Inventory health.</strong> Stock value, slow movers, stockouts and days on hand by location.</div></li><li><div><strong>Cash and receivables.</strong> Aging, collections and cash forecast.</div></li><li><div><strong>Sales trends.</strong> This year against last year, by region, channel and product line.</div></li><li><div><strong>Job and project profitability.</strong> Budget against actual for service businesses.</div></li></ul>
+</div></section>
+<section id="good-reports-start-in-business-central"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Good reports start in Business Central</span><h2>Why setup matters</h2><p class="lede">Power BI can only slice data the way Business Central records it. Clean dimensions, item categories and customer groups make reports simple; messy ones make them impossible.</p></div>
+  <ul class="checks"><li><div><strong>Dimensions.</strong> Department, location, channel or project recorded on every transaction.</div></li><li><div><strong>Categories.</strong> Item categories and customer groups that match how you report.</div></li><li><div><strong>Definitions.</strong> One agreed meaning for margin, revenue and on-time delivery.</div></li></ul>
+</div></section>
+<section class="band" id="in-depth"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">In depth</span><h2>Building a Business Central reporting setup that lasts</h2></div>
+  <div class="prose deep">
+<h3>Start with five numbers</h3>
+<p>The most useful reporting projects start small. Ask the leadership team which five numbers they look at every week, how they want them sliced and how often they need them. Build those first, get them trusted, then expand. A dashboard with forty charts that nobody trusts is worse than five numbers everyone believes.</p>
+<h3>Where reports should live</h3>
+<ul>
+<li><strong>Business Central pages and lists</strong> for operational, always-current views such as open orders, stock or overdue invoices.</li>
+<li><strong>Excel</strong> for ad hoc analysis, using Business Central’s built-in Excel views and financial reports.</li>
+<li><strong>Power BI</strong> for trends, comparisons across companies or periods, and dashboards for leadership.</li>
+</ul>
+<h3>Data refresh and access</h3>
+<p>Power BI reports usually refresh on a schedule, several times a day. Access is controlled in Power BI by workspace and report, and can follow Business Central permissions where needed. People who build or share reports typically need a Power BI Pro license, which some Microsoft 365 plans include.</p>
+<h3>Keeping definitions consistent</h3>
+<p>Agree one definition for each key measure, such as revenue (gross or net of returns), margin (with or without landed cost and freight) and on-time delivery. Write them down and build them once in the data model, so every report uses the same numbers.</p>
+<h3>Common reports by role</h3>
+<ul>
+<li><strong>Owner or CEO:</strong> revenue, gross margin, cash and receivables trend, compared with last year and budget.</li>
+<li><strong>Finance:</strong> aged receivables and payables, cash forecast, expenses by department, and month-end checks.</li>
+<li><strong>Sales:</strong> sales by rep, customer and product line, open quotes, and customers buying less than last year.</li>
+<li><strong>Operations:</strong> stock value and turns, stockouts, slow movers, on-time shipping and backorders.</li>
+</ul>
+<h3>Ready-made reports first</h3>
+<p>Microsoft provides Power BI reports for Business Central covering finance, sales, purchasing, inventory, projects and manufacturing. Starting from these and adjusting them is usually much faster than building from scratch, and they keep up with Microsoft’s data model as Business Central updates.</p><h3>Data quality comes first</h3>
+<p>Reports only show what Business Central records. If salespeople aren’t assigned to customers, items have no categories, or transactions miss their department dimension, the reports will have gaps. Part of every reporting project is checking those basics and, where needed, making fields mandatory so the data stays clean from then on.</p><h3>Sharing reports safely</h3>
+<p>Decide early who should see what. Leadership dashboards with margins and salaries shouldn’t be shared as widely as operational reports. Power BI workspaces and row-level security let you show each team only the data it needs, for example restricting sales reps to their own customers.</p></div>
+</div></section>
+<section id="faq"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Power BI questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>Do we need Power BI licenses?</summary><p>To build and share reports, people usually need a Power BI Pro license, which some Microsoft 365 plans include. Viewing reports inside Business Central follows the same Power BI licensing rules. We confirm the right setup for your team.</p></details><details><summary>How current is the data?</summary><p>Reports refresh on a schedule, typically several times a day. For truly live numbers, Business Central’s own pages and Excel views are always up to date.</p></details><details><summary>Can we report across several companies?</summary><p>Yes. Power BI can combine data from several Business Central companies into one report, which is often simpler than consolidating in Business Central for management reporting.</p></details></div>
+</div></section>
+<section data-nosubnav class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>Other integrations</h2></div>
+  <div class="fgrid"><a class="fitem" href="/integrations/shopify/"><h3>Shopify</h3><p>Orders, items, stock and payouts synced with your store.</p><span class="more">Read more →</span></a><a class="fitem" href="/integrations/edi/"><h3>EDI</h3><p>Orders, ship notices and invoices with trading partners.</p><span class="more">Read more →</span></a><a class="fitem" href="/integrations/warehouse-insight/"><h3>Warehouse Insight</h3><p>Mobile WMS app for receiving, picking, counts and license plates.</p><span class="more">Read more →</span></a></div>
+</div></section>
+<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>Want reports you don’t have to rebuild every month?</h2><p>Book a free 30-minute call. Tell us which numbers matter and we’ll show you how to get them.</p></div>
+    <div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="/contact/"><a class="next-slot next-fallback" href="/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="/contact/#schedule">See all times →</a>
+    </div>
+  </div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/"><span class="logo-mark">Q84</span>Q84 Digital</a>
+        <p>Tacoma-based Microsoft Dynamics 365 Business Central partner for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li>Tacoma, Washington</li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></div>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+  </div>
+</footer>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=180860a1" defer></script>
+</body>
+</html>

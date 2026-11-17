@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QuickBooks to Business Central Migration | Q84 Digital</title>
+<meta name="description" content="Move from QuickBooks Online or Desktop to Microsoft Dynamics 365 Business Central with clean data, real inventory and balances that reconcile to the cent.">
+<link rel="canonical" href="https://q84digital.com/migration/quickbooks/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="QuickBooks to Business Central Migration | Q84 Digital">
+<meta property="og:description" content="Move from QuickBooks Online or Desktop to Microsoft Dynamics 365 Business Central with clean data, real inventory and balances that reconcile to the cent.">
+<meta property="og:url" content="https://q84digital.com/migration/quickbooks/">
+<meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=8aabd02f">
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can we migrate from both QuickBooks Online and QuickBooks Desktop?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The data we bring over is the same: chart of accounts, customers, vendors, items, open invoices and bills, and balances. Only the way we extract it differs."}}, {"@type": "Question", "name": "What happens to payroll?", "acceptedAnswer": {"@type": "Answer", "text": "Business Central doesn’t include US payroll. Most companies keep a payroll provider such as ADP or Gusto and post payroll to Business Central as a journal, or connect it with an app."}}, {"@type": "Question", "name": "Do QuickBooks classes and locations carry over?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, as dimensions in Business Central. Dimensions do the same job with more flexibility, so you can report profit by department, location or project."}}, {"@type": "Question", "name": "Should we bring our transaction history?", "acceptedAnswer": {"@type": "Answer", "text": "Usually just open items, balances and monthly totals for one or two prior years. Keep QuickBooks or an export for looking up old invoices."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Migration", "item": "https://q84digital.com/migration/"}, {"@type": "ListItem", "position": 3, "name": "QuickBooks"}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_notice_hours": 24, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/business-central/">Business Central</a><details class="dd"><summary>Services</summary><div class="dd-menu"><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a></div></details><details class="dd current"><summary>Migration</summary><div class="dd-menu"><a href="/migration/">All migrations</a><a href="/migration/quickbooks/" aria-current="page">From QuickBooks</a><a href="/migration/dynamics-gp/">From Dynamics GP</a><a href="/migration/dynamics-nav/">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd"><summary>Integrations</summary><div class="dd-menu"><a href="/integrations/">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></details><details class="dd"><summary>Guides</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
+      <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap page-head-grid"><div class="stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/migration/">Migration</a> / QuickBooks</nav>
+<h1>QuickBooks to Business Central migration</h1>
+<p class="lede">You’ve outgrown QuickBooks. We move your accounts, customers, vendors, items and balances into Business Central, then prove the numbers match.</p>
+</div><figure class="page-head-art"><img src="/images/page-mig-quickbooks.webp" alt="Illustration of an accounting ledger and calculator, boxes on a pallet and a laptop with an inventory list" width="800" height="595" fetchpriority="high"></figure></div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#why-companies-move">Why move</a><a href="#what-moves-where">Mapping</a><a href="#in-depth">In depth</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+<section id="why-companies-move"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Why companies move</span><h2>Signs you’ve outgrown QuickBooks</h2><p class="lede">QuickBooks is a good accounting system for a small company. It wasn’t built to run inventory, warehouses and several entities. For a closer look, read <a href="/blog/signs-you-have-outgrown-quickbooks/">seven signs your distribution business has outgrown QuickBooks</a>.</p></div>
+  <ul class="checks"><li><div><strong>Inventory lives in spreadsheets.</strong> Stock and costs are tracked outside your books. <a href="/migration/spreadsheets/">We move those too.</a></div></li><li><div><strong>More than one location or company.</strong> Consolidation and inter-company work take days.</div></li><li><div><strong>Month-end takes a week.</strong> Reports are rebuilt in Excel every month.</div></li><li><div><strong>File size and speed.</strong> QuickBooks Desktop slows down or hits its limits.</div></li><li><div><strong>No real controls.</strong> Approvals, user permissions and audit trails are thin.</div></li></ul>
+</div></section>
+<section class="band" id="what-moves-where"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What moves where</span><h2>How QuickBooks maps to Business Central</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>In QuickBooks</th><th>In Business Central</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Chart of accounts</td><td>General ledger accounts</td><td>A good time to simplify. Many QuickBooks accounts become dimensions instead.</td></tr>
+      <tr><td>Classes and locations</td><td>Dimensions</td><td>Agree the reporting you want before mapping.</td></tr>
+      <tr><td>Customers and vendors</td><td>Customers and vendors with posting groups</td><td>Duplicates and inactive records cleaned up first.</td></tr>
+      <tr><td>Items (inventory, non-inventory, service)</td><td>Items, with costing method and units of measure</td><td>Stock by location usually comes from spreadsheets and a physical count.</td></tr>
+      <tr><td>Sales tax items</td><td>Tax areas, groups and jurisdictions</td><td>Set up per state; consider a tax engine if you ship to many states.</td></tr>
+      <tr><td>Open invoices and bills</td><td>Open customer and vendor ledger entries</td><td>Reconciled to QuickBooks aging reports.</td></tr>
+      <tr><td>Trial balance</td><td>Opening balances</td><td>Matched to the cent at cutover.</td></tr>
+    </tbody></table></div>
+</div></section>
+<section><div class="wrap">
+  <div class="worked">
+  <span class="label">Worked example · Illustrative scenario</span>
+  <h3>Moving a 25-person distributor off QuickBooks Desktop</h3>
+  <p>A distributor runs accounting in QuickBooks Desktop with around 1,800 customers. Its 4,000 items and stock levels for two warehouses live in spreadsheets, and month-end takes a week of reconciling.</p>
+  <div class="table-wrap"><table><thead><tr><th>Stage</th><th>What happens</th></tr></thead><tbody><tr><td>Weeks 1 to 2</td><td>Map QuickBooks customers, vendors and accounts to Business Central. Merge the item spreadsheets into one list and agree cleansing rules with the owner.</td></tr><tr><td>Week 3</td><td>First trial load into a test company. Duplicate customers and inconsistent unit-of-measure codes are found and fixed.</td></tr><tr><td>Week 4</td><td>Finance posts test invoices and payments. The warehouse lead checks stock by location and bin.</td></tr><tr><td>Week 5</td><td>Second trial load. Receivables, payables and the trial balance reconcile to QuickBooks.</td></tr><tr><td>Cutover weekend</td><td>Physical stock count, final load of open items and opening balances, and sign-off before Monday trading.</td></tr></tbody></table></div>
+  <p><strong>Outcome:</strong> The company starts in Business Central with balances that match QuickBooks to the cent, one item list and stock it can trust, with no gap in trading.</p>
+  <p class="shot-note">This example shows how we approach this kind of project. It is not a client case study.</p>
+</div>
+</div></section>
+<section class="band" id="in-depth"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">In depth</span><h2>Planning a QuickBooks to Business Central move</h2></div>
+  <div class="prose deep">
+<h3>QuickBooks Online vs QuickBooks Desktop</h3>
+<p>The destination is the same, but the starting point differs. QuickBooks Online data is extracted through exports and its reports; QuickBooks Desktop data comes from exports and the company file’s reports, and older Desktop files often carry more years of inactive records. Either way, we work from reports you can reconcile against: the trial balance, A/R and A/P aging, and an inventory valuation if you track stock in QuickBooks.</p>
+<h3>Things QuickBooks users notice first in Business Central</h3>
+<ul>
+<li><strong>Posting groups.</strong> Instead of choosing an account on every transaction, customers, vendors and items carry posting groups that decide the accounts automatically. This is what keeps the books consistent as volume grows.</li>
+<li><strong>Documents, then posting.</strong> Orders and invoices are created, reviewed and then posted. Posted entries can’t be edited, only reversed, which gives you a real audit trail.</li>
+<li><strong>Dimensions instead of classes.</strong> Department, location or channel tags work across every report and Power BI.</li>
+<li><strong>Real inventory.</strong> Stock by location and bin, reservations against orders, and costs that flow to the general ledger.</li>
+</ul>
+<h3>A realistic timeline</h3>
+<p>For a small distributor, the QuickBooks data migration typically runs over four to six weeks alongside the wider implementation, with two trial loads before the final cutover. Most companies go live at the start of a month so the opening balances line up with a clean period end. Keep QuickBooks available in read-only mode, or keep an export, so you can look up historical transactions after go-live.</p>
+<h3>What to do in QuickBooks before you start</h3>
+<ul>
+<li>Make customers, vendors and items you no longer use inactive.</li>
+<li>Reconcile bank accounts and clear old uncleared items.</li>
+<li>Void or close invoices and bills that will never be paid.</li>
+<li>Agree a cutover date with your accountant, ideally a month or quarter end.</li>
+</ul>
+</div>
+</div></section>
+<section id="faq"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>QuickBooks migration questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>Can we migrate from both QuickBooks Online and QuickBooks Desktop?</summary><p>Yes. The data we bring over is the same: chart of accounts, customers, vendors, items, open invoices and bills, and balances. Only the way we extract it differs.</p></details><details><summary>What happens to payroll?</summary><p>Business Central doesn’t include US payroll. Most companies keep a payroll provider such as ADP or Gusto and post payroll to Business Central as a journal, or connect it with an app.</p></details><details><summary>Do QuickBooks classes and locations carry over?</summary><p>Yes, as dimensions in Business Central. Dimensions do the same job with more flexibility, so you can report profit by department, location or project.</p></details><details><summary>Should we bring our transaction history?</summary><p>Usually just open items, balances and monthly totals for one or two prior years. Keep QuickBooks or an export for looking up old invoices. <a href="/migration/#history">Choosing how much history →</a></p></details></div>
+</div></section>
+<section data-nosubnav class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>Other migrations</h2></div>
+  <div class="fgrid"><a class="fitem" href="/migration/dynamics-gp/"><h3>From Dynamics GP</h3><p>Microsoft’s GP migration tools, plus the cleanup they don’t do.</p><span class="more">Read more →</span></a><a class="fitem" href="/migration/dynamics-nav/"><h3>From Dynamics NAV</h3><p>Upgrade or re-implement, depending on version and code.</p><span class="more">Read more →</span></a><a class="fitem" href="/migration/sage/"><h3>From Sage 50 &amp; Sage 100</h3><p>Mapping Sage data and modules to Business Central.</p><span class="more">Read more →</span></a></div>
+</div></section>
+<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>Ready to move off QuickBooks?</h2><p>Book a free 30-minute call. We’ll look at your QuickBooks setup and tell you what the move involves.</p></div>
+    <div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="/contact/"><a class="next-slot next-fallback" href="/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="/contact/#schedule">See all times →</a>
+    </div>
+  </div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/"><span class="logo-mark">Q84</span>Q84 Digital</a>
+        <p>Tacoma-based Microsoft Dynamics 365 Business Central partner for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li>Tacoma, Washington</li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></div>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+  </div>
+</footer>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=180860a1" defer></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
   "site_url": "https://q84digital.com/",
   "base": "/",
   "email": "hello@q84digital.com",
-  "phone": "",
+  "phone": "(253) 294-9237",
   "booking_url": "",
   "form_endpoint": "https://formsubmit.co/ajax/hello@q84digital.com",
   "ga_id": "",
@@ -10,14 +10,27 @@
   "gsc_verification": "",
   "legal_name": "",
   "consultant_photo": "oleh-karnaukhov.webp",
-  "allow_indexing": false,
+  "allow_indexing": true,
   "implementation_range": "",
   "partner_statement": "Yes. Q84 Digital is a Microsoft partner with full access to Microsoft partner benefits. We help you choose the right licenses, set up Business Central and keep it right-sized as you grow.",
   "case_studies": [],
-  "testimonials": [],
+  "testimonials": [
+      {
+          "quote": "The team demonstrated an in-depth knowledge of Microsoft Dynamics 365 Business Central and a strong understanding of our business processes. They took the time to understand how our agency operates, including client management, project delivery, resource allocation, and financial workflows.",
+          "name": "Schamil",
+          "role": "CEO",
+          "company": "dNOVO Group"
+      },
+      {
+          "quote": "The team delivered the project on budget and on time. The on-site go-live support at our distribution centre was excellent. We were very happy with the team's professionalism and dedication throughout the project.",
+          "name": "Eugeen",
+          "role": "CEO",
+          "company": "EasyRenovation"
+      }
+  ],
   "linkedin_url": "https://www.linkedin.com/in/olehkarnaukhov/",
   "prices_checked": "2026-10-31",
-  "social_linkedin_url": "",
+  "social_linkedin_url": "https://www.linkedin.com/company/q84digital/",
   "social_youtube_url": "",
   "scheduler": {
     "timezone": "America/Los_Angeles",

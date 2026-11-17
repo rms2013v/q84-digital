@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dynamics NAV to Business Central Upgrade | Q84 Digital</title>
+<meta name="description" content="Upgrade from Microsoft Dynamics NAV to Business Central: upgrade or re-implement, what happens to C/AL customizations, and moving to the cloud.">
+<link rel="canonical" href="https://q84digital.com/migration/dynamics-nav/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="Dynamics NAV to Business Central Upgrade | Q84 Digital">
+<meta property="og:description" content="Upgrade from Microsoft Dynamics NAV to Business Central: upgrade or re-implement, what happens to C/AL customizations, and moving to the cloud.">
+<meta property="og:url" content="https://q84digital.com/migration/dynamics-nav/">
+<meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=8aabd02f">
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can we upgrade NAV directly to Business Central online?", "acceptedAnswer": {"@type": "Answer", "text": "Not in one step. NAV 2018 and earlier versions first need upgrading to a Business Central on-premises version, then Microsoft’s cloud migration moves the data online. Older NAV versions often get a fresh implementation with data migration instead, which can be quicker and cleaner."}}, {"@type": "Question", "name": "What happens to our NAV customizations?", "acceptedAnswer": {"@type": "Answer", "text": "Old C/AL code can’t run in Business Central online. Each customization is either replaced with a standard feature, replaced with an AppSource app, or rewritten as an AL extension. Many turn out to be unnecessary."}}, {"@type": "Question", "name": "Is NAV still supported?", "acceptedAnswer": {"@type": "Answer", "text": "Every version of Dynamics NAV is past mainstream support. NAV 2018, the last version, reaches the end of extended support on January 11, 2028. Check Microsoft’s lifecycle pages for your exact version."}}, {"@type": "Question", "name": "Should we move to the cloud or stay on-premises?", "acceptedAnswer": {"@type": "Answer", "text": "Most companies choose Business Central online: Microsoft handles hosting, updates and backups. On-premises still exists for specific needs, and we’ll discuss the trade-offs with you."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Migration", "item": "https://q84digital.com/migration/"}, {"@type": "ListItem", "position": 3, "name": "Dynamics NAV"}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_notice_hours": 24, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Q84 Digital home"><span class="logo-mark">Q84</span>Q84 Digital</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/business-central/">Business Central</a><details class="dd"><summary>Services</summary><div class="dd-menu"><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a></div></details><details class="dd current"><summary>Migration</summary><div class="dd-menu"><a href="/migration/">All migrations</a><a href="/migration/quickbooks/">From QuickBooks</a><a href="/migration/dynamics-gp/">From Dynamics GP</a><a href="/migration/dynamics-nav/" aria-current="page">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd"><summary>Integrations</summary><div class="dd-menu"><a href="/integrations/">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></details><details class="dd"><summary>Guides</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
+      <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap page-head-grid"><div class="stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/migration/">Migration</a> / Dynamics NAV</nav>
+<h1>Dynamics NAV to Business Central upgrade</h1>
+<p class="lede">Business Central is the modern version of NAV. Getting there depends on your NAV version and how much custom code you carry. We’ll help you choose the right path.</p>
+</div><figure class="page-head-art"><img src="/images/page-mig-nav.webp" alt="Illustration of steps leading from an old monitor up to a modern laptop" width="800" height="595" fetchpriority="high"></figure></div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#two-paths">Paths</a><a href="#custom-code">Custom code</a><a href="#our-process">Process</a><a href="#in-depth">In depth</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+<section id="two-paths"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Two paths</span><h2>Upgrade or re-implement?</h2><p class="lede">There’s no single right answer. The choice depends on your version, your customizations and how well NAV still fits your business.</p></div>
+  <div class="grid g2">
+    <div class="card"><span class="tag">Technical upgrade</span><h3>Bring your data and setup forward</h3>
+      <ul class="checks"><li><div>Best for recent NAV versions with clean data</div></li><li><div>Keeps your history and setup largely as-is</div></li><li><div>Customizations rewritten as AL extensions</div></li><li><div>Several upgrade steps for older versions</div></li></ul></div>
+    <div class="card"><span class="tag">Re-implementation</span><h3>Start clean, bring the data you need</h3>
+      <ul class="checks"><li><div>Best for older versions or heavy customization</div></li><li><div>Uses standard Business Central features first</div></li><li><div>Open items, balances and summary history migrated</div></li><li><div>Often simpler to maintain afterwards</div></li></ul></div>
+  </div>
+</div></section>
+<section class="band" id="custom-code"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Custom code</span><h2>What happens to your NAV customizations</h2><p class="lede">Years of NAV customizations are often the biggest part of the project. Many are no longer needed because Business Central now does the job as standard.</p></div>
+  <ul class="checks"><li><div><strong>Replace with standard.</strong> Features that Business Central has added since your NAV version.</div></li><li><div><strong>Replace with an app.</strong> Proven AppSource apps for EDI, warehouse scanning, shipping and more.</div></li><li><div><strong>Rewrite as an extension.</strong> Genuinely unique processes rebuilt in AL, upgrade-safe.</div></li><li><div><strong>Retire.</strong> Reports and fields nobody uses anymore.</div></li></ul>
+</div></section>
+<section id="our-process"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our process</span><h2>From NAV to Business Central</h2></div>
+  <ul class="checks"><li><div><strong>Assess.</strong> NAV version, modules, objects, customizations, add-ons and integrations.</div></li><li><div><strong>Choose the path.</strong> Upgrade or re-implement, with the cost and effort of each laid out.</div></li><li><div><strong>Rework custom code.</strong> Each customization replaced, rebuilt or retired.</div></li><li><div><strong>Migrate and test.</strong> Data moved into a test environment and checked by your team.</div></li><li><div><strong>Go live.</strong> Cutover at a period end with support for the first close.</div></li></ul>
+</div></section>
+<section class="band" id="in-depth"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">In depth</span><h2>How NAV and Business Central differ</h2></div>
+  <div class="prose deep">
+<p>Business Central grew out of Dynamics NAV, so finance and operations users will recognize much of it: the same document flow, posting groups and journals. The bigger differences are underneath.</p>
+<ul>
+<li><strong>Cloud first.</strong> Business Central online is hosted and updated by Microsoft. No servers, SQL maintenance or upgrade projects every few years.</li>
+<li><strong>Extensions instead of modified code.</strong> NAV customizations changed Microsoft’s code directly, which made every upgrade a project. Business Central customizations are extensions written in AL that sit beside the standard code.</li>
+<li><strong>Web and mobile clients.</strong> Business Central runs in a browser and on phones and tablets, with no Windows client to install.</li>
+<li><strong>Microsoft 365 integration</strong> with Outlook, Excel, Teams and Power BI.</li>
+</ul>
+<h3>Which NAV version you’re on matters</h3>
+<p>Recent NAV versions can usually be upgraded with their data and setup, through a Business Central on-premises version and then Microsoft’s cloud migration. Older versions, or systems with heavy customization, often move faster and cleaner with a fresh implementation that brings over master data, open items and summary history. We recommend a path after looking at your version, objects and add-ons.</p>
+<h3>Before you start</h3>
+<p>List every customization and add-on, note which department relies on each one, and identify the reports people actually run. That list drives most of the cost and is the first thing we review in an assessment.</p>
+<h3>On-premises or online?</h3>
+<p>Business Central online removes servers, backups and upgrade projects, and is the right choice for most companies. On-premises Business Central still exists for specific needs, such as strict data residency or heavy local integrations, but it brings back the upgrade and hosting work that moving off NAV usually aims to remove.</p><p>Your NAV data, setup knowledge and process experience aren’t wasted. Most of it carries straight into Business Central; what changes is the technology underneath.</p><p>We start every NAV project with a short assessment of your version, objects and add-ons, and give you a written recommendation on the path before any larger commitment.</p></div>
+</div></section>
+<section id="faq"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>NAV upgrade questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>Can we upgrade NAV directly to Business Central online?</summary><p>Not in one step. NAV 2018 and earlier versions first need upgrading to a Business Central on-premises version, then Microsoft’s cloud migration moves the data online. Older NAV versions often get a fresh implementation with data migration instead, which can be quicker and cleaner.</p></details><details><summary>What happens to our NAV customizations?</summary><p>Old C/AL code can’t run in Business Central online. Each customization is either replaced with a standard feature, replaced with an AppSource app, or rewritten as an AL extension. Many turn out to be unnecessary. <a href="/development/">AL development →</a></p></details><details><summary>Is NAV still supported?</summary><p>Every version of Dynamics NAV is past mainstream support. NAV 2018, the last version, reaches the end of extended support on January 11, 2028. Check Microsoft’s lifecycle pages for your exact version.</p></details><details><summary>Should we move to the cloud or stay on-premises?</summary><p>Most companies choose Business Central online: Microsoft handles hosting, updates and backups. On-premises still exists for specific needs, and we’ll discuss the trade-offs with you.</p></details></div>
+</div></section>
+<section data-nosubnav class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>Other migrations</h2></div>
+  <div class="fgrid"><a class="fitem" href="/migration/quickbooks/"><h3>From QuickBooks</h3><p>QuickBooks Online and Desktop to Business Central.</p><span class="more">Read more →</span></a><a class="fitem" href="/migration/dynamics-gp/"><h3>From Dynamics GP</h3><p>Microsoft’s GP migration tools, plus the cleanup they don’t do.</p><span class="more">Read more →</span></a><a class="fitem" href="/migration/sage/"><h3>From Sage 50 &amp; Sage 100</h3><p>Mapping Sage data and modules to Business Central.</p><span class="more">Read more →</span></a></div>
+</div></section>
+<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>Still running Dynamics NAV?</h2><p>Book a free 30-minute call. We’ll look at your version and customizations and suggest the simplest path.</p></div>
+    <div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="/contact/"><a class="next-slot next-fallback" href="/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="/contact/#schedule">See all times →</a>
+    </div>
+  </div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/"><span class="logo-mark">Q84</span>Q84 Digital</a>
+        <p>Tacoma-based Microsoft Dynamics 365 Business Central partner for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li>Tacoma, Washington</li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></div>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+  </div>
+</footer>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=180860a1" defer></script>
+</body>
+</html>
