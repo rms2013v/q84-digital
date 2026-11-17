@@ -11,6 +11,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, 'src', 'site.json')))
 BASE = CFG['base']
 URL = CFG['site_url']
+LIVE_HOST = re.sub(r'^https?://|/.*$', '', URL)
 EMAIL = CFG['email']
 TODAY = date.today().isoformat()
 import hashlib
@@ -2166,7 +2167,8 @@ def analytics():
     if CFG.get('clarity_id'):
         # Microsoft Clarity tag, as given in the Clarity project's setup page
         cid = esc(CFG['clarity_id'])
-        out += f'''<script>(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);}})(window,document,"clarity","script","{cid}");</script>'''
+        # Only record the live site, not local previews
+        out += f'''<script>if(location.hostname==="{LIVE_HOST}")(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);}})(window,document,"clarity","script","{cid}");</script>'''
     return out
 
 FAVICON = "data:image/svg+xml," + re.sub(r'\s+', ' ', '''<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>''')
