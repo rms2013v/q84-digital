@@ -149,8 +149,8 @@ def footer():
     <div class="foot">
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark">Q84</span>Q84 Digital</a>
-        <p>Tacoma-based Microsoft Dynamics 365 Business Central partner for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Tacoma, Washington</li></ul>
+        <p>Microsoft Dynamics 365 Business Central partner with offices in Vancouver, BC and Tacoma, WA, for distributors, manufacturers and service businesses, led by a senior supply chain consultant.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Vancouver, British Columbia</li><li>Tacoma, Washington</li></ul>
         {social_links()}
       </div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/rescue/">Rescue &amp; recovery</a></li><li><a href="@/development/">Development</a></li><li><a href="@/support/">Support</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/integrations/">Integrations</a></li></ul></div>
@@ -324,7 +324,7 @@ FAQ_HOME = [
     ('Can Business Central replace QuickBooks?', 'Yes. Companies usually move when they need proper inventory, multiple companies or better reporting. We handle the data migration.', ('@/migration/quickbooks/', 'QuickBooks to Business Central')),
     ('Can Business Central integrate with Shopify?', 'Yes. Business Central has a Shopify connector, and we build other integrations through its APIs.', ('@/integrations/shopify/', 'Shopify integration')),
     ('Are you a Microsoft partner?', CFG.get('partner_statement') or 'Q84 Digital is an independent Business Central consultancy. Microsoft licenses are billed by Microsoft or a Microsoft licensing partner. We help you choose the right plan, set it up and keep it right-sized as you grow.', ('@/licensing/', 'Licensing & pricing')),
-    ('Do you only work with companies in Tacoma?', 'No. We’re based in Tacoma and work on site across the Seattle–Tacoma area, and remotely with companies anywhere in the US. Business Central is a cloud system, so most project work happens online either way.', ('@/business-central-partner-tacoma/', 'Business Central in Tacoma & Seattle')),
+    ('Do you only work with companies in Tacoma?', 'No. We have offices in Vancouver, BC and Tacoma, WA, work on site across the Vancouver and Seattle–Tacoma areas, and work remotely with companies anywhere in the US and Canada. Business Central is a cloud system, so most project work happens online either way.', ('@/business-central-partner-tacoma/', 'Business Central in Tacoma & Seattle')),
     ('Who will I actually work with?', 'Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it.', ('@/about/', 'About Q84 Digital')),
 ]
 
@@ -343,8 +343,9 @@ ORG_SCHEMA = {
     "@context": "https://schema.org", "@type": "ProfessionalService", "name": "Q84 Digital",
     "url": URL, "email": EMAIL,
     "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.",
-    "areaServed": {"@type": "Country", "name": "United States"},
-    "address": {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"},
+    "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}],
+    "address": [{"@type": "PostalAddress", "addressLocality": "Vancouver", "addressRegion": "BC", "addressCountry": "CA"},
+                {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"}],
     "@id": URL + "#organization",
     "logo": URL + "images/logo.png", "image": URL + "images/og-default.jpg",
     "founder": {"@id": URL + "#oleh-karnaukhov"},
@@ -474,14 +475,14 @@ impl_text = (f'Most implementations fall between {esc(impl_range)}, depending on
              if impl_range else 'Quoted as a fixed scope after discovery, based on modules, data, integrations and companies.')
 
 add('', 'home',
-    'Microsoft Business Central Partner | Tacoma, WA | Q84 Digital',
+    'Business Central Partner | Vancouver & Tacoma | Q84 Digital',
     'Senior-led Microsoft Business Central partner for distributors and manufacturers: implementation, migration from QuickBooks, GP and NAV, and support.',
     f'''<section class="hero"><div class="wrap">
   <div class="{HERO_CLASS}"><div class="hero-center">
     <a class="announce" href="{CHECKLIST_URL}"><span class="announce-tag">New</span><span>Free ERP Readiness Checklist for Business Central projects</span><span class="announce-link">Download \u2192</span></a>
     <h1>Take control of your inventory, operations and finances <span class="h1-accent">with Microsoft Business Central</span></h1>
     <p class="lede lede-strong">Replace disconnected accounting, inventory and warehouse systems with one connected ERP platform.</p>
-    <p class="lede">Q84 Digital is a Tacoma, Washington Business Central partner. We help distributors, manufacturers and service businesses across the Pacific Northwest and the US implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
+    <p class="lede">Q84 Digital is a Business Central partner with offices in Vancouver, BC and Tacoma, WA. We help distributors, manufacturers and service businesses across the Pacific Northwest, the US and Canada implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
     <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#tour">See how it works</a></div>
   </div>{HERO_ART}</div>
 </div></section>
@@ -1525,10 +1526,10 @@ about_photo = (f'<figure class="page-head-art about-photo"><img src="@/images/{e
                if CFG.get('consultant_photo') else '')
 ABOUT_SCHEMA = dict(PERSON_SCHEMA)
 add('about/', 'about',
-    'About Q84 Digital | Business Central Consultant in Tacoma, WA',
-    'Q84 Digital is a senior-led Business Central consultancy in Tacoma, Washington, founded by Oleh Karnaukhov after 15+ years in Dynamics and supply chain.',
+    'About Q84 Digital | Business Central in Vancouver & Tacoma',
+    'Senior-led Business Central consultancy in Vancouver, BC and Tacoma, WA, founded by Oleh Karnaukhov after 15+ years in Dynamics and supply chain.',
     page_head('About', 'About', 'About Q84 Digital',
-              'A senior-led Business Central consultancy in Tacoma, Washington. The person who scopes your project is the person who delivers it.') + f'''
+              'A senior-led Business Central consultancy with offices in Vancouver, BC and Tacoma, WA. The person who scopes your project is the person who delivers it.') + f'''
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Who we are</span><h2>Senior Dynamics expertise on every project</h2>
     <p class="lede">Q84 Digital was founded by Oleh Karnaukhov, a Microsoft Dynamics consultant with more than 15 years of ERP and supply chain experience. Before starting Q84 Digital he worked across the Dynamics 365 family, from Business Central to Supply Chain Management, Customer Engagement and Field Service.</p>
@@ -1549,7 +1550,7 @@ add('about/', 'about',
   {checks(['<strong>Senior-led from start to finish.</strong> No hand-off from sales to a junior delivery team.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultant supports you once you’re live.'])}
 </div></section>
 <section class="band"><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Based in Tacoma</span><h2>Local to the Puget Sound, working across the US</h2><p class="lede">We’re based in Tacoma, Washington. We work on site with companies across the Seattle–Tacoma area and remotely with clients anywhere in the US.</p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central in Tacoma &amp; Seattle →</a></p></div>
+  <div class="stack"><span class="eyebrow">Two offices</span><h2>Vancouver and Tacoma, working across the US and Canada</h2><p class="lede">We have offices in Vancouver, British Columbia and Tacoma, Washington. We work on site with companies across the Vancouver and Seattle–Tacoma areas, and remotely with clients anywhere in the US and Canada.</p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central in Tacoma &amp; Seattle →</a></p></div>
   {checks(['<strong>Who we work with today:</strong> distributors, a marketing agency, a hair transplant clinic and a construction and restoration company.', '<strong>Microsoft partner:</strong> ' + esc(CFG.get('partner_statement') or 'We help you choose and manage the right Microsoft licenses.')])}
 </div></section>
 {cta('Talk to the person who would deliver your project')}''', [ABOUT_SCHEMA])
