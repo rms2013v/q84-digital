@@ -159,6 +159,7 @@
           form.hidden = true;
           document.getElementById('sent').hidden = false;
           if (window.gtag) gtag('event', 'generate_lead', { form: 'consultation' });
+          if (window.clarity) clarity('event', 'contact_form_sent');
         }).catch(function () {
           submit.disabled = false;
           submit.textContent = 'Send message';
@@ -174,6 +175,7 @@
         status.hidden = false;
         status.textContent = 'Your email app should open with the message ready to send. If it doesn’t, email ' + CFG.email + '.';
         if (window.gtag) gtag('event', 'generate_lead', { form: 'consultation_email' });
+        if (window.clarity) clarity('event', 'contact_form_sent');
       }
     });
   }
@@ -445,6 +447,7 @@
               'You’ll receive a calendar invitation at ' + data.email + ' within 24 hours. ' +
               'If you don’t see it, please check your spam folder or contact us at ' + CFG.email + '.');
             if (window.gtag) gtag('event', 'generate_lead', { form: 'scheduler' });
+            if (window.clarity) clarity('event', 'assessment_requested');
           })
           .catch(function () {
             submit.disabled = false; submit.textContent = 'Request this time';
@@ -457,6 +460,7 @@
         location.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('ERP assessment request: ' + data.company) + '&body=' + encodeURIComponent(body);
         done('Your email app should open with your request for ' + when + ' ready to send. Once it’s sent, Oleh will confirm with a calendar invite. If your email app didn’t open, email ' + CFG.email + '.');
         if (window.gtag) gtag('event', 'generate_lead', { form: 'scheduler_email' });
+        if (window.clarity) clarity('event', 'assessment_requested');
       }
     });
   }
@@ -471,6 +475,7 @@
   [].forEach.call(document.querySelectorAll('[data-booking]'), function (a) {
     a.addEventListener('click', function () {
       if (window.gtag) gtag('event', 'generate_lead', { form: 'calendar_booking' });
+      if (window.clarity) clarity('event', 'assessment_requested');
     });
   });
 
@@ -578,6 +583,7 @@ document.addEventListener('click', function (e) {
       form.hidden = true; done.hidden = false;
       startDownload(pending || (CFG.checklistPdf || '/downloads/q84-erp-readiness-checklist.pdf'));
       if (window.gtag) gtag('event', 'generate_lead', { form: 'checklist_download' });
+      if (window.clarity) clarity('event', 'checklist_download');
     }
     if (!CFG.formEndpoint) { finish(); return; }
     // Never block the download if the form service is slow or down
