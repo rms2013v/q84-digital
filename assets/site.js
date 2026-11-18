@@ -208,12 +208,15 @@
     function hm(str) { var a = str.split(':'); return [+a[0], +a[1]]; }
 
     var start = hm(S.start || '08:00'), end = hm(S.end || '16:00');
-    var earliest = Date.now() + (S.min_notice_hours || 24) * 3600000;
+    // No same-day bookings: the first bookable day is min_days_ahead days after today (business time zone).
+    // min_notice_hours adds an optional rolling minimum on top (0 = off).
+    var DAYS_AHEAD = S.min_days_ahead != null ? S.min_days_ahead : 1;
+    var earliest = Date.now() + (S.min_notice_hours || 0) * 3600000;
     var today = partsIn(new Date(), BTZ);
     var MONTHS = Math.max(1, S.months_ahead || 3);
     var avail = {};
     var lastMonth = new Date(Date.UTC(today.year, today.month + MONTHS, 1));
-    for (var i = 0; i < 400; i++) {
+    for (var i = DAYS_AHEAD; i < 400; i++) {
       var dUTC = new Date(Date.UTC(today.year, today.month - 1, today.day + i, 12));
       if (dUTC >= lastMonth) break;
       var y = dUTC.getUTCFullYear(), m = dUTC.getUTCMonth() + 1, d = dUTC.getUTCDate();

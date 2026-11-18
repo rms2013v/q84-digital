@@ -45,7 +45,8 @@
     "start": "08:00",
     "end": "16:00",
     "slot_minutes": 30,
-    "min_notice_hours": 24,
+    "min_days_ahead": 1,
+    "min_notice_hours": 0,
     "months_ahead": 3,
     "blocked_dates": [
       "2026-11-11",
