@@ -340,7 +340,7 @@ FAQ_HOME = [
     ('Can Business Central integrate with Shopify?', 'Yes. Business Central has a Shopify connector, and we build other integrations through its APIs.', ('@/integrations/shopify/', 'Shopify integration')),
     ('Are you a Microsoft partner?', CFG.get('partner_statement') or 'Q84 Digital is an independent Business Central consultancy. Microsoft licenses are billed by Microsoft or a Microsoft licensing partner. We help you choose the right plan, set it up and keep it right-sized as you grow.', ('@/licensing/', 'Licensing & pricing')),
     ('Do you only work with companies in Tacoma?', 'No. We have offices in Vancouver, BC and Tacoma, WA, work on site across the Vancouver and Seattle–Tacoma areas, and work remotely with companies anywhere in the US and Canada. Business Central is a cloud system, so most project work happens online either way.', ('@/business-central-partner-tacoma/', 'Business Central in Tacoma & Seattle')),
-    ('Who will I actually work with?', 'Oleh Karnaukhov, the founder. Q84 Digital is senior-led, so the person who scopes your project is the person who delivers it.', ('@/about/', 'About Q84 Digital')),
+    ('Who will I actually work with?', 'A senior Q84 Digital consultant with more than 10 years of Microsoft Dynamics experience. We don’t hand projects to a junior team, so the consultants who scope your project are the ones who deliver it.', ('@/about/', 'About Q84 Digital')),
 ]
 
 def faq_html(items):
@@ -363,7 +363,6 @@ ORG_SCHEMA = {
                 {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"}],
     "@id": URL + "#organization",
     "logo": URL + "images/logo.png", "image": URL + "images/og-default.jpg",
-    "founder": {"@id": URL + "#oleh-karnaukhov"},
     "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "ERP implementation", "Warehouse management", "ERP integration"],
 }
 if CFG.get('phone'):
@@ -376,18 +375,6 @@ WEBSITE_SCHEMA = {
     "url": URL, "name": "Q84 Digital", "inLanguage": "en-US",
     "publisher": {"@id": URL + "#organization"},
 }
-
-PERSON_SCHEMA = {
-    "@context": "https://schema.org", "@type": "Person", "@id": URL + "#oleh-karnaukhov",
-    "name": "Oleh Karnaukhov", "jobTitle": "Founder and lead consultant",
-    "description": "Senior Microsoft Dynamics consultant with more than 15 years of ERP and supply chain experience.",
-    "url": URL + "about/", "worksFor": {"@id": URL + "#organization"},
-    "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "Warehouse management", "Transportation management", "Dynamics 365 Customer Engagement", "Dynamics 365 Field Service", "ERP integration"],
-}
-if LINKEDIN:
-    PERSON_SCHEMA["sameAs"] = [LINKEDIN]
-if CFG.get('consultant_photo'):
-    PERSON_SCHEMA["image"] = URL + "images/" + CFG['consultant_photo']
 
 # ---------------------------------------------------------------- pages
 
@@ -444,7 +431,6 @@ def with_subnav(body):
     # place the menu straight after the page header
     return body.replace('</div></div>\n', '</div></div>\n' + nav + '\n', 1) if body.startswith('<div class="page-head">') else nav + body
 
-photo = f'<img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov, founder of Q84 Digital" width="480" height="480">' if CFG.get('consultant_photo') else 'OK'
 
 HERO_SET = [
     ('hero-flow.webp', 'Illustration of an order moving from sales order to warehouse, shipment, invoice and reporting'),
@@ -603,7 +589,7 @@ add('', 'home',
   {faq_html(FAQ_HOME)}
 </div></section>
 {checklist_promo()}
-{cta('Find out if Business Central fits your business')}''', [WEBSITE_SCHEMA, ORG_SCHEMA, PERSON_SCHEMA, faq_schema(FAQ_HOME)])
+{cta('Find out if Business Central fits your business')}''', [WEBSITE_SCHEMA, ORG_SCHEMA, faq_schema(FAQ_HOME)])
 
 # BUSINESS CENTRAL
 add('business-central/', 'business-central',
@@ -1539,23 +1525,30 @@ add('industries/professional-services/', 'service-industries',
 
 # COMPANY & SERVICE PAGES
 # ABOUT
-about_photo = (f'<figure class="page-head-art about-photo"><img src="@/images/{esc(CFG["consultant_photo"])}" alt="Oleh Karnaukhov, founder of Q84 Digital" width="400" height="400"></figure>'
-               if CFG.get('consultant_photo') else '')
-ABOUT_SCHEMA = dict(PERSON_SCHEMA)
+ABOUT_SCHEMA = {
+    "@context": "https://schema.org", "@type": "AboutPage", "url": URL + "about/",
+    "name": "About Q84 Digital", "mainEntity": {"@id": URL + "#organization"},
+}
+ABOUT_FACTS = ('<div class="profile-card">'
+    '<div class="stat"><strong>10+ years</strong><span>Microsoft Dynamics and ERP experience, for every consultant</span></div>'
+    '<div class="stat"><strong>Senior only</strong><span>No junior delivery team learning on your project</span></div>'
+    '<div class="stat"><strong>2 offices</strong><span>Vancouver, BC and Tacoma, WA</span></div>'
+    '<div class="stat"><strong>US &amp; Canada</strong><span>On site locally, remote everywhere else</span></div></div>')
 add('about/', 'about',
     'About Q84 Digital | Business Central in Vancouver & Tacoma',
-    'Senior-led Business Central consultancy in Vancouver, BC and Tacoma, WA, founded by Oleh Karnaukhov after 15+ years in Dynamics and supply chain.',
+    'Senior Business Central consultants in Vancouver, BC and Tacoma, WA, each with 10+ years of Microsoft Dynamics, ERP and supply chain experience.',
     page_head('About', 'About', 'About Q84 Digital',
-              'A senior-led Business Central consultancy with offices in Vancouver, BC and Tacoma, WA. The person who scopes your project is the person who delivers it.') + f'''
+              'A team of senior Microsoft Dynamics consultants with offices in Vancouver, BC and Tacoma, WA. The people who scope your project are the people who deliver it.') + f'''
 <section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Who we are</span><h2>Senior Dynamics expertise on every project</h2>
-    <p class="lede">Q84 Digital was founded by Oleh Karnaukhov, a Microsoft Dynamics consultant with more than 15 years of ERP and supply chain experience. Before starting Q84 Digital he worked across the Dynamics 365 family, from Business Central to Supply Chain Management, Customer Engagement and Field Service.</p>
-    <p>That range matters when you choose an ERP. Because we’ve worked hands-on with both Business Central and the larger Dynamics 365 products, we can tell you honestly when Business Central is enough and when it isn’t.</p>
+  <div class="stack"><span class="eyebrow">Who we are</span><h2>A senior team on every project</h2>
+    <p class="lede">Q84 Digital is a team of senior Microsoft Dynamics consultants. Every consultant has more than 10 years of hands-on ERP experience in finance, supply chain and operations, across the Dynamics 365 family, from Business Central to Supply Chain Management, Customer Engagement and Field Service.</p>
+    <p>That range matters when you choose an ERP. Because our team has worked hands-on with both Business Central and the larger Dynamics 365 products, we can tell you honestly when Business Central is enough and when it isn’t.</p>
+    <p>We keep the team senior on purpose. The consultants who run your discovery workshops are the ones who configure the system, train your people and stand next to you at go-live.</p>
   </div>
-  {about_photo}
+  {ABOUT_FACTS}
 </div></section>
 <section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Experience</span><h2>Where our experience comes from</h2></div>
+  <div class="section-head"><span class="eyebrow">Experience</span><h2>What our consultants bring</h2><p class="lede">Each project is staffed with consultants whose experience matches your business, not whoever happens to be free.</p></div>
   <div class="grid g3">
     <div class="card">{icon('ledger')}<h3>Business Central</h3><p>Implementation, migration, integration and support for small and midsize companies.</p></div>
     <div class="card">{icon('warehouse')}<h3>Supply chain &amp; warehousing</h3><p>Inventory, purchasing, warehouse and transportation processes, from the shop floor up.</p></div>
@@ -1564,13 +1557,13 @@ add('about/', 'about',
 </div></section>
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">How we work</span><h2>What you can expect from us</h2></div>
-  {checks(['<strong>Senior-led from start to finish.</strong> No hand-off from sales to a junior delivery team.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultant supports you once you’re live.'])}
+  {checks(['<strong>Senior from start to finish.</strong> No hand-off from sales to a junior delivery team.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultants who built your system support you once you’re live.'])}
 </div></section>
 <section class="band"><div class="wrap split">
   <div class="stack"><span class="eyebrow">Two offices</span><h2>Vancouver and Tacoma, working across the US and Canada</h2><p class="lede">We have offices in Vancouver, British Columbia and Tacoma, Washington. We work on site with companies across the Vancouver and Seattle–Tacoma areas, and remotely with clients anywhere in the US and Canada.</p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central in Tacoma &amp; Seattle →</a></p></div>
   {checks(['<strong>Who we work with today:</strong> distributors, a marketing agency, a hair transplant clinic and a construction and restoration company.', '<strong>Microsoft partner:</strong> ' + esc(CFG.get('partner_statement') or 'We help you choose and manage the right Microsoft licenses.')])}
 </div></section>
-{cta('Talk to the person who would deliver your project')}''', [ABOUT_SCHEMA])
+{cta('Talk to a senior consultant')}''', [ABOUT_SCHEMA])
 
 # TACOMA / SEATTLE
 LOCAL_SCHEMA = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": URL + "#organization", "name": "Q84 Digital",
@@ -1837,7 +1830,7 @@ add('contact/', 'contact',
     'Free ERP Readiness Assessment | Q84 Digital',
     'Book a free 30-minute ERP readiness assessment. Find out whether Business Central fits your business, what it would involve and what it would cost.',
     page_head('Contact', 'Free ERP assessment', 'Book a free ERP readiness assessment',
-              'In 30 minutes with Oleh you’ll get an honest view of whether Business Central fits your business, what the project would involve and a rough idea of cost.', button=False) + f'''
+              'In 30 minutes with a senior consultant you’ll get an honest view of whether Business Central fits your business, what the project would involve and a rough idea of cost.', button=False) + f'''
 <section style="padding-top:32px"><div class="wrap contact-grid">
   <div class="stack" style="gap:20px">
     {SCHEDULER}
@@ -1906,11 +1899,11 @@ add('guides/erp-readiness-checklist/', 'checklist',
 
 # GUIDES & COMPARISONS
 def guide_head(crumb, h1, lede, updated=TODAY, art=None):
-    return page_head('Guides', f'<a href="@/guides/">Guides</a> / {crumb}', h1, lede + f' <span class="hint">Updated {fmt_date(updated)} · <a href="@/about/">Oleh Karnaukhov</a></span>', button=False, art=art)
+    return page_head('Guides', f'<a href="@/guides/">Guides</a> / {crumb}', h1, lede + f' <span class="hint">Updated {fmt_date(updated)} · <a href="@/about/">Q84 Digital consultants</a></span>', button=False, art=art)
 
 def article_schema(path, headline, desc):
     return {"@context": "https://schema.org", "@type": "Article", "headline": headline, "description": desc,
-            "dateModified": TODAY, "image": URL + "images/og-default.jpg", "author": {"@id": URL + "#oleh-karnaukhov"}, "publisher": {"@id": URL + "#organization"},
+            "dateModified": TODAY, "image": URL + "images/og-default.jpg", "author": {"@id": URL + "#organization"}, "publisher": {"@id": URL + "#organization"},
             "mainEntityOfPage": URL + path}
 
 GUIDE_LIST = [

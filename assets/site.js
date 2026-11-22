@@ -462,7 +462,7 @@
         var body = 'Requested time: ' + pacific + ' (' + when + ' in ' + visitorTZ + ')\nName: ' + data.name +
           '\nCompany: ' + data.company + '\nEmail: ' + data.email + '\n\n' + data.notes;
         location.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('ERP assessment request: ' + data.company) + '&body=' + encodeURIComponent(body);
-        done('Your email app should open with your request for ' + when + ' ready to send. Once it’s sent, Oleh will confirm with a calendar invite. If your email app didn’t open, email ' + CFG.email + '.');
+        done('Your email app should open with your request for ' + when + ' ready to send. Once it’s sent, we’ll confirm with a calendar invite. If your email app didn’t open, email ' + CFG.email + '.');
         if (window.gtag) gtag('event', 'generate_lead', { form: 'scheduler_email' });
         if (window.clarity) clarity('event', 'assessment_requested');
       }

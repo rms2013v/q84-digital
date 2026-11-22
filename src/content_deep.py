@@ -419,7 +419,7 @@ DEEP['guides/'] = ('How to use these guides', '''
 <li><strong>Building a budget?</strong> The <a href="@/guides/implementation-cost/">cost guide</a>, <a href="@/guides/implementation-timeline/">timeline guide</a> and <a href="@/licensing/#calculator">license calculator</a> give you realistic numbers to plan with.</li>
 <li><strong>Replacing an older system?</strong> See our <a href="@/migration/">migration guides</a> for QuickBooks, Dynamics GP, Dynamics NAV, Sage and spreadsheets.</li>
 </ul>
-<p>All guides are free and need no email address. They’re written by <a href="@/about/">Oleh Karnaukhov</a>, Q84 Digital’s founder, and updated when Microsoft’s products or prices change.</p>
+<p>All guides are free and need no email address. They’re written by <a href="@/about/">our senior consultants</a> and updated when Microsoft’s products or prices change.</p>
 ''')
 
 DEEP['blog/'] = ('What we write about', '''
