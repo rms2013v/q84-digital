@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){var c;try{c=localStorage.getItem("q84_currency")}catch(e){}if(c!=="usd"&&c!=="cad"){var z="";try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}c=/^(America\/(Vancouver|Edmonton|Regina|Swift_Current|Winnipeg|Toronto|Montreal|Halifax|Moncton|Glace_Bay|Goose_Bay|St_Johns|Whitehorse|Dawson|Dawson_Creek|Fort_Nelson|Creston|Yellowknife|Inuvik|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Atikokan|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung|Blanc-Sablon)|Canada\/)/.test(z)?"cad":"usd"}if(c==="cad")document.documentElement.classList.add("cad")})();</script>
+<title>Dynamics 365 Warehouse Management (WMS) | Q84 Digital</title>
+<meta name="description" content="Dynamics 365 warehouse management (WMS): waves, work templates, license plates, the mobile app and warehouse-only mode, implemented by senior consultants.">
+<link rel="canonical" href="https://q84digital.com/dynamics-365-supply-chain-management/warehouse-management/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="Dynamics 365 Warehouse Management (WMS) | Q84 Digital">
+<meta property="og:description" content="Dynamics 365 warehouse management (WMS): waves, work templates, license plates, the mobile app and warehouse-only mode, implemented by senior consultants.">
+<meta property="og:url" content="https://q84digital.com/dynamics-365-supply-chain-management/warehouse-management/">
+<meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=d1333d30">
+<script>if(location.hostname==="q84digital.com"){window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());var s=document.createElement('script');s.async=true;s.src="https://www.googletagmanager.com/gtm.js?id=GTM-N77ZTTQK";document.head.appendChild(s);}</script><script>if(location.hostname==="q84digital.com")(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Dynamics 365 warehouse management implementation", "description": "Implementation of warehouse management in Microsoft Dynamics 365 Supply Chain Management, including warehouse management only mode, mobile devices, labels and multi-site rollout.", "serviceType": "Warehouse management system implementation", "url": "https://q84digital.com/dynamics-365-supply-chain-management/warehouse-management/", "provider": {"@id": "https://q84digital.com/#organization"}, "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can we use Dynamics 365 warehouse management without replacing our ERP?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Supply Chain Management can run in warehouse management only mode, where it manages the warehouse while your existing ERP keeps orders and finance. The two systems exchange inbound and outbound shipment orders and receipt and shipment confirmations."}}, {"@type": "Question", "name": "What devices does the mobile app run on?", "acceptedAnswer": {"@type": "Answer", "text": "The Warehouse Management mobile app runs on Android, iOS and Windows devices. Most warehouses use rugged handhelds with built-in barcode scanners, plus vehicle-mounted devices for forklifts."}}, {"@type": "Question", "name": "Can it work with conveyors, sorters or robots?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Supply Chain Management can exchange tasks with material handling equipment and warehouse automation, either through Microsoft’s material handling equipment interface or a custom integration."}}, {"@type": "Question", "name": "Does it handle batch, serial and expiry tracking?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, including batch and serial numbers, expiry dates with first-expired-first-out picking, and catch weight items sold by weight."}}, {"@type": "Question", "name": "Should we roll out all warehouses at once?", "acceptedAnswer": {"@type": "Answer", "text": "Usually not. We set up one site as the template, go live there, and roll out the remaining sites in waves using what the first site taught us."}}, {"@type": "Question", "name": "Is Business Central’s warehousing enough for us?", "acceptedAnswer": {"@type": "Answer", "text": "For many small and midsize distributors it is, especially with a scanning app. Supply Chain Management makes sense when volume, the number of sites or the complexity of your processes outgrows it."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Dynamics 365 SCM", "item": "https://q84digital.com/dynamics-365-supply-chain-management/"}, {"@type": "ListItem", "position": 3, "name": "Warehouse management"}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_days_ahead": 1, "min_notice_hours": 0, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Q84 Digital, Dynamics 365 implementation partner, home"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>D365 implementation partner</small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/business-central/">Business Central</a><details class="dd current"><summary>Services</summary><div class="dd-menu"><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a><a href="/dynamics-365-supply-chain-management/">Dynamics 365 SCM</a><a href="/dynamics-365-supply-chain-management/warehouse-management/" aria-current="page">D365 warehouse management</a></div></details><details class="dd"><summary>Migration</summary><div class="dd-menu"><a href="/migration/">All migrations</a><a href="/migration/quickbooks/">From QuickBooks</a><a href="/migration/dynamics-gp/">From Dynamics GP</a><a href="/migration/dynamics-nav/">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd"><summary>Integrations</summary><div class="dd-menu"><a href="/integrations/">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></details><details class="dd"><summary>Guides</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
+      <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/dynamics-365-supply-chain-management/">Dynamics 365 SCM</a> / Warehouse management</nav>
+<h1>Dynamics 365 warehouse management</h1>
+<p class="lede">Warehouse management in Dynamics 365 Supply Chain Management for high-volume, multi-site and automated warehouses. We implement it from scratch, with or without the rest of Supply Chain Management.</p>
+</div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#overview">Overview</a><a href="#capabilities">Capabilities</a><a href="#wms-only">WMS only</a><a href="#bc-or-scm">BC or SCM</a><a href="#our-approach">Approach</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+<section id="overview"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Overview</span><h2>A warehouse system built into the ERP</h2>
+    <p class="lede">Warehouse management in Supply Chain Management controls every movement in the warehouse as work: what to do, where, in what order and by whom. Workers follow that work step by step on the Warehouse Management mobile app.</p>
+    <p>Because it is part of the ERP, orders, inventory, transportation and finance see the same picture as the warehouse floor, in real time.</p></div>
+  <ul class="checks"><li><div><strong>Directed work.</strong> The system tells each worker what to pick, put away or move next.</div></li><li><div><strong>Rules, not memory.</strong> Put-away, picking and replenishment follow rules you configure.</div></li><li><div><strong>Pallet-level control.</strong> License plates track every pallet and carton.</div></li><li><div><strong>Scales across sites.</strong> One setup, rolled out warehouse by warehouse.</div></li></ul>
+</div></section>
+<section class="band" id="capabilities"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Capabilities</span><h2>What it covers</h2></div>
+  <div class="grid g3">
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></span><h3>Inbound</h3><p>Receiving against purchase orders, advance ship notices and license plates, with quality checks and directed put-away.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><h3>Location directives</h3><p>Rules that decide where goods are stored and picked from, by item, zone, quantity and unit.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span><h3>Waves and work</h3><p>Orders released in waves, with work templates that split picking into the steps your process needs.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h12L22 7H6"/></svg></span><h3>Picking strategies</h3><p>Order, batch, cluster and zone picking, with work pools so the right people get the right work.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></span><h3>Packing and containers</h3><p>Packing stations, containerization and shipping labels, so cartons are built and labelled the same way every time.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h12l-3-3M20 17H8l3 3"/></svg></span><h3>Replenishment</h3><p>Min-max, wave-demand and load-demand replenishment keeps pick faces stocked before pickers arrive.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 15h3"/></svg></span><h3>Cycle counting</h3><p>Counting plans and thresholds, so inventory stays accurate without shutting the warehouse.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></svg></span><h3>Tracking</h3><p>Batch and serial numbers, expiry dates with first-expired-first-out picking, and catch weight items.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v11h16V9"/><path d="M4 9a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0 2.7 2.7 0 005.3 0"/></svg></span><h3>Loads and shipping</h3><p>Loads, shipments and outbound docks, linked to transportation management for carriers and rates.</p></div>
+  </div>
+</div></section>
+<section id="wms-only"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">WMS only</span><h2>Keep your ERP, upgrade your warehouse</h2>
+    <p class="lede">Supply Chain Management can run in warehouse management only mode. Your current ERP keeps orders, purchasing and finance; Supply Chain Management runs the warehouse.</p>
+    <p>It suits companies whose ERP works for the business but not for the warehouse floor, and who want an enterprise warehouse system without replacing everything at once.</p></div>
+  <ul class="checks"><li><div><strong>Orders flow in.</strong> Your ERP sends inbound and outbound shipment orders.</div></li><li><div><strong>The warehouse runs in Supply Chain Management.</strong> Receiving, put-away, picking, packing and shipping, on the mobile app.</div></li><li><div><strong>Confirmations flow back.</strong> Receipts and shipments are reported to your ERP for invoicing and accounting.</div></li><li><div><strong>A path forward.</strong> Move more of the business to Supply Chain Management later, if and when it makes sense.</div></li></ul>
+</div></section>
+<section class="band" id="bc-or-scm"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">BC or SCM</span><h2>When Business Central warehousing is not enough</h2><p class="lede">Business Central handles bins, directed put-away and pick well, and scanning apps add a lot. These are the signs a warehouse has outgrown it.</p></div>
+  <ul class="checks"><li><div><strong>Volume.</strong> Thousands of order lines a day, with picking that has to be planned in waves.</div></li><li><div><strong>Several warehouses</strong> that need the same rules, run the same way.</div></li><li><div><strong>Automation.</strong> Conveyors, sorters, shuttles or robots that need tasks from the ERP.</div></li><li><div><strong>Complex handling.</strong> Mixed pallets, containerization, catch weight or strict expiry rules.</div></li><li><div><strong>Transportation.</strong> Loads, carriers and dock appointments planned together with the warehouse.</div></li></ul>
+</div></section>
+<section id="our-approach"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our approach</span><h2>How we roll out warehouse management</h2><p class="lede">Warehouses go live on the floor, not in a meeting room. Our consultants are there for it.</p></div>
+  <ul class="checks"><li><div><strong>Floor walk.</strong> We map how goods are received, stored, picked, packed and shipped today, and what has to change.</div></li><li><div><strong>Process design.</strong> Location directives, work templates, waves and replenishment designed and agreed with your team.</div></li><li><div><strong>Labels and devices.</strong> Barcodes, license plate and shipping labels, printers and handhelds tested on your Wi-Fi.</div></li><li><div><strong>Testing with real volume.</strong> Full days of orders run through the system before go-live.</div></li><li><div><strong>Training on the floor.</strong> Short, hands-on sessions for each role, on the devices they will use.</div></li><li><div><strong>Go-live and rollout.</strong> On-site support at the first site, then the template rolled out to the rest.</div></li></ul>
+</div></section>
+<section class="band" id="faq"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Warehouse management questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>Can we use Dynamics 365 warehouse management without replacing our ERP?</summary><p>Yes. Supply Chain Management can run in warehouse management only mode, where it manages the warehouse while your existing ERP keeps orders and finance. The two systems exchange inbound and outbound shipment orders and receipt and shipment confirmations.</p></details><details><summary>What devices does the mobile app run on?</summary><p>The Warehouse Management mobile app runs on Android, iOS and Windows devices. Most warehouses use rugged handhelds with built-in barcode scanners, plus vehicle-mounted devices for forklifts.</p></details><details><summary>Can it work with conveyors, sorters or robots?</summary><p>Yes. Supply Chain Management can exchange tasks with material handling equipment and warehouse automation, either through Microsoft’s material handling equipment interface or a custom integration.</p></details><details><summary>Does it handle batch, serial and expiry tracking?</summary><p>Yes, including batch and serial numbers, expiry dates with first-expired-first-out picking, and catch weight items sold by weight.</p></details><details><summary>Should we roll out all warehouses at once?</summary><p>Usually not. We set up one site as the template, go live there, and roll out the remaining sites in waves using what the first site taught us.</p></details><details><summary>Is Business Central’s warehousing enough for us?</summary><p>For many small and midsize distributors it is, especially with a scanning app. Supply Chain Management makes sense when volume, the number of sites or the complexity of your processes outgrows it. <a href="/integrations/warehouse-insight/">Business Central scanning app →</a></p></details></div>
+</div></section>
+<section data-nosubnav><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>Related pages</h2></div>
+  <div class="fgrid"><a class="fitem" href="/dynamics-365-supply-chain-management/"><h3>Supply Chain Management</h3><p>Dynamics 365 Supply Chain Management implementation from scratch.</p><span class="more">Read more →</span></a><a class="fitem" href="/integrations/warehouse-insight/"><h3>Scanning for Business Central</h3><p>Mobile warehouse app for Business Central.</p><span class="more">Read more →</span></a><a class="fitem" href="/industries/distribution/"><h3>Wholesale distribution</h3><p>ERP for distributors and inventory-heavy businesses.</p><span class="more">Read more →</span></a></div>
+</div></section>
+<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>Planning a new warehouse system?</h2><p>Book a free 30-minute call with a senior consultant. We’ll talk through your warehouses and whether Dynamics 365 warehouse management fits.</p></div>
+    <div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="/contact/"><a class="next-slot next-fallback" href="/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="/contact/#schedule">See all times →</a>
+    </div>
+  </div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>D365 implementation partner</small></span></a>
+        <p>Microsoft Dynamics 365 Business Central and Supply Chain Management partner with offices in Vancouver, BC and Tacoma, WA, for distributors, manufacturers and service businesses.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li>Vancouver, British Columbia</li><li>Tacoma, Washington</li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></div>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/dynamics-365-supply-chain-management/">Dynamics 365 SCM</a></li><li><a href="/dynamics-365-supply-chain-management/warehouse-management/">D365 warehouse management</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+  </div>
+</footer>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=b41a4988" defer></script>
+</body>
+</html>

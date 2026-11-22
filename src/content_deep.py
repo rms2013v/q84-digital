@@ -42,7 +42,7 @@ DEEP['business-central/'] = ('How Business Central works day to day', '''
 <h3>Essentials or Premium?</h3>
 <p>Essentials covers finance, sales, purchasing, inventory, warehousing and projects. Premium adds manufacturing and service management. Light users who mainly view data and approve documents can use the low-cost Team Members license. See <a href="@/licensing/">Essentials vs Premium pricing</a> for current prices and a calculator.</p>
 <h3>Where it reaches its limits</h3>
-<p>Very high-volume warehouses, complex multi-site manufacturing, or global groups with heavy consolidation needs may be better served by Dynamics 365 Supply Chain Management, Finance, or a specialist add-on. An honest partner will tell you which side of that line you are on before you commit.</p>
+<p>Very high-volume warehouses, complex multi-site manufacturing, or global groups with heavy consolidation needs may be better served by <a href="@/dynamics-365-supply-chain-management/">Dynamics 365 Supply Chain Management</a>, Finance, or a specialist add-on. An honest partner will tell you which side of that line you are on before you commit.</p>
 ''')
 
 DEEP['licensing/'] = ('How to choose the right Business Central licenses', '''
