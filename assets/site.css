@@ -326,7 +326,7 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .post-meta{color:var(--muted);font-size:.85rem;margin-top:auto}
 .post-card{grid-template-rows:auto auto auto 1fr auto}
 .post-card.has-img{grid-template-rows:auto auto auto auto 1fr auto;padding-top:0;overflow:hidden}
-.post-card-img{display:block;width:calc(100% + 52px);max-width:none;margin:0 -26px 8px;aspect-ratio:16/9;object-fit:cover;background:var(--accent-soft);border-bottom:1px solid var(--line)}
+.post-card-img{display:block;width:calc(100% + 52px);height:auto;max-width:none;margin:0 -26px 8px;aspect-ratio:16/9;object-fit:cover;background:var(--accent-soft);border-bottom:1px solid var(--line)}
 .post-hero{margin:0;border-radius:var(--radius);overflow:hidden;background:var(--accent-soft);border:1px solid var(--line)}
 .post-hero img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
 .post{padding-block:clamp(40px,6vw,72px) 8px}
