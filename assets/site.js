@@ -27,6 +27,26 @@
   document.addEventListener('click', function (e) {
     dds.forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
   });
+
+  // Desktop with a mouse: open on hover, close shortly after the pointer leaves
+  var hoverMq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1181px)');
+  dds.forEach(function (d) {
+    var timer, byHover = false;
+    d.addEventListener('mouseenter', function () {
+      if (!hoverMq.matches) return;
+      clearTimeout(timer);
+      if (!d.open) { byHover = true; d.open = true; }
+    });
+    d.addEventListener('mouseleave', function () {
+      if (!hoverMq.matches) return;
+      clearTimeout(timer);
+      timer = setTimeout(function () { d.open = false; byHover = false; }, 200);
+    });
+    // A click right after a hover-open keeps the menu open instead of closing it
+    d.querySelector('summary').addEventListener('click', function (e) {
+      if (hoverMq.matches && byHover && d.open) { e.preventDefault(); byHover = false; }
+    });
+  });
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     dds.forEach(function (d) {
