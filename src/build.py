@@ -135,7 +135,7 @@ def header(current):
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="@/" aria-label="Q84 Digital, Dynamics 365 implementation partner, home"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>D365 implementation partner</small></span></a>
+    <a class="logo" href="@/" aria-label="Q84 Digital, Dynamics 365 implementation partner, home"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <nav class="nav-links" id="navLinks" aria-label="Main">
       {''.join(items)}
@@ -165,7 +165,7 @@ def footer():
   <div class="wrap">
     <div class="foot">
       <div class="stack" style="gap:12px">
-        <a class="logo" href="@/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>D365 implementation partner</small></span></a>
+        <a class="logo" href="@/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
         <p>Microsoft Dynamics 365 Business Central and Supply Chain Management partner with offices in Vancouver, BC and Tacoma, WA, for distributors, manufacturers and service businesses.</p>
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Vancouver, British Columbia</li><li>Tacoma, Washington</li></ul>
         {social_links()}
