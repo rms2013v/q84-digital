@@ -1745,6 +1745,50 @@ POSTS = [
 <h2>What to do next</h2>
 <p>Start by writing down what hurts most and what “better” would look like: accurate stock by location, faster month-end, fewer typed orders. Then look at systems built for distribution. Microsoft Dynamics 365 Business Central is a common next step for QuickBooks users because it adds real inventory, warehousing and purchasing while keeping finance familiar and working with Microsoft 365.</p>
 <p>Moving is less disruptive than most companies expect. Customers, vendors, items, open invoices and balances come across; the old transaction history usually stays in QuickBooks for reference. See <a href="@/migration/quickbooks/">how a QuickBooks to Business Central migration works</a>, or use our <a href="@/guides/erp-readiness-checklist/">free ERP readiness checklist</a> to get your team on the same page first.</p>'''),
+    dict(slug='business-central-vs-netsuite',
+         title='Business Central vs NetSuite for small distributors: an honest comparison',
+         seo_title='Business Central vs NetSuite for Distributors (2027)',
+         date='2026-11-21', tag='ERP selection',
+         summary='An honest comparison of Business Central and NetSuite for small distributors: pricing, warehouse features, Microsoft 365 fit and when each one fits best.',
+         body='''<p>If you run a distribution business with 10 to 100 employees and you’re outgrowing QuickBooks, your shortlist probably includes Microsoft Dynamics 365 Business Central and Oracle NetSuite. Both are proven cloud ERPs. Both can handle inventory, purchasing, sales and finance. The right choice depends on how you buy, how your warehouse works and which tools your team lives in every day.</p>
+<p>A note on bias: we implement Business Central. We’ve tried to be fair here, including where NetSuite is the better fit. For a feature-by-feature view, see our <a href="@/compare/netsuite/">Business Central vs NetSuite comparison page</a>.</p>
+<h2>The quick comparison</h2>
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>Business Central</th><th>NetSuite</th></tr></thead>
+<tbody>
+<tr><td>Pricing</td><td>Published per-user prices: $80 Essentials, $110 Premium, $8 Team Members per month</td><td>Quote-based. Usually an annual platform fee plus per-user fees and paid modules</td></tr>
+<tr><td>Contract</td><td>Monthly or annual subscriptions through a partner</td><td>Typically annual or multi-year contracts</td></tr>
+<tr><td>Warehouse</td><td>Locations, bins, receiving, put-away, picking and shipping included in Essentials</td><td>Basic inventory included. Advanced inventory and WMS are paid modules</td></tr>
+<tr><td>Multi-company</td><td>Multiple companies, intercompany and consolidation included</td><td>Strong multi-subsidiary support with OneWorld (paid edition)</td></tr>
+<tr><td>Ecommerce</td><td>Built-in Shopify connector, apps for other platforms</td><td>Native ecommerce option and connectors</td></tr>
+<tr><td>Office tools</td><td>Works inside Outlook, Excel and Teams; Power BI for reporting</td><td>Own reporting and dashboards; Excel and Microsoft 365 via export or connectors</td></tr>
+<tr><td>Customization</td><td>Extensions in AL, plus Power Automate and Power Apps</td><td>SuiteScript, workflows and custom records</td></tr>
+<tr><td>Who implements</td><td>Microsoft partners of all sizes</td><td>Oracle NetSuite directly or partners</td></tr>
+</tbody></table></div>
+<h2>Cost: predictable vs negotiated</h2>
+<p>Business Central’s license prices are public. A 14-person distributor with six full users and eight light users pays about <strong>$544 a month</strong> at US list prices, and that number changes only when you add or remove people. Try your own numbers in our <a href="@/licensing/#calculator">license calculator</a>, and see the <a href="@/guides/implementation-cost/">implementation cost guide</a> for the one-time project budget.</p>
+<p>NetSuite doesn’t publish prices. Quotes usually combine a base platform fee, a fee per user and separate fees for modules such as advanced inventory, WMS or demand planning. Discounts are often available in the first year. When you compare, ask for the price in year three, not year one, and check whether renewal increases are capped.</p>
+<h2>Inventory and warehouse</h2>
+<p>For distributors, this is often the deciding area.</p>
+<ul><li><strong>Business Central</strong> includes multi-location inventory, bins, warehouse receipts, put-aways, picks and shipments in the Essentials license. Barcode scanning usually comes from an add-on app or a mobile device solution.</li><li><strong>NetSuite</strong> handles multi-location inventory in the base product, while bin management, lot and serial tracking, demand planning and full WMS come with paid modules.</li></ul>
+<p>If you need serious warehouse control, price both systems with the warehouse features you actually need, not the base product. See <a href="@/industries/distribution/">how Business Central works for distributors</a>.</p>
+<h2>Your team’s daily tools</h2>
+<p>If your team works in Outlook, Excel and Teams all day, Business Central fits naturally. Users can see a customer’s orders and balance from inside Outlook, open any list in Excel and edit it, and share records in Teams. Reports flow into <a href="@/integrations/power-bi/">Power BI</a>.</p>
+<p>NetSuite has a strong all-in-one interface with its own dashboards and saved searches. Teams that want everything in one browser tab often like that.</p>
+<h2>When NetSuite is the better fit</h2>
+<ul><li>You have many subsidiaries in several countries and need consolidation from day one.</li><li>You want one vendor for ERP, ecommerce and CRM, and you’re comfortable with Oracle’s contract terms.</li><li>Your team doesn’t use Microsoft 365 and has no plans to.</li></ul>
+<h2>When Business Central is the better fit</h2>
+<ul><li>You want predictable monthly costs and published prices.</li><li>You need warehouse bins, picking and shipping without paying for extra modules.</li><li>Your team already lives in Outlook, Excel and Teams.</li><li>You want a choice of local partners and the option to change partner without changing software.</li><li>You’re on <a href="@/migration/quickbooks/">QuickBooks</a> or <a href="@/migration/dynamics-gp/">Dynamics GP</a> today and want a familiar path.</li></ul>
+<blockquote>Compare the price in year three, with the warehouse features you actually need. That’s where the two systems really differ.</blockquote>
+<h2>Questions to ask both vendors</h2>
+<ol><li>What will we pay in year three, with our users and modules?</li><li>Which of our warehouse processes are in the base product, and which need modules or apps?</li><li>Can you demo our top five scenarios with our own items and customers?</li><li>Who will implement it, and how many similar distributors have they done?</li><li>What happens to our data and costs if we leave?</li></ol>
+<h2>Frequently asked questions</h2>
+<h3>Is Business Central cheaper than NetSuite?</h3>
+<p>For most small distributors, licenses are lower and more predictable with Business Central, especially once warehouse features are included. Implementation costs are similar for similar scope.</p>
+<h3>Which is easier to use?</h3>
+<p>Both are modern browser-based systems. Teams that already use Microsoft 365 usually find Business Central more familiar.</p>
+<h3>Can either system grow with us?</h3>
+<p>Yes. Both serve companies from a handful of users to several hundred. Growth usually means adding users, companies and apps rather than switching systems.</p>'''),
 ]
 
 def fmt_date(d):

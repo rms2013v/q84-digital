@@ -335,7 +335,8 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px
 .post-body{display:grid;gap:16px;font-size:1.06rem;line-height:1.75}
 .post-body p,.post-body li{color:var(--ink)}
 .post-body h2{font-size:1.45rem;margin-top:16px}
-.post-body ul{margin:0;padding-left:22px;display:grid;gap:6px}
+.post-body ul,.post-body ol{margin:0;padding-left:22px;display:grid;gap:6px}
+.post-body h3{font-size:1.1rem;margin-top:8px}
 .post-body blockquote{margin:8px 0;padding:16px 22px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;font-family:var(--display);font-size:1.15rem}
 .contact-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:40px;align-items:start}
 @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
