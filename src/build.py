@@ -1703,6 +1703,7 @@ POSTS = [
          title='Seven signs your distribution business has outgrown QuickBooks',
          seo_title='7 Signs Your Distribution Business Has Outgrown QuickBooks',
          date='2026-11-16', tag='ERP selection',
+         image='hero-warehouse-aisle.webp', image_alt='Illustration of a warehouse aisle with stocked racks, a forklift and a stock dashboard',
          summary='QuickBooks is a great start for a small business. These seven signs mean your distribution company has grown past it, and what to do next.',
          body='''<p>QuickBooks is where most distributors start, and for good reason: it’s affordable, familiar and good at basic accounting. But distribution is an inventory business, and QuickBooks was built for accounting first. Somewhere between a few hundred and a few thousand SKUs, the workarounds start to cost more than the software saves. Here are the seven signs we see most often.</p>
 <h2>1. Your real inventory lives in a spreadsheet</h2>
@@ -1749,6 +1750,7 @@ POSTS = [
          title='Business Central vs NetSuite for small distributors: an honest comparison',
          seo_title='Business Central vs NetSuite for Distributors (2027)',
          date='2026-11-21', tag='ERP selection',
+         image='hero-connected-business.webp', image_alt='Illustration of an office, warehouse and delivery van connected to one dashboard',
          summary='An honest comparison of Business Central and NetSuite for small distributors: pricing, warehouse features, Microsoft 365 fit and when each one fits best.',
          body='''<p>If you run a distribution business with 10 to 100 employees and you’re outgrowing QuickBooks, your shortlist probably includes Microsoft Dynamics 365 Business Central and Oracle NetSuite. Both are proven cloud ERPs. Both can handle inventory, purchasing, sales and finance. The right choice depends on how you buy, how your warehouse works and which tools your team lives in every day.</p>
 <p>A note on bias: we implement Business Central. We’ve tried to be fair here, including where NetSuite is the better fit. For a feature-by-feature view, see our <a href="@/compare/netsuite/">Business Central vs NetSuite comparison page</a>.</p>
@@ -1797,7 +1799,8 @@ def fmt_date(d):
 
 def post_card(p):
     draft = '<span class="pill low">Placeholder</span>' if p.get('placeholder') else ''
-    return f'''<a class="card post-card" href="@/blog/{p['slug']}/"><span class="tag">{esc(p['tag'])}</span>{draft}<h3>{esc(p['title'])}</h3><p>{esc(p['summary'])}</p><span class="post-meta">{fmt_date(p['date'])}</span></a>'''
+    art = f'''<img class="post-card-img" src="@/images/{p['image']}" alt="" width="1024" height="1024" loading="lazy">''' if p.get('image') else ''
+    return f'''<a class="card post-card{' has-img' if art else ''}" href="@/blog/{p['slug']}/">{art}<span class="tag">{esc(p['tag'])}</span>{draft}<h3>{esc(p['title'])}</h3><p>{esc(p['summary'])}</p><span class="post-meta">{fmt_date(p['date'])}</span></a>'''
 
 add('blog/', 'blog', 'Business Central & ERP Blog | Q84 Digital',
     'Practical articles on Microsoft Dynamics 365 Business Central, ERP selection, inventory and warehouse operations for distributors and manufacturers.',
@@ -1812,7 +1815,7 @@ add('blog/', 'blog', 'Business Central & ERP Blog | Q84 Digital',
 
 for p in POSTS:
     notice = '<div class="note" style="margin-bottom:24px"><strong>Placeholder article.</strong> This page uses dummy text to show the blog layout. Real content will replace it before launch.</div>' if p.get('placeholder') else ''
-    schema = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p['title'], "datePublished": p['date'], "dateModified": p.get('updated', p['date']), "image": URL + "images/og-default.jpg",
+    schema = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p['title'], "datePublished": p['date'], "dateModified": p.get('updated', p['date']), "image": URL + "images/" + p.get('image', 'og-default.jpg'),
               "author": {"@id": URL + "#organization"}, "publisher": {"@id": URL + "#organization"},
               "mainEntityOfPage": URL + f"blog/{p['slug']}/"}
     add(f"blog/{p['slug']}/", 'blog', p.get('seo_title') or f"{p['title']} | Q84 Digital", p['summary'],
@@ -1821,6 +1824,7 @@ for p in POSTS:
   <span class="tag post-tag">{esc(p['tag'])}</span>
   <h1>{esc(p['title'])}</h1>
   <div class="byline"><span><span>{fmt_date(p['date'])}</span></span></div>
+  {f'<figure class="post-hero"><img src="@/images/{p["image"]}" alt="{esc(p["image_alt"])}" width="1024" height="1024" fetchpriority="high"></figure>' if p.get('image') else ''}
   {notice}
   <div class="post-body">{p['body']}</div>
   <p style="margin-top:32px"><a class="more" href="@/blog/">\u2190 All articles</a></p>
