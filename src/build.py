@@ -83,8 +83,6 @@ NAV = [
         ('development', 'Development & AL extensions', '@/development/'),
         ('support', 'Support', '@/support/'),
         ('licensing', 'Licensing & pricing', '@/licensing/'),
-        ('scm', 'Dynamics 365 SCM', '@/dynamics-365-supply-chain-management/'),
-        ('scm-wms', 'D365 warehouse management', '@/dynamics-365-supply-chain-management/warehouse-management/'),
     ]),
     ('migration', 'Migration', None, [
         ('migration', 'All migrations', '@/migration/'),
@@ -170,7 +168,7 @@ def footer():
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li><a href="@/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma, Washington</a></li></ul>
         {social_links()}
       </div>
-      <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/rescue/">Rescue &amp; recovery</a></li><li><a href="@/development/">Development</a></li><li><a href="@/support/">Support</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/dynamics-365-supply-chain-management/">Dynamics 365 SCM</a></li><li><a href="@/dynamics-365-supply-chain-management/warehouse-management/">D365 warehouse management</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/rescue/">Rescue &amp; recovery</a></li><li><a href="@/development/">Development</a></li><li><a href="@/support/">Support</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/integrations/">Integrations</a></li></ul></div>
       <div><h4>Migration</h4><ul><li><a href="@/migration/quickbooks/">From QuickBooks</a></li><li><a href="@/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="@/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="@/migration/sage/">From Sage</a></li><li><a href="@/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
       <div><h4>Industries</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/industries/ecommerce/">E-commerce</a></li><li><a href="@/industries/professional-services/">Professional services</a></li><li><a href="@/business-central-partner-vancouver/">Vancouver &amp; Lower Mainland</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="@/about/">About</a></li><li><a href="@/guides/">Guides</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
@@ -231,7 +229,7 @@ EXAMPLES = '''<div class="grid g3">
 FIT = '''<div class="fit">
   <div class="card"><span class="tag">Often the right fit</span><h3>Business Central</h3><p>Standard inventory and warehouse processes: receiving, put-away, picking, shipping and bin-level stock for small and midsize operations.</p></div>
   <div class="card"><span class="tag">When you need more</span><h3>Business Central plus a warehouse extension</h3><p>Barcode scanning, handheld devices or more advanced picking, added through a specialist app from Microsoft AppSource.</p></div>
-  <div class="card"><span class="tag">For complex operations</span><h3>Dynamics 365 Supply Chain Management</h3><p>High-volume or multi-site warehousing, advanced wave picking, transportation management and complex supply chains.</p><p><a class="more" href="@/dynamics-365-supply-chain-management/">About Supply Chain Management →</a></p></div>
+  <div class="card"><span class="tag">For complex operations</span><h3>Dynamics 365 Supply Chain Management</h3><p>High-volume or multi-site warehousing, advanced wave picking, transportation management and complex supply chains.</p></div>
 </div>'''
 
 HAS_VIDEO = os.path.exists(os.path.join(ROOT, 'images', 'demo.mp4'))
@@ -627,7 +625,7 @@ add('business-central/', 'business-central',
 </div></section>
 <section id="fit"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Choosing the right ERP</span><h2>Is Business Central enough for your operations?</h2>
-  <p class="lede">For most small and midsize distributors it is. For very high-volume or complex warehousing, an extension or <a href="@/dynamics-365-supply-chain-management/warehouse-management/">Dynamics 365 warehouse management</a> may be a better fit. Because we've worked hands-on with both, we can give you a straight answer.</p></div>
+  <p class="lede">For most small and midsize distributors it is. For very high-volume or complex warehousing, an extension or Dynamics 365 Supply Chain Management may be a better fit. Because we've worked hands-on with both, we can give you a straight answer.</p></div>
   {FIT}
 </div></section>
 <section class="band"><div class="wrap split">
@@ -1250,120 +1248,6 @@ add('integrations/warehouse-insight/', 'int-wi',
 {cta('Want scanning in your warehouse?', 'Book a free 30-minute call. We’ll look at your warehouse processes and show you how Warehouse Insight would fit.')}''', [faq_schema(FAQ_WI)])
 
 
-# DYNAMICS 365 SUPPLY CHAIN MANAGEMENT
-SCM_URL = '@/dynamics-365-supply-chain-management/'
-WMS_URL = '@/dynamics-365-supply-chain-management/warehouse-management/'
-
-def service_schema(path, name, desc, service_type):
-    return {"@context": "https://schema.org", "@type": "Service", "name": name, "description": desc,
-            "serviceType": service_type, "url": URL + path, "provider": {"@id": URL + "#organization"},
-            "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}]}
-
-SCM_VS_BC = '''<div class="table-wrap"><table>
-    <thead><tr><th></th><th>Business Central</th><th>Supply Chain Management</th></tr></thead>
-    <tbody>
-      <tr><td>Typical company</td><td>Small and midsize businesses, one or a few sites</td><td>Midsize and large companies, many sites, plants or legal entities</td></tr>
-      <tr><td>Warehousing</td><td>Bins, directed put-away and pick, warehouse documents; scanning through apps</td><td>Full warehouse management: waves, work templates, location directives, license plates, containerization and a mobile app built in</td></tr>
-      <tr><td>Manufacturing</td><td>Production orders, routings, assembly and kitting</td><td>Discrete, process (formulas and batches) and lean manufacturing, with plant-level planning</td></tr>
-      <tr><td>Transportation</td><td>Shipping agents and parcel apps</td><td>Built-in transportation management: load planning, rate and route engines, freight reconciliation</td></tr>
-      <tr><td>Project size</td><td>Usually a few months</td><td>Larger, phased projects, often by site or business unit</td></tr>
-    </tbody></table></div>'''
-
-FAQ_SCM = [
-    ('Do you implement Supply Chain Management from scratch?', 'Yes. We run new implementations end to end, from discovery and solution design through configuration, data migration, testing, training, go-live and support afterwards.', None),
-    ('Is Supply Chain Management the same as Finance and Operations?', 'Supply Chain Management is one of Microsoft’s Dynamics 365 finance and operations apps. It is usually implemented together with Dynamics 365 Finance, which covers the general ledger, payables, receivables and financial reporting.', None),
-    ('How do we know if we need Supply Chain Management rather than Business Central?', 'Warehouse volume and complexity, the number of sites and legal entities, manufacturing type and transportation needs are the main signals. We know both products and will tell you honestly which fits, including when Business Central is enough.', ('@/business-central/', 'About Business Central')),
-    ('Can you move us from Dynamics AX 2012?', 'Yes. Microsoft provides an upgrade path from AX 2012 to Dynamics 365 finance and operations apps. We assess your customizations and data first, so the move removes what you no longer need instead of carrying it forward.', None),
-    ('How much does an implementation cost?', 'Every Supply Chain Management project is quoted after discovery, based on sites, processes, integrations and data. We give you a written, fixed scope before work starts.', None),
-]
-add('dynamics-365-supply-chain-management/', 'scm',
-    'D365 Supply Chain Management Implementation | Q84 Digital',
-    'Microsoft Dynamics 365 Supply Chain Management implementation from scratch: warehousing, manufacturing, planning and transportation, by senior consultants.',
-    page_head('Dynamics 365 SCM', 'Dynamics 365 Supply Chain Management', 'Dynamics 365 Supply Chain Management implementation',
-              'For companies that have outgrown midsize ERP: high-volume warehouses, several sites or plants, and supply chains that need planning and automation. We implement Supply Chain Management from scratch, led by senior consultants.') + f'''
-<section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Overview</span><h2>What Supply Chain Management is</h2>
-    <p class="lede">Microsoft Dynamics 365 Supply Chain Management is Microsoft’s ERP for larger and more complex operations. It runs procurement, inventory, warehousing, manufacturing, planning and transportation, and is usually implemented with Dynamics 365 Finance.</p>
-    <p>It is built for scale: many warehouses and plants, several legal entities, high order volumes and detailed control over how work happens on the floor.</p></div>
-  {checks(['<strong>Warehouse management.</strong> Waves, work, license plates and a mobile app for every warehouse task.', '<strong>Manufacturing.</strong> Discrete, process and lean production in one system.', '<strong>Planning.</strong> Demand forecasts and master planning across sites.', '<strong>Transportation.</strong> Load planning, carrier rating and freight reconciliation.', '<strong>Procurement and inventory.</strong> Vendor collaboration, quality control, batch and serial tracking.'])}
-</div></section>
-<section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">BC or SCM</span><h2>Business Central or Supply Chain Management?</h2><p class="lede">Both are Microsoft ERPs, built for different sizes of business. Because we work with both, we can give you a straight answer about which one fits.</p></div>
-  {SCM_VS_BC}
-</div></section>
-<section><div class="wrap">
-  <div class="section-head"><span class="eyebrow">What we do</span><h2>Supply Chain Management services</h2></div>
-  <div class="grid g3">
-    <div class="card">{icon('tools')}<h3>New implementations</h3><p>Supply Chain Management implemented from scratch, from discovery and solution design to go-live.</p></div>
-    <div class="card">{icon('warehouse')}<h3>Warehouse management</h3><p>Warehouse processes, the mobile app, labels and devices, rolled out site by site. <a href="{WMS_URL}">More on warehouse management</a></p></div>
-    <div class="card">{icon('factory')}<h3>Manufacturing and planning</h3><p>Production, bills of materials, routings and master planning set up for how your plants run.</p></div>
-    <div class="card">{icon('truck')}<h3>Transportation</h3><p>Loads, carriers, rates and routes, so shipping is planned in the same system as the warehouse.</p></div>
-    <div class="card">{icon('migrate')}<h3>Data migration</h3><p>Items, customers, vendors, open orders and balances moved from your current ERP, including Dynamics AX 2012.</p></div>
-    <div class="card">{icon('link')}<h3>Integrations</h3><p>E-commerce, EDI, carriers, warehouse automation and reporting connected to Supply Chain Management.</p></div>
-  </div>
-</div></section>
-<section class="band"><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Our approach</span><h2>How we run an implementation</h2><p class="lede">Senior consultants from the first workshop to the last day of support, with no hand-off to a junior team.</p></div>
-  {checks(['<strong>Discovery.</strong> Workshops on site, walking your warehouses and plants to see how work really happens.', '<strong>Solution design.</strong> A written design of each process, agreed before configuration starts.', '<strong>Build in phases.</strong> Configuration in short cycles, reviewed with your team as it takes shape.', '<strong>Testing on real scenarios.</strong> End-to-end tests with your own orders, items and devices.', '<strong>Data migration.</strong> Trial loads and reconciliations before the final cutover.', '<strong>Go-live and support.</strong> On-site help at go-live, then support from the same consultants.'])}
-</div></section>
-{faq_section(FAQ_SCM, 'Supply Chain Management questions')}
-{related('Related pages', [(WMS_URL, 'Warehouse management', 'Dynamics 365 warehouse management, including warehouse-only mode.'), ('@/business-central/', 'Business Central', 'Microsoft’s ERP for small and midsize businesses.'), ('@/industries/distribution/', 'Wholesale distribution', 'ERP for distributors and inventory-heavy businesses.')])}
-{cta('Is Supply Chain Management right for you?', 'Book a free 30-minute call with a senior consultant. We’ll look at your operations and tell you honestly whether Supply Chain Management or Business Central fits.')}''',
-    [service_schema('dynamics-365-supply-chain-management/', 'Dynamics 365 Supply Chain Management implementation', 'Implementation of Microsoft Dynamics 365 Supply Chain Management from scratch, including warehousing, manufacturing, planning, transportation, data migration and support.', 'ERP implementation'), faq_schema(FAQ_SCM)])
-
-FAQ_WMS = [
-    ('Can we use Dynamics 365 warehouse management without replacing our ERP?', 'Yes. Supply Chain Management can run in warehouse management only mode, where it manages the warehouse while your existing ERP keeps orders and finance. The two systems exchange inbound and outbound shipment orders and receipt and shipment confirmations.', None),
-    ('What devices does the mobile app run on?', 'The Warehouse Management mobile app runs on Android, iOS and Windows devices. Most warehouses use rugged handhelds with built-in barcode scanners, plus vehicle-mounted devices for forklifts.', None),
-    ('Can it work with conveyors, sorters or robots?', 'Yes. Supply Chain Management can exchange tasks with material handling equipment and warehouse automation, either through Microsoft’s material handling equipment interface or a custom integration.', None),
-    ('Does it handle batch, serial and expiry tracking?', 'Yes, including batch and serial numbers, expiry dates with first-expired-first-out picking, and catch weight items sold by weight.', None),
-    ('Should we roll out all warehouses at once?', 'Usually not. We set up one site as the template, go live there, and roll out the remaining sites in waves using what the first site taught us.', None),
-    ('Is Business Central’s warehousing enough for us?', 'For many small and midsize distributors it is, especially with a scanning app. Supply Chain Management makes sense when volume, the number of sites or the complexity of your processes outgrows it.', ('@/integrations/warehouse-insight/', 'Business Central scanning app')),
-]
-add('dynamics-365-supply-chain-management/warehouse-management/', 'scm-wms',
-    'Dynamics 365 Warehouse Management (WMS) | Q84 Digital',
-    'Dynamics 365 warehouse management (WMS): waves, work templates, license plates, the mobile app and warehouse-only mode, implemented by senior consultants.',
-    page_head('Dynamics 365 SCM', f'<a href="{SCM_URL}">Dynamics 365 SCM</a> / Warehouse management', 'Dynamics 365 warehouse management',
-              'Warehouse management in Dynamics 365 Supply Chain Management for high-volume, multi-site and automated warehouses. We implement it from scratch, with or without the rest of Supply Chain Management.') + f'''
-<section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Overview</span><h2>A warehouse system built into the ERP</h2>
-    <p class="lede">Warehouse management in Supply Chain Management controls every movement in the warehouse as work: what to do, where, in what order and by whom. Workers follow that work step by step on the Warehouse Management mobile app.</p>
-    <p>Because it is part of the ERP, orders, inventory, transportation and finance see the same picture as the warehouse floor, in real time.</p></div>
-  {checks(['<strong>Directed work.</strong> The system tells each worker what to pick, put away or move next.', '<strong>Rules, not memory.</strong> Put-away, picking and replenishment follow rules you configure.', '<strong>Pallet-level control.</strong> License plates track every pallet and carton.', '<strong>Scales across sites.</strong> One setup, rolled out warehouse by warehouse.'])}
-</div></section>
-<section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Capabilities</span><h2>What it covers</h2></div>
-  <div class="grid g3">
-    <div class="card">{icon('truck')}<h3>Inbound</h3><p>Receiving against purchase orders, advance ship notices and license plates, with quality checks and directed put-away.</p></div>
-    <div class="card">{icon('warehouse')}<h3>Location directives</h3><p>Rules that decide where goods are stored and picked from, by item, zone, quantity and unit.</p></div>
-    <div class="card">{icon('chart')}<h3>Waves and work</h3><p>Orders released in waves, with work templates that split picking into the steps your process needs.</p></div>
-    <div class="card">{icon('cart')}<h3>Picking strategies</h3><p>Order, batch, cluster and zone picking, with work pools so the right people get the right work.</p></div>
-    <div class="card">{icon('box')}<h3>Packing and containers</h3><p>Packing stations, containerization and shipping labels, so cartons are built and labelled the same way every time.</p></div>
-    <div class="card">{icon('migrate')}<h3>Replenishment</h3><p>Min-max, wave-demand and load-demand replenishment keeps pick faces stocked before pickers arrive.</p></div>
-    <div class="card">{icon('ledger')}<h3>Cycle counting</h3><p>Counting plans and thresholds, so inventory stays accurate without shutting the warehouse.</p></div>
-    <div class="card">{icon('key')}<h3>Tracking</h3><p>Batch and serial numbers, expiry dates with first-expired-first-out picking, and catch weight items.</p></div>
-    <div class="card">{icon('shop')}<h3>Loads and shipping</h3><p>Loads, shipments and outbound docks, linked to transportation management for carriers and rates.</p></div>
-  </div>
-</div></section>
-<section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">WMS only</span><h2>Keep your ERP, upgrade your warehouse</h2>
-    <p class="lede">Supply Chain Management can run in warehouse management only mode. Your current ERP keeps orders, purchasing and finance; Supply Chain Management runs the warehouse.</p>
-    <p>It suits companies whose ERP works for the business but not for the warehouse floor, and who want an enterprise warehouse system without replacing everything at once.</p></div>
-  {checks(['<strong>Orders flow in.</strong> Your ERP sends inbound and outbound shipment orders.', '<strong>The warehouse runs in Supply Chain Management.</strong> Receiving, put-away, picking, packing and shipping, on the mobile app.', '<strong>Confirmations flow back.</strong> Receipts and shipments are reported to your ERP for invoicing and accounting.', '<strong>A path forward.</strong> Move more of the business to Supply Chain Management later, if and when it makes sense.'])}
-</div></section>
-<section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">BC or SCM</span><h2>When Business Central warehousing is not enough</h2><p class="lede">Business Central handles bins, directed put-away and pick well, and scanning apps add a lot. These are the signs a warehouse has outgrown it.</p></div>
-  {checks(['<strong>Volume.</strong> Thousands of order lines a day, with picking that has to be planned in waves.', '<strong>Several warehouses</strong> that need the same rules, run the same way.', '<strong>Automation.</strong> Conveyors, sorters, shuttles or robots that need tasks from the ERP.', '<strong>Complex handling.</strong> Mixed pallets, containerization, catch weight or strict expiry rules.', '<strong>Transportation.</strong> Loads, carriers and dock appointments planned together with the warehouse.'])}
-</div></section>
-<section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Our approach</span><h2>How we roll out warehouse management</h2><p class="lede">Warehouses go live on the floor, not in a meeting room. Our consultants are there for it.</p></div>
-  {checks(['<strong>Floor walk.</strong> We map how goods are received, stored, picked, packed and shipped today, and what has to change.', '<strong>Process design.</strong> Location directives, work templates, waves and replenishment designed and agreed with your team.', '<strong>Labels and devices.</strong> Barcodes, license plate and shipping labels, printers and handhelds tested on your Wi-Fi.', '<strong>Testing with real volume.</strong> Full days of orders run through the system before go-live.', '<strong>Training on the floor.</strong> Short, hands-on sessions for each role, on the devices they will use.', '<strong>Go-live and rollout.</strong> On-site support at the first site, then the template rolled out to the rest.'])}
-</div></section>
-{faq_section(FAQ_WMS, 'Warehouse management questions')}
-{related('Related pages', [(SCM_URL, 'Supply Chain Management', 'Dynamics 365 Supply Chain Management implementation from scratch.'), ('@/integrations/warehouse-insight/', 'Scanning for Business Central', 'Mobile warehouse app for Business Central.'), ('@/industries/distribution/', 'Wholesale distribution', 'ERP for distributors and inventory-heavy businesses.')])}
-{cta('Planning a new warehouse system?', 'Book a free 30-minute call with a senior consultant. We’ll talk through your warehouses and whether Dynamics 365 warehouse management fits.')}''',
-    [service_schema('dynamics-365-supply-chain-management/warehouse-management/', 'Dynamics 365 warehouse management implementation', 'Implementation of warehouse management in Microsoft Dynamics 365 Supply Chain Management, including warehouse management only mode, mobile devices, labels and multi-site rollout.', 'Warehouse management system implementation'), faq_schema(FAQ_WMS)])
-
-
 # E-COMMERCE INDUSTRY
 FAQ_ECOM = [
     ('Is Business Central a good fit for an e-commerce brand?', 'Yes, once you have real inventory, more than one sales channel or a warehouse to run. Smaller stores selling a few products through one channel may be fine with simpler tools for now.', None),
@@ -1540,7 +1424,7 @@ add('industries/manufacturing/', 'manufacturing',
 </div></section>
 <section class="band"><div class="wrap split">
   <div class="stack"><span class="eyebrow">Is it the right fit?</span><h2>Where Business Central manufacturing works best</h2><p class="lede">Business Central suits most small and midsize discrete manufacturers. A few situations need an add-on or a different product, and it’s better to know that before you start.</p></div>
-  {checks(['<strong>A good fit:</strong> make-to-stock and make-to-order production, assembly and kitting, and light fabrication with defined routings.', '<strong>Needs an add-on:</strong> batch or recipe-based process manufacturing, advanced shop-floor scheduling, or detailed quality management.', '<strong>Consider <a href="@/dynamics-365-supply-chain-management/">Dynamics 365 Supply Chain Management</a>:</strong> multi-site, high-volume production with complex planning across plants.'])}
+  {checks(['<strong>A good fit:</strong> make-to-stock and make-to-order production, assembly and kitting, and light fabrication with defined routings.', '<strong>Needs an add-on:</strong> batch or recipe-based process manufacturing, advanced shop-floor scheduling, or detailed quality management.', '<strong>Consider Dynamics 365 Supply Chain Management:</strong> multi-site, high-volume production with complex planning across plants.'])}
 </div></section>
 <section><div class="wrap">
   {worked('A fabrication shop moving production off spreadsheets',
@@ -1668,7 +1552,7 @@ add('about/', 'about',
   <div class="grid g3">
     <div class="card">{icon('ledger')}<h3>Business Central</h3><p>Implementation, migration, integration and support for small and midsize companies.</p></div>
     <div class="card">{icon('warehouse')}<h3>Supply chain &amp; warehousing</h3><p>Inventory, purchasing, warehouse and transportation processes, from the shop floor up.</p></div>
-    <div class="card">{icon('link')}<h3>The wider Dynamics 365 family</h3><p><a href="@/dynamics-365-supply-chain-management/">Supply Chain Management</a>, Customer Engagement and Field Service, and how they connect to Business Central.</p></div>
+    <div class="card">{icon('link')}<h3>The wider Dynamics 365 family</h3><p>Supply Chain Management, Customer Engagement and Field Service, and how they connect to Business Central.</p></div>
   </div>
 </div></section>
 <section><div class="wrap split">
@@ -2510,7 +2394,7 @@ def render(p):
 '''
     return doc.replace('@/', BASE)
 
-SUBNAV_PAGES = {'business-central/', 'dynamics-365-supply-chain-management/', 'dynamics-365-supply-chain-management/warehouse-management/', 'licensing/', 'implementation/', 'migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/', 'industries/professional-services/',
+SUBNAV_PAGES = {'business-central/', 'licensing/', 'implementation/', 'migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/', 'industries/professional-services/',
                 'rescue/', 'development/', 'business-central-partner-tacoma/', 'business-central-partner-vancouver/', 'industries/ecommerce/',
                 'migration/quickbooks/', 'migration/dynamics-gp/', 'migration/dynamics-nav/', 'migration/sage/', 'migration/spreadsheets/',
                 'integrations/shopify/', 'integrations/edi/', 'integrations/power-bi/', 'integrations/warehouse-insight/',
