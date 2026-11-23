@@ -613,8 +613,6 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 140p
 .about-photo{max-width:320px;justify-self:center}
 .logo,.nav-links a,.dd>summary{white-space:nowrap}
 @media (min-width:1181px){.nav-links{gap:2px}.nav-links a,.dd>summary{padding:.6rem .42rem}.nav{gap:10px}}
-/* Menu labels share a baseline with the "Q84 Digital" wordmark; the tagline hangs below */
-@media (min-width:1181px){.nav-links>a:not(.btn),.nav-links>.dd{position:relative;top:-6.3px}}
 .bc-shot{margin:8px 0 16px;max-width:none}
 .bc-shot img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
 .bc-shot figcaption{margin-top:10px;font-size:.8rem;color:var(--muted)}
@@ -641,3 +639,64 @@ html:not(.cad) .c-cad,html.cad .c-usd{display:none!important}
 .calc-out .cur-switch button{color:var(--band-ink);opacity:.75}
 .calc-out .cur-switch button[aria-pressed="true"]{opacity:1;color:var(--ink)}
 .section-head .cur-switch{margin-top:12px}
+
+/* ---- "Over the Hero" header: clear over a deep blue page top, white bar after scrolling ---- */
+:root{--nav-h:80px}
+body>header{background:var(--surface);border-bottom:0;box-shadow:0 1px 0 var(--line);color:var(--ink)}
+body>header:not(.ready) *{transition:none!important} /* no fade from white on page load */
+body>header.ready{transition:background .12s}
+body>header .nav{min-height:var(--nav-h);gap:24px}
+body>header .logo{color:inherit}
+body>header .logo-mark{background:#2563EB;color:#fff;width:42px;height:42px}
+body>header .logo-text small{color:inherit}
+body>header .nav-links>a:not(.btn),body>header .dd>summary{color:inherit;font-weight:500;font-size:.97rem;background:none;border-radius:0}
+body>header .dd-menu{background:var(--surface);border-color:var(--line);box-shadow:0 18px 40px -12px rgba(14,23,38,.35)}
+body>header .dd-menu a{color:var(--ink);font-weight:500;font-size:.93rem;line-height:1.35}
+body>header .dd-menu a:hover,body>header .dd-menu a[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
+.dd-group{display:grid;gap:2px;align-content:start}
+.dd-head{margin:0;padding:.4rem .8rem;font:600 .8rem/1.3 var(--display);color:var(--muted)}
+body>header .nav-links .btn-primary{background:#2563EB;color:#fff;border-radius:9px;margin-left:14px;padding:0 18px;min-height:46px}
+body>header .nav-links .btn-primary:hover{background:#1D4ED8;color:#fff}
+body>header .menu-btn{min-height:44px;font-weight:600;color:inherit}
+@media (min-width:1181px){
+  body>header .nav-links{align-self:stretch;align-items:stretch;gap:0}
+  body>header .nav-links>a:not(.btn),body>header .dd>summary{display:flex;align-items:center;height:100%;padding:0 14px}
+  body>header .nav-links>a:not(.btn):hover,body>header .nav-links>a[aria-current="page"],body>header .dd:hover>summary,body>header .dd[open]>summary,body>header .dd.current>summary{color:inherit;background:none;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:9px}
+  body>header .nav-links>.btn{align-self:center}
+  body>header .dd-menu{top:calc(100% - 6px);border-radius:12px}
+  body>header .dd-menu::before{content:none}
+  body>header .dd-wide>.dd-menu{left:-260px;width:780px;grid-template-columns:1fr 1.05fr 1.15fr;gap:4px 12px;padding:18px 14px 22px}
+}
+@media (max-width:1180px){
+  :root{--nav-h:68px}
+  body>header .nav{gap:10px}
+  body>header .nav-links{background:var(--surface);color:var(--ink);max-height:calc(100dvh - 68px - env(safe-area-inset-top,0px));overflow-y:auto;overscroll-behavior:contain}
+  body>header .nav-links>a:not(.btn),body>header .dd>summary{padding:.85rem .8rem;border-bottom:1px solid var(--line);justify-content:space-between}
+  body>header .dd-menu{background:none;box-shadow:none;border:0}
+  body>header .nav-links .btn-primary{margin:14px 0 0}
+  .dd-group+.dd-group{margin-top:8px}
+}
+@media (max-width:400px){body>header .logo{gap:8px;font-size:1.06rem}body>header .logo-mark{width:38px;height:38px}body>header .logo-text small{font-size:.52rem;letter-spacing:.01em}}
+/* clear state at the top of pages with a blue header area */
+.over>header.at-top:not(:has(.nav-links.open)){background:transparent;box-shadow:none;color:#fff}
+.over>header.at-top:not(:has(.nav-links.open)) .logo-mark{background:#fff;color:#1D4ED8}
+.over>header.at-top:not(:has(.nav-links.open)) .btn-primary{background:#fff;color:#14233F}
+.over>header.at-top:not(:has(.nav-links.open)) .btn-primary:hover{background:#DCE7FF;color:#14233F}
+.over>header.at-top:not(:has(.nav-links.open)) .menu-btn{border-color:rgba(255,255,255,.55)}
+.over>header.at-top:not(:has(.nav-links.open)) :focus-visible{outline:2px solid #fff;outline-offset:2px}
+.over>header.at-top .dd-menu :focus-visible{outline-color:#2563EB}
+/* blue page tops */
+.over .hero,.over .page-head{--ink:#fff;--muted:#D6E2F8;--accent:#A9C6FF;--line:rgba(255,255,255,.28);color:#fff;background:linear-gradient(160deg,#14233F,#1E40AF);margin-top:calc(-1*var(--nav-h))}
+.over .hero{padding-top:calc(var(--nav-h) + clamp(40px,6vw,72px))}
+.over .page-head{padding-top:calc(var(--nav-h) + clamp(32px,4.5vw,56px))}
+.over .hero::before,.over .hero::after,.over .page-head::before{display:none}
+.over .page-head:has(+.subnav){padding-bottom:72px!important}
+.over .hero .lede a,.over .page-head .lede a{color:#fff}
+.over .hero .btn-primary,.over .page-head .btn-primary{background:#fff;color:#14233F}
+.over .hero .btn-primary:hover,.over .page-head .btn-primary:hover{background:#DCE7FF}
+.over .hero .btn-ghost,.over .page-head .btn-ghost{background:none;color:#fff;border-color:rgba(255,255,255,.6)}
+.over .hero .btn-ghost:hover,.over .page-head .btn-ghost:hover{background:rgba(255,255,255,.14)}
+.over .announce{--ink:#0E1726;--accent:#1D4ED8;background:#fff}
+.over .hero :focus-visible,.over .page-head :focus-visible{outline-color:#fff}
+.subnav{top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 8px)}
+section[id],[id].band,.sched{scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 76px)}

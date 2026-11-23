@@ -77,20 +77,30 @@ def esc(s):
 
 NAV = [
     ('business-central', 'Business Central', '@/business-central/', None),
+    # a menu with groups: (heading, [(key, label, url), ...])
     ('services', 'Services', None, [
-        ('implementation', 'Implementation', '@/implementation/'),
-        ('rescue', 'Rescue & recovery', '@/rescue/'),
-        ('development', 'Development & AL extensions', '@/development/'),
-        ('support', 'Support', '@/support/'),
-        ('licensing', 'Licensing & pricing', '@/licensing/'),
-    ]),
-    ('migration', 'Migration', None, [
-        ('migration', 'All migrations', '@/migration/'),
-        ('mig-quickbooks', 'From QuickBooks', '@/migration/quickbooks/'),
-        ('mig-gp', 'From Dynamics GP', '@/migration/dynamics-gp/'),
-        ('mig-nav', 'From Dynamics NAV', '@/migration/dynamics-nav/'),
-        ('mig-sage', 'From Sage 50 / Sage 100', '@/migration/sage/'),
-        ('mig-sheets', 'From spreadsheets', '@/migration/spreadsheets/'),
+        ('Services', [
+            ('implementation', 'Implementation', '@/implementation/'),
+            ('rescue', 'Rescue & recovery', '@/rescue/'),
+            ('development', 'Development & AL extensions', '@/development/'),
+            ('support', 'Support', '@/support/'),
+            ('licensing', 'Licensing & pricing', '@/licensing/'),
+        ]),
+        ('Migration', [
+            ('migration', 'All migrations', '@/migration/'),
+            ('mig-quickbooks', 'From QuickBooks', '@/migration/quickbooks/'),
+            ('mig-gp', 'From Dynamics GP', '@/migration/dynamics-gp/'),
+            ('mig-nav', 'From Dynamics NAV', '@/migration/dynamics-nav/'),
+            ('mig-sage', 'From Sage 50 / Sage 100', '@/migration/sage/'),
+            ('mig-sheets', 'From spreadsheets', '@/migration/spreadsheets/'),
+        ]),
+        ('Integrations', [
+            ('integrations', 'All integrations', '@/integrations/'),
+            ('int-shopify', 'Shopify', '@/integrations/shopify/'),
+            ('int-edi', 'EDI', '@/integrations/edi/'),
+            ('int-powerbi', 'Power BI reporting', '@/integrations/power-bi/'),
+            ('int-wi', 'Warehouse Insight mobile WMS', '@/integrations/warehouse-insight/'),
+        ]),
     ]),
     ('industries', 'Industries', None, [
         ('distribution', 'Wholesale distribution', '@/industries/distribution/'),
@@ -98,14 +108,7 @@ NAV = [
         ('ecommerce', 'E-commerce', '@/industries/ecommerce/'),
         ('service-industries', 'Professional services', '@/industries/professional-services/'),
     ]),
-    ('integrations', 'Integrations', None, [
-        ('integrations', 'All integrations', '@/integrations/'),
-        ('int-shopify', 'Shopify', '@/integrations/shopify/'),
-        ('int-edi', 'EDI', '@/integrations/edi/'),
-        ('int-powerbi', 'Power BI reporting', '@/integrations/power-bi/'),
-        ('int-wi', 'Warehouse Insight mobile WMS', '@/integrations/warehouse-insight/'),
-    ]),
-    ('guides', 'Guides', None, [
+    ('guides', 'Resources', None, [
         ('guides', 'All guides', '@/guides/'),
         ('guide-cost', 'Implementation cost', '@/guides/implementation-cost/'),
         ('guide-timeline', 'Implementation timeline', '@/guides/implementation-timeline/'),
@@ -122,11 +125,14 @@ def header(current):
     items = []
     for key, label, href, children in NAV:
         if children:
-            is_cur = any(c[0] == current for c in children)
+            grouped = isinstance(children[0][1], list)
+            flat = [c for g in children for c in g[1]] if grouped else children
+            is_cur = any(c[0] == current for c in flat)
             cur_attr = ' aria-current="page"'
-            links = ''.join(
-                f'<a href="{h}"{cur_attr if k == current else ""}>{esc(l)}</a>' for k, l, h in children)
-            items.append(f'<details class="dd{" current" if is_cur else ""}"><summary>{label}</summary><div class="dd-menu">{links}</div></details>')
+            def links(cs):
+                return ''.join(f'<a href="{h}"{cur_attr if k == current else ""}>{esc(l)}</a>' for k, l, h in cs)
+            inner = ''.join(f'<div class="dd-group"><p class="dd-head">{g}</p>{links(cs)}</div>' for g, cs in children) if grouped else links(children)
+            items.append(f'<details class="dd{" dd-wide" if grouped else ""}{" current" if is_cur else ""}"><summary>{label}</summary><div class="dd-menu">{inner}</div></details>')
         else:
             cur = ' aria-current="page"' if key == current else ''
             items.append(f'<a href="{href}"{cur}>{label}</a>')
@@ -140,7 +146,8 @@ def header(current):
       <a class="btn btn-primary" {CTA_ATTR}>Book a free assessment</a>
     </nav>
   </div>
-</header>'''
+</header>
+<script>document.querySelector("body>header").classList.toggle("at-top",scrollY<40)</script>'''
 
 SOCIAL_SVG = {
     'linkedin': '<path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/>',
@@ -2365,7 +2372,7 @@ def render(p):
 <link rel="stylesheet" href="@/assets/site.css?v={CSS_V}">
 {analytics()}{schema}<script>window.Q84={client};</script>
 </head>
-<body>
+<body{' class="over"' if p['body'].lstrip().startswith(('<section class="hero"', '<div class="page-head"')) else ''}>
 {header(p['nav'])}
 <main id="main">
 {p['body']}

@@ -7,6 +7,15 @@
     return r.json().then(function (j) { if (String(j.success) === 'false') throw new Error(); });
   }
 
+  // Header is clear at the top of the page and solid after scrolling
+  var bar = document.querySelector('body>header');
+  if (bar) {
+    var setBar = function () { bar.classList.toggle('at-top', window.scrollY < 40); };
+    window.addEventListener('scroll', setBar, { passive: true });
+    setBar();
+    setTimeout(function () { bar.classList.add('ready'); }, 300);
+  }
+
   // Mobile menu
   var menu = document.getElementById('navLinks');
   var btn = document.getElementById('menuBtn');
