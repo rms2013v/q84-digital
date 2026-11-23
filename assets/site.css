@@ -700,3 +700,19 @@ body>header .menu-btn{min-height:44px;font-weight:600;color:inherit}
 .over .hero :focus-visible,.over .page-head :focus-visible{outline-color:#fff}
 .subnav{top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 8px)}
 section[id],[id].band,.sched{scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 76px)}
+
+/* ---- Photo page tops (local pages): a city photo behind the header text, darkened on the left ---- */
+.over .page-head.photo-hero{background:#14233F;min-height:600px;display:grid;align-items:center;padding-bottom:120px!important}
+.photo-hero-img{position:absolute;inset:0 auto 0 0;width:var(--img-w,100%);height:100%;max-width:none;object-fit:cover;object-position:var(--pos,50% 50%);z-index:-2}
+.over .page-head.photo-hero::before{content:"";display:block!important;position:absolute;inset:0;width:auto;height:auto;aspect-ratio:auto;border-radius:0;opacity:1;z-index:-1;background:linear-gradient(180deg,rgba(14,27,54,.78) 0,rgba(14,27,54,0) 34%),linear-gradient(90deg,rgba(14,27,54,.94) 0,rgba(14,27,54,.86) 42%,rgba(20,45,100,.42) 72%,rgba(20,45,100,.18) 100%)}
+.photo-hero .wrap{width:100%}
+.photo-hero .stack>*{max-width:620px}
+.over .photo-hero .lede{color:#EAF0FC}
+@media (max-width:860px){
+  .over .page-head.photo-hero{min-height:560px;align-items:start}
+  .over .page-head.photo-hero::before{background:linear-gradient(180deg,rgba(14,27,54,.94) 0,rgba(14,27,54,.9) 62%,rgba(14,27,54,.35) 100%)}
+  .photo-hero-img{width:100%;object-position:var(--pos-s,var(--pos,50% 50%))}
+}
+
+.subnav .btn{flex:none;white-space:nowrap}
+.subnav-links a{padding:.5rem .62rem}

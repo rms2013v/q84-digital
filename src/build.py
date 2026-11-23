@@ -198,7 +198,11 @@ def cta(title='Find out if Business Central fits your business', text='Pick a ti
     {right}
   </div></div></section>'''
 
-def page_head(title, crumb, h1, lede, button=True, art=None):
+PHOTO_H = {'vancouver-skyline': 1333, 'tacoma-rainier': 855}  # height of the 2000px version
+
+def page_head(title, crumb, h1, lede, button=True, art=None, photo=None):
+    # photo = (name, alt, focus, phone focus[, desktop width]): images/<name>-{800,1200,2000}.webp behind the header text.
+    # A width over 100% (e.g. '135%') pushes the subject right, out from behind the heading, on wide screens.
     btn = f'<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>' if button else ''
     if art:
         # art = (file in images/, alt text); keep '</div></div>\n' only at the very end, with_subnav looks for it
@@ -208,7 +212,15 @@ def page_head(title, crumb, h1, lede, button=True, art=None):
 <h1>{h1}</h1>
 <p class="lede">{lede}</p>{btn}
 </div><figure class="page-head-art"><img src="@/images/{src}" alt="{esc(alt)}" width="800" height="595" fetchpriority="high"></figure></div></div>'''
-    return f'''<div class="page-head"><div class="wrap stack">
+    if photo:
+        name, alt, pos, pos_s, img_w = (tuple(photo) + ('100%',))[:5]
+        srcset = ', '.join(f'@/images/{name}-{w}.webp {w}w' for w in (800, 1200, 2000))
+        bg = (f'<img class="photo-hero-img" src="@/images/{name}-1200.webp" srcset="{srcset}" sizes="100vw" '
+              f'alt="{esc(alt)}" width="2000" height="{PHOTO_H[name]}" fetchpriority="high">')
+        open_ = f'<div class="page-head photo-hero" style="--pos:{pos};--pos-s:{pos_s};--img-w:{img_w}">{bg}<div class="wrap stack">'
+    else:
+        open_ = '<div class="page-head"><div class="wrap stack">'
+    return f'''{open_}
 <nav class="crumb" aria-label="Breadcrumb"><a href="@/">Home</a> / {crumb}</nav>
 <h1>{h1}</h1>
 <p class="lede">{lede}</p>{btn}
@@ -403,7 +415,7 @@ def add(path, nav, title, desc, body, schema=None, image=None, subnav=False):
 def slug(t):
     return re.sub(r'[^a-z0-9]+', '-', html.unescape(t).lower()).strip('-')
 
-NAV_SHORT = {'Our Vancouver office': 'Office', 'Business Central in Canada': 'In Canada', 'What clients say': 'Reviews', 'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit', 'Marketing agencies': 'Agencies', 'Medical and aesthetic clinics': 'Clinics', 'Who we work with': 'Clients', 'Construction and restoration': 'Construction', 'Step by step': 'Steps',
+NAV_SHORT = {'Choosing a partner': 'Partner', 'Business Central in Washington': 'Washington', 'Our Vancouver office': 'Office', 'Business Central in Canada': 'In Canada', 'What clients say': 'Reviews', 'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit', 'Marketing agencies': 'Agencies', 'Medical and aesthetic clinics': 'Clinics', 'Who we work with': 'Clients', 'Construction and restoration': 'Construction', 'Step by step': 'Steps',
              'What moves where': 'Mapping', 'What changes': 'Mapping', 'Why companies move': 'Why move', 'Why now': 'Why now', 'Our process': 'Process', 'Two paths': 'Paths',
              'Warning signs': 'Signs', 'How we fix it': 'How we fix it', 'Root causes': 'Causes', 'Local partner': 'Local', 'Who we help': 'Industries', 'Service area': 'Service area',
              'What we do': 'Services', 'What we build': 'What we build', 'Our approach': 'Approach', 'What syncs': 'What syncs', 'Beyond the basics': 'More',
@@ -432,11 +444,11 @@ def with_subnav(body):
            + f'</div><a class="btn btn-primary btn-sm" {CTA_ATTR}>{CTA_LABEL}</a></div></div></nav>')
     # the menu has its own booking button, so drop the duplicate one in the page header
     btn = f'<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>'
-    if body.startswith('<div class="page-head">'):
+    if body.startswith('<div class="page-head'):
         head_end = body.index('</div></div>\n')
         body = body[:head_end].replace(btn, '', 1) + body[head_end:]
     # place the menu straight after the page header
-    return body.replace('</div></div>\n', '</div></div>\n' + nav + '\n', 1) if body.startswith('<div class="page-head">') else nav + body
+    return body.replace('</div></div>\n', '</div></div>\n' + nav + '\n', 1) if body.startswith('<div class="page-head') else nav + body
 
 
 HERO_SET = [
@@ -1567,45 +1579,64 @@ add('about/', 'about',
   {checks(['<strong>Senior from start to finish.</strong> No hand-off from sales to a junior delivery team.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultants who built your system support you once you’re live.'])}
 </div></section>
 <section class="band"><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Two offices</span><h2>Vancouver and Tacoma, working across the US and Canada</h2><p class="lede">We have offices in Vancouver, British Columbia and Tacoma, Washington. We work on site with companies across the Vancouver and Seattle–Tacoma areas, and remotely with clients anywhere in the US and Canada.</p><p><a class="more" href="@/business-central-partner-vancouver/">Business Central in Vancouver →</a></p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central in Tacoma &amp; Seattle →</a></p></div>
+  <div class="stack"><span class="eyebrow">Two offices</span><h2>Vancouver and Tacoma, working across the US and Canada</h2><p class="lede">We have offices in Vancouver, British Columbia and Tacoma, Washington. We work on site with companies across the Vancouver and Seattle–Tacoma areas, and remotely with clients anywhere in the US and Canada.</p><p><a class="more" href="@/business-central-partner-vancouver/">Business Central partner in Vancouver →</a></p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central partner in Tacoma →</a></p></div>
   {checks(['<strong>Who we work with today:</strong> distributors, a marketing agency, a hair transplant clinic and a construction and restoration company.', '<strong>Microsoft partner:</strong> ' + esc(CFG.get('partner_statement') or 'We help you choose and manage the right Microsoft licenses.')])}
 </div></section>
 {cta('Talk to a senior consultant')}''', [ABOUT_SCHEMA])
 
-# TACOMA / SEATTLE
-LOCAL_SCHEMA = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": URL + "#organization", "name": "Q84 Digital",
-                "areaServed": [{"@type": "City", "name": n} for n in ('Tacoma', 'Seattle', 'Bellevue', 'Kent', 'Auburn', 'Puyallup', 'Federal Way', 'Lakewood', 'Everett', 'Olympia')] + [{"@type": "State", "name": "Washington"}]}
+# TACOMA / PUGET SOUND
+LOCAL_SCHEMA = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": URL + "business-central-partner-tacoma/#office",
+                "name": "Q84 Digital", "url": URL + "business-central-partner-tacoma/", "parentOrganization": {"@id": URL + "#organization"},
+                "description": "Microsoft Dynamics 365 Business Central partner in Tacoma, WA: implementation, data migration, integrations and support for Puget Sound businesses.",
+                "address": {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"},
+                "image": URL + "images/tacoma-rainier-1200.webp", "logo": URL + "images/logo.png", "email": EMAIL,
+                "areaServed": [{"@type": "City", "name": n} for n in ('Tacoma', 'Seattle', 'Bellevue', 'Kent', 'Auburn', 'Puyallup', 'Federal Way', 'Lakewood', 'Everett', 'Olympia')] + [{"@type": "State", "name": "Washington"}],
+                "knowsAbout": ["Microsoft Dynamics 365 Business Central", "ERP implementation", "ERP data migration"]}
+if CFG.get('phone'):
+    LOCAL_SCHEMA['telephone'] = PHONE_TEL
 FAQ_LOCAL = [
+    ('Why choose a Business Central partner based in Tacoma?', 'Most of a Business Central project can happen online, but discovery workshops, warehouse walkthroughs, training and go-live day go better in person. With an office in Tacoma, we can be there for those moments without travel costs on your invoice, and we work the same Pacific hours as your team.', None),
     ('Do you meet clients in person?', 'Yes, for companies in the Seattle–Tacoma area. Discovery workshops, warehouse walkthroughs, training and go-live support can happen at your office or warehouse. Day-to-day project work happens online.', None),
     ('Can Business Central handle Washington sales tax?', 'Yes. Washington uses destination-based sales tax, so the rate depends on where goods are delivered. Business Central handles this with tax areas and jurisdictions, or you can connect a tax engine such as Avalara if you ship to many locations or several states.', None),
-    ('Do you only work with companies in Washington?', 'No. We have offices in Tacoma and Vancouver, BC, and Business Central is a cloud system, so we work remotely with companies across the US and Canada.', ('@/business-central-partner-vancouver/', 'Business Central in Vancouver, BC')),
+    ('How much does a Business Central implementation cost?', 'It depends on the number of users, the processes you need, how much data you bring over and which integrations you need. After a free assessment and a short discovery, we give you a written, fixed scope so you know the cost before the project starts.', ('@/guides/implementation-cost/', 'Business Central implementation cost guide')),
+    ('Do you only work with companies in Washington?', 'No. We have offices in Tacoma and Vancouver, BC, and Business Central is a cloud system, so we work remotely with companies across the US and Canada.', ('@/business-central-partner-vancouver/', 'Business Central partner in Vancouver, BC')),
 ]
 add('business-central-partner-tacoma/', 'local',
-    'Business Central Consultant in Seattle & Tacoma, WA | Q84 Digital',
-    'Business Central consultants in Seattle, Tacoma and across Washington: on-site workshops, implementation and support for Puget Sound businesses.',
-    page_head('Seattle & Tacoma', 'Business Central in Seattle &amp; Tacoma', 'Business Central consultant in Seattle, Tacoma &amp; Washington',
-              'Senior-led Microsoft Dynamics 365 Business Central implementation and support for companies in Tacoma, Seattle and across the Puget Sound.', art=('page-tacoma.webp', 'Illustration of a port with a container crane, cargo ship, warehouse and a snow-capped mountain')) + f'''
+    'Business Central Partner in Tacoma, WA | Q84 Digital',
+    'Microsoft Dynamics 365 Business Central partner in Tacoma, WA. Senior consultants for implementation, migration and support across the Puget Sound.',
+    page_head('Tacoma, WA', 'Business Central in Tacoma', 'Business Central partner in Tacoma, WA',
+              'Senior-led Microsoft Dynamics 365 Business Central implementation, migration and support for distributors, manufacturers and service businesses in Tacoma, Seattle and across the Puget Sound.', photo=('tacoma-rainier', 'Mount Rainier at sunrise above the Port of Tacoma, with container cranes along the waterfront', '0% 55%', '52% 60%', '138%')) + f'''
 <section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Local partner</span><h2>A Business Central consultant down the road, not across the country</h2>
-    <p class="lede">Q84 Digital is based in Tacoma. For Puget Sound companies that means workshops in your building, a consultant who can walk your warehouse floor, and someone nearby when you go live.</p></div>
-  {checks(['<strong>On-site when it matters.</strong> Discovery workshops, warehouse walkthroughs, training and go-live day.', '<strong>Online the rest of the time.</strong> Design, build and testing happen remotely, which keeps costs down.', '<strong>Pacific time, same working day.</strong> Questions get answered while your team is still at work.'])}
+  <div class="stack"><span class="eyebrow">Local partner</span><h2>A Business Central partner based in Tacoma</h2>
+    <p class="lede">Q84 Digital has an office in Tacoma, Washington. For South Sound and Puget Sound companies that means workshops in your building, a consultant who can walk your warehouse floor, and someone nearby when you go live.</p></div>
+  {checks(['<strong>On site when it matters.</strong> Discovery workshops, warehouse walkthroughs, training and go-live day.', '<strong>Online the rest of the time.</strong> Design, build and testing happen remotely, which keeps costs down.', '<strong>Pacific time, same working day.</strong> Questions get answered while your team is still at work.', '<strong>Senior consultants only.</strong> Every consultant has more than 10 years of ERP experience.'])}
 </div></section>
-<section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Who we help</span><h2>Business Central for Puget Sound businesses</h2>
-    <p class="lede">The region runs on distribution, manufacturing and services, from port-linked importers to Kent Valley warehouses and professional firms in Seattle and Bellevue.</p></div>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Choosing a partner</span><h2>What to expect from your Business Central partner</h2>
+    <p class="lede">Business Central is sold and implemented through Microsoft partners, so the partner you choose shapes how the project goes. This is how we work with companies in Tacoma and across Washington.</p></div>
+  {checks(['<strong>Senior from start to finish.</strong> The consultants who scope your project are the ones who deliver it.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultants who built your system support you once you’re live.'])}
+</div></section>
+<section><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Who we help</span><h2>Business Central for Tacoma and Puget Sound businesses</h2>
+    <p class="lede">The region runs on trade, distribution, manufacturing and services, from importers around the Port of Tacoma to warehouses in Fife and the Kent Valley and professional firms in Seattle and Bellevue.</p></div>
   <div class="fgrid">
-    <a class="fitem" href="@/industries/distribution/">{icon('truck')}<h3>Distributors &amp; importers</h3><p>Multi-location stock, landed costs on imported goods, and warehouse picking and shipping.</p><span class="more">Distribution →</span></a>
+    <a class="fitem" href="@/industries/distribution/">{icon('truck')}<h3>Distributors &amp; importers</h3><p>Landed costs on imported goods, several warehouses, and picking and shipping across the US.</p><span class="more">Distribution →</span></a>
     <a class="fitem" href="@/industries/manufacturing/">{icon('factory')}<h3>Manufacturers</h3><p>Bills of materials, production orders, material planning and product costing.</p><span class="more">Manufacturing →</span></a>
     <a class="fitem" href="@/industries/ecommerce/">{icon('shop')}<h3>E-commerce brands</h3><p>Shopify and marketplace orders, stock sync and fulfillment in one system.</p><span class="more">E-commerce →</span></a>
     <a class="fitem" href="@/industries/professional-services/">{icon('ledger')}<h3>Professional services</h3><p>Agencies, clinics, construction and restoration companies that bill by job, project or contract.</p><span class="more">Service businesses →</span></a>
   </div>
 </div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Business Central in Washington</span><h2>Set up for how Washington companies work</h2>
+    <p class="lede">A few Washington rules affect how Business Central should be set up. Getting them right early saves rework after go-live.</p></div>
+  {checks(['<strong>Destination-based sales tax.</strong> Tax areas and jurisdictions so each delivery gets the right local rate, or a tax engine if you ship to many locations.', '<strong>B&amp;O tax.</strong> Washington’s business and occupation tax is based on gross receipts, so we set up accounts and dimensions that make reporting by classification straightforward.', '<strong>Selling into Canada.</strong> USD and CAD customers, vendors and bank accounts, or a US and a Canadian company side by side with consolidated reporting.'])}
+</div></section>
 <section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Service area</span><h2>Where we work on site</h2><p class="lede">We visit clients across the Seattle–Tacoma area and work remotely with companies anywhere in the US.</p></div>
+  <div class="stack"><span class="eyebrow">Service area</span><h2>Where we work on site in the Puget Sound</h2><p class="lede">We visit clients across the Seattle–Tacoma area and work remotely with companies anywhere in the US and Canada.</p></div>
   {checks(['<strong>South Sound:</strong> Tacoma, Fife, Puyallup, Lakewood, University Place, Gig Harbor and Olympia.', '<strong>Kent Valley &amp; South King County:</strong> Kent, Auburn, Federal Way, Renton and Tukwila.', '<strong>Seattle &amp; Eastside:</strong> Seattle, Bellevue, Redmond and Kirkland.', '<strong>North Sound:</strong> Lynnwood, Everett and Marysville.'])}
 </div></section>
 <section class="band"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">What we do</span><h2>Business Central services</h2></div>
+  <div class="section-head"><span class="eyebrow">What we do</span><h2>Business Central services in Tacoma</h2></div>
   <div class="fgrid">
     <a class="fitem" href="@/implementation/">{icon('tools')}<h3>Implementation</h3><p>Business Central set up around your processes, from discovery to go-live.</p><span class="more">Implementation →</span></a>
     <a class="fitem" href="@/migration/">{icon('migrate')}<h3>Migration</h3><p>From QuickBooks, Dynamics GP, Dynamics NAV, Sage or spreadsheets.</p><span class="more">Migration →</span></a>
@@ -1613,8 +1644,8 @@ add('business-central-partner-tacoma/', 'local',
     <a class="fitem" href="@/support/">{icon('chart')}<h3>Support</h3><p>Fixes, improvements and training once you’re live.</p><span class="more">Support →</span></a>
   </div>
 </div></section>
-{faq_section(FAQ_LOCAL, 'Questions from Washington businesses').replace('<section class="band">', '<section>', 1)}
-{cta('Meet a Business Central consultant in Tacoma', 'Book a free 30-minute call. If you’re in the Puget Sound area, we can follow up with an on-site visit.')}''', [LOCAL_SCHEMA, faq_schema(FAQ_LOCAL)])
+{faq_section(FAQ_LOCAL, 'Questions from Tacoma and Washington businesses').replace('<section class="band">', '<section>', 1)}
+{cta('Meet a Business Central partner in Tacoma', 'Book a free 30-minute call. If you’re in the Puget Sound area, we can follow up with an on-site visit.')}''', [LOCAL_SCHEMA, faq_schema(FAQ_LOCAL)])
 
 # VANCOUVER / LOWER MAINLAND
 VAN = {'street': '555 Burrard St', 'city': 'Vancouver', 'region': 'BC', 'postal': 'V7X 1M8', 'country': 'CA',
@@ -1642,7 +1673,8 @@ add('business-central-partner-vancouver/', 'local-van',
     'Business Central Partner in Vancouver, BC | Q84 Digital',
     'Microsoft Dynamics 365 Business Central partner in Vancouver, BC. Senior consultants for implementation, migration and support across the Lower Mainland.',
     page_head('Vancouver, BC', 'Business Central in Vancouver', 'Business Central partner in Vancouver, BC',
-              'Senior-led Microsoft Dynamics 365 Business Central implementation, migration and support for distributors, manufacturers and service businesses in Vancouver and across the Lower Mainland.') + f'''
+              'Senior-led Microsoft Dynamics 365 Business Central implementation, migration and support for distributors, manufacturers and service businesses in Vancouver and across the Lower Mainland.',
+              photo=('vancouver-skyline', 'Downtown Vancouver skyline at dusk with the snow-covered North Shore mountains behind', '50% 88%', '62% 100%')) + f'''
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Local partner</span><h2>A Business Central partner in downtown Vancouver</h2>
     <p class="lede">Q84 Digital has an office at 555 Burrard St in downtown Vancouver. For Lower Mainland companies that means workshops in your building, a consultant who can walk your warehouse floor, and someone nearby when you go live.</p></div>
@@ -2372,7 +2404,7 @@ def render(p):
 <link rel="stylesheet" href="@/assets/site.css?v={CSS_V}">
 {analytics()}{schema}<script>window.Q84={client};</script>
 </head>
-<body{' class="over"' if p['body'].lstrip().startswith(('<section class="hero"', '<div class="page-head"')) else ''}>
+<body{' class="over"' if p['body'].lstrip().startswith(('<section class="hero"', '<div class="page-head')) else ''}>
 {header(p['nav'])}
 <main id="main">
 {p['body']}

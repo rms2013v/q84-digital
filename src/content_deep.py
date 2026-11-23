@@ -104,12 +104,10 @@ DEEP['development/'] = ('How we decide whether something needs custom code', '''
 <p>A short written specification you approve, a fixed price for that scope, development in a sandbox, testing with your real data, a deployment plan, and documentation your team can read. Source code should live in a repository your company controls, so future developers can pick it up.</p>
 ''')
 
-DEEP['business-central-partner-tacoma/'] = ('Why work with a local Business Central consultant', '''
-<p>Most of a Business Central project can be delivered remotely, and much of ours is. But a few moments are worth being in the same room for: the first discovery workshops, walking the warehouse floor to see how goods actually move, training sessions, and go-live day. A consultant based in Tacoma can be there for those without travel costs on your invoice.</p>
+DEEP['business-central-partner-tacoma/'] = ('Why work with a local Business Central partner', '''
+<p>Most of a Business Central project can be delivered remotely, and much of ours is. But a few moments are worth being in the same room for: the first discovery workshops, walking the warehouse floor to see how goods actually move, training sessions, and go-live day. A Business Central partner based in Tacoma can be there for those without travel costs on your invoice.</p>
 <h3>Puget Sound businesses we know well</h3>
 <p>The region’s economy leans heavily on trade, logistics and manufacturing. Importers bringing goods through the Port of Tacoma and the Port of Seattle need landed costs on every container. Warehouses in the Kent Valley and Fife need accurate bins and fast picking. Manufacturers across Pierce and King counties need production planning and real product costs. Professional services firms in Seattle and Bellevue need project accounting and time tracking. Business Central handles all of these, and we tailor the setup to which one you are.</p>
-<h3>Washington-specific setup</h3>
-<p>Washington uses destination-based sales tax, so the rate depends on where goods are delivered. Business Central handles this with tax areas and jurisdictions, and companies shipping to many locations often connect a tax engine. Washington’s business and occupation (B&amp;O) tax is calculated on gross receipts, so we set up your chart of accounts and dimensions to make B&amp;O reporting by classification straightforward.</p>
 ''')
 
 DEEP['about/'] = ('Why Q84 Digital exists', '''
