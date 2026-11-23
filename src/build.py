@@ -164,7 +164,7 @@ def footer():
     <div class="foot">
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
-        <p>Microsoft Dynamics 365 Business Central and Supply Chain Management partner with offices in Vancouver, BC and Tacoma, WA, for distributors, manufacturers and service businesses.</p>
+        <p>Microsoft Dynamics 365 Business Central partner with offices in Vancouver, BC and Tacoma, WA, for distributors, manufacturers and service businesses.</p>
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li><a href="@/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma, Washington</a></li></ul>
         {social_links()}
       </div>
