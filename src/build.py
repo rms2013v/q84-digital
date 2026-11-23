@@ -167,12 +167,12 @@ def footer():
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
         <p>Microsoft Dynamics 365 Business Central and Supply Chain Management partner with offices in Vancouver, BC and Tacoma, WA, for distributors, manufacturers and service businesses.</p>
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li>Vancouver, British Columbia</li><li>Tacoma, Washington</li></ul>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li><a href="@/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma, Washington</a></li></ul>
         {social_links()}
       </div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/rescue/">Rescue &amp; recovery</a></li><li><a href="@/development/">Development</a></li><li><a href="@/support/">Support</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/integrations/">Integrations</a></li><li><a href="@/dynamics-365-supply-chain-management/">Dynamics 365 SCM</a></li><li><a href="@/dynamics-365-supply-chain-management/warehouse-management/">D365 warehouse management</a></li></ul></div>
       <div><h4>Migration</h4><ul><li><a href="@/migration/quickbooks/">From QuickBooks</a></li><li><a href="@/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="@/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="@/migration/sage/">From Sage</a></li><li><a href="@/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
-      <div><h4>Industries</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/industries/ecommerce/">E-commerce</a></li><li><a href="@/industries/professional-services/">Professional services</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="@/industries/distribution/">Distribution</a></li><li><a href="@/industries/manufacturing/">Manufacturing</a></li><li><a href="@/industries/ecommerce/">E-commerce</a></li><li><a href="@/industries/professional-services/">Professional services</a></li><li><a href="@/business-central-partner-vancouver/">Vancouver &amp; Lower Mainland</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="@/about/">About</a></li><li><a href="@/guides/">Guides</a></li><li><a href="@/blog/">Blog</a></li><li><a href="@/contact/">Contact</a></li><li><a href="@/privacy/">Privacy</a></li></ul></div>
     </div>
     <div class="legal"><span>© {date.today().year} Q84 Digital. {legal}All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
@@ -361,7 +361,7 @@ ORG_SCHEMA = {
     "url": URL, "email": EMAIL,
     "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.",
     "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}],
-    "address": [{"@type": "PostalAddress", "addressLocality": "Vancouver", "addressRegion": "BC", "addressCountry": "CA"},
+    "address": [{"@type": "PostalAddress", "streetAddress": "555 Burrard St", "addressLocality": "Vancouver", "addressRegion": "BC", "postalCode": "V7X 1M8", "addressCountry": "CA"},
                 {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"}],
     "@id": URL + "#organization",
     "logo": URL + "images/logo.png", "image": URL + "images/og-default.jpg",
@@ -398,7 +398,7 @@ def add(path, nav, title, desc, body, schema=None, image=None, subnav=False):
 def slug(t):
     return re.sub(r'[^a-z0-9]+', '-', html.unescape(t).lower()).strip('-')
 
-NAV_SHORT = {'What clients say': 'Reviews', 'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit', 'Marketing agencies': 'Agencies', 'Medical and aesthetic clinics': 'Clinics', 'Who we work with': 'Clients', 'Construction and restoration': 'Construction', 'Step by step': 'Steps',
+NAV_SHORT = {'Our Vancouver office': 'Office', 'Business Central in Canada': 'In Canada', 'What clients say': 'Reviews', 'Watch the overview': 'Overview', 'Choosing the right ERP': 'Is it enough?', 'Moving from QuickBooks?': 'From QuickBooks', 'Where you\u2019re coming from': 'Source systems', 'How Business Central helps': 'Features', 'Is it the right fit?': 'Fit', 'Marketing agencies': 'Agencies', 'Medical and aesthetic clinics': 'Clinics', 'Who we work with': 'Clients', 'Construction and restoration': 'Construction', 'Step by step': 'Steps',
              'What moves where': 'Mapping', 'What changes': 'Mapping', 'Why companies move': 'Why move', 'Why now': 'Why now', 'Our process': 'Process', 'Two paths': 'Paths',
              'Warning signs': 'Signs', 'How we fix it': 'How we fix it', 'Root causes': 'Causes', 'Local partner': 'Local', 'Who we help': 'Industries', 'Service area': 'Service area',
              'What we do': 'Services', 'What we build': 'What we build', 'Our approach': 'Approach', 'What syncs': 'What syncs', 'Beyond the basics': 'More',
@@ -485,7 +485,7 @@ add('', 'home',
     <a class="announce" href="{CHECKLIST_URL}"><span class="announce-tag">New</span><span>Free ERP Readiness Checklist for Business Central projects</span><span class="announce-link">Download \u2192</span></a>
     <h1>Take control of your inventory, operations and finances <span class="h1-accent">with Microsoft Business Central</span></h1>
     <p class="lede lede-strong">Replace disconnected accounting, inventory and warehouse systems with one connected ERP platform.</p>
-    <p class="lede">Q84 Digital is a Business Central partner with offices in Vancouver, BC and Tacoma, WA. We help distributors, manufacturers and service businesses across the Pacific Northwest, the US and Canada implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
+    <p class="lede">Q84 Digital is a Business Central partner with offices in <a href="@/business-central-partner-vancouver/">Vancouver, BC</a> and <a href="@/business-central-partner-tacoma/">Tacoma, WA</a>. We help distributors, manufacturers and service businesses across the Pacific Northwest, the US and Canada implement Microsoft Dynamics 365 Business Central, migrate their data and connect the systems they rely on.</p>
     <div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a><a class="btn btn-ghost" href="#tour">See how it works</a></div>
   </div>{HERO_ART}</div>
 </div></section>
@@ -1676,7 +1676,7 @@ add('about/', 'about',
   {checks(['<strong>Senior from start to finish.</strong> No hand-off from sales to a junior delivery team.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultants who built your system support you once you’re live.'])}
 </div></section>
 <section class="band"><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Two offices</span><h2>Vancouver and Tacoma, working across the US and Canada</h2><p class="lede">We have offices in Vancouver, British Columbia and Tacoma, Washington. We work on site with companies across the Vancouver and Seattle–Tacoma areas, and remotely with clients anywhere in the US and Canada.</p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central in Tacoma &amp; Seattle →</a></p></div>
+  <div class="stack"><span class="eyebrow">Two offices</span><h2>Vancouver and Tacoma, working across the US and Canada</h2><p class="lede">We have offices in Vancouver, British Columbia and Tacoma, Washington. We work on site with companies across the Vancouver and Seattle–Tacoma areas, and remotely with clients anywhere in the US and Canada.</p><p><a class="more" href="@/business-central-partner-vancouver/">Business Central in Vancouver →</a></p><p><a class="more" href="@/business-central-partner-tacoma/">Business Central in Tacoma &amp; Seattle →</a></p></div>
   {checks(['<strong>Who we work with today:</strong> distributors, a marketing agency, a hair transplant clinic and a construction and restoration company.', '<strong>Microsoft partner:</strong> ' + esc(CFG.get('partner_statement') or 'We help you choose and manage the right Microsoft licenses.')])}
 </div></section>
 {cta('Talk to a senior consultant')}''', [ABOUT_SCHEMA])
@@ -1687,7 +1687,7 @@ LOCAL_SCHEMA = {"@context": "https://schema.org", "@type": "ProfessionalService"
 FAQ_LOCAL = [
     ('Do you meet clients in person?', 'Yes, for companies in the Seattle–Tacoma area. Discovery workshops, warehouse walkthroughs, training and go-live support can happen at your office or warehouse. Day-to-day project work happens online.', None),
     ('Can Business Central handle Washington sales tax?', 'Yes. Washington uses destination-based sales tax, so the rate depends on where goods are delivered. Business Central handles this with tax areas and jurisdictions, or you can connect a tax engine such as Avalara if you ship to many locations or several states.', None),
-    ('Do you only work with companies in Washington?', 'No. We’re based in Tacoma, but Business Central is a cloud system and we work remotely with companies across the US.', None),
+    ('Do you only work with companies in Washington?', 'No. We have offices in Tacoma and Vancouver, BC, and Business Central is a cloud system, so we work remotely with companies across the US and Canada.', ('@/business-central-partner-vancouver/', 'Business Central in Vancouver, BC')),
 ]
 add('business-central-partner-tacoma/', 'local',
     'Business Central Consultant in Seattle & Tacoma, WA | Q84 Digital',
@@ -1724,6 +1724,80 @@ add('business-central-partner-tacoma/', 'local',
 </div></section>
 {faq_section(FAQ_LOCAL, 'Questions from Washington businesses').replace('<section class="band">', '<section>', 1)}
 {cta('Meet a Business Central consultant in Tacoma', 'Book a free 30-minute call. If you’re in the Puget Sound area, we can follow up with an on-site visit.')}''', [LOCAL_SCHEMA, faq_schema(FAQ_LOCAL)])
+
+# VANCOUVER / LOWER MAINLAND
+VAN = {'street': '555 Burrard St', 'city': 'Vancouver', 'region': 'BC', 'postal': 'V7X 1M8', 'country': 'CA',
+       'maps': 'https://maps.google.com/?cid=66210780043345797',
+       'directions': 'https://www.google.com/maps/dir/?api=1&destination=Q84+Digital+555+Burrard+St+Vancouver+BC+V7X+1M8',
+       'hours': 'Monday to Friday, 8 a.m. to 5 p.m. Pacific'}
+VAN_URL = '@/business-central-partner-vancouver/'
+VAN_SCHEMA = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": URL + "business-central-partner-vancouver/#office",
+              "name": "Q84 Digital", "url": URL + "business-central-partner-vancouver/", "parentOrganization": {"@id": URL + "#organization"},
+              "description": "Microsoft Dynamics 365 Business Central partner in Vancouver, BC: implementation, data migration, integrations and support for Lower Mainland businesses.",
+              "address": {"@type": "PostalAddress", "streetAddress": VAN['street'], "addressLocality": VAN['city'], "addressRegion": VAN['region'], "postalCode": VAN['postal'], "addressCountry": VAN['country']},
+              "hasMap": VAN['maps'], "image": URL + "images/og-default.jpg", "logo": URL + "images/logo.png", "email": EMAIL,
+              "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:00"}],
+              "areaServed": [{"@type": "City", "name": "Vancouver"}, {"@type": "AdministrativeArea", "name": "British Columbia"}],
+              "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "ERP implementation"]}
+if CFG.get('phone'):
+    VAN_SCHEMA['telephone'] = PHONE_TEL
+FAQ_VAN = [
+    ('Do you meet clients in person in Vancouver?', 'Yes. Our office is at 555 Burrard St in downtown Vancouver, and we work on site with companies across the Vancouver area for discovery workshops, warehouse walkthroughs, training and go-live support. Day-to-day project work happens online.', None),
+    ('Can Business Central handle GST and PST in British Columbia?', 'Yes. The Canadian version of Business Central handles GST, PST and HST with tax areas and tax groups, so a BC sale can carry 5% GST and 7% PST while a sale shipped to Ontario carries 13% HST. We set up the tax areas, exemptions and reports for the provinces and US states you sell into.', None),
+    ('Can you set up a company that trades in both Canada and the US?', 'Yes. Business Central handles CAD and USD with exchange rates and realized and unrealized gains, and can run a Canadian and a US company side by side with intercompany transactions and consolidated reporting. We have offices in both Vancouver, BC and Tacoma, WA.', None),
+    ('Do you only work with companies in British Columbia?', 'No. We have offices in Vancouver and Tacoma, and Business Central is a cloud system, so we work remotely with companies across Canada and the US.', None),
+]
+add('business-central-partner-vancouver/', 'local-van',
+    'Business Central Partner in Vancouver, BC | Q84 Digital',
+    'Microsoft Dynamics 365 Business Central partner in Vancouver, BC. Senior consultants for implementation, migration and support across the Lower Mainland.',
+    page_head('Vancouver, BC', 'Business Central in Vancouver', 'Business Central partner in Vancouver, BC',
+              'Senior-led Microsoft Dynamics 365 Business Central implementation, migration and support for distributors, manufacturers and service businesses in Vancouver and across the Lower Mainland.') + f'''
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Local partner</span><h2>A Business Central partner in downtown Vancouver</h2>
+    <p class="lede">Q84 Digital has an office at 555 Burrard St in downtown Vancouver. For Lower Mainland companies that means workshops in your building, a consultant who can walk your warehouse floor, and someone nearby when you go live.</p></div>
+  {checks(['<strong>On site when it matters.</strong> Discovery workshops, warehouse walkthroughs, training and go-live day.', '<strong>Online the rest of the time.</strong> Design, build and testing happen remotely, which keeps costs down.', '<strong>Built for Canada.</strong> GST and PST, CAD and USD, Canadian banks and cross-border operations.', '<strong>Senior consultants only.</strong> Every consultant has more than 10 years of ERP experience.'])}
+</div></section>
+<section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our Vancouver office</span><h2>Contact our Vancouver office</h2>
+    <p class="lede">Call, email or book a free 30-minute call to talk through your project with a senior consultant.</p>
+    <p><a class="more" href="{VAN['maps']}" target="_blank" rel="noopener">View Q84 Digital on Google Maps →</a></p></div>
+  <div class="card stack" style="gap:10px">
+    <h3>Q84 Digital, Vancouver</h3>
+    <p style="margin:0">{VAN['street']}<br>{VAN['city']}, {VAN['region']} {VAN['postal']}<br>Canada</p>
+    <p style="margin:0"><strong>Phone:</strong> <a href="tel:{PHONE_TEL}">{esc(CFG.get('phone') or '')}</a><br><strong>Email:</strong> {esc(EMAIL)}<br><strong>Hours:</strong> {VAN['hours']}</p>
+    <p style="margin:0"><a class="more" href="{VAN['directions']}" target="_blank" rel="noopener">Get directions →</a></p>
+  </div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Business Central in Canada</span><h2>Set up for how Canadian companies work</h2>
+    <p class="lede">Business Central has a Canadian version, and getting its Canadian features right early saves a lot of rework after go-live.</p></div>
+  {checks(['<strong>GST, PST and HST.</strong> Tax areas and groups for BC sales, other provinces and US states, with the reports your accountant needs.', '<strong>CAD and USD.</strong> Multi-currency customers, vendors and bank accounts, with exchange rate gains and losses posted for you.', '<strong>Cross-border companies.</strong> A Canadian and a US company side by side, with intercompany transactions and consolidated reporting.', '<strong>Canadian banks.</strong> Bank feeds, reconciliation and electronic payments to vendors.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Who we help</span><h2>Business Central for Lower Mainland businesses</h2>
+    <p class="lede">From importers around the Port of Vancouver to warehouses in Delta and Richmond and manufacturers in the Fraser Valley, the region runs on moving and making goods.</p></div>
+  <div class="fgrid">
+    <a class="fitem" href="@/industries/distribution/">{icon('truck')}<h3>Distributors &amp; importers</h3><p>Landed costs on imported goods, several warehouses, and picking and shipping across Canada and the US.</p><span class="more">Distribution →</span></a>
+    <a class="fitem" href="@/industries/manufacturing/">{icon('factory')}<h3>Manufacturers</h3><p>Bills of materials, production orders, material planning, lot tracking and product costing.</p><span class="more">Manufacturing →</span></a>
+    <a class="fitem" href="@/industries/ecommerce/">{icon('shop')}<h3>E-commerce brands</h3><p>Shopify and marketplace orders, stock sync and fulfillment in one system.</p><span class="more">E-commerce →</span></a>
+    <a class="fitem" href="@/industries/professional-services/">{icon('ledger')}<h3>Professional services</h3><p>Agencies, clinics, construction and restoration companies that bill by job, project or contract.</p><span class="more">Service businesses →</span></a>
+  </div>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Service area</span><h2>Where we work</h2><p class="lede">We work on site with companies across the Vancouver area, and remotely with companies anywhere in Canada and the US.</p></div>
+  {checks(['<strong>Vancouver area:</strong> on-site workshops, warehouse walkthroughs, training and go-live support.', '<strong>Rest of British Columbia and Canada:</strong> remote projects and support.', '<strong>Washington State:</strong> on-site work across the Seattle–Tacoma area from our Tacoma office.', '<strong>Rest of the US:</strong> remote projects and support.'])}
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">What we do</span><h2>Business Central services in Vancouver</h2></div>
+  <div class="fgrid">
+    <a class="fitem" href="@/implementation/">{icon('tools')}<h3>Implementation</h3><p>Business Central set up around your processes, from discovery to go-live.</p><span class="more">Implementation →</span></a>
+    <a class="fitem" href="@/migration/">{icon('migrate')}<h3>Migration</h3><p>From QuickBooks, Sage 50, Dynamics GP, Dynamics NAV or spreadsheets.</p><span class="more">Migration →</span></a>
+    <a class="fitem" href="@/rescue/">{icon('support')}<h3>Rescue &amp; recovery</h3><p>Stalled projects and systems that never worked properly.</p><span class="more">Rescue &amp; recovery →</span></a>
+    <a class="fitem" href="@/support/">{icon('chart')}<h3>Support</h3><p>Fixes, improvements and training once you’re live.</p><span class="more">Support →</span></a>
+  </div>
+</div></section>
+{faq_section(FAQ_VAN, 'Questions from BC businesses').replace('<section class="band">', '<section>', 1)}
+{cta('Meet a Business Central partner in Vancouver', 'Book a free 30-minute call. If you’re in the Vancouver area, we can follow up with an on-site visit.')}''', [VAN_SCHEMA, faq_schema(FAQ_VAN)])
 
 # RESCUE
 FAQ_RES = [
@@ -2437,7 +2511,7 @@ def render(p):
     return doc.replace('@/', BASE)
 
 SUBNAV_PAGES = {'business-central/', 'dynamics-365-supply-chain-management/', 'dynamics-365-supply-chain-management/warehouse-management/', 'licensing/', 'implementation/', 'migration/', 'integrations/', 'support/', 'industries/distribution/', 'industries/manufacturing/', 'industries/professional-services/',
-                'rescue/', 'development/', 'business-central-partner-tacoma/', 'industries/ecommerce/',
+                'rescue/', 'development/', 'business-central-partner-tacoma/', 'business-central-partner-vancouver/', 'industries/ecommerce/',
                 'migration/quickbooks/', 'migration/dynamics-gp/', 'migration/dynamics-nav/', 'migration/sage/', 'migration/spreadsheets/',
                 'integrations/shopify/', 'integrations/edi/', 'integrations/power-bi/', 'integrations/warehouse-insight/',
                 'guides/implementation-cost/', 'guides/implementation-timeline/'}

@@ -613,6 +613,8 @@ section[id],[id].band{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 140p
 .about-photo{max-width:320px;justify-self:center}
 .logo,.nav-links a,.dd>summary{white-space:nowrap}
 @media (min-width:1181px){.nav-links{gap:2px}.nav-links a,.dd>summary{padding:.6rem .42rem}.nav{gap:10px}}
+/* Menu labels share a baseline with the "Q84 Digital" wordmark; the tagline hangs below */
+@media (min-width:1181px){.nav-links>a:not(.btn),.nav-links>.dd{position:relative;top:-6.3px}}
 .bc-shot{margin:8px 0 16px;max-width:none}
 .bc-shot img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
 .bc-shot figcaption{margin-top:10px;font-size:.8rem;color:var(--muted)}
