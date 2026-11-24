@@ -171,7 +171,7 @@ def footer():
     <div class="foot">
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
-        <p>Microsoft Dynamics 365 Business Central partner with offices in Vancouver, BC and Tacoma, WA, for distributors, manufacturers and service businesses.</p>
+        <p>Microsoft Dynamics 365 Business Central partner.</p>
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li><a href="@/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma, Washington</a></li></ul>
         {social_links()}
       </div>
@@ -330,8 +330,8 @@ TOUR = '''<section id="tour" style="border-top:1px solid var(--line)">
   </div>
 
   <div class="tour-panel" role="tabpanel" id="panel-wh" aria-labelledby="tab-wh" hidden>
-    <figure class="shot" style="margin:0" data-shot="@/images/warehouse-pick.png" data-alt="Business Central warehouse pick with take and place lines by bin">
-      <div class="shot-bar"><b>Warehouse Pick · PI-000142</b><span>Example data</span></div>
+    <figure class="shot" style="margin:0" data-shot="@/images/warehouse-bin-contents.png" data-alt="Business Central Bin Contents report showing warehouse quantity and available quantity to take by bin">
+      <div class="shot-bar"><b>Bin Contents</b><span>Example data</span></div>
       <div class="shot-body">
         <div class="fields"><div><span>Source</span><b>SO-101009</b></div><div><span>Location</span><b>MAIN</b></div><div><span>Assigned to</span><b>Picker 2</b></div><div><span>Lines</span><b>6</b></div></div>
         <table class="mini"><thead><tr><th>Action</th><th>Item</th><th>Bin</th><th class="n">Qty to handle</th><th class="n">Qty handled</th></tr></thead>
@@ -346,7 +346,7 @@ TOUR = '''<section id="tour" style="border-top:1px solid var(--line)">
   </div>
 
 ''' + VIDEO + '''
-  <p class="shot-note" id="shotNote" style="margin-top:20px">Screens show Business Central with example data from Microsoft’s demo company.</p>
+  <p class="shot-note" id="shotNote" style="margin-top:20px">Screens show Business Central with example data from Microsoft’s demo company. Warehouse screen from <a href="https://learn.microsoft.com/dynamics365/business-central/" target="_blank" rel="noopener">Microsoft Learn</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p>
 </div>
 </section>'''
 
@@ -979,7 +979,7 @@ FAQ_SAGE = [
     ('How long does a Sage migration take?', 'The data migration usually runs over three to six weeks alongside the wider implementation, with at least two trial loads before cutover.', ('@/guides/implementation-timeline/', 'Implementation timeline')),
 ]
 add('migration/sage/', 'mig-sage',
-    'Sage 50 & Sage 100 to Business Central Migration | Q84 Digital',
+    'Sage 50 & 100 to Business Central Migration | Q84 Digital',
     'Move from Sage 50 or Sage 100 to Microsoft Dynamics 365 Business Central: what maps where, how data is extracted, and how balances are reconciled.',
     page_head('Migration', '<a href="@/migration/">Migration</a> / Sage', 'Sage 50 and Sage 100 to Business Central',
               'Moving from Sage 50 or Sage 100? We map your Sage data and modules to Business Central, clean it up and reconcile every balance before you switch.', art=('page-mig-sage.webp', 'Illustration of binders on a conveyor moving into a laptop')) + f'''
@@ -1216,7 +1216,7 @@ FAQ_WI = [
     ('Can Order Ship Express handle international or freight shipments?', 'It is designed for domestic parcel shipping with up to three carriers. For international parcels, more carriers or LTL and truckload freight, a more advanced shipping app is the better fit, and we’ll recommend one during discovery.', None),
 ]
 add('integrations/warehouse-insight/', 'int-wi',
-    'Warehouse Insight Mobile WMS for Business Central | Q84 Digital',
+    'Warehouse Insight WMS for Business Central | Q84 Digital',
     'Warehouse Insight mobile WMS and Order Ship Express parcel shipping for Business Central: scan, pick, pack and print carrier labels, set up by Q84 Digital.',
     page_head('Integrations', '<a href="@/integrations/">Integrations</a> / Warehouse Insight', 'Warehouse Insight mobile WMS for Business Central',
               'A scanner-first warehouse app for Business Central. Your team receives, puts away, picks, ships and counts on handheld devices, and every scan updates Business Central straight away.', art=('page-warehouse-insight.webp', 'Illustration of a handheld scanner, a labeled parcel and a label printer printing a shipping label')) + f'''
@@ -1775,7 +1775,7 @@ FAQ_DEV = [
     ('Do you build AppSource apps?', 'Our focus is extensions for your company (per-tenant extensions). If your idea would help many Business Central customers, we can talk about what publishing on AppSource involves.', None),
 ]
 add('development/', 'development',
-    'Business Central Developer & Custom AL Extensions | Q84 Digital',
+    'Business Central Developer & AL Extensions | Q84 Digital',
     'Hire a Business Central developer for custom AL extensions, reports, APIs and integrations, built on Microsoft’s extension model so updates stay safe.',
     page_head('Development', 'Services / Development', 'Business Central development and AL extensions',
               'Custom fields, pages, reports, business logic and integrations, built as AL extensions that survive Microsoft’s updates.', art=('page-development.webp', 'Illustration of a laptop showing code, puzzle pieces snapping together and a gear')) + f'''
@@ -2029,7 +2029,7 @@ CL_SCHEMA = {"@context": "https://schema.org", "@type": "DigitalDocument", "name
              "encodingFormat": "application/pdf", "url": URL + "downloads/q84-erp-readiness-checklist.pdf",
              "author": {"@id": URL + "#organization"}, "inLanguage": "en-US", "isAccessibleForFree": True}
 add('guides/erp-readiness-checklist/', 'checklist',
-    'Free ERP Readiness Checklist for Business Central | Q84 Digital',
+    'ERP Readiness Checklist for Business Central | Q84 Digital',
     'Download a free, fillable ERP Readiness Checklist. 52 questions across 9 areas help distributors and manufacturers prepare for a Business Central project.',
     page_head('Guides', '<a href="@/guides/">Guides</a> / ERP readiness checklist', 'Free ERP Readiness Checklist',
               'Find the gaps before you choose an ERP. 52 practical questions across 9 areas, written for distributors and manufacturers considering Microsoft Dynamics 365 Business Central.', button=False) + f'''
@@ -2084,7 +2084,7 @@ FAQ_COST = [
     ('Can we lower the cost by doing some work ourselves?', 'Yes. Teams that clean their own data, write their own test scripts and train their own users after a train-the-trainer session can reduce consulting time noticeably.', None),
 ]
 add('guides/implementation-cost/', 'guide-cost',
-    'Business Central Implementation Cost (2026 Guide) | Q84 Digital',
+    'Business Central Implementation Cost (2026) | Q84 Digital',
     COST_DESC,
     guide_head('Implementation cost', 'How much does a Business Central implementation cost?',
                'An honest breakdown of what you’ll pay, where the money goes and what makes projects bigger or smaller.', art=('page-guide-cost.webp', 'Illustration of a calculator printing a receipt, a stack of coins and a piggy bank')) + f'''
@@ -2143,7 +2143,7 @@ add('guides/implementation-cost/', 'guide-cost',
 # TIMELINE GUIDE
 TIME_DESC = 'How long a Business Central implementation takes: typical timelines by project size, what happens in each phase, and what slows projects down.'
 add('guides/implementation-timeline/', 'guide-timeline',
-    'How Long Does Business Central Implementation Take? | Q84 Digital',
+    'Business Central Implementation Timeline | Q84 Digital',
     TIME_DESC,
     guide_head('Implementation timeline', 'How long does a Business Central implementation take?',
                'Typical timelines by project size, what happens week by week, and the decisions that keep a project on schedule.', art=('page-guide-timeline.webp', 'Illustration of a calendar, an hourglass and a timeline with milestones')) + f'''
@@ -2215,7 +2215,7 @@ CMP_REL = {
 }
 
 compare_page('compare/netsuite/', 'cmp-netsuite', 'NetSuite',
-    'Business Central vs NetSuite: Honest Comparison | Q84 Digital',
+    'Business Central vs NetSuite Compared | Q84 Digital',
     'Business Central vs Oracle NetSuite for small and midsize companies: pricing model, features, customization, Microsoft 365 and when each one fits.',
     'Both are leading cloud ERPs for growing companies. They differ most in pricing model, ecosystem and how they’re customized.',
     [('Vendor', 'Microsoft', 'Oracle'),
@@ -2241,7 +2241,7 @@ compare_page('compare/netsuite/', 'cmp-netsuite', 'NetSuite',
 <p>Companies move in both directions. A move is a new implementation either way: master data, open transactions and balances are migrated, and detailed history usually stays in the old system for reference.</p>''', art=('page-cmp-netsuite.webp', 'Illustration of a balance scale weighing a laptop against a cloud'))
 
 compare_page('compare/sage-intacct/', 'cmp-intacct', 'Sage Intacct',
-    'Business Central vs Sage Intacct: Honest Comparison | Q84 Digital',
+    'Business Central vs Sage Intacct Compared | Q84 Digital',
     'Microsoft Dynamics 365 Business Central vs Sage Intacct: full ERP or finance-first cloud accounting, inventory and operations, multi-entity and when each fits.',
     'Sage Intacct is a finance-first cloud accounting system. Business Central is a full ERP. The right choice depends on how much of your business is inventory and operations.',
     [('Focus', 'Full ERP: finance, inventory, warehousing, manufacturing, projects', 'Financial management first, with optional modules'),
@@ -2263,7 +2263,7 @@ compare_page('compare/sage-intacct/', 'cmp-intacct', 'Sage Intacct',
 <p>With a finance-first system, operations teams often keep separate tools for inventory, orders or projects, and those need integrating. With a full ERP, more of the business works in one system, but setup covers more departments. Be clear about which teams the new system has to serve before comparing products.</p>''', art=('page-cmp-intacct.webp', 'Illustration of a balance scale weighing warehouse boxes and a forklift against an accounting ledger'))
 
 compare_page('compare/odoo/', 'cmp-odoo', 'Odoo',
-    'Business Central vs Odoo: Honest Comparison | Q84 Digital',
+    'Business Central vs Odoo Compared | Q84 Digital',
     'Microsoft Dynamics 365 Business Central vs Odoo for small and midsize companies: accounting depth, apps, customization, pricing, partners and when each fits.',
     'Odoo is a modular, open-source-based business suite with apps for almost everything. Business Central is Microsoft’s ERP with deep accounting and operations. They suit different companies.',
     [('Model', 'Commercial cloud ERP from Microsoft', 'Open-source Community edition plus a paid Enterprise edition'),
@@ -2286,7 +2286,7 @@ compare_page('compare/odoo/', 'cmp-odoo', 'Odoo',
 
 # GUIDES HUB
 add('guides/', 'guides',
-    'Business Central Guides, Comparisons & Checklists | Q84 Digital',
+    'Business Central Guides & Comparisons | Q84 Digital',
     'Free Business Central guides: implementation cost and timeline, comparisons with NetSuite, Sage Intacct and Odoo, and an ERP readiness checklist.',
     page_head('Guides', 'Guides', 'Business Central guides',
               'Practical guides, honest comparisons and free tools to help you plan, choose and implement Business Central.', button=False, art=('page-guides.webp', 'Illustration of an open guidebook, a stack of books and a light bulb')) + f'''
@@ -2479,6 +2479,22 @@ for p in PAGES:
     out = os.path.join(ROOT, p['path'], 'index.html')
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'w').write(render(p))
+
+# Home page: new design for the <main> content (src/home_v2.py, assets/home-v2.css/js); header and footer stay as they are
+def _home_v2():
+    import hashlib, sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from home_v2 import home
+    f = os.path.join(ROOT, 'index.html'); s = open(f).read()
+    ver = lambda n: hashlib.md5(open(os.path.join(ROOT, 'assets', n), 'rb').read()).hexdigest()[:8]
+    fonts = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@600;700;800&display=swap">')
+    s = home(s)
+    s = s.replace('</head>', f'{fonts}<link rel="stylesheet" href="/assets/home-v2.css?v={ver("home-v2.css")}">\n</head>', 1)
+    s = s.replace('</body>', f'<script src="/assets/home-v2.js?v={ver("home-v2.js")}" defer></script>\n</body>', 1)
+    s = s.replace('<body class="over">', '<body class="rd-home">', 1)   # light top: header shows solid from the start
+    open(f, 'w').write(s)
+_home_v2()
 
 # 404
 nf = dict(path='404.html', nav='', title='Page not found | Q84 Digital', desc='This page could not be found.',
