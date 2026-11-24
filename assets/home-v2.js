@@ -174,14 +174,14 @@
   }
 })();
 
-/* Featured-client card: rotate the featured client, its industry tag and the four logos below */
+/* Featured-client card: clicking a logo below makes it the featured client */
 (function () {
   var card = document.querySelector('[data-rd-cc]');
   if (!card) return;
   var feat = [].slice.call(card.querySelectorAll('.rd-cc-feat img'));
   var cells = [].slice.call(card.querySelectorAll('.rd-cc-cell'));
   var dots = [].slice.call(card.querySelectorAll('.rd-cc-dots span'));
-  var tag = card.querySelector('.rd-cc-tag'), ind = card.dataset.ind.split('|'), n = feat.length, cur = 0, timer;
+  var tag = card.querySelector('.rd-cc-tag'), ind = card.dataset.ind.split('|'), n = feat.length, cur = 0;
   var show = function (i) {
     cur = (i + n) % n;
     feat.forEach(function (im, k) { im.classList.toggle('is-on', k === cur); });
@@ -200,10 +200,6 @@
       }, k * 70);
     });
   };
-  cells.forEach(function (c) { c.addEventListener('click', function () { show(+c.dataset.i); restart(); }); });
-  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var restart = function () { clearInterval(timer); if (!still) timer = setInterval(function () { show(cur + 1); }, 3800); };
-  card.addEventListener('mouseenter', function () { clearInterval(timer); });
-  card.addEventListener('mouseleave', restart);
-  restart();
+  // switch only when the visitor picks a logo; no automatic rotation
+  cells.forEach(function (c) { c.addEventListener('click', function () { show(+c.dataset.i); }); });
 })();
