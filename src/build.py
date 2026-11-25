@@ -2543,4 +2543,20 @@ open(os.path.join(ROOT, 'sitemap.xml'), 'w').write(
     f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
 rule = 'Allow: /' if CFG.get('allow_indexing', True) else 'Disallow: /'
 open(os.path.join(ROOT, 'robots.txt'), 'w').write(f'User-agent: *\n{rule}\n\nSitemap: {URL}sitemap.xml\n')
-print(f'Built {len(PAGES)} pages + 404, sitemap.xml, robots.txt')
+# llms.txt: a plain-text map of the site for AI assistants (https://llmstxt.org)
+def _llms_section(title, prefixes):
+    rows = [p for p in PAGES if p['path'] and any(p['path'].startswith(x) for x in prefixes)]
+    return f'\n## {title}\n\n' + ''.join(f'- [{html.unescape(p["title"]).split(" | ")[0]}]({URL}{p["path"]}): {html.unescape(p["desc"])}\n' for p in rows) if rows else ''
+llms = (f'# Q84 Digital\n\n> Q84 Digital is a Microsoft partner that implements, migrates, integrates and supports Microsoft Dynamics 365 Business Central '
+        f'for distributors, manufacturers, e-commerce and professional services companies. Offices in Vancouver, BC and Tacoma, WA; '
+        f'clients across the US and Canada.\n\n'
+        f'Contact: {EMAIL}' + (f', {CFG["phone"]}' if CFG.get('phone') else '') + '\n'
+        + _llms_section('Services', ('business-central/', 'implementation/', 'rescue/', 'development/', 'support/', 'licensing/'))
+        + _llms_section('Migration', ('migration/',))
+        + _llms_section('Integrations', ('integrations/',))
+        + _llms_section('Industries', ('industries/',))
+        + _llms_section('Guides and comparisons', ('guides/', 'compare/'))
+        + _llms_section('Blog', ('blog/',))
+        + _llms_section('Company', ('about/', 'contact/', 'business-central-partner-')))
+open(os.path.join(ROOT, 'llms.txt'), 'w').write(llms)
+print(f'Built {len(PAGES)} pages + 404, sitemap.xml, robots.txt, llms.txt')

@@ -1,0 +1,63 @@
+# Q84 Digital
+
+> Q84 Digital is a Microsoft partner that implements, migrates, integrates and supports Microsoft Dynamics 365 Business Central for distributors, manufacturers, e-commerce and professional services companies. Offices in Vancouver, BC and Tacoma, WA; clients across the US and Canada.
+
+Contact: hello@q84digital.com, (253) 294-9237
+
+## Services
+
+- [What Is Business Central? Features & Fit](https://q84digital.com/business-central/): What Business Central does, its core features for finance, inventory, sales, purchasing and warehousing, and how to tell whether it fits your operations.
+- [Business Central Implementation Partner](https://q84digital.com/implementation/): A senior-led Business Central implementation partner: discovery, design, build, data migration, testing and go-live, delivered by the consultant who scopes it.
+- [Business Central Essentials vs Premium Pricing](https://q84digital.com/licensing/): Business Central Essentials vs Premium: license prices, what each plan includes, Team Members licenses, and a cost calculator for your own users.
+- [Business Central Support Services](https://q84digital.com/support/): Business Central support from a senior consultant: health checks, troubleshooting, setup fixes, training and enhancements, billed hourly or monthly.
+- [Business Central Rescue & Recovery Partner](https://q84digital.com/rescue/): Business Central project stalled, over budget or live but not working? A senior consultant finds what went wrong and gets your system back on track.
+- [Business Central Developer & AL Extensions](https://q84digital.com/development/): Hire a Business Central developer for custom AL extensions, reports, APIs and integrations, built on Microsoft’s extension model so updates stay safe.
+
+## Migration
+
+- [Business Central Data Migration Services](https://q84digital.com/migration/): Move to Business Central with clean, reconciled data. Migration from QuickBooks, Dynamics GP, Dynamics NAV, Sage, other ERPs and spreadsheets.
+- [QuickBooks to Business Central Migration](https://q84digital.com/migration/quickbooks/): Move from QuickBooks Online or Desktop to Microsoft Dynamics 365 Business Central with clean data, real inventory and balances that reconcile to the cent.
+- [Migrate from Dynamics GP to Business Central](https://q84digital.com/migration/dynamics-gp/): Move from Dynamics GP to Business Central before GP support ends: Microsoft’s migration tools, segments to dimensions, history and add-on replacements.
+- [Dynamics NAV to Business Central Upgrade](https://q84digital.com/migration/dynamics-nav/): Upgrade from Dynamics NAV to Business Central before NAV 2018 support ends in 2028: upgrade or re-implement, C/AL customizations, cost and cloud.
+- [Sage 50 & 100 to Business Central Migration](https://q84digital.com/migration/sage/): Move from Sage 50 or Sage 100 to Microsoft Dynamics 365 Business Central: what maps where, how data is extracted, and how balances are reconciled.
+- [Moving from Spreadsheets to Business Central](https://q84digital.com/migration/spreadsheets/): Replace inventory, customer and order spreadsheets with Microsoft Dynamics 365 Business Central: cleaning Excel data, building master data and opening stock.
+
+## Integrations
+
+- [Business Central Integrations & Customization](https://q84digital.com/integrations/): Connect Business Central to Shopify, EDI partners, carriers, CRM and Power BI, add warehouse scanning, and extend it with AL and Power Automate.
+- [Business Central Shopify Integration](https://q84digital.com/integrations/shopify/): Connect Shopify to Business Central with Microsoft’s connector: products, stock, customers, orders, refunds and payouts, set up and tested.
+- [Business Central EDI Integration](https://q84digital.com/integrations/edi/): Set up EDI with Microsoft Dynamics 365 Business Central: purchase orders, ship notices, invoices and inventory updates with retailers and trading partners.
+- [Business Central Power BI Reporting Setup](https://q84digital.com/integrations/power-bi/): Power BI reporting for Business Central: Microsoft’s ready-made reports, custom dashboards, dimensions and multi-company reporting, set up properly.
+- [Warehouse Insight WMS for Business Central](https://q84digital.com/integrations/warehouse-insight/): Warehouse Insight mobile WMS and Order Ship Express parcel shipping for Business Central: scan, pick, pack and print carrier labels, set up by Q84 Digital.
+
+## Industries
+
+- [Business Central for E-commerce Brands](https://q84digital.com/industries/ecommerce/): Business Central for e-commerce brands: Shopify and marketplace orders, multi-location stock, fulfillment, returns and payout reconciliation.
+- [Business Central for Wholesale Distributors](https://q84digital.com/industries/distribution/): Business Central for wholesale distributors: multi-location inventory, purchasing, picking, shipping and landed costs, set up by a supply chain specialist.
+- [Business Central for Manufacturers](https://q84digital.com/industries/manufacturing/): Business Central Premium for small and midsize manufacturers: bills of materials, production orders, material planning and product costing, with examples.
+- [Business Central for Professional Services](https://q84digital.com/industries/professional-services/): Business Central for professional services: project accounting, time, retainers and job costing for agencies, clinics, construction and restoration firms.
+
+## Guides and comparisons
+
+- [ERP Readiness Checklist for Business Central](https://q84digital.com/guides/erp-readiness-checklist/): Download a free, fillable ERP Readiness Checklist. 52 questions across 9 areas help distributors and manufacturers prepare for a Business Central project.
+- [Business Central Implementation Cost (2026)](https://q84digital.com/guides/implementation-cost/): What a Business Central implementation costs: licenses, implementation, data migration, integrations, apps and support, with typical ranges by project size.
+- [Business Central Implementation Timeline](https://q84digital.com/guides/implementation-timeline/): How long a Business Central implementation takes: typical timelines by project size, what happens in each phase, and what slows projects down.
+- [Business Central vs NetSuite Compared](https://q84digital.com/compare/netsuite/): Business Central vs Oracle NetSuite for small and midsize companies: pricing model, features, customization, Microsoft 365 and when each one fits.
+- [Business Central vs Sage Intacct Compared](https://q84digital.com/compare/sage-intacct/): Microsoft Dynamics 365 Business Central vs Sage Intacct: full ERP or finance-first cloud accounting, inventory and operations, multi-entity and when each fits.
+- [Business Central vs Odoo Compared](https://q84digital.com/compare/odoo/): Microsoft Dynamics 365 Business Central vs Odoo for small and midsize companies: accounting depth, apps, customization, pricing, partners and when each fits.
+- [Dynamics GP End of Support: Dates & Options](https://q84digital.com/guides/dynamics-gp-end-of-support/): Dynamics GP support ends December 31, 2029, with security patches to April 2031. What stops, what keeps working, and how to plan your move.
+- [NAV to Business Central Upgrade Cost](https://q84digital.com/guides/nav-to-business-central-cost/): What moving from Dynamics NAV to Business Central costs: upgrade vs re-implementation, what drives the price, typical ranges and how to keep it down.
+- [Business Central Guides & Comparisons](https://q84digital.com/guides/): Free Business Central guides: implementation cost and timeline, comparisons with NetSuite, Sage Intacct and Odoo, and an ERP readiness checklist.
+
+## Blog
+
+- [Business Central & ERP Blog](https://q84digital.com/blog/): Practical articles on Microsoft Dynamics 365 Business Central, ERP selection, inventory and warehouse operations for distributors and manufacturers.
+- [7 Signs Your Distribution Business Has Outgrown QuickBooks](https://q84digital.com/blog/signs-you-have-outgrown-quickbooks/): QuickBooks is a great start for a small business. These seven signs mean your distribution company has grown past it, and what to do next.
+- [Business Central vs NetSuite for Distributors (2027)](https://q84digital.com/blog/business-central-vs-netsuite/): An honest comparison of Business Central and NetSuite for small distributors: pricing, warehouse features, Microsoft 365 fit and when each one fits best.
+
+## Company
+
+- [About Q84 Digital](https://q84digital.com/about/): Senior Business Central consultants in Vancouver, BC and Tacoma, WA, each with 10+ years of Microsoft Dynamics, ERP and supply chain experience.
+- [Business Central Partner in Tacoma, WA](https://q84digital.com/business-central-partner-tacoma/): Microsoft Dynamics 365 Business Central partner in Tacoma, WA. Senior consultants for implementation, migration and support across the Puget Sound.
+- [Business Central Partner in Vancouver, BC](https://q84digital.com/business-central-partner-vancouver/): Microsoft Dynamics 365 Business Central partner in Vancouver, BC. Senior consultants for implementation, migration and support across the Lower Mainland.
+- [Free ERP Readiness Assessment](https://q84digital.com/contact/): Book a free 30-minute ERP readiness assessment. Find out whether Business Central fits your business, what it would involve and what it would cost.
