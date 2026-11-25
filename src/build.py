@@ -172,7 +172,7 @@ def footer():
       <div class="stack" style="gap:12px">
         <a class="logo" href="@/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
         <p>Microsoft Dynamics 365 Business Central partner.</p>
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li><a href="@/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="@/business-central-partner-tacoma/">Tacoma, Washington</a></li></ul>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">{esc(EMAIL)}</li>{phone}<li><a href="@/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="@/business-central-partner-tacoma/">1102 A St Ste 300, Tacoma, WA 98402</a></li></ul>
         {social_links()}
       </div>
       <div><h4>Services</h4><ul><li><a href="@/implementation/">Implementation</a></li><li><a href="@/rescue/">Rescue &amp; recovery</a></li><li><a href="@/development/">Development</a></li><li><a href="@/support/">Support</a></li><li><a href="@/licensing/">Licensing &amp; pricing</a></li><li><a href="@/integrations/">Integrations</a></li></ul></div>
@@ -380,7 +380,7 @@ ORG_SCHEMA = {
     "description": "Microsoft Dynamics 365 Business Central implementation, integration and support for distributors, manufacturers and inventory-driven businesses.",
     "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "Country", "name": "Canada"}],
     "address": [{"@type": "PostalAddress", "streetAddress": "555 Burrard St", "addressLocality": "Vancouver", "addressRegion": "BC", "postalCode": "V7X 1M8", "addressCountry": "CA"},
-                {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"}],
+                {"@type": "PostalAddress", "streetAddress": "1102 A St Ste 300", "addressLocality": "Tacoma", "addressRegion": "WA", "postalCode": "98402", "addressCountry": "US"}],
     "@id": URL + "#organization",
     "logo": URL + "images/logo.png", "image": URL + "images/og-default.jpg",
     "knowsAbout": ["Microsoft Dynamics 365 Business Central", "Dynamics 365 Supply Chain Management", "ERP implementation", "Warehouse management", "ERP integration"],
@@ -1604,10 +1604,14 @@ add('about/', 'about',
 {cta('Talk to a senior consultant')}''', [ABOUT_SCHEMA])
 
 # TACOMA / PUGET SOUND
+TAC = {'street': '1102 A St Ste 300', 'city': 'Tacoma', 'region': 'WA', 'postal': '98402', 'country': 'US',
+       'maps': 'https://maps.google.com/?cid=17044258344101276518',
+       'directions': 'https://www.google.com/maps/dir/?api=1&destination=Q84+Digital+1102+A+St+Ste+300+Tacoma+WA+98402'}
 LOCAL_SCHEMA = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": URL + "business-central-partner-tacoma/#office",
                 "name": "Q84 Digital", "url": URL + "business-central-partner-tacoma/", "parentOrganization": {"@id": URL + "#organization"},
                 "description": "Microsoft Dynamics 365 Business Central partner in Tacoma, WA: implementation, data migration, integrations and support for Puget Sound businesses.",
-                "address": {"@type": "PostalAddress", "addressLocality": "Tacoma", "addressRegion": "WA", "addressCountry": "US"},
+                "address": {"@type": "PostalAddress", "streetAddress": TAC['street'], "addressLocality": TAC['city'], "addressRegion": TAC['region'], "postalCode": TAC['postal'], "addressCountry": TAC['country']},
+                "hasMap": TAC['maps'],
                 "image": URL + "images/tacoma-rainier-1200.webp", "logo": URL + "images/logo.png", "email": EMAIL,
                 "areaServed": [{"@type": "City", "name": n} for n in ('Tacoma', 'Seattle', 'Bellevue', 'Kent', 'Auburn', 'Puyallup', 'Federal Way', 'Lakewood', 'Everett', 'Olympia')] + [{"@type": "State", "name": "Washington"}],
                 "knowsAbout": ["Microsoft Dynamics 365 Business Central", "ERP implementation", "ERP data migration"]}
@@ -1627,15 +1631,26 @@ add('business-central-partner-tacoma/', 'local',
               'Senior-led Microsoft Dynamics 365 Business Central implementation, migration and support for distributors, manufacturers and service businesses in Tacoma, Seattle and across the Puget Sound.', photo=('tacoma-rainier', 'Mount Rainier at sunrise above the Port of Tacoma, with container cranes along the waterfront', '0% 55%', '52% 60%', '138%')) + f'''
 <section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Local partner</span><h2>A Business Central partner based in Tacoma</h2>
-    <p class="lede">Q84 Digital has an office in Tacoma, Washington. For South Sound and Puget Sound companies that means workshops in your building, a consultant who can walk your warehouse floor, and someone nearby when you go live.</p></div>
+    <p class="lede">Q84 Digital has an office at 1102 A St in downtown Tacoma. For South Sound and Puget Sound companies that means workshops in your building, a consultant who can walk your warehouse floor, and someone nearby when you go live.</p></div>
   {checks(['<strong>On site when it matters.</strong> Discovery workshops, warehouse walkthroughs, training and go-live day.', '<strong>Online the rest of the time.</strong> Design, build and testing happen remotely, which keeps costs down.', '<strong>Pacific time, same working day.</strong> Questions get answered while your team is still at work.', '<strong>Senior consultants only.</strong> Every consultant has more than 10 years of ERP experience.'])}
 </div></section>
 <section class="band"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Our Tacoma office</span><h2>Contact our Tacoma office</h2>
+    <p class="lede">Call, email or book a free 30-minute call to talk through your project with a senior consultant.</p>
+    <p><a class="more" href="{TAC['maps']}" target="_blank" rel="noopener">View Q84 Digital on Google Maps →</a></p></div>
+  <div class="card stack" style="gap:10px">
+    <h3>Q84 Digital, Tacoma</h3>
+    <p style="margin:0">{TAC['street']}<br>{TAC['city']}, {TAC['region']} {TAC['postal']}<br>United States</p>
+    <p style="margin:0"><strong>Phone:</strong> <a href="tel:{PHONE_TEL}">{esc(CFG.get('phone') or '')}</a><br><strong>Email:</strong> {esc(EMAIL)}</p>
+    <p style="margin:0"><a class="more" href="{TAC['directions']}" target="_blank" rel="noopener">Get directions →</a></p>
+  </div>
+</div></section>
+<section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Choosing a partner</span><h2>What to expect from your Business Central partner</h2>
     <p class="lede">Business Central is sold and implemented through Microsoft partners, so the partner you choose shapes how the project goes. This is how we work with companies in Tacoma and across Washington.</p></div>
   {checks(['<strong>Senior from start to finish.</strong> The consultants who scope your project are the ones who deliver it.', '<strong>Honest fit advice.</strong> If Business Central isn’t right for you, we’ll say so, even if it means no project.', '<strong>Configure first.</strong> Standard features and proven apps before custom code, so your system stays easy to update.', '<strong>Clear scope and cost.</strong> A written, fixed scope after discovery, so you know what you’re paying for.', '<strong>Here after go-live.</strong> The same consultants who built your system support you once you’re live.'])}
 </div></section>
-<section><div class="wrap">
+<section class="band"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Who we help</span><h2>Business Central for Tacoma and Puget Sound businesses</h2>
     <p class="lede">The region runs on trade, distribution, manufacturing and services, from importers around the Port of Tacoma to warehouses in Fife and the Kent Valley and professional firms in Seattle and Bellevue.</p></div>
   <div class="fgrid">
@@ -1645,16 +1660,16 @@ add('business-central-partner-tacoma/', 'local',
     <a class="fitem" href="@/industries/professional-services/">{icon('ledger')}<h3>Professional services</h3><p>Agencies, clinics, construction and restoration companies that bill by job, project or contract.</p><span class="more">Service businesses →</span></a>
   </div>
 </div></section>
-<section class="band"><div class="wrap split">
+<section><div class="wrap split">
   <div class="stack"><span class="eyebrow">Business Central in Washington</span><h2>Set up for how Washington companies work</h2>
     <p class="lede">A few Washington rules affect how Business Central should be set up. Getting them right early saves rework after go-live.</p></div>
   {checks(['<strong>Destination-based sales tax.</strong> Tax areas and jurisdictions so each delivery gets the right local rate, or a tax engine if you ship to many locations.', '<strong>B&amp;O tax.</strong> Washington’s business and occupation tax is based on gross receipts, so we set up accounts and dimensions that make reporting by classification straightforward.', '<strong>Selling into Canada.</strong> USD and CAD customers, vendors and bank accounts, or a US and a Canadian company side by side with consolidated reporting.'])}
 </div></section>
-<section><div class="wrap split">
+<section class="band"><div class="wrap split">
   <div class="stack"><span class="eyebrow">Service area</span><h2>Where we work on site in the Puget Sound</h2><p class="lede">We visit clients across the Seattle–Tacoma area and work remotely with companies anywhere in the US and Canada.</p></div>
   {checks(['<strong>South Sound:</strong> Tacoma, Fife, Puyallup, Lakewood, University Place, Gig Harbor and Olympia.', '<strong>Kent Valley &amp; South King County:</strong> Kent, Auburn, Federal Way, Renton and Tukwila.', '<strong>Seattle &amp; Eastside:</strong> Seattle, Bellevue, Redmond and Kirkland.', '<strong>North Sound:</strong> Lynnwood, Everett and Marysville.'])}
 </div></section>
-<section class="band"><div class="wrap">
+<section><div class="wrap">
   <div class="section-head"><span class="eyebrow">What we do</span><h2>Business Central services in Tacoma</h2></div>
   <div class="fgrid">
     <a class="fitem" href="@/implementation/">{icon('tools')}<h3>Implementation</h3><p>Business Central set up around your processes, from discovery to go-live.</p><span class="more">Implementation →</span></a>
@@ -1663,7 +1678,7 @@ add('business-central-partner-tacoma/', 'local',
     <a class="fitem" href="@/support/">{icon('chart')}<h3>Support</h3><p>Fixes, improvements and training once you’re live.</p><span class="more">Support →</span></a>
   </div>
 </div></section>
-{faq_section(FAQ_LOCAL, 'Questions from Tacoma and Washington businesses').replace('<section class="band">', '<section>', 1)}
+{faq_section(FAQ_LOCAL, 'Questions from Tacoma and Washington businesses')}
 {cta('Meet a Business Central partner in Tacoma', 'Book a free 30-minute call. If you’re in the Puget Sound area, we can follow up with an on-site visit.')}''', [LOCAL_SCHEMA, faq_schema(FAQ_LOCAL)])
 
 # VANCOUVER / LOWER MAINLAND
