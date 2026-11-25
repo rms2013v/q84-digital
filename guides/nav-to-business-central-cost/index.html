@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){var c;try{localStorage.removeItem("q84_currency")}catch(e){}if(c!=="usd"&&c!=="cad"){var z="";try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}c=/^(America\/(Vancouver|Edmonton|Regina|Swift_Current|Winnipeg|Toronto|Montreal|Halifax|Moncton|Glace_Bay|Goose_Bay|St_Johns|Whitehorse|Dawson|Dawson_Creek|Fort_Nelson|Creston|Yellowknife|Inuvik|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Atikokan|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung|Blanc-Sablon)|Canada\/)/.test(z)?"cad":"usd"}if(c==="cad")document.documentElement.classList.add("cad")})();</script>
+<title>NAV to Business Central Upgrade Cost | Q84 Digital</title>
+<meta name="description" content="What moving from Dynamics NAV to Business Central costs: upgrade vs re-implementation, what drives the price, typical ranges and how to keep it down.">
+<link rel="canonical" href="https://q84digital.com/guides/nav-to-business-central-cost/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="NAV to Business Central Upgrade Cost | Q84 Digital">
+<meta property="og:description" content="What moving from Dynamics NAV to Business Central costs: upgrade vs re-implementation, what drives the price, typical ranges and how to keep it down.">
+<meta property="og:url" content="https://q84digital.com/guides/nav-to-business-central-cost/">
+<meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=b02e7b4c">
+<script>if(location.hostname==="q84digital.com"){window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());var s=document.createElement('script');s.async=true;s.src="https://www.googletagmanager.com/gtm.js?id=GTM-N77ZTTQK";document.head.appendChild(s);}</script><script>if(location.hostname==="q84digital.com")(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How much does moving from NAV to Business Central cost?", "description": "What moving from Dynamics NAV to Business Central costs: upgrade vs re-implementation, what drives the price, typical ranges and how to keep it down.", "dateModified": "2026-11-25", "image": "https://q84digital.com/images/og-default.jpg", "author": {"@id": "https://q84digital.com/#organization"}, "publisher": {"@id": "https://q84digital.com/#organization"}, "mainEntityOfPage": "https://q84digital.com/guides/nav-to-business-central-cost/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is a technical upgrade cheaper than a re-implementation?", "acceptedAnswer": {"@type": "Answer", "text": "Not always. An upgrade keeps your setup and history, but every NAV customization still has to be rewritten as an AL extension, and older versions need several upgrade steps. For older or heavily customized NAV systems, a fresh implementation that migrates master data, open items and summary history is often cheaper and leaves you with a cleaner system."}}, {"@type": "Question", "name": "How many customizations is “a lot”?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on what they do more than how many there are. A useful first step is an object analysis: we list every modified or custom object in your NAV database and sort each into keep, replace with standard, replace with an app, or retire. Many customizations turn out to be features Business Central now has as standard."}}, {"@type": "Question", "name": "What do Business Central licenses cost compared to NAV?", "acceptedAnswer": {"@type": "Answer", "text": "NAV was usually bought once with a yearly enhancement plan. Business Central online is a monthly subscription per user: Essentials or Premium for full users and low-cost Team Members licenses for people who mostly look things up and approve. Hosting, backups and upgrades are included."}}, {"@type": "Question", "name": "Can we spread the cost?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Many NAV customers go live first with finance, sales, purchasing and inventory, then add warehousing, integrations or reporting in a second phase. Phasing spreads the cost and lowers the risk of each go-live."}}, {"@type": "Question", "name": "How do you quote a NAV move?", "acceptedAnswer": {"@type": "Answer", "text": "We start with a short assessment of your NAV version, objects, add-ons and integrations, recommend upgrade or re-implementation in writing, and then give you a fixed scope and price for the path you choose."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://q84digital.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "NAV to Business Central cost"}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_days_ahead": 1, "min_notice_hours": 0, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
+</head>
+<body class="over">
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Q84 Digital, Dynamics 365 implementation partner, home"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/business-central/">Business Central</a><details class="dd dd-wide"><summary>Services</summary><div class="dd-menu"><div class="dd-group"><p class="dd-head">Services</p><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a></div><div class="dd-group"><p class="dd-head">Migration</p><a href="/migration/">All migrations</a><a href="/migration/quickbooks/">From QuickBooks</a><a href="/migration/dynamics-gp/">From Dynamics GP</a><a href="/migration/dynamics-nav/">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div><div class="dd-group"><p class="dd-head">Integrations</p><a href="/integrations/">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd current"><summary>Resources</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/guides/dynamics-gp-end-of-support/">Dynamics GP end of support</a><a href="/guides/nav-to-business-central-cost/" aria-current="page">NAV to Business Central cost</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
+      <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
+    </nav>
+  </div>
+</header>
+<script>document.querySelector("body>header").classList.toggle("at-top",scrollY<40)</script>
+<main id="main">
+<div class="page-head photo-hero" style="--pos:60% 55%;--pos-s:45% 60%;--img-w:100%"><img class="photo-hero-img" src="/images/guide-nav-diorama-1200.webp" srcset="/images/guide-nav-diorama-800.webp 800w, /images/guide-nav-diorama-1200.webp 1200w, /images/guide-nav-diorama-2000.webp 2000w" sizes="100vw" alt="Miniature model scene of workers sorting parts from an old building beside coins and a calculator, while a crane builds a modern office from blue blocks" width="2000" height="1119" fetchpriority="high"><div class="wrap stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/guides/">Guides</a> / NAV to Business Central cost</nav>
+<h1>How much does moving from NAV to Business Central cost?</h1>
+<p class="lede">An honest look at what drives the price of leaving Dynamics NAV, how the two paths compare, and what most companies end up spending.</p>
+</div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#typical-ranges">Ranges</a><a href="#cost-drivers">Drivers</a><a href="#two-paths">Paths</a><a href="#keeping-costs-down">Saving money</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+<section style="padding-top:32px"><div class="wrap prose">
+<p><strong>The short answer:</strong> moving from <a href="/migration/dynamics-nav/">Dynamics NAV to Business Central</a> typically starts at <span class="c-usd">$35,000 to $50,000</span><span class="c-cad">CA$35,000 to CA$50,000</span> for implementation services, plus monthly Business Central licenses. A small, lightly customized NAV system sits at that starting point. Heavy customization, several companies or manufacturing push it higher. The single biggest factor is how much custom code your NAV system carries.</p>
+<p>Timing matters too. NAV 2016 is already out of support, NAV 2017 loses extended support on January 11, 2027, and NAV 2018, the last version, on January 11, 2028.</p>
+</div></section>
+<section class="band" id="typical-ranges"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Typical ranges</span><h2>What NAV moves usually cost</h2><p class="lede"><span class="c-usd">Implementation services in US dollars, before licenses and apps.</span><span class="c-cad">Implementation services in Canadian dollars, before licenses, apps and tax.</span></p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Your NAV system</th><th>Typical path</th><th>Typical cost</th></tr></thead>
+    <tbody>
+      <tr><td>One company, finance and basic inventory, few customizations</td><td>Re-implementation with data migration</td><td><span class="c-usd">$35,000 to $50,000</span><span class="c-cad">CA$35,000 to CA$50,000</span></td></tr>
+      <tr><td>Warehousing, a handful of add-ons and integrations, moderate custom code</td><td>Either path, after an object analysis</td><td><span class="c-usd">$50,000 to $100,000</span><span class="c-cad">CA$50,000 to CA$100,000</span></td></tr>
+      <tr><td>Several companies, manufacturing, heavy custom code or many integrations</td><td>Usually phased</td><td><span class="c-usd">$100,000 and up</span><span class="c-cad">CA$100,000 and up</span></td></tr>
+    </tbody></table></div>
+</div></section>
+<section id="cost-drivers"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Cost drivers</span><h2>What makes a NAV move bigger or smaller</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Driver</th><th>Why it matters</th><th>How to keep it down</th></tr></thead>
+    <tbody>
+      <tr><td>Custom code</td><td>Old C/AL code can’t run in Business Central online; each customization must be replaced, rebuilt as an AL extension or retired.</td><td>Retire what nobody uses and take standard features where they now exist.</td></tr>
+      <tr><td>NAV version</td><td>Older versions need more upgrade steps, which is why they often get a fresh implementation instead.</td><td>Let the version decide the path, not habit.</td></tr>
+      <tr><td>Add-ons</td><td>Each third-party NAV add-on needs a Business Central version, an AppSource replacement or a rebuild.</td><td>List them all early; many vendors offer a Business Central app.</td></tr>
+      <tr><td>Integrations</td><td>Connections to e-commerce, EDI, shipping or banks need rebuilding on Business Central’s APIs.</td><td>Use standard connectors where they exist.</td></tr>
+      <tr><td>Data and history</td><td>Every year of detailed history adds mapping and checking.</td><td>Bring open items, balances and summary history; keep NAV read-only for lookups.</td></tr>
+      <tr><td>Companies and users</td><td>Each company needs setup, testing and training.</td><td>Phase companies or processes if needed.</td></tr>
+    </tbody></table></div>
+</div></section>
+<section class="band" id="two-paths"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Two paths</span><h2>Upgrade or re-implement: the cost trade-off</h2></div>
+  <div class="grid g2">
+    <div class="card"><span class="tag">Technical upgrade</span><h3>Pays off when NAV is recent and clean</h3><ul class="checks"><li><div>Keeps setup, history and familiar structure</div></li><li><div>Every customization still rewritten in AL</div></li><li><div>Several steps for older versions add cost</div></li><li><div>Carries old data problems forward</div></li></ul></div>
+    <div class="card"><span class="tag">Re-implementation</span><h3>Pays off when NAV is old or heavily modified</h3><ul class="checks"><li><div>Standard features first, less custom code to maintain</div></li><li><div>Master data, open items and summary history migrated</div></li><li><div>A chance to fix processes and data</div></li><li><div>Lower running costs after go-live</div></li></ul></div>
+  </div>
+</div></section>
+<section><div class="wrap">
+<div class="worked">
+  <span class="label">Worked example · Illustrative scenario</span>
+  <h3>A 30-user distributor on NAV 2016</h3>
+  <p>One company, two warehouses, about 40 modified objects, an EDI add-on and a web shop integration. NAV 2016 is out of support and the server needs replacing.</p>
+  <div class="table-wrap"><table><thead><tr><th>Stage</th><th>What happens</th></tr></thead><tbody><tr><td>Assessment</td><td>Object analysis sorts the 40 customizations: 22 replaced by standard Business Central features, 6 by AppSource apps, 8 rebuilt as AL extensions, 4 retired.</td></tr><tr><td>Path</td><td>Re-implementation, because two upgrade steps plus rewriting the code would cost more than starting clean.</td></tr><tr><td>Build</td><td>Business Central online set up around current processes; EDI and web shop reconnected through supported apps.</td></tr><tr><td>Data</td><td>Customers, vendors, items, open entries, balances and two years of summary history, with two trial loads.</td></tr><tr><td>Go-live</td><td>Cutover at a month end; NAV kept read-only for lookups.</td></tr></tbody></table></div>
+  <p><strong>Outcome:</strong> A mid-range project, with far less custom code to maintain and no more server or upgrade projects.</p>
+  <p class="shot-note">This example shows how we approach this kind of project. It is not a client case study.</p>
+</div>
+</div></section>
+<section class="band" id="keeping-costs-down"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Keeping costs down</span><h2>How to spend less on leaving NAV</h2></div>
+  <ul class="checks"><li><div><strong>Start with an object analysis.</strong> Knowing what each customization does is the cheapest way to cut scope.</div></li><li><div><strong>Retire aggressively.</strong> Reports, fields and code nobody uses shouldn’t move.</div></li><li><div><strong>Prefer apps to custom code.</strong> Proven AppSource apps cost less to maintain than your own extensions.</div></li><li><div><strong>Clean data first.</strong> Delete duplicates and inactive records in NAV before migration starts.</div></li><li><div><strong>Phase it.</strong> Finance and inventory first; warehousing and integrations next.</div></li></ul>
+</div></section>
+<section class="band" id="faq"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>NAV upgrade cost questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>Is a technical upgrade cheaper than a re-implementation?</summary><p>Not always. An upgrade keeps your setup and history, but every NAV customization still has to be rewritten as an AL extension, and older versions need several upgrade steps. For older or heavily customized NAV systems, a fresh implementation that migrates master data, open items and summary history is often cheaper and leaves you with a cleaner system.</p></details><details><summary>How many customizations is “a lot”?</summary><p>It depends on what they do more than how many there are. A useful first step is an object analysis: we list every modified or custom object in your NAV database and sort each into keep, replace with standard, replace with an app, or retire. Many customizations turn out to be features Business Central now has as standard. <a href="/development/">AL development →</a></p></details><details><summary>What do Business Central licenses cost compared to NAV?</summary><p>NAV was usually bought once with a yearly enhancement plan. Business Central online is a monthly subscription per user: Essentials or Premium for full users and low-cost Team Members licenses for people who mostly look things up and approve. Hosting, backups and upgrades are included. <a href="/licensing/">Business Central licensing →</a></p></details><details><summary>Can we spread the cost?</summary><p>Yes. Many NAV customers go live first with finance, sales, purchasing and inventory, then add warehousing, integrations or reporting in a second phase. Phasing spreads the cost and lowers the risk of each go-live.</p></details><details><summary>How do you quote a NAV move?</summary><p>We start with a short assessment of your NAV version, objects, add-ons and integrations, recommend upgrade or re-implementation in writing, and then give you a fixed scope and price for the path you choose.</p></details></div>
+</div></section>
+<section data-nosubnav><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>Keep reading</h2></div>
+  <div class="fgrid"><a class="fitem" href="/migration/dynamics-nav/"><h3>NAV to Business Central upgrade</h3><p>Upgrade or re-implement, and what happens to your code.</p><span class="more">Read more →</span></a><a class="fitem" href="/guides/implementation-cost/"><h3>Implementation cost</h3><p>The full Business Central budget, line by line.</p><span class="more">Read more →</span></a><a class="fitem" href="/development/"><h3>AL extensions</h3><p>Rebuilding the customizations you keep.</p><span class="more">Read more →</span></a></div>
+</div></section>
+<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>Get a NAV upgrade estimate</h2><p>Book a free 30-minute call. We’ll look at your NAV version and customizations and tell you which path will cost less.</p></div>
+    <div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="/contact/"><a class="next-slot next-fallback" href="/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="/contact/#schedule">See all times →</a>
+    </div>
+  </div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
+        <p>Microsoft Dynamics 365 Business Central partner.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li><a href="/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="/business-central-partner-tacoma/">Tacoma, Washington</a></li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a><a class="social" href="https://www.youtube.com/@Q84Digital" target="_blank" rel="noopener" aria-label="Q84 Digital on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12a31 31 0 00.5 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.8 15.1V8.9l5.8 3.1z"/></svg></a></div>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-vancouver/">Vancouver &amp; Lower Mainland</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+  </div>
+</footer>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=405f315b" defer></script>
+</body>
+</html>

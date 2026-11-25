@@ -716,3 +716,14 @@ section[id],[id].band,.sched{scroll-margin-top:calc(env(safe-area-inset-top,0px)
 
 .subnav .btn{flex:none;white-space:nowrap}
 .subnav-links a{padding:.5rem .62rem}
+
+/* Page-top art that blends into the header: wide photo-style images, no frame, soft faded edges */
+@media (min-width:861px){.page-head-grid:has(.is-blend){grid-template-columns:minmax(0,1fr) minmax(0,620px);gap:clamp(16px,3vw,40px)}.page-head-art.is-blend{margin-right:calc(-1*clamp(0px,3vw,48px))}}
+.page-head-art.is-blend{padding:0;background:none;box-shadow:none;border-radius:0}
+.page-head-art.is-blend::before{display:none}
+.page-head-art.is-blend img{border-radius:0;
+  -webkit-mask-image:radial-gradient(ellipse 72% 74% at 52% 50%,#000 52%,rgba(0,0,0,.6) 70%,transparent 100%);
+          mask-image:radial-gradient(ellipse 72% 74% at 52% 50%,#000 52%,rgba(0,0,0,.6) 70%,transparent 100%)}
+@media (max-width:860px){.page-head-art.is-blend{max-width:none;margin:0 calc(-1*clamp(16px,4vw,24px)) 8px}}
+/* Guide heroes (diorama art): image stays vivid on the right, navy only behind the text */
+@media (min-width:861px){.over .page-head.photo-hero:has(.photo-hero-img[src*="-diorama"])::before{background:linear-gradient(180deg,rgba(14,27,54,.55) 0,rgba(14,27,54,0) 22%),linear-gradient(90deg,rgba(20,35,63,.96) 0,rgba(20,35,63,.88) 30%,rgba(20,35,63,.45) 50%,rgba(20,35,63,0) 68%)}}

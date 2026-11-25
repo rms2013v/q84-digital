@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){var c;try{localStorage.removeItem("q84_currency")}catch(e){}if(c!=="usd"&&c!=="cad"){var z="";try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}c=/^(America\/(Vancouver|Edmonton|Regina|Swift_Current|Winnipeg|Toronto|Montreal|Halifax|Moncton|Glace_Bay|Goose_Bay|St_Johns|Whitehorse|Dawson|Dawson_Creek|Fort_Nelson|Creston|Yellowknife|Inuvik|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Atikokan|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung|Blanc-Sablon)|Canada\/)/.test(z)?"cad":"usd"}if(c==="cad")document.documentElement.classList.add("cad")})();</script>
+<title>Dynamics GP End of Support: Dates &amp; Options | Q84 Digital</title>
+<meta name="description" content="Dynamics GP support ends December 31, 2029, with security patches to April 2031. What stops, what keeps working, and how to plan your move.">
+<link rel="canonical" href="https://q84digital.com/guides/dynamics-gp-end-of-support/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q84 Digital">
+<meta property="og:title" content="Dynamics GP End of Support: Dates &amp; Options | Q84 Digital">
+<meta property="og:description" content="Dynamics GP support ends December 31, 2029, with security patches to April 2031. What stops, what keeps working, and how to plan your move.">
+<meta property="og:url" content="https://q84digital.com/guides/dynamics-gp-end-of-support/">
+<meta property="og:image" content="https://q84digital.com/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Q84 Digital: Microsoft Business Central for distribution and manufacturing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://q84digital.com/images/og-default.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563EB'/><text x='32' y='41' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>Q84</text></svg>">
+<link rel="preload" href="/assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=b02e7b4c">
+<script>if(location.hostname==="q84digital.com"){window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());var s=document.createElement('script');s.async=true;s.src="https://www.googletagmanager.com/gtm.js?id=GTM-N77ZTTQK";document.head.appendChild(s);}</script><script>if(location.hostname==="q84digital.com")(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zd7rentta6");</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Dynamics GP end of support: dates and your options", "description": "Dynamics GP support ends December 31, 2029, with security patches to April 2031. What stops, what keeps working, and how to plan your move.", "dateModified": "2026-11-25", "image": "https://q84digital.com/images/og-default.jpg", "author": {"@id": "https://q84digital.com/#organization"}, "publisher": {"@id": "https://q84digital.com/#organization"}, "mainEntityOfPage": "https://q84digital.com/guides/dynamics-gp-end-of-support/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Will Dynamics GP stop working after December 31, 2029?", "acceptedAnswer": {"@type": "Answer", "text": "No. GP keeps running after support ends. What stops is Microsoft’s help: product updates, tax and regulatory updates and technical support. Security patches, if needed, continue until April 30, 2031. After that, you run GP with no fixes of any kind."}}, {"@type": "Question", "name": "Can we still buy Dynamics GP licenses?", "acceptedAnswer": {"@type": "Answer", "text": "Microsoft has stopped selling Dynamics GP to new customers. Existing customers can keep using and paying for their current GP licenses and enhancement plan until support ends."}}, {"@type": "Question", "name": "What happens to GP payroll?", "acceptedAnswer": {"@type": "Answer", "text": "Payroll is often the first thing to hurt, because payroll tax updates stop with product support. Business Central doesn’t include payroll, so GP payroll users move payroll to a payroll provider that connects to Business Central. Plan this early: payroll changes are easiest at the start of a calendar year."}}, {"@type": "Question", "name": "Is Business Central the only option?", "acceptedAnswer": {"@type": "Answer", "text": "No, but it’s the one Microsoft built a migration path for. Business Central includes tools that bring GP master data, open transactions and history across. Other ERPs such as NetSuite or Sage Intacct mean a fresh data migration without those tools."}}, {"@type": "Question", "name": "When should we start?", "acceptedAnswer": {"@type": "Answer", "text": "Most GP moves take three to six months once the project starts, and you’ll want a buffer for testing, year-end and payroll timing. Starting the assessment one to two years before the support end date lets you pick a calm go-live date instead of a rushed one."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://q84digital.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://q84digital.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "Dynamics GP end of support"}]}</script>
+<script>window.Q84={"email": "hello@q84digital.com", "formEndpoint": "https://formsubmit.co/ajax/hello@q84digital.com", "scheduler": {"timezone": "America/Los_Angeles", "weekdays": [1, 2, 3, 4, 5], "start": "08:00", "end": "16:00", "slot_minutes": 30, "min_days_ahead": 1, "min_notice_hours": 0, "months_ahead": 3, "blocked_dates": ["2026-11-11", "2026-11-26", "2026-12-24", "2026-12-25", "2026-12-31", "2027-01-01"]}};</script>
+</head>
+<body class="over">
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Q84 Digital, Dynamics 365 implementation partner, home"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="/business-central/">Business Central</a><details class="dd dd-wide"><summary>Services</summary><div class="dd-menu"><div class="dd-group"><p class="dd-head">Services</p><a href="/implementation/">Implementation</a><a href="/rescue/">Rescue &amp; recovery</a><a href="/development/">Development &amp; AL extensions</a><a href="/support/">Support</a><a href="/licensing/">Licensing &amp; pricing</a></div><div class="dd-group"><p class="dd-head">Migration</p><a href="/migration/">All migrations</a><a href="/migration/quickbooks/">From QuickBooks</a><a href="/migration/dynamics-gp/">From Dynamics GP</a><a href="/migration/dynamics-nav/">From Dynamics NAV</a><a href="/migration/sage/">From Sage 50 / Sage 100</a><a href="/migration/spreadsheets/">From spreadsheets</a></div><div class="dd-group"><p class="dd-head">Integrations</p><a href="/integrations/">All integrations</a><a href="/integrations/shopify/">Shopify</a><a href="/integrations/edi/">EDI</a><a href="/integrations/power-bi/">Power BI reporting</a><a href="/integrations/warehouse-insight/">Warehouse Insight mobile WMS</a></div></div></details><details class="dd"><summary>Industries</summary><div class="dd-menu"><a href="/industries/distribution/">Wholesale distribution</a><a href="/industries/manufacturing/">Manufacturing</a><a href="/industries/ecommerce/">E-commerce</a><a href="/industries/professional-services/">Professional services</a></div></details><details class="dd current"><summary>Resources</summary><div class="dd-menu"><a href="/guides/">All guides</a><a href="/guides/implementation-cost/">Implementation cost</a><a href="/guides/implementation-timeline/">Implementation timeline</a><a href="/guides/dynamics-gp-end-of-support/" aria-current="page">Dynamics GP end of support</a><a href="/guides/nav-to-business-central-cost/">NAV to Business Central cost</a><a href="/compare/netsuite/">Business Central vs NetSuite</a><a href="/compare/sage-intacct/">Business Central vs Sage Intacct</a><a href="/compare/odoo/">Business Central vs Odoo</a><a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a><a href="/blog/">Blog</a></div></details><a href="/about/">About</a>
+      <a class="btn btn-primary" href="/contact/#schedule">Book a free assessment</a>
+    </nav>
+  </div>
+</header>
+<script>document.querySelector("body>header").classList.toggle("at-top",scrollY<40)</script>
+<main id="main">
+<div class="page-head photo-hero" style="--pos:60% 55%;--pos-s:30% 60%;--img-w:100%"><img class="photo-hero-img" src="/images/guide-gp-diorama-1200.webp" srcset="/images/guide-gp-diorama-800.webp 800w, /images/guide-gp-diorama-1200.webp 1200w, /images/guide-gp-diorama-2000.webp 2000w" sizes="100vw" alt="Miniature model scene of workers moving servers and boxes by truck from an old office building to a modern building with a cloud-shaped roof" width="2000" height="1119" fetchpriority="high"><div class="wrap stack">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/guides/">Guides</a> / Dynamics GP end of support</nav>
+<h1>Dynamics GP end of support: dates and your options</h1>
+<p class="lede">Microsoft is retiring Dynamics GP. Here’s exactly what ends and when, what keeps working, and how to plan a move on your own timetable.</p>
+</div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap"><div class="subnav-bar"><div class="subnav-links"><a href="#key-dates">Dates</a><a href="#what-stops">What stops</a><a href="#your-options">Options</a><a href="#plan-backwards">Timeline</a><a href="#what-it-costs">Cost</a><a href="#faq">FAQ</a></div><a class="btn btn-primary btn-sm" href="/contact/#schedule">Book a free ERP assessment</a></div></div></nav>
+<section style="padding-top:32px"><div class="wrap prose">
+<p><strong>The short answer:</strong> Microsoft ends product support for Dynamics GP on <strong>December 31, 2029</strong>. That’s the last day for product updates, tax and regulatory updates and technical support. Security patches, if needed, continue until <strong>April 30, 2031</strong>. Older GP versions lose support sooner: GP 2018 on January 11, 2028, and GP 2016 already lost support on July 14, 2026. Microsoft has also stopped selling GP to new customers and points existing customers to <a href="/business-central/">Dynamics 365 Business Central</a>.</p>
+<p>GP won’t switch off on those dates. But every month you run it past them, you carry more risk: tax changes you have to handle yourself, no help when something breaks, and fewer people who know the product.</p>
+</div></section>
+<section class="band" id="key-dates"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Key dates</span><h2>Dynamics GP support dates by version</h2><p class="lede">Find your version in GP under Help, About Microsoft Dynamics GP.</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Version</th><th>Status</th><th>Support ends</th></tr></thead>
+    <tbody>
+      <tr><td>Dynamics GP (version 18.x, kept current)</td><td>Supported</td><td>Product, tax and technical support until December 31, 2029. Security patches until April 30, 2031.</td></tr>
+      <tr><td>Dynamics GP 2018 and GP 2018 R2</td><td>Extended support</td><td>January 11, 2028</td></tr>
+      <tr><td>Dynamics GP 2016 and GP 2016 R2</td><td>Out of support</td><td>Ended July 14, 2026</td></tr>
+      <tr><td>Dynamics GP 2015 and earlier</td><td>Out of support</td><td>Already ended</td></tr>
+    </tbody></table></div>
+  <p class="shot-note" style="margin-top:12px">Source: <a href="https://learn.microsoft.com/dynamics-gp/terms/lifecycle" target="_blank" rel="noopener">Microsoft Dynamics GP lifecycle policy</a>, checked November 2026. Microsoft has moved these dates before, so check the page for the latest.</p>
+</div></section>
+<section id="what-stops"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">What stops</span><h2>What stops, and what keeps working</h2><p class="lede">Support ending is a gradual risk, not a cliff. These are the parts of GP that feel it first.</p></div>
+  <ul class="checks"><li><div><strong>Tax and year-end updates stop.</strong> Changes to payroll tax tables, 1099 and T4 forms and sales tax rules are no longer delivered after 2029.</div></li><li><div><strong>No technical support.</strong> If an update to Windows, SQL Server or an add-on breaks GP, Microsoft won’t help fix it.</div></li><li><div><strong>Add-on vendors move on.</strong> Many ISVs that extend GP are already moving their products and people to Business Central.</div></li><li><div><strong>Fewer GP specialists.</strong> Consultants who know GP well are retiring or retraining, and their rates rise as they get scarce.</div></li><li><div><strong>Security patches end in 2031.</strong> After April 30, 2031, newly found vulnerabilities in GP stay open.</div></li><li><div><strong>Your data stays yours.</strong> GP keeps running and your history stays readable for as long as you keep the system.</div></li></ul>
+</div></section>
+<section class="band" id="your-options"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Your options</span><h2>Three ways to respond</h2><p class="lede">There’s no single right answer, but there is a wrong one: waiting until 2029 and choosing in a hurry.</p></div>
+  <div class="grid g3">
+    <div class="card"><span class="tag">Option 1</span><h3>Stay on GP for now</h3><p>Reasonable for a year or two if GP still fits and you have a plan. Keep GP current, keep your enhancement plan, and set a decision date well before the end of 2029.</p></div>
+    <div class="card"><span class="tag">Option 2 · Microsoft’s path</span><h3>Move to Business Central</h3><p>The closest fit for most GP users. Microsoft’s migration tools bring master data, open transactions and history across, and the finance concepts will feel familiar. <a href="/migration/dynamics-gp/">See our GP migration approach</a>.</p></div>
+    <div class="card"><span class="tag">Option 3</span><h3>Choose another ERP</h3><p>Worth a look if your business has changed a lot. Compare honestly: <a href="/compare/netsuite/">NetSuite</a>, <a href="/compare/sage-intacct/">Sage Intacct</a> and <a href="/compare/odoo/">Odoo</a> all mean a fresh migration without GP-specific tools.</p></div>
+  </div>
+</div></section>
+<section id="plan-backwards"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">Plan backwards</span><h2>A calm timeline to leave GP</h2><p class="lede">Work back from the date you want to be live, not from Microsoft’s deadline. Most companies aim to go live at the start of a fiscal year, with payroll moving on January 1.</p></div>
+  <ul class="checks"><li><div><strong>Now: take stock.</strong> List your GP modules, add-ons, customizations, reports, integrations and who uses what. Our <a href="/guides/erp-readiness-checklist/">ERP readiness checklist</a> helps.</div></li><li><div><strong>12 to 18 months before go-live: choose.</strong> Decide on Business Central or another ERP, and get a written scope and quote.</div></li><li><div><strong>6 to 9 months before: build.</strong> Design, set up, migrate data into a test company and replace add-ons.</div></li><li><div><strong>2 to 3 months before: test.</strong> Your team runs real processes and signs off balances against GP.</div></li><li><div><strong>Go-live: cut over.</strong> Final data load at a period end, with support for the first month-end close. Keep GP read-only for lookups.</div></li></ul>
+</div></section>
+<section class="band" id="what-it-costs"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">What it costs</span><h2>Budgeting the move off GP</h2><p class="lede">Implementation services for a move off GP typically start at <span class="c-usd">$35,000 to $50,000</span><span class="c-cad">CA$35,000 to CA$50,000</span>, plus monthly Business Central licenses. Your <a href="/guides/implementation-cost/">full budget</a> depends on modules, add-ons and integrations.</p></div>
+  <ul class="checks"><li><div><strong>Smaller and simpler:</strong> finance-only GP with few add-ons can come in lower.</div></li><li><div><strong>Bigger:</strong> manufacturing, several companies or many integrations push it higher.</div></li><li><div><strong>Licenses change shape:</strong> GP’s yearly enhancement plan is replaced by a monthly per-user subscription. Try our <a href="/licensing/#calculator">license calculator</a>.</div></li><li><div><strong>Fixed scope:</strong> we quote a written, fixed scope after a short discovery, so the number doesn’t move.</div></li></ul>
+</div></section>
+<section class="band" id="faq"><div class="wrap split">
+  <div class="stack"><span class="eyebrow">FAQ</span><h2>Dynamics GP end of support questions</h2><p class="lede">Have a different question? <a href="/contact/">Ask directly.</a></p></div>
+  <div class="faq"><details><summary>Will Dynamics GP stop working after December 31, 2029?</summary><p>No. GP keeps running after support ends. What stops is Microsoft’s help: product updates, tax and regulatory updates and technical support. Security patches, if needed, continue until April 30, 2031. After that, you run GP with no fixes of any kind.</p></details><details><summary>Can we still buy Dynamics GP licenses?</summary><p>Microsoft has stopped selling Dynamics GP to new customers. Existing customers can keep using and paying for their current GP licenses and enhancement plan until support ends.</p></details><details><summary>What happens to GP payroll?</summary><p>Payroll is often the first thing to hurt, because payroll tax updates stop with product support. Business Central doesn’t include payroll, so GP payroll users move payroll to a payroll provider that connects to Business Central. Plan this early: payroll changes are easiest at the start of a calendar year.</p></details><details><summary>Is Business Central the only option?</summary><p>No, but it’s the one Microsoft built a migration path for. Business Central includes tools that bring GP master data, open transactions and history across. Other ERPs such as NetSuite or Sage Intacct mean a fresh data migration without those tools. <a href="/compare/netsuite/">Business Central vs NetSuite →</a></p></details><details><summary>When should we start?</summary><p>Most GP moves take three to six months once the project starts, and you’ll want a buffer for testing, year-end and payroll timing. Starting the assessment one to two years before the support end date lets you pick a calm go-live date instead of a rushed one. <a href="/guides/implementation-timeline/">Implementation timeline guide →</a></p></details></div>
+</div></section>
+<section data-nosubnav><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Related</span><h2>Keep reading</h2></div>
+  <div class="fgrid"><a class="fitem" href="/migration/dynamics-gp/"><h3>GP to Business Central migration</h3><p>How the move works, what maps where, and our five-step process.</p><span class="more">Read more →</span></a><a class="fitem" href="/guides/implementation-timeline/"><h3>How long implementation takes</h3><p>Timelines by project size and phase.</p><span class="more">Read more →</span></a><a class="fitem" href="/guides/implementation-cost/"><h3>Implementation cost</h3><p>What a Business Central project really costs.</p><span class="more">Read more →</span></a></div>
+</div></section>
+<section class="cta-section"><div class="wrap"><div class="cta-next">
+    <div class="cta-copy"><h2>Plan your move off Dynamics GP</h2><p>Book a free 30-minute call. We’ll look at your GP version, add-ons and payroll, and suggest a realistic timeline.</p></div>
+    <div class="next">
+      <span class="next-label">Next available</span>
+      <div class="next-slots" id="nextSlots" data-contact="/contact/"><a class="next-slot next-fallback" href="/contact/#schedule"><span>Free 30-minute call</span><strong>Pick a time</strong></a></div>
+      <a class="more" href="/contact/#schedule">See all times →</a>
+    </div>
+  </div></div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="/"><span class="logo-mark" aria-hidden="true">Q84</span><span class="logo-text">Q84 Digital<small>Dynamics 365 implementation partner</small></span></a>
+        <p>Microsoft Dynamics 365 Business Central partner.</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:4px"><li style="user-select:all">hello@q84digital.com</li><li><a href="tel:+12532949237">(253) 294-9237</a></li><li><a href="/business-central-partner-vancouver/">555 Burrard St, Vancouver, BC V7X 1M8</a></li><li><a href="/business-central-partner-tacoma/">Tacoma, Washington</a></li></ul>
+        <div class="socials"><a class="social" href="https://www.linkedin.com/company/q84digital/" target="_blank" rel="noopener" aria-label="Q84 Digital on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a><a class="social" href="https://www.youtube.com/@Q84Digital" target="_blank" rel="noopener" aria-label="Q84 Digital on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12a31 31 0 00.5 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.8 15.1V8.9l5.8 3.1z"/></svg></a></div>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="/implementation/">Implementation</a></li><li><a href="/rescue/">Rescue &amp; recovery</a></li><li><a href="/development/">Development</a></li><li><a href="/support/">Support</a></li><li><a href="/licensing/">Licensing &amp; pricing</a></li><li><a href="/integrations/">Integrations</a></li></ul></div>
+      <div><h4>Migration</h4><ul><li><a href="/migration/quickbooks/">From QuickBooks</a></li><li><a href="/migration/dynamics-gp/">From Dynamics GP</a></li><li><a href="/migration/dynamics-nav/">From Dynamics NAV</a></li><li><a href="/migration/sage/">From Sage</a></li><li><a href="/migration/spreadsheets/">From spreadsheets</a></li></ul></div>
+      <div><h4>Industries</h4><ul><li><a href="/industries/distribution/">Distribution</a></li><li><a href="/industries/manufacturing/">Manufacturing</a></li><li><a href="/industries/ecommerce/">E-commerce</a></li><li><a href="/industries/professional-services/">Professional services</a></li><li><a href="/business-central-partner-vancouver/">Vancouver &amp; Lower Mainland</a></li><li><a href="/business-central-partner-tacoma/">Tacoma &amp; Seattle</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About</a></li><li><a href="/guides/">Guides</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Q84 Digital. All rights reserved.</span><span>Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies.</span></div>
+  </div>
+</footer>
+<dialog class="dl-gate" id="dlGate" aria-labelledby="dlGateTitle">
+  <form id="dlForm" novalidate>
+    <button class="dl-close" type="button" id="dlClose" aria-label="Close">×</button>
+    <h2 id="dlGateTitle">Get the ERP Readiness Checklist</h2>
+    <p class="hint">Enter your email and the PDF downloads right away. We may follow up once to see if you have questions. No newsletters.</p>
+    <div class="field"><label for="dl-email">Business email</label><input id="dl-email" name="email" type="email" autocomplete="email" required><span class="err" id="dl-e-email" hidden>Enter an email address like name@company.com.</span></div>
+    <div class="row">
+      <div class="field"><label for="dl-name">First name <span class="hint">(optional)</span></label><input id="dl-name" name="name" autocomplete="given-name"></div>
+      <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    </div>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="dl-gotcha">Leave this empty</label><input id="dl-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <div><button class="btn btn-primary" type="submit">Download the checklist</button></div>
+    <p class="hint">See our <a href="/privacy/">privacy policy</a>.</p>
+  </form>
+  <div class="dl-done" id="dlDone" hidden role="status"><h2>Your download has started</h2><p>If it didn’t, <a href="/downloads/q84-erp-readiness-checklist.pdf" download>download the checklist here</a>.</p><button class="btn btn-ghost" type="button" id="dlDoneClose">Close</button></div>
+</dialog>
+
+<script src="/assets/site.js?v=405f315b" defer></script>
+</body>
+</html>

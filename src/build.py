@@ -48,14 +48,12 @@ def cur(usd, cad):
     return f'<span class="c-usd">{usd}</span><span class="c-cad">{cad}</span>'
 
 
-CUR_SWITCH = ('<div class="cur-switch" role="group" aria-label="Show prices in">'
-              '<button type="button" data-set-cur="usd" aria-pressed="true">USD</button>'
-              '<button type="button" data-set-cur="cad" aria-pressed="false">CAD</button></div>')
+CUR_SWITCH = ''  # currency follows the visitor's location (Canada = CAD, everywhere else = USD); no manual switch
 PRICE_SOURCE = ('Source: ' + cur(f'<a href="{MS_PRICING}" target="_blank" rel="noopener">Microsoft Business Central pricing (US)</a>',
                                  f'<a href="{MS_PRICING_CA}" target="_blank" rel="noopener">Microsoft Business Central pricing (Canada)</a>')
                 + f'. Last updated {PRICES_CHECKED}.')
-# Canadian implementation ranges (CAD). Rounded from the USD ranges; confirm before going live.
-CAD_RANGES = ('CA$35,000 to CA$85,000', 'CA$85,000 to CA$210,000', 'CA$210,000 and up, often phased')
+# Canadian implementation ranges (CAD), same figures as the USD ranges.
+CAD_RANGES = ('CA$35,000 to CA$50,000', 'CA$50,000 to CA$100,000', 'CA$100,000 and up, often phased')
 LINKEDIN = CFG.get('linkedin_url', '')
 
 CTA_LABEL = 'Book a free ERP assessment'
@@ -112,6 +110,8 @@ NAV = [
         ('guides', 'All guides', '@/guides/'),
         ('guide-cost', 'Implementation cost', '@/guides/implementation-cost/'),
         ('guide-timeline', 'Implementation timeline', '@/guides/implementation-timeline/'),
+        ('guide-gp-eos', 'Dynamics GP end of support', '@/guides/dynamics-gp-end-of-support/'),
+        ('guide-nav-cost', 'NAV to Business Central cost', '@/guides/nav-to-business-central-cost/'),
         ('cmp-netsuite', 'Business Central vs NetSuite', '@/compare/netsuite/'),
         ('cmp-intacct', 'Business Central vs Sage Intacct', '@/compare/sage-intacct/'),
         ('cmp-odoo', 'Business Central vs Odoo', '@/compare/odoo/'),
@@ -198,7 +198,7 @@ def cta(title='Find out if Business Central fits your business', text='Pick a ti
     {right}
   </div></div></section>'''
 
-PHOTO_H = {'vancouver-skyline': 1333, 'tacoma-rainier': 855}  # height of the 2000px version
+PHOTO_H = {'vancouver-skyline': 1333, 'tacoma-rainier': 855, 'guide-gp-diorama': 1119, 'guide-nav-diorama': 1119}  # height of the 2000px version
 
 def page_head(title, crumb, h1, lede, button=True, art=None, photo=None):
     # photo = (name, alt, focus, phone focus[, desktop width]): images/<name>-{800,1200,2000}.webp behind the header text.
@@ -206,12 +206,13 @@ def page_head(title, crumb, h1, lede, button=True, art=None, photo=None):
     btn = f'<div class="hero-actions"><a class="btn btn-primary" {CTA_ATTR}>{CTA_LABEL}</a></div>' if button else ''
     if art:
         # art = (file in images/, alt text); keep '</div></div>\n' only at the very end, with_subnav looks for it
-        src, alt = art
+        src, alt, *wh = art   # optional (width, height) for images that aren't 800x595
+        aw, ah = wh[0] if wh else (800, 595)
         return f'''<div class="page-head"><div class="wrap page-head-grid"><div class="stack">
 <nav class="crumb" aria-label="Breadcrumb"><a href="@/">Home</a> / {crumb}</nav>
 <h1>{h1}</h1>
 <p class="lede">{lede}</p>{btn}
-</div><figure class="page-head-art"><img src="@/images/{src}" alt="{esc(alt)}" width="800" height="595" fetchpriority="high"></figure></div></div>'''
+</div><figure class="page-head-art{" is-blend" if wh else ""}"><img src="@/images/{src}" alt="{esc(alt)}" width="{aw}" height="{ah}" fetchpriority="high"></figure></div></div>'''
     if photo:
         name, alt, pos, pos_s, img_w = (tuple(photo) + ('100%',))[:5]
         srcset = ', '.join(f'@/images/{name}-{w}.webp {w}w' for w in (800, 1200, 2000))
@@ -421,7 +422,7 @@ NAV_SHORT = {'Choosing a partner': 'Partner', 'Business Central in Washington': 
              'What we do': 'Services', 'What we build': 'What we build', 'Our approach': 'Approach', 'What syncs': 'What syncs', 'Beyond the basics': 'More',
              'Common documents': 'Documents', 'Why it matters': 'Why it matters', 'Two options': 'Options', 'What gets scanned': 'Processes', 'Before scanning': 'Prerequisites',
              'What we set up': 'Setup', 'Good reports start in Business Central': 'Setup tips', 'Typical ranges': 'Ranges', 'Cost drivers': 'Drivers', 'Keeping costs down': 'Saving money',
-             'Phase by phase': 'Phases', 'Parcel shipping': 'Shipping', 'What we help with': 'Services', 'Ways to work with us': 'Plans', 'What slows projects down': 'Delays', 'Choosing a go-live date': 'Go-live date', 'Worked example': 'Example'}
+             'Phase by phase': 'Phases', 'Parcel shipping': 'Shipping', 'What we help with': 'Services', 'Ways to work with us': 'Plans', 'What slows projects down': 'Delays', 'Choosing a go-live date': 'Go-live date', 'Worked example': 'Example', 'Key dates': 'Dates', 'Your options': 'Options', 'Plan backwards': 'Timeline', 'What it costs': 'Cost', 'Support dates': 'Support dates'}
 def with_subnav(body):
     # Give each labelled section an id and build a floating in-page menu from the labels
     items, used = [], set()
@@ -914,7 +915,7 @@ add('migration/dynamics-gp/', 'mig-gp',
     page_head('Migration', '<a href="@/migration/">Migration</a> / Dynamics GP', 'Dynamics GP to Business Central migration',
               'Microsoft is retiring Dynamics GP. Business Central is its natural successor, and Microsoft provides tools to move your data. We plan the move and handle what the tools don’t.', art=('page-mig-gp.webp', 'Illustration of an old server and filing cabinet sending folders to the cloud and a laptop')) + f'''
 <section><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Why now</span><h2>Why GP customers are moving</h2><p class="lede">Microsoft has stopped selling Dynamics GP to new customers and has announced an end date for product support. Planning a move now means you choose the timing instead of the deadline choosing it for you.</p></div>
+  <div class="stack"><span class="eyebrow">Why now</span><h2>Why GP customers are moving</h2><p class="lede">Microsoft has stopped selling Dynamics GP to new customers and has announced an end date for product support. Planning a move now means you choose the timing instead of the deadline choosing it for you.</p><p><a class="more" href="@/guides/dynamics-gp-end-of-support/">Dynamics GP end of support: dates and options →</a></p></div>
   {checks(['<strong>Support has an end date.</strong> Tax updates and technical support stop on December 31, 2029, and security patches stop after April 30, 2031.', '<strong>Fewer GP specialists.</strong> Finding consultants and add-on vendors gets harder each year.', '<strong>Cloud and Microsoft 365.</strong> Business Central runs in the cloud and works with Outlook, Excel and Teams.', '<strong>Microsoft’s migration path.</strong> Business Central includes tools built specifically to bring GP data across.'])}
 </div></section>
 <section class="band"><div class="wrap">
@@ -944,11 +945,12 @@ FAQ_NAV = [
     ('Can we upgrade NAV directly to Business Central online?', 'Not in one step. NAV 2018 and earlier versions first need upgrading to a Business Central on-premises version, then Microsoft’s cloud migration moves the data online. Older NAV versions often get a fresh implementation with data migration instead, which can be quicker and cleaner.', None),
     ('What happens to our NAV customizations?', 'Old C/AL code can’t run in Business Central online. Each customization is either replaced with a standard feature, replaced with an AppSource app, or rewritten as an AL extension. Many turn out to be unnecessary.', ('@/development/', 'AL development')),
     ('Is NAV still supported?', 'Every version of Dynamics NAV is past mainstream support. NAV 2018, the last version, reaches the end of extended support on January 11, 2028. Check Microsoft’s lifecycle pages for your exact version.', None),
+    ('How much does moving from NAV to Business Central cost?', 'Most NAV moves are mid-sized projects, because the custom code has to be replaced, rebuilt or retired. The biggest cost drivers are your NAV version, the amount of custom code, add-ons, integrations and how much history you bring. We give a fixed quote after a short assessment.', ('@/guides/nav-to-business-central-cost/', 'NAV to Business Central cost guide')),
     ('Should we move to the cloud or stay on-premises?', 'Most companies choose Business Central online: Microsoft handles hosting, updates and backups. On-premises still exists for specific needs, and we’ll discuss the trade-offs with you.', None),
 ]
 add('migration/dynamics-nav/', 'mig-nav',
     'Dynamics NAV to Business Central Upgrade | Q84 Digital',
-    'Upgrade from Microsoft Dynamics NAV to Business Central: upgrade or re-implement, what happens to C/AL customizations, and moving to the cloud.',
+    'Upgrade from Dynamics NAV to Business Central before NAV 2018 support ends in 2028: upgrade or re-implement, C/AL customizations, cost and cloud.',
     page_head('Migration', '<a href="@/migration/">Migration</a> / Dynamics NAV', 'Dynamics NAV to Business Central upgrade',
               'Business Central is the modern version of NAV. Getting there depends on your NAV version and how much custom code you carry. We’ll help you choose the right path.', art=('page-mig-nav.webp', 'Illustration of steps leading from an old monitor up to a modern laptop')) + f'''
 <section><div class="wrap">
@@ -959,6 +961,23 @@ add('migration/dynamics-nav/', 'mig-nav',
     <div class="card"><span class="tag">Re-implementation</span><h3>Start clean, bring the data you need</h3>
       <ul class="checks"><li><div>Best for older versions or heavy customization</div></li><li><div>Uses standard Business Central features first</div></li><li><div>Open items, balances and summary history migrated</div></li><li><div>Often simpler to maintain afterwards</div></li></ul></div>
   </div>
+</div></section>
+<section class="band"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">Support dates</span><h2>Is your NAV version still supported?</h2><p class="lede">Every Dynamics NAV version is past mainstream support. Extended support, which covers security fixes only, is ending version by version.</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Version</th><th>Extended support</th><th>Status in late 2026</th></tr></thead>
+    <tbody>
+      <tr><td>Dynamics NAV 2018</td><td>Ends January 11, 2028</td><td>Security fixes only</td></tr>
+      <tr><td>Dynamics NAV 2017</td><td>Ends January 11, 2027</td><td>Security fixes only, ending soon</td></tr>
+      <tr><td>Dynamics NAV 2016</td><td>Ended April 14, 2026</td><td>Out of support</td></tr>
+      <tr><td>Dynamics NAV 2015</td><td>Ended January 14, 2025</td><td>Out of support</td></tr>
+      <tr><td>NAV 2013 R2 and earlier</td><td>Already ended</td><td>Out of support</td></tr>
+    </tbody></table></div>
+  <p class="shot-note" style="margin-top:12px">Dates from Microsoft’s fixed lifecycle policy for each version. Check Microsoft’s lifecycle pages for your exact version and any changes.</p>
+</div></section>
+<section><div class="wrap split">
+  <div class="stack"><span class="eyebrow">What it costs</span><h2>What a NAV move usually costs</h2><p class="lede">Most NAV moves are mid-sized projects, because years of custom code have to be replaced, rebuilt or retired. The price depends far more on that code than on your number of users.</p><p><a class="more" href="@/guides/nav-to-business-central-cost/">NAV to Business Central cost guide →</a></p></div>
+  {checks(['<strong>Custom code.</strong> The single biggest driver. An object analysis shows what can be retired or replaced with standard features.', '<strong>Your NAV version.</strong> Older versions need more upgrade steps, so they often get a fresh implementation instead.', '<strong>Add-ons and integrations.</strong> Each needs a Business Central version, an app or a rebuild.', '<strong>History.</strong> Open items and summary history keep the project lean; NAV stays read-only for lookups.'])}
 </div></section>
 <section class="band"><div class="wrap split">
   <div class="stack"><span class="eyebrow">Custom code</span><h2>What happens to your NAV customizations</h2><p class="lede">Years of NAV customizations are often the biggest part of the project. Many are no longer needed because Business Central now does the job as standard.</p></div>
@@ -2059,8 +2078,8 @@ add('guides/erp-readiness-checklist/', 'checklist',
     image=('og-erp-checklist.jpg', 'Q84 Digital free ERP Readiness Checklist: 52 questions across 9 areas'))
 
 # GUIDES & COMPARISONS
-def guide_head(crumb, h1, lede, updated=TODAY, art=None):
-    return page_head('Guides', f'<a href="@/guides/">Guides</a> / {crumb}', h1, lede + f' <span class="hint">Updated {fmt_date(updated)} · <a href="@/about/">Q84 Digital consultants</a></span>', button=False, art=art)
+def guide_head(crumb, h1, lede, updated=TODAY, art=None, photo=None):
+    return page_head('Guides', f'<a href="@/guides/">Guides</a> / {crumb}', h1, lede, button=False, art=art, photo=photo)
 
 def article_schema(path, headline, desc):
     return {"@context": "https://schema.org", "@type": "Article", "headline": headline, "description": desc,
@@ -2089,7 +2108,7 @@ add('guides/implementation-cost/', 'guide-cost',
     guide_head('Implementation cost', 'How much does a Business Central implementation cost?',
                'An honest breakdown of what you’ll pay, where the money goes and what makes projects bigger or smaller.', art=('page-guide-cost.webp', 'Illustration of a calculator printing a receipt, a stack of coins and a piggy bank')) + f'''
 <section style="padding-top:32px"><div class="wrap prose">
-<p><strong>The short answer:</strong> for small and midsize {cur('US', 'Canadian')} businesses, a <a href="@/business-central/">Business Central</a> implementation is typically a one-time project in the tens of thousands of dollars, plus monthly Microsoft licenses. A focused finance and inventory rollout sits at the lower end. Multi-company, manufacturing or integration-heavy projects can reach six figures. The rest of this guide explains what drives those numbers.</p>
+<p><strong>The short answer:</strong> for small and midsize {cur('US', 'Canadian')} businesses, a <a href="@/business-central/">Business Central</a> implementation is a one-time project that typically starts at {cur('$35,000 to $50,000', 'CA$35,000 to CA$50,000')}, plus monthly Microsoft licenses. A focused finance and inventory rollout sits at the lower end. Multi-company, manufacturing or integration-heavy projects can reach six figures. The rest of this guide explains what drives those numbers.</p>
 <h2>The six parts of a Business Central budget</h2>
 <p>Every Business Central budget is made of the same parts. Some are one-time, some monthly.</p>
 </div></section>
@@ -2111,9 +2130,9 @@ add('guides/implementation-cost/', 'guide-cost',
   <div class="table-wrap"><table>
     <thead><tr><th>Project size</th><th>Typical scope</th><th>Typical implementation cost</th></tr></thead>
     <tbody>
-      <tr><td>Focused</td><td>Finance, sales, purchasing and basic inventory; one company; QuickBooks or spreadsheet migration</td><td>{cur('$25,000 to $60,000', CAD_RANGES[0])}</td></tr>
-      <tr><td>Standard</td><td>Adds warehouse processes, migration from another ERP, or one or two integrations</td><td>{cur('$60,000 to $150,000', CAD_RANGES[1])}</td></tr>
-      <tr><td>Complex</td><td>Several companies, manufacturing, advanced warehousing or many integrations</td><td>{cur('$150,000 and up, often phased', CAD_RANGES[2])}</td></tr>
+      <tr><td>Focused</td><td>Finance, sales, purchasing and basic inventory; one company; QuickBooks or spreadsheet migration</td><td>{cur('$35,000 to $50,000', CAD_RANGES[0])}</td></tr>
+      <tr><td>Standard</td><td>Adds warehouse processes, migration from another ERP, or one or two integrations</td><td>{cur('$50,000 to $100,000', CAD_RANGES[1])}</td></tr>
+      <tr><td>Complex</td><td>Several companies, manufacturing, advanced warehousing or many integrations</td><td>{cur('$100,000 and up, often phased', CAD_RANGES[2])}</td></tr>
     </tbody></table></div>
 </div></section>
 <section><div class="wrap">
@@ -2284,6 +2303,9 @@ compare_page('compare/odoo/', 'cmp-odoo', 'Odoo',
 <h2>Customization and upgrades</h2>
 <p>Odoo is customized in Python and is very flexible, but custom modules often need rework when you move to a new major version. Business Central extensions are built on Microsoft’s extension model and are designed to keep working through Microsoft’s twice-yearly updates, which keeps long-term maintenance predictable.</p>''', art=('page-cmp-odoo.webp', 'Illustration of a balance scale weighing a single blue cube against many puzzle pieces'))
 
+# SITUATION GUIDES (src/pages_situations.py)
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pages_situations.py')).read())
+
 # GUIDES HUB
 add('guides/', 'guides',
     'Business Central Guides & Comparisons | Q84 Digital',
@@ -2383,7 +2405,7 @@ def render(p):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>(function(){{var c;try{{c=localStorage.getItem("q84_currency")}}catch(e){{}}if(c!=="usd"&&c!=="cad"){{var z="";try{{z=Intl.DateTimeFormat().resolvedOptions().timeZone||""}}catch(e){{}}c=/^(America\\/(Vancouver|Edmonton|Regina|Swift_Current|Winnipeg|Toronto|Montreal|Halifax|Moncton|Glace_Bay|Goose_Bay|St_Johns|Whitehorse|Dawson|Dawson_Creek|Fort_Nelson|Creston|Yellowknife|Inuvik|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Atikokan|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung|Blanc-Sablon)|Canada\\/)/.test(z)?"cad":"usd"}}if(c==="cad")document.documentElement.classList.add("cad")}})();</script>
+<script>(function(){{var c;try{{localStorage.removeItem("q84_currency")}}catch(e){{}}if(c!=="usd"&&c!=="cad"){{var z="";try{{z=Intl.DateTimeFormat().resolvedOptions().timeZone||""}}catch(e){{}}c=/^(America\\/(Vancouver|Edmonton|Regina|Swift_Current|Winnipeg|Toronto|Montreal|Halifax|Moncton|Glace_Bay|Goose_Bay|St_Johns|Whitehorse|Dawson|Dawson_Creek|Fort_Nelson|Creston|Yellowknife|Inuvik|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Atikokan|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung|Blanc-Sablon)|Canada\\/)/.test(z)?"cad":"usd"}}if(c==="cad")document.documentElement.classList.add("cad")}})();</script>
 <title>{esc(p['title'])}</title>
 <meta name="description" content="{esc(p['desc'])}">
 <link rel="canonical" href="{canonical}">
@@ -2437,7 +2459,8 @@ SUBNAV_PAGES = {'business-central/', 'licensing/', 'implementation/', 'migration
                 'rescue/', 'development/', 'business-central-partner-tacoma/', 'business-central-partner-vancouver/', 'industries/ecommerce/',
                 'migration/quickbooks/', 'migration/dynamics-gp/', 'migration/dynamics-nav/', 'migration/sage/', 'migration/spreadsheets/',
                 'integrations/shopify/', 'integrations/edi/', 'integrations/power-bi/', 'integrations/warehouse-insight/',
-                'guides/implementation-cost/', 'guides/implementation-timeline/'}
+                'guides/implementation-cost/', 'guides/implementation-timeline/',
+                'guides/dynamics-gp-end-of-support/', 'guides/nav-to-business-central-cost/'}
 # In-depth sections live in src/content_deep.py: path -> (h2, prose html). Each is placed before the
 # page's FAQ (or related links / checklist promo / booking section, whichever comes first).
 import sys
