@@ -980,7 +980,7 @@ add('migration/dynamics-nav/', 'mig-nav',
   {checks(['<strong>Custom code.</strong> The single biggest driver. An object analysis shows what can be retired or replaced with standard features.', '<strong>Your NAV version.</strong> Older versions need more upgrade steps, so they often get a fresh implementation instead.', '<strong>Add-ons and integrations.</strong> Each needs a Business Central version, an app or a rebuild.', '<strong>History.</strong> Open items and summary history keep the project lean; NAV stays read-only for lookups.'])}
 </div></section>
 <section class="band"><div class="wrap split">
-  <div class="stack"><span class="eyebrow">Custom code</span><h2>What happens to your NAV customizations</h2><p class="lede">Years of NAV customizations are often the biggest part of the project. Many are no longer needed because Business Central now does the job as standard.</p></div>
+  <div class="stack"><span class="eyebrow">Custom code</span><h2>What happens to your NAV customizations</h2><p class="lede">Years of NAV customizations are often the biggest part of the project. Many are no longer needed because Business Central now does the job as standard.</p><p><a class="more" href="@/blog/nav-customizations-business-central/">What happens to your NAV customizations →</a></p></div>
   {checks(['<strong>Replace with standard.</strong> Features that Business Central has added since your NAV version.', '<strong>Replace with an app.</strong> Proven AppSource apps for EDI, warehouse scanning, shipping and more.', '<strong>Rewrite as an extension.</strong> Genuinely unique processes rebuilt in AL, upgrade-safe.', '<strong>Retire.</strong> Reports and fields nobody uses anymore.'])}
 </div></section>
 <section><div class="wrap split">
@@ -1938,6 +1938,60 @@ POSTS = [
 <p>Both are modern browser-based systems. Teams that already use Microsoft 365 usually find Business Central more familiar.</p>
 <h3>Can either system grow with us?</h3>
 <p>Yes. Both serve companies from a handful of users to several hundred. Growth usually means adding users, companies and apps rather than switching systems.</p>'''),
+    dict(slug='nav-customizations-business-central',
+         title='Moving from Dynamics NAV to Business Central: what happens to your customizations',
+         seo_title='NAV to Business Central: What Happens to Customizations',
+         date='2026-11-27', tag='Migration',
+         image='blog-nav-customizations.jpg', image_alt='Illustration of tangled gears from an old chest sorted on a conveyor into four tidy containers',
+         summary='Years of NAV custom code is the biggest question in any move to Business Central. Here’s how each customization is kept, replaced, rebuilt or retired.',
+         body='''<p>Ask a company running Microsoft Dynamics NAV why they haven’t moved to Business Central yet, and the answer is usually the same: “we have a lot of customizations.” After ten or fifteen years, NAV systems collect custom fields, reports, approval rules, integrations and small fixes that nobody remembers asking for. That custom code is the main reason NAV moves feel risky, and the main thing that decides their cost.</p>
+<p>The good news: most of it doesn’t need to come across as it is. This article explains why NAV code can’t simply be copied into Business Central, what happens to each customization instead, and how to work through them without surprises.</p>
+<h2>Why NAV customizations can’t just be copied</h2>
+<p>NAV customizations were written in <strong>C/AL</strong> and usually changed Microsoft’s own objects directly: a few lines added to the sales posting routine, a new field on the customer card, a modified invoice report. That worked because each NAV system was a private copy of the code.</p>
+<p>Business Central works differently. Microsoft’s code stays untouched and is updated twice a year. Your changes live beside it as <strong>extensions</strong>, written in a language called <strong>AL</strong>, which plug into the standard system through defined events. Business Central online doesn’t run C/AL at all. So every NAV customization has to be dealt with one way or another. The question is which way.</p>
+<blockquote>The goal isn’t to rebuild NAV in Business Central. It’s to keep what makes your business different and let go of the rest.</blockquote>
+<h2>The four outcomes for every customization</h2>
+<p>Each customization ends up in one of four places. Sorting them early is the single most useful step in a NAV project.</p>
+<ol><li><strong>Replace with a standard feature.</strong> Business Central has gained a lot since your NAV version was installed. Many old customizations filled gaps that no longer exist.</li><li><strong>Replace with an app.</strong> Proven apps on Microsoft AppSource cover EDI, barcode scanning, shipping labels, sales tax and more, and their vendors keep them current with each update.</li><li><strong>Rebuild as an extension.</strong> Processes that are genuinely specific to how you work are rewritten in AL as an extension, so they survive Microsoft’s updates.</li><li><strong>Retire.</strong> Reports nobody runs, fields nobody fills in and workarounds for problems that went away years ago.</li></ol>
+<h2>Common NAV customizations and where they usually land</h2>
+<p>Every system is different, but these patterns come up again and again:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>NAV customization</th><th>Usually becomes</th></tr></thead>
+<tbody>
+<tr><td>Custom approval rules for purchase orders or credit limits</td><td>Standard approval workflows, set up rather than coded</td></tr>
+<tr><td>Extra fields to classify customers, items or sales</td><td>Standard dimensions or item attributes, or a small extension</td></tr>
+<tr><td>Custom tools to import data from Excel</td><td>Configuration packages and Edit in Excel</td></tr>
+<tr><td>Emailing invoices and statements</td><td>Standard document sending through Outlook or Microsoft 365</td></tr>
+<tr><td>Modified invoice, packing slip and statement layouts</td><td>Word or Excel report layouts, or report extensions</td></tr>
+<tr><td>Bolt-on EDI, scanning or shipping add-ons</td><td>The vendor’s Business Central app, or an alternative from AppSource</td></tr>
+<tr><td>Custom dashboards and management reports</td><td>Role Centers, Excel reporting and Power BI</td></tr>
+<tr><td>Unique pricing, production or allocation logic</td><td>Rebuilt as an AL extension</td></tr>
+</tbody></table></div>
+<p>In our experience, the last row is where the real value of your old customizations sits, and it’s usually a much smaller list than people expect.</p>
+<h2>How to work through your customizations</h2>
+<h3>1. Run an object analysis</h3>
+<p>Compare your NAV database with a standard NAV of the same version. This shows every Microsoft object your team changed and every custom object they added, typically numbered from 50000. It turns “a lot of customizations” into an actual list.</p>
+<h3>2. Find out what is still used</h3>
+<p>Talk to the people who use NAV every day, and check which reports and pages are actually run. It’s common to find that a large share of old custom objects haven’t been touched in years.</p>
+<h3>3. Sort each item into the four outcomes</h3>
+<p>For each customization still in use, decide whether a standard feature, an app or an extension covers it, or whether it can go. Write down the reason, so the decision isn’t revisited every week.</p>
+<h3>4. Estimate and plan the rebuilds</h3>
+<p>Only the extensions need development time, so this is where the estimate gets reliable. See our <a href="@/guides/nav-to-business-central-cost/">NAV to Business Central cost guide</a> for how this shapes the budget.</p>
+<h3>5. Rebuild, then test with real scenarios</h3>
+<p>Extensions are built and tested together with the migrated data. Key users run their normal week in a test environment, so gaps show up before go-live rather than after.</p>
+<h2>Upgrade or start fresh?</h2>
+<p>Your customizations also decide which path makes sense. Recent NAV versions with modest, well-documented changes are good candidates for a technical upgrade that carries your data and setup forward. Older versions, or systems heavily changed over many years, usually go faster and end up cleaner with a fresh implementation, where open items, balances and summary history are migrated and NAV stays available read-only for lookups. Our <a href="@/migration/dynamics-nav/">NAV to Business Central upgrade page</a> compares the two paths and lists the support dates for each NAV version.</p>
+<h2>Mistakes to avoid</h2>
+<ul><li><strong>Converting everything line by line.</strong> It’s possible to translate old C/AL into AL, but you pay to rebuild features Business Central already has.</li><li><strong>Skipping the usage check.</strong> Rebuilding a report nobody reads is the most expensive kind of waste.</li><li><strong>Forgetting the add-ons.</strong> Check early whether each add-on vendor has a Business Central app, and what it costs.</li><li><strong>Ignoring the people who wrote the code.</strong> If your original NAV partner or developer is still around, their notes can save weeks.</li></ul>
+<h2>Frequently asked questions</h2>
+<h3>Can our NAV code be converted to AL automatically?</h3>
+<p>Partly. Tools can convert C/AL into AL as a starting point, but the result still has to be reworked to use events instead of changing Microsoft’s code, then tested. It’s best kept for the customizations you decide to rebuild, not used on everything.</p>
+<h3>Will our customizations break with every Business Central update?</h3>
+<p>Not if they’re built as proper extensions. Because extensions don’t change Microsoft’s code, they’re designed to keep working through the twice-yearly updates. Testing them against each new release is a normal part of <a href="@/support/">ongoing support</a>.</p>
+<h3>How many customizations usually survive?</h3>
+<p>It varies, but most NAV systems end up with far fewer custom pieces in Business Central than they had in NAV. Standard features and apps cover much of what was once custom code.</p>
+<h3>Who should write our extensions?</h3>
+<p>A partner with AL development experience. See how we approach <a href="@/development/">Business Central development</a>, or start with a free assessment of your NAV system.</p>'''),
 ]
 
 def fmt_date(d):

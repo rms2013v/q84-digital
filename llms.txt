@@ -54,6 +54,7 @@ Contact: hello@q84digital.com, (253) 294-9237
 - [Business Central & ERP Blog](https://q84digital.com/blog/): Practical articles on Microsoft Dynamics 365 Business Central, ERP selection, inventory and warehouse operations for distributors and manufacturers.
 - [7 Signs Your Distribution Business Has Outgrown QuickBooks](https://q84digital.com/blog/signs-you-have-outgrown-quickbooks/): QuickBooks is a great start for a small business. These seven signs mean your distribution company has grown past it, and what to do next.
 - [Business Central vs NetSuite for Distributors (2027)](https://q84digital.com/blog/business-central-vs-netsuite/): An honest comparison of Business Central and NetSuite for small distributors: pricing, warehouse features, Microsoft 365 fit and when each one fits best.
+- [NAV to Business Central: What Happens to Customizations](https://q84digital.com/blog/nav-customizations-business-central/): Years of NAV custom code is the biggest question in any move to Business Central. Here’s how each customization is kept, replaced, rebuilt or retired.
 
 ## Company
 
